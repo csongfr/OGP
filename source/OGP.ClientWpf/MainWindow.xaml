@@ -2,27 +2,39 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+        xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
         Title="OGP" WindowState="Maximized">
 
-    <DockPanel LastChildFill="True">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Fichier">
-                <MenuItem Header="_Quitter"/>
-            </MenuItem>
-        </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="Barre de statut"/>
-        </StatusBar>
-        <ad:DockingManager>
-            <ad:ResizingPanel>
-                <ad:DockablePane ad:ResizingPanel.ResizeWidth="300">
-                    <ad:DockableContent Title="Test1">test</ad:DockableContent>
-                    <ad:DockableContent Title="Test2">test</ad:DockableContent>
-                </ad:DockablePane>
-                <ad:DocumentPane>
-                    <ad:DocumentContent Title="Test3">test</ad:DocumentContent>
-                </ad:DocumentPane>
-            </ad:ResizingPanel>
-        </ad:DockingManager>
-    </DockPanel>
+    <!--<Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+    </Grid>-->
+        <DockPanel LastChildFill="True">
+            <ribbon:Ribbon x:Name="Ribbon" DockPanel.Dock="Top" SelectionChanged="Ribbon_SelectionChanged">
+                <ribbon:Ribbon.ApplicationMenu>
+                    <ribbon:RibbonApplicationMenu SmallImageSource="Ressources\Images\home-16x16.png">
+                        <ribbon:RibbonApplicationMenuItem Header="_Quitter"
+                                                            x:Name="MenuQuitter"
+                                                            ImageSource="Ressources\Images\fermer-32x32.png"/>
+                    </ribbon:RibbonApplicationMenu>
+                </ribbon:Ribbon.ApplicationMenu>
+            </ribbon:Ribbon>
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem Content="Barre de statut"/>
+            </StatusBar>
+            <ad:DockingManager>
+                <ad:ResizingPanel>
+                    <ad:DockablePane ad:ResizingPanel.ResizeWidth="300">
+                        <ad:DockableContent Title="Test1">test</ad:DockableContent>
+                        <ad:DockableContent Title="Test2">test</ad:DockableContent>
+                    </ad:DockablePane>
+                    <ad:DocumentPane>
+                        <ad:DocumentContent Title="Test3">test</ad:DocumentContent>
+                    </ad:DocumentPane>
+                </ad:ResizingPanel>
+            </ad:DockingManager>
+        </DockPanel>
 </Window>
