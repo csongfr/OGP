@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
         xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
-        Title="OGP" WindowState="Maximized">
+        Title="OGP" Width="1650" Height="1020" WindowStyle="None">
 
     <!--<Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
@@ -13,7 +13,7 @@
         
     </Grid>-->
         <DockPanel LastChildFill="True">
-            <ribbon:Ribbon x:Name="Ribbon" DockPanel.Dock="Top" SelectionChanged="Ribbon_SelectionChanged">
+            <ribbon:Ribbon x:Name="Ribbon" DockPanel.Dock="Top">
                 <ribbon:Ribbon.ApplicationMenu>
                     <ribbon:RibbonApplicationMenu SmallImageSource="Ressources\Images\home-16x16.png">
                         <ribbon:RibbonApplicationMenuItem Header="_Quitter"
