@@ -5,13 +5,6 @@
         xmlns:ribbon="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary"
         Title="OGP" Width="1650" Height="1020" WindowStyle="None">
 
-    <!--<Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-    </Grid>-->
         <DockPanel LastChildFill="True">
             <ribbon:Ribbon x:Name="Ribbon" DockPanel.Dock="Top">
                 <ribbon:Ribbon.ApplicationMenu>
@@ -21,7 +14,19 @@
                                                             ImageSource="Ressources\Images\fermer-32x32.png"/>
                     </ribbon:RibbonApplicationMenu>
                 </ribbon:Ribbon.ApplicationMenu>
-            </ribbon:Ribbon>
+                <ribbon:RibbonTab x:Name="PluginTab" 
+                                  Header="Gestion des plugins">
+                    <ribbon:RibbonGroup x:Name="Main" 
+                                        Header="Actions">
+                        <ribbon:RibbonButton x:Name="Ajouter"
+                                             LargeImageSource="Ressources\Images\ajouter-32x32.png"
+                                             Label="Ajouter" />
+                        <ribbon:RibbonButton x:Name="Supprimer"
+                                             SmallImageSource="Ressources\Images\supprimer-16x16.png"
+                                             Label="Supprimer" />
+                    </ribbon:RibbonGroup>
+                </ribbon:RibbonTab>
+        </ribbon:Ribbon>
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBarItem Content="Barre de statut"/>
             </StatusBar>
