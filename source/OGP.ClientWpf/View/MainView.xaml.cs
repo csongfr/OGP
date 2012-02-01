@@ -11,17 +11,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Fluent;
+using OGP.ClientWpf.ViewModel;
 
-namespace OGP.ClientWpf
+namespace OGP.ClientWpf.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : RibbonWindow
     {
-        public MainWindow()
+        public MainView()
         {
-            InitializeComponent();
+            InitializeComponent();         
+            DataContext = new MainViewModel();
         }
     }
 }

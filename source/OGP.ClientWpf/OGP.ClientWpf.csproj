@@ -42,7 +42,9 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
-    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Fluent">
+      <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -62,7 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -70,8 +72,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -108,6 +112,18 @@
   <ItemGroup>
     <Resource Include="Ressources\Images\ajouter-32x32.png" />
     <Resource Include="Ressources\Images\supprimer-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\logo-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\fermer-16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\supprimer-32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\ajouter-16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
