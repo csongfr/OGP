@@ -50,9 +50,7 @@
                     <ad:DockableContent Title="Test1">test</ad:DockableContent>
                     <ad:DockableContent Title="Test2">test</ad:DockableContent>
                 </ad:DockablePane>
-                <ad:DocumentPane>
-                    <ad:DocumentContent Title="Test3">test</ad:DocumentContent>
-                </ad:DocumentPane>
+                <ad:DocumentPane ItemsSource="{Binding Documents}" />
             </ad:ResizingPanel>
         </ad:DockingManager>
     </DockPanel>

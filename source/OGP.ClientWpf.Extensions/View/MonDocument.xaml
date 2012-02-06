@@ -1,0 +1,16 @@
+﻿<ad:DocumentContent x:Class="OGP.ClientWpf.Extensions.MonDocument"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+    Title="MonDocument">
+
+  <Grid>
+    <StackPanel>
+      <Label>Bonjour</Label>
+      <Button Content="Button" Height="23" Name="button1" Width="75" />
+    </StackPanel>
+  </Grid>
+
+</ad:DocumentContent>
