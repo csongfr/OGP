@@ -1,0 +1,3075 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cinch</name>
+    </assembly>
+    <members>
+        <member name="T:Cinch.ViewModelBase">
+            <summary>
+            Provides a base class for ViewModels to inherit from. This 
+            base class provides the following
+            <list type="Bullet">
+            <item>Mediator pattern implementation</item>
+            <item>Service resolution</item>
+            <item>Window lifetime virtual method hooks</item>
+            <item>INotifyPropertyChanged</item>
+            <item>Workspace support</item>
+            </list>
+            </summary>
+        </member>
+        <member name="T:Cinch.IParentablePropertyExposer">
+            <summary>
+            This interface is implemented by both the 
+            <see cref="T:Cinch.ValidatingObject">ValidatingObject</see> and the
+            <see cref="T:Cinch.ViewModelBase">ViewModelBase</see> classes, and is used
+            to expose the list of delegates that are currently listening to the
+            <see cref="T:System.ComponentModel.INotifyPropertyChanged">INotifyPropertyChanged</see>
+            PropertyChanged event. This is done so that the internal 
+            <see cref="!:DataWrapper">DataWrapper</see> classes can notify their parent object
+            when an internal <see cref="!:DataWrapper">DataWrapper</see> property changes
+            </summary>
+        </member>
+        <member name="F:Cinch.ViewModelBase.ServiceProvider">
+            <summary>
+            Service resolver for view models.  Allows derived types to add/remove
+            services from mapping.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.#ctor">
+            <summary>
+            Constructs a new ViewModelBase and wires up all the Window based Lifetime
+            commands such as activatedCommand/deactivatedCommand/loadedCommand/closeCommand
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.#cctor">
+            <summary>
+            Registers the default service implemenations with the Unity container, and
+            then configures Unity container (which allows for changes to be made to pick
+            up overriden services within Unity configuration).
+            And finally add all services found to a list of Core services which are available
+            to the ViewModelBase class
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.Resolve``1">
+            <summary>
+            This resolves a service type and returns the implementation.
+            </summary>
+            <typeparam name="T">Type to resolve</typeparam>
+            <returns>Implementation</returns>
+        </member>
+        <member name="M:Cinch.ViewModelBase.RaiseCloseRequest">
+            <summary>
+            This raises the CloseRequest event to close the UI.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.RaiseCloseRequest(System.Nullable{System.Boolean})">
+            <summary>
+            This raises the CloseRequest event to close the UI.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.RaiseActivateRequest">
+            <summary>
+            This raises the ActivateRequest event to activate the UI.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnWindowActivated">
+            <summary>
+            Allows Window.Activated hook
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnWindowDeactivated">
+            <summary>
+            Allows Window.Deactivated hook
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnWindowLoaded">
+            <summary>
+            Allows Window.Loaded/UserControl.Loaded hook
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnWindowUnloaded">
+            <summary>
+            Allows Window.Unloaded/UserControl.Unloaded hook
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnWindowClose">
+            <summary>
+            Allows Window.Close hook
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.DetermineDisplayNameColor(System.Windows.Media.SolidColorBrush)">
+            <summary>
+            Permet d'affecter une couleur au display name
+            </summary>
+            <param name="couleur">SolidColorBrush à affecter au display name</param>
+        </member>
+        <member name="F:Cinch.ViewModelBase.isCloseableChangeArgs">
+            <summary>
+            Is the ViewModel closeable 
+            </summary>
+        </member>
+        <member name="F:Cinch.ViewModelBase.displayNameColorChangeArgs">
+            <summary>
+            Cinch : INPC helper.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.ExecuteCloseWorkSpaceCommand">
+            <summary>
+            Executes the CloseWorkSpace Command
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.RegisterDefaultServices">
+            <summary>
+            This method registers default services with the service provider. 
+            These can be overriden by providing a new service implementation 
+            and a new Unity config section in the project where the new service 
+            implementation is defined 
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.FetchCoreServiceTypes">
+            <summary>
+            This method registers services with the service provider.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnCloseActivePopUp(System.Object)">
+            <summary>
+            Raises RaiseCloseRequest event, passing back correct DialogResult
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.LogExceptionIfLoggerAvailable(System.Exception)">
+            <summary>
+            Logs a message if there is a ILoggerService available. And then throws
+            new ApplicationException which should be caught somewhere external
+            to this class
+            </summary>
+            <param name="ex">Exception to log</param>
+        </member>
+        <member name="M:Cinch.ViewModelBase.VerifyPropertyName(System.String)">
+            <summary>
+            Warns the developer if this object does not have
+            a public property with the specified name. This 
+            method does not exist in a Release build.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.NotifyPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Notify using pre-made PropertyChangedEventArgs
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Cinch.ViewModelBase.NotifyPropertyChanged(System.String)">
+            <summary>
+            Notify using String property name
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.GetINPCSubscribers">
+            <summary>
+            Returns the list of delegates that are currently subscribed for the
+            <see cref="T:System.ComponentModel.INotifyPropertyChanged">INotifyPropertyChanged</see>
+            PropertyChanged event
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.Dispose">
+            <summary>
+            Invoked when this object is being removed from the application
+            and will be subject to garbage collection.
+            </summary>
+        </member>
+        <member name="M:Cinch.ViewModelBase.OnDispose">
+            <summary>
+            Child classes can override this method to perform 
+            clean-up logic, such as removing event handlers.
+            </summary>
+        </member>
+        <member name="E:Cinch.ViewModelBase.CloseRequest">
+            <summary>
+            This event should be raised to close the view.  Any view tied to this
+            ViewModel should register a handler on this event and close itself when
+            this event is raised.  If the view is not bound to the lifetime of the
+            ViewModel then this event can be ignored.
+            </summary>
+        </member>
+        <member name="E:Cinch.ViewModelBase.ActivateRequest">
+            <summary>
+            This event should be raised to activate the UI.  Any view tied to this
+            ViewModel should register a handler on this event and close itself when
+            this event is raised.  If the view is not bound to the lifetime of the
+            ViewModel then this event can be ignored.
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.Mediator">
+            <summary>
+            Mediator : Mediator = Messaging pattern
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.StaticMediator">
+            <summary>
+            Mediator : Mediator = Messaging pattern
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.Logger">
+            <summary>
+            Logger : The ILoggerService implementation in use
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.ActivatedCommand">
+            <summary>
+            ActivatedCommand : Window Lifetime command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.DeactivatedCommand">
+            <summary>
+            DeactivatedCommand : Window Lifetime command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.LoadedCommand">
+            <summary>
+            LoadedCommand : Window/UserControl Lifetime command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.UnloadedCommand">
+            <summary>
+            UnloadedCommand : Window/UserControl Lifetime command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.CloseCommand">
+            <summary>
+            CloseCommand : Window Lifetime command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.CloseActivePopUpCommand">
+            <summary>
+            CloseCommand : Close popup command
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.CloseWorkSpaceCommand">
+            <summary>
+            Returns the command that, when invoked, attempts
+            to remove this workspace from the user interface.
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.DisplayName">
+            <summary>
+            Returns the user-friendly name of this object.
+            Child classes can set this property to a new value,
+            or override it to determine the value on-demand.
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.DisplayNameColor">
+            <summary>
+            Gets et Sets de la couleur du display name
+            </summary>
+        </member>
+        <member name="E:Cinch.ViewModelBase.CloseWorkSpace">
+            <summary>
+            Raised when this workspace should be removed from the UI.
+            </summary>
+        </member>
+        <member name="P:Cinch.ViewModelBase.ThrowOnInvalidPropertyName">
+            <summary>
+            Returns whether an exception is thrown, or if a Debug.Fail() is used
+            when an invalid property name is passed to the VerifyPropertyName method.
+            The default value is false, but subclasses used by unit tests might 
+            override this property's getter to return true.
+            </summary>
+        </member>
+        <member name="T:Cinch.ServiceProvider">
+            <summary>
+            This class acts as a resolver for typed services 
+            (interfaces and implementations).
+            </summary>
+            <example>
+            To register a service use Add:
+            <![CDATA[
+            serviceResolver.Add(typeof(IService), new Service());
+            
+            To retrieve a service use Resolve:
+            
+            IService svc = serviceResolver<IService>.Resolve();
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.ServiceProvider.Clear">
+            <summary>
+            Clears all services from the resolver list 
+            </summary>
+        </member>
+        <member name="M:Cinch.ServiceProvider.Add(System.Type,System.Object)">
+            <summary>
+            Adds a new service to the resolver list
+            </summary>
+            <param name="type">Service Type (typically an interface)</param>
+            <param name="value">Object that implements service</param>
+        </member>
+        <member name="M:Cinch.ServiceProvider.Remove(System.Type)">
+            <summary>
+            Remove a service
+            </summary>
+            <param name="type">Type to remove</param>
+        </member>
+        <member name="M:Cinch.ServiceProvider.Resolve``1">
+            <summary>
+            This resolves a service type and returns the implementation. Note that this
+            assumes the key used to register the object is of the appropriate type or
+            this method will throw an InvalidCastException!
+            </summary>
+            <typeparam name="T">Type to resolve</typeparam>
+            <returns>Implementation</returns>
+        </member>
+        <member name="M:Cinch.ServiceProvider.GetService(System.Type)">
+            <summary>
+            Implementation of IServiceProvider
+            </summary>
+            <param name="serviceType">Service Type</param>
+            <returns>Object implementing service</returns>
+        </member>
+        <member name="T:Cinch.IUIVisualizerService">
+            <summary>
+            This interface defines a UI controller which can be used to display dialogs
+            in either modal or modaless form from a ViewModel.
+            </summary>
+        </member>
+        <member name="M:Cinch.IUIVisualizerService.Show(System.Type,System.Object,System.Boolean,System.EventHandler{Cinch.UICompletedEventArgs})">
+            <summary>
+            This method displays a modaless dialog associated with the given key.
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <param name="setOwner">Set the owner of the window</param>
+            <param name="completedProc">Callback used when UI closes (may be null)</param>
+            <returns>True/False if UI is displayed</returns>
+        </member>
+        <member name="M:Cinch.IUIVisualizerService.Show(System.Type,System.Object,System.Boolean,System.EventHandler{Cinch.UICompletedEventArgs},System.Object@)">
+            <summary>
+            This method displays a modaless dialog associated with the given key.
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <param name="setOwner">Set the owner of the window</param>
+            <param name="completedProc">Callback used when UI closes (may be null)</param>
+            <param name="objetRetour">Objet de retour (DataContext)</param>
+            <returns>True/False if UI is displayed</returns>
+        </member>
+        <member name="M:Cinch.IUIVisualizerService.ShowDialog(System.Type,System.Object)">
+            <summary>
+            This method displays a modal dialog associated with the given key.
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <returns>True/False if UI is displayed.</returns>
+        </member>
+        <member name="M:Cinch.IUIVisualizerService.ShowDialog(System.Type,System.Object,System.Object@)">
+            <summary>
+            This method displays a modal dialog associated with the given key.
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <param name="objetRetour">Objet retourné.</param>
+            <returns>True/False if UI is displayed.</returns>
+        </member>
+        <member name="T:Cinch.MediatorMessageSinkAttribute">
+            <summary>
+            Allows ViewModels to mark up methods as
+            Mediator callbacks
+            </summary>
+        </member>
+        <member name="T:Cinch.DispatcherNotifiedObservableCollection`1">
+            <summary>
+            This class provides an ObservableCollection which supports the 
+            Dispatcher thread marshalling for added items. 
+            
+            This class does not take support any thread sycnhronization of
+            adding items using multiple threads, that level of thread synchronization
+            is left to the user. This class simply marshalls the CollectionChanged
+            call to the correct Dispatcher thread
+            </summary>
+            <typeparam name="T">Type this collection holds</typeparam>
+        </member>
+        <member name="M:Cinch.DispatcherNotifiedObservableCollection`1.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Collections.ObjectModel.
+            ObservableCollection`1.CollectionChanged"/> 
+            event with the provided arguments.
+            </summary>
+            <param name="e">Arguments of the event being raised.</param>
+        </member>
+        <member name="E:Cinch.DispatcherNotifiedObservableCollection`1.CollectionChanged">
+            <summary>
+            Occurs when an item is added, removed, changed, moved, 
+            or the entire list is refreshed.
+            </summary>
+        </member>
+        <member name="T:Cinch.Mediator">
+            <summary>
+            Provides loosely-coupled messaging between
+            various colleagues.  All references to objects
+            are stored weakly, to prevent memory leaks.
+            </summary>
+        </member>
+        <member name="M:Cinch.Mediator.Register(System.Object)">
+            <summary>
+            Registers a new object with the mediator which will allow
+            mediator callbacks to occur
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.Mediator.Register(System.String,System.Delegate)">
+            <summary>
+            Register particular callback delegate for Mediator message callbacks
+            </summary>
+            <param name="signal"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:Cinch.Mediator.NotifyColleagues``1(System.String,``0)">
+            <summary>
+            Notify collegues use weak callback for those that
+            registered for message
+            </summary>
+            <typeparam name="T">The type for the message</typeparam>
+            <param name="signal">The message to lookup weak callbacks
+            for</param>
+            <param name="parameter">The state parameter</param>
+        </member>
+        <member name="M:Cinch.Mediator.NotifyColleagues``1(System.String)">
+            <summary>
+            Notify collegues use weak callback for those that
+            registered for message
+            </summary>
+            <typeparam name="T">The type for the message</typeparam>
+            <param name="signal">The message to lookup weak callbacks
+            for</param>
+        </member>
+        <member name="T:Cinch.WPFMessageBoxService">
+            <summary>
+            This class implements the IMessageBoxService for WPF purposes.
+            </summary>
+        </member>
+        <member name="T:Cinch.IMessageBoxService">
+            <summary>
+            This interface defines a interface that will allow 
+            a ViewModel to show a messagebox
+            </summary>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowError(System.String)">
+            <summary>
+            Shows an error message
+            </summary>
+            <param name="message">The error message</param>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowInformation(System.String)">
+            <summary>
+            Shows an information message
+            </summary>
+            <param name="message">The information message</param>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowWarning(System.String)">
+            <summary>
+            Shows an warning message
+            </summary>
+            <param name="message">The warning message</param>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowYesNo(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a Yes/No dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowYesNoCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a Yes/No/Cancel dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.IMessageBoxService.ShowOkCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a OK/Cancel dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowError(System.String)">
+            <summary>
+            Displays an error dialog with a given message.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowInformation(System.String)">
+            <summary>
+            Displays an error dialog with a given message.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowWarning(System.String)">
+            <summary>
+            Displays an error dialog with a given message.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowYesNo(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a Yes/No dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowYesNoCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a Yes/No/Cancel dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowOkCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Displays a OK/Cancel dialog and returns the user input.
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowMessage(System.String,System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Shows a standard System.Windows.MessageBox using the parameters requested
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="heading">The heading to be displayed</param>
+            <param name="icon">The icon to be displayed.</param>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.ShowQuestionWithButton(System.String,Cinch.CustomDialogIcons,Cinch.CustomDialogButtons)">
+            <summary>
+            Shows a standard System.Windows.MessageBox using the parameters requested
+            but will return a translated result to enable adhere to the IMessageBoxService
+            implementation required. 
+            
+            This abstraction allows for different frameworks to use the same ViewModels but supply
+            alternative implementations of core service interfaces
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <param name="button"></param>
+            <returns>CustomDialogResults results to use</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.GetImage(Cinch.CustomDialogIcons)">
+            <summary>
+            Translates a CustomDialogIcons into a standard WPF System.Windows.MessageBox MessageBoxImage.
+            This abstraction allows for different frameworks to use the same ViewModels but supply
+            alternative implementations of core service interfaces
+            </summary>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>A standard WPF System.Windows.MessageBox MessageBoxImage</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.GetButton(Cinch.CustomDialogButtons)">
+            <summary>
+            Translates a CustomDialogButtons into a standard WPF System.Windows.MessageBox MessageBoxButton.
+            This abstraction allows for different frameworks to use the same ViewModels but supply
+            alternative implementations of core service interfaces
+            </summary>
+            <param name="btn">The button type to be displayed.</param>
+            <returns>A standard WPF System.Windows.MessageBox MessageBoxButton</returns>
+        </member>
+        <member name="M:Cinch.WPFMessageBoxService.GetResult(System.Windows.MessageBoxResult)">
+            <summary>
+            Translates a standard WPF System.Windows.MessageBox MessageBoxResult into a
+            CustomDialogIcons.
+            This abstraction allows for different frameworks to use the same ViewModels but supply
+            alternative implementations of core service interfaces
+            </summary>
+            <param name="result">The standard WPF System.Windows.MessageBox MessageBoxResult</param>
+            <returns>CustomDialogResults results to use</returns>
+        </member>
+        <member name="T:Cinch.CloseRequestEventArgs">
+            <summary>
+            This is used to send result parameters to a CloseRequest
+            </summary>
+        </member>
+        <member name="P:Cinch.CloseRequestEventArgs.Result">
+            <summary>
+             Final result for ShowDialog
+            </summary>
+        </member>
+        <member name="T:Cinch.TestOpenFileService">
+            <summary>
+            This class implements the IOpenFileService for Unit testing purposes.
+            </summary>
+            <example>
+            <![CDATA[
+            
+                   TestOpenFileService testOpenFileService =
+                       (TestOpenFileService)
+                           ViewModelBase.ServiceProvider.Resolve<IOpenFileService>();
+                           
+                   //Queue up the response we expect for our given TestOpenFileService
+                   //for a given ICommand/Method call within the test ViewModel
+                   testOpenFileService.ShowDialogResponders.Enqueue
+                       (() =>
+                         {
+                           testOpenFileService.FileName = @"c:\test.txt";
+                           return true;
+                         }
+                       );
+            ]]>
+            </example>
+        </member>
+        <member name="T:Cinch.IOpenFileService">
+            <summary>
+            This interface defines a interface that will allow 
+            a ViewModel to open a file
+            </summary>
+        </member>
+        <member name="M:Cinch.IOpenFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be selected
+            </summary>
+            
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.IOpenFileService.FileName">
+            <summary>
+            FileName
+            </summary>
+        </member>
+        <member name="P:Cinch.IOpenFileService.Filter">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="P:Cinch.IOpenFileService.InitialDirectory">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="F:Cinch.TestOpenFileService.fileName">
+            <summary>
+            Should be set in the actual Test file delegate callback
+            </summary>
+        </member>
+        <member name="M:Cinch.TestOpenFileService.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:Cinch.TestOpenFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be selected
+            </summary>
+            <param name="owner">The owner window of the dialog</param>
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.TestOpenFileService.ShowDialogResponders">
+            <summary>
+            Queue of callback delegates for the ShowDialog methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="P:Cinch.TestOpenFileService.FileName">
+            <summary>
+            FileName : Set in Test file 
+            delegate callback (This MUST be done for the Test implementation 
+            to work the same as actual WPF service implementation)
+            </summary>
+        </member>
+        <member name="P:Cinch.TestOpenFileService.Filter">
+            <summary>
+            Filter : Set in Test file 
+            delegate callback (if required)
+            </summary>
+        </member>
+        <member name="P:Cinch.TestOpenFileService.InitialDirectory">
+            <summary>
+            InitialDirectory : Set in Test file 
+            delegate callback (if required)
+            </summary>
+        </member>
+        <member name="T:Cinch.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Cinch.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Cinch.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Cinch.TestMessageBoxService">
+             <summary>
+             This class implements the IUIVisualizerService for Unit testing purposes.
+             </summary>
+             <example>
+             <![CDATA[
+             
+                    TestMessageBoxService testMessageBoxService =
+                        (TestMessageBoxService)
+                            ViewModelBase.ServiceProvider.Resolve<IMessageBoxService>();
+            
+                    //Queue up the response we expect for our given TestMessageBoxService
+                    //for a given ICommand/Method call within the test ViewModel
+                    testMessageBoxService.ShowYesNoResponders.Enqueue
+                        (() =>
+                            {
+            
+                                return CustomDialogResults.Yes;
+                            }
+                        );
+             ]]>
+             </example>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowError(System.String)">
+            <summary>
+            Does nothing, as nothing required for testing
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowInformation(System.String)">
+            <summary>
+            Does nothing, as nothing required for testing
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowWarning(System.String)">
+            <summary>
+            Does nothing, as nothing required for testing
+            </summary>
+            <param name="message">The message to be displayed.</param>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowYesNo(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Returns the next Dequeue ShowYesNo response expected. See the tests for 
+            the Func callback expected values
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowYesNoCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Returns the next Dequeue ShowYesNoCancel response expected. See the tests for 
+            the Func callback expected values
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="M:Cinch.TestMessageBoxService.ShowOkCancel(System.String,Cinch.CustomDialogIcons)">
+            <summary>
+            Returns the next Dequeue ShowOkCancel response expected. See the tests for 
+            the Func callback expected values
+            </summary>
+            <param name="message">The message to be displayed.</param>
+            <param name="icon">The icon to be displayed.</param>
+            <returns>User selection.</returns>
+        </member>
+        <member name="P:Cinch.TestMessageBoxService.ShowYesNoResponders">
+            <summary>
+            Queue of callback delegates for the ShowYesNo methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="P:Cinch.TestMessageBoxService.ShowYesNoCancelResponders">
+            <summary>
+            Queue of callback delegates for the ShowYesNoCancel methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="P:Cinch.TestMessageBoxService.ShowOkCancelResponders">
+            <summary>
+            Queue of callback delegates for the ShowOkCancel methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="T:Cinch.WeakEventHandler`2">
+            <summary>
+            Provides methods for creating WeakEvent handlers
+            </summary>
+            <typeparam name="T">The type of the event source</typeparam>
+            <typeparam name="E">The EventArgs</typeparam>
+        </member>
+        <member name="M:Cinch.WeakEventHandler`2.#ctor(System.EventHandler{`1},Cinch.UnregisterCallback{`1})">
+            <summary>
+            Constructs a new WeakEventHandler
+            </summary>
+            <param name="eventHandler">The Event handler</param>
+            <param name="unregister">Unregister delegate</param>
+        </member>
+        <member name="M:Cinch.WeakEventHandler`2.Invoke(System.Object,`1)">
+            <summary>
+            Invokes the event handler if the source is still alive
+            </summary>
+        </member>
+        <member name="T:Cinch.EventHandlerUtils">
+             <summary>
+             Provides extension method for EventHandler&lt;E&gt;
+             </summary>
+             <example>
+             <![CDATA[
+             
+                //SO DECLARE LISTENERS LIKE
+                workspace.CloseWorkSpace +=
+                    new EventHandler<EventArgs>(OnCloseWorkSpace).
+                       MakeWeak(eh => workspace.CloseWorkSpace -= eh);
+                       
+                private void OnCloseWorkSpace(object sender, EventArgs e)
+                {
+            
+                }
+                
+                //OR YOU COULD CREATE ACTUAL EVENTS LIKE
+                public class EventProvider
+                {
+                     private EventHandler<EventArgs> closeWorkSpace;
+                     public event EventHandler<EventArgs> CloseWorkSpace
+                     {
+                         add
+                         {
+                             closeWorkSpace += value.MakeWeak(eh => closeWorkSpace -= eh);
+                         }
+                         remove
+                         {
+                         }
+                     }
+                }
+             ]]>
+             </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Cinch.EventHandlerUtils.MakeWeak``1(System.EventHandler{``0},Cinch.UnregisterCallback{``0})" -->
+        <member name="T:Cinch.WPFLoggerService">
+            <summary>
+            This class implements the ILoggerService for WPF purposes.
+            </summary>
+        </member>
+        <member name="T:Cinch.ILoggerService">
+            <summary>
+            This interface defines a very very simple logger interface
+            to allow the ViewModel to log
+            </summary>
+        </member>
+        <member name="M:Cinch.ILoggerService.Log(Cinch.LogType,System.String)">
+            <summary>
+            Logs to the event log using the params provided
+            </summary>
+            <param name="logType">The LogType to use.</param>
+            <param name="logEntry">The actual logEntry string to be logged.</param>
+        </member>
+        <member name="M:Cinch.ILoggerService.Log(Cinch.LogType,System.Exception)">
+            <summary>
+            Logs to the event log using the params provided
+            </summary>
+            <param name="logType">The LogType to use.</param>
+            <param name="ex">An Exception to be logged.</param>
+        </member>
+        <member name="M:Cinch.WPFLoggerService.Log(Cinch.LogType,System.String)">
+            <summary>
+            Creates a log entry using the parameters provided
+            </summary>
+            <param name="logType">The LogType to use</param>
+            <param name="logEntry">The log message</param>
+        </member>
+        <member name="M:Cinch.WPFLoggerService.Log(Cinch.LogType,System.Exception)">
+            <summary>
+            Creates a log entry using the parameters provided
+            </summary>
+            <param name="logType">The LogType to use</param>
+            <param name="ex">The Exception from which to log the Exception.Message</param>
+        </member>
+        <member name="M:Cinch.WPFLoggerService.TranslateToEventLogEntryType(Cinch.LogType)">
+            <summary>
+            Translates a LogType to a Windows EventLogEntryType. 
+            </summary>
+            <param name="logType">The Cinch.LogType</param>
+            <returns>A System.Diagnostics.EventLogEntryType</returns>
+        </member>
+        <member name="M:Cinch.WPFLoggerService.CreateLogSource">
+            <summary>
+            Creates a EventLogSource
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFLoggerService.EventSource">
+            <summary>
+            The EventSource to use for EventLog entries
+            </summary>
+        </member>
+        <member name="T:Cinch.Services.Service_Interfaces.Lmj.IUiDispatcher">
+            <summary>
+            Méthodes de manipulation du thread STA.
+            </summary>
+        </member>
+        <member name="M:Cinch.Services.Service_Interfaces.Lmj.IUiDispatcher.InvokeIfRequired(System.Action)">
+            <summary>
+            Invoque la méthode sur le Dispatcher si on y est pas déjà dessus.
+            </summary>
+            <param name="action">Action à réaliser.</param>
+        </member>
+        <member name="M:Cinch.Services.Service_Interfaces.Lmj.IUiDispatcher.RefreshCommand">
+            <summary>
+            Provoque le recalcul des commandes actives.
+            </summary>
+        </member>
+        <member name="T:Cinch.WaitCursor">
+            <summary>
+            This class implements a disposable WaitCursor to 
+            show an hourglass while some long-running event occurs.
+            </summary>
+            <example>
+            <![CDATA[
+            
+            using (new WaitCursor())
+            {
+               .. Do work here ..
+            }
+            
+            ]]>
+            </example>
+        </member>
+        <member name="F:Cinch.WaitCursor.lockObject">
+            <summary>
+            Objet de verrouillage du compteur.
+            </summary>
+        </member>
+        <member name="F:Cinch.WaitCursor.compteur">
+            <summary>
+            Compte le nombre de WaitCursor créé.
+            </summary>
+        </member>
+        <member name="M:Cinch.WaitCursor.#ctor">
+            <summary>
+            Constructor : crée un WaitCursor et affiche le curseur d'attente.
+            </summary>
+        </member>
+        <member name="M:Cinch.WaitCursor.#ctor(System.Windows.Input.Cursor)">
+            <summary>
+            Constructor : crée un WaitCursor et affiche le curseur d'attente.
+            </summary>
+            <param name="typeDeCurseur">Type de curseur à afficher</param>
+        </member>
+        <member name="M:Cinch.WaitCursor.Dispose">
+            <summary>
+            Affiche le curseur normal s'il n'y a plus de WaitCursor actif.
+            </summary>
+        </member>
+        <member name="M:Cinch.WaitCursor.IsWaiting">
+            <summary>
+            Retourne true pour indiquer que le curseur d'attente est actif. false sinon.
+            </summary>
+            <returns>true pour en attente.</returns>
+        </member>
+        <member name="M:Cinch.WaitCursor.DisplayWaitingCursor(System.Windows.Input.Cursor)">
+            <summary>
+            Affiche le curseur d'attente, en gérant les pb de threads.
+            </summary>
+            <param name="typeDeCurseur">Type de curseur à afficher</param>
+        </member>
+        <member name="M:Cinch.WaitCursor.HideWaitingCursor">
+            <summary>
+            Cache le curseur d'attente, en gérant les pb de threads.
+            </summary>
+        </member>
+        <member name="P:Cinch.WaitCursor.UiDispatcher">
+            <summary>
+            VRU : Renseigner pour l'ajout de la gestion de l'appel de WaitCursor depuis l'extérieur du thread STA.
+            </summary>
+        </member>
+        <member name="T:Cinch.DataWrapper`1">
+            <summary>
+            Provides a wrapper around a single peice of data
+            such that the ViewModel can put the data item
+            into a editable state and the View can bind to
+            both the DataValue for the actual Value, and to 
+            the IsEditable to determine if the control which
+            has the data is allowed to be used for entering data.
+            
+            The Viewmodel is expected to set the state of the
+            IsEditable property for all DataWrappers in a given Model
+            </summary>
+            <typeparam name="T">The type of the Data</typeparam>
+        </member>
+        <member name="T:Cinch.EditableValidatingObject">
+            <summary>
+            Provides a IDataErrorInfo validating object that is also
+            editable by implementing the IEditableObject interface
+            </summary>
+        </member>
+        <member name="T:Cinch.ValidatingObject">
+            <summary>
+            The class all validating domain objects must inherit from. 
+            Allows changes via a BeginEdit()/EndEdit() combination, and 
+            provides rollbacks for cancels. This class also support validation
+            rules that can be added using the AddRule()
+            method, such as
+            </summary>
+            <example>
+            <![CDATA[
+            
+            AddRule(new SimpleRule("FirstName", "Firstname can not be SAM.",
+                     delegate
+                     {
+                       return this.FirstName.ToString() == "SAM";
+                     }));
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.ValidatingObject.GetBrokenRules">
+            <summary>
+            Validates all rules on this domain object, returning a list of the broken rules.
+            </summary>
+            <returns>A read-only collection of rules that have been broken.</returns>
+        </member>
+        <member name="M:Cinch.ValidatingObject.GetBrokenRules(System.String)">
+            <summary>
+            Validates all rules on this domain object for a given property, 
+            returning a list of the broken rules.
+            </summary>
+            <param name="property">The name of the property to check for. 
+            If null or empty, all rules will be checked.</param>
+            <returns>A read-only collection of rules that have been broken.</returns>
+        </member>
+        <member name="M:Cinch.ValidatingObject.AddRule(Cinch.Rule)">
+            <summary>
+            Adds a new rule to the list of rules
+            </summary>
+            <param name="newRule">The new rule</param>
+        </member>
+        <member name="M:Cinch.ValidatingObject.NotifyChanged(System.String[])">
+            <summary>
+            A helper method that raises the PropertyChanged event for a property.
+            </summary>
+            <param name="propertyNames">The names of the properties that changed.</param>
+        </member>
+        <member name="M:Cinch.ValidatingObject.CleanString(System.String)">
+            <summary>
+            Cleans a string by ensuring it isn't null and trimming it.
+            </summary>
+            <param name="s">The string to clean.</param>
+        </member>
+        <member name="M:Cinch.ValidatingObject.VerifyPropertyName(System.String)">
+            <summary>
+            Warns the developer if this object does not have
+            a public property with the specified name. This 
+            method does not exist in a Release build.
+            </summary>
+        </member>
+        <member name="M:Cinch.ValidatingObject.NotifyPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Notify using pre-made PropertyChangedEventArgs
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Cinch.ValidatingObject.NotifyPropertyChanged(System.String)">
+            <summary>
+            Notify using String property name
+            </summary>
+        </member>
+        <member name="M:Cinch.ValidatingObject.GetINPCSubscribers">
+            <summary>
+            Returns the list of delegates that are currently subscribed for the
+            <see cref="T:System.ComponentModel.INotifyPropertyChanged">INotifyPropertyChanged</see>
+            PropertyChanged event
+            </summary>
+        </member>
+        <member name="P:Cinch.ValidatingObject.IsValid">
+            <summary>
+            Gets a value indicating whether or not this domain object is valid. 
+            </summary>
+        </member>
+        <member name="P:Cinch.ValidatingObject.Error">
+            <summary>
+            Gets an error message indicating what is wrong with this domain object. 
+            The default is an empty string ("").
+            </summary>
+        </member>
+        <member name="P:Cinch.ValidatingObject.Item(System.String)">
+            <summary>
+            Gets the error message for the property with the given name.
+            </summary>
+            <param name="propertyName">The name of the property whose error 
+            message to get.</param>
+            <returns>The error message for the property. 
+            The default is an empty string ("").</returns>
+        </member>
+        <member name="P:Cinch.ValidatingObject.ThrowOnInvalidPropertyName">
+            <summary>
+            Returns whether an exception is thrown, or if a Debug.Fail() is used
+            when an invalid property name is passed to the VerifyPropertyName method.
+            The default value is false, but subclasses used by unit tests might 
+            override this property's getter to return true.
+            </summary>
+        </member>
+        <member name="F:Cinch.EditableValidatingObject._savedState">
+            <summary>
+            This stores the current "copy" of the object. 
+            If it is non-null, then we are in the middle of an 
+            editable operation.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.BeginEdit">
+            <summary>
+            Begins an edit on an object.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.OnBeginEdit">
+            <summary>
+            Interception point for derived logic to do work when beginning edit.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.CancelEdit">
+            <summary>
+            Discards changes since the last 
+            <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> call.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.OnCancelEdit">
+            <summary>
+            This is called in response CancelEdit and provides an interception point.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.EndEdit">
+            <summary>
+            Pushes changes since the last 
+            <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> 
+            or <see cref="M:System.ComponentModel.IBindingList.AddNew"/> 
+            call into the underlying object.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.OnEndEdit">
+            <summary>
+            This is called in response EndEdit and provides an interception point.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.GetFieldValues">
+            <summary>
+            This is used to clone the object.  
+            Override the method to provide a more efficient clone.  
+            The default implementation simply reflects across 
+            the object copying every field.
+            </summary>
+            <returns>Clone of current object</returns>
+        </member>
+        <member name="M:Cinch.EditableValidatingObject.RestoreFieldValues(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            This restores the state of the current object from the passed clone object.
+            </summary>
+            <param name="fieldValues">Object to restore state from</param>
+        </member>
+        <member name="M:Cinch.DataWrapper`1.NotifyParentPropertyChanged">
+            <summary>
+            Notifies all the parent (INPC) objects INotifyPropertyChanged.PropertyChanged subscribed delegates
+            that an internal DataWrapper property value has changed, which in turn raises the appropriate
+            INotifyPropertyChanged.PropertyChanged event on the parent (INPC) object
+            </summary>
+        </member>
+        <member name="F:Cinch.DataWrapper`1.dataValueChangeArgs">
+            <summary>
+            The actual data value, the View is
+            expected to bind to this to display data
+            </summary>
+        </member>
+        <member name="F:Cinch.DataWrapper`1.isEditableChangeArgs">
+            <summary>
+            The editable state of the data, the View
+            is expected to use this to enable/disable
+            data entry. The ViewModel would set this
+            property
+            </summary>
+        </member>
+        <member name="T:Cinch.DataWrapperHelper">
+            <summary>
+            Provides helper methods for dealing with DataWrappers
+            within the Cinch library. 
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Cinch.DataWrapperHelper.SetModeForObject``1(``0,Cinch.ViewMode)" -->
+        <member name="M:Cinch.DataWrapperHelper.SetBeginEdit``1(``0)">
+            <summary>
+            Loops through a source object (UI Model class is expected really) and attempts
+            to call the BeginEdit() method of all the  Cinch.DataWrapper fields
+            </summary>
+            <typeparam name="T">The type which has the DataWrappers on it</typeparam>
+            <param name="objectToSetModeOn">The source object to alter the 
+            Cinch.DataWrapper on</param>
+        </member>
+        <member name="M:Cinch.DataWrapperHelper.SetCancelEdit``1(``0)">
+            <summary>
+            Loops through a source object (UI Model class is expected really) and attempts
+            to call the CancelEdit() method of all the  Cinch.DataWrapper fields
+            </summary>
+            <typeparam name="T">The type which has the DataWrappers on it</typeparam>
+            <param name="objectToSetModeOn">The source object to alter the 
+            Cinch.DataWrapper on</param>
+        </member>
+        <member name="M:Cinch.DataWrapperHelper.SetEndEdit``1(``0)">
+            <summary>
+            Loops through a source object (UI Model class is expected really) and attempts
+            to call the EditEdit() method of all the  Cinch.DataWrapper fields
+            </summary>
+            <typeparam name="T">The type which has the DataWrappers on it</typeparam>
+            <param name="objectToSetModeOn">The source object to alter the 
+            Cinch.DataWrapper on</param>
+        </member>
+        <member name="M:Cinch.DataWrapperHelper.SetBeginEndOrCancel``1(``0,System.String)">
+            <summary>
+            Loops through a source object (UI Model class is expected really) and attempts
+            to call the BeginEdit or CancelEdit() method of all the  Cinch.DataWrapper fields
+            </summary>
+            <typeparam name="T">The type which has the DataWrappers on it</typeparam>
+            <param name="objectToSetModeOn">The source object to alter the 
+            Cinch.DataWrapper on</param>
+            <param name="editMethodNameString">The name of the method to call, should be
+            either "BeginEdit" or "EndEdit" or "CancelEdit" ONLY</param>
+        </member>
+        <member name="T:Cinch.SimpleRuleDelegate">
+            <summary>
+            A simple type of domain object rule that uses a delegate for validation. 
+            </summary>
+            <returns>True if the rule has been followed, or false if it has been broken.</returns>
+            <remarks>
+            Usage:
+            <code>
+                this.Rules.Add(new SimpleRule("Name", "The customer name must be at least 5 letters long.", delegate { return this.Name &gt; 5; } ));
+            </code>
+            </remarks>
+        </member>
+        <member name="T:Cinch.SimpleRule">
+            <summary>
+            A class to define a simple rule, using a delegate for validation.
+            </summary>
+        </member>
+        <member name="T:Cinch.Rule">
+            <summary>
+            An abstract class that contains information about a rule as well as a method to validate it.
+            </summary>
+            <remarks>
+            This class is primarily designed to be used on a domain object to validate a business rule. In most cases, you will want to use the 
+            concrete class SimpleRule, which just needs you to supply a delegate used for validation. For custom, complex business rules, you can 
+            extend this class and provide your own method to validate the rule.
+            </remarks>
+        </member>
+        <member name="M:Cinch.Rule.#ctor(System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="propertyName">The name of the property the rule is based on. This may be blank if the rule is not for any specific property.</param>
+            <param name="brokenDescription">A description of the rule that will be shown if the rule is broken.</param>
+        </member>
+        <member name="M:Cinch.Rule.ValidateRule(System.Object)">
+            <summary>
+            Validates that the rule has been followed.
+            </summary>
+        </member>
+        <member name="M:Cinch.Rule.ToString">
+            <summary>
+            Gets a string representation of this rule.
+            </summary>
+            <returns>A string containing the description of the rule.</returns>
+        </member>
+        <member name="M:Cinch.Rule.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type. System.Object.GetHashCode()
+            is suitable for use in hashing algorithms and data structures like a hash
+            table.
+            </summary>
+            <returns>A hash code for the current rule.</returns>
+        </member>
+        <member name="P:Cinch.Rule.Description">
+            <summary>
+            Gets descriptive text about this broken rule.
+            </summary>
+        </member>
+        <member name="P:Cinch.Rule.PropertyName">
+            <summary>
+            Gets the name of the property the rule belongs to.
+            </summary>
+        </member>
+        <member name="M:Cinch.SimpleRule.#ctor(System.String,System.String,Cinch.SimpleRuleDelegate)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="propertyName">The name of the property this rule validates for. This may be blank.</param>
+            <param name="brokenDescription">A description message to show if the rule has been broken.</param>
+            <param name="ruleDelegate">A delegate that takes no parameters and returns a boolean value, used to validate the rule.</param>
+        </member>
+        <member name="M:Cinch.SimpleRule.ValidateRule(System.Object)">
+            <summary>
+            Validates that the rule has not been broken.
+            </summary>
+            <param name="domainObject">The domain object being validated.</param>
+            <returns>True if the rule has not been broken, or false if it has.</returns>
+        </member>
+        <member name="P:Cinch.SimpleRule.RuleDelegate">
+            <summary>
+            Gets or sets the delegate used to validate this rule.
+            </summary>
+        </member>
+        <member name="T:Cinch.TestSaveFileService">
+             <summary>
+             This class implements the ISaveFileService for Unit testing purposes.
+             </summary>
+             <example>
+             <![CDATA[
+             
+                    TestSaveFileService testSaveFileService =
+                        (TestSaveFileService)
+                            ViewModelBase.ServiceProvider.Resolve<IOpenSaveService>();
+                            
+                     //Queue up the response we expect for our given TestSaveFileService
+                     //for a given ICommand/Method call within the test ViewModel
+                     testSaveFileService.ShowDialogResponders.Enqueue
+                     (() =>
+                     {
+                         string path = @"c:\test.txt";
+                         testSaveFileService.FileName = path ;
+                         return true;
+                     }
+            );
+             ]]>
+             </example>
+        </member>
+        <member name="T:Cinch.ISaveFileService">
+            <summary>
+            This interface defines a interface that will allow 
+            a ViewModel to save a file
+            </summary>
+        </member>
+        <member name="M:Cinch.ISaveFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be saved
+            </summary>
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.ISaveFileService.OverwritePrompt">
+            <summary>
+            FileName
+            </summary>
+        </member>
+        <member name="P:Cinch.ISaveFileService.FileName">
+            <summary>
+            FileName
+            </summary>
+        </member>
+        <member name="P:Cinch.ISaveFileService.Filter">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="P:Cinch.ISaveFileService.InitialDirectory">
+            <summary>
+            Filter
+            </summary>
+        </member>
+        <member name="F:Cinch.TestSaveFileService.fileName">
+            <summary>
+            Should be set in the actual Test file delegate callback
+            </summary>
+        </member>
+        <member name="M:Cinch.TestSaveFileService.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:Cinch.TestSaveFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be saved
+            </summary>
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.TestSaveFileService.ShowDialogResponders">
+            <summary>
+            Queue of callback delegates for the ShowDialog methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="P:Cinch.TestSaveFileService.FileName">
+            <summary>
+            FileName : Set in Test file 
+            delegate callback (This MUST be done for the Test implementation 
+            to work the same as actual WPF service implementation)
+            </summary>
+        </member>
+        <member name="P:Cinch.TestSaveFileService.Filter">
+            <summary>
+            Filter : Set in Test file 
+            delegate callback (if required)
+            </summary>
+        </member>
+        <member name="P:Cinch.TestSaveFileService.InitialDirectory">
+            <summary>
+            InitialDirectory : Set in Test file 
+            delegate callback (if required)
+            </summary>
+        </member>
+        <member name="P:Cinch.TestSaveFileService.OverwritePrompt">
+            <summary>
+            OverwritePrompt : Set in Test file 
+            delegate callback (if required)
+            </summary>
+        </member>
+        <member name="T:Cinch.WeakAction">
+            <summary>
+            This class is an implementation detail of the 
+            MessageToActionsMap class.
+            </summary>
+        </member>
+        <member name="M:Cinch.WeakAction.#ctor(System.Object,System.Reflection.MethodInfo,System.Type)">
+            <summary>
+            Constructs a new WeakAction
+            </summary>
+            <param name="target">The sender</param>
+            <param name="method">The method to call on sender</param>
+            <param name="parameterType">The parameter type if using generics</param>
+        </member>
+        <member name="M:Cinch.WeakAction.CreateAction">
+            <summary>
+            Creates callback delegate
+            </summary>
+            <returns>Callback delegate</returns>
+        </member>
+        <member name="T:Cinch.FocusHelper">
+            <summary>
+            This class forces focus to set on the specified UIElement 
+            </summary>
+        </member>
+        <member name="M:Cinch.FocusHelper.Focus(System.Windows.UIElement)">
+            <summary>
+            Set focus to UIElement
+            </summary>
+            <param name="element">The element to set focus on</param>
+        </member>
+        <member name="T:Cinch.UICompletedEventArgs">
+            <summary>
+            This is the EventArgs return value for the IUIController.Show completed event.
+            </summary>
+        </member>
+        <member name="P:Cinch.UICompletedEventArgs.State">
+            <summary>
+            Data passed to the Show method.
+            </summary>
+        </member>
+        <member name="P:Cinch.UICompletedEventArgs.Result">
+            <summary>
+            Final result of the UI dialog
+            </summary>
+        </member>
+        <member name="T:Cinch.ObservableHelper">
+            <summary>
+            A small helper class that has a method to help create
+            PropertyChangedEventArgs when using the INotifyPropertyChanged
+            interface
+            </summary>
+        </member>
+        <member name="M:Cinch.ObservableHelper.CreateArgs``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+            Creates PropertyChangedEventArgs
+            </summary>
+            <param name="propertyExpression">Expression to make 
+            PropertyChangedEventArgs out of</param>
+            <returns>PropertyChangedEventArgs</returns>
+        </member>
+        <member name="T:Cinch.UserControlLifetimeEvent">
+            <summary>
+            This allows a UserControls lifecycle events to call ICommand(s)
+            within a ViewModel. This allows the ViewModel to know something
+            about the Views lifecycle without the need for a strong link
+            to the actual View
+            This class is used to attach the UserControl lifetime events to ICommand implementations.
+            It allows a ViewModel to hook into the lifetime of the view (when necessary) 
+            through simple XAML tags.  Supported events are Loaded, Unloaded.
+            </summary>
+            <example>
+            <![CDATA[  <UserControl Cinch:UserControlLifetimeEvent.Loaded="{Binding LoadedCommand}" />  ]]>
+            </example>
+        </member>
+        <member name="F:Cinch.UserControlLifetimeEvent.LoadedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Loaded event
+            </summary>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.GetLoaded(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.SetLoaded(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.OnLoadedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Loaded property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.OnUserControlLoaded(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Loaded event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.UserControlLifetimeEvent.UnloadedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Unloaded event
+            </summary>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.GetUnloaded(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.SetUnloaded(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.OnUnloadedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Unloaded property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.OnUserControlUnloaded(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Unloaded event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.UserControlLifetimeEvent.CommandParameterProperty">
+            <summary>
+            Parameter for the ICommand
+            </summary>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.GetCommandParameter(System.Windows.DependencyObject)">
+            <summary>
+            This retrieves the CommandParameter used for the command.
+            </summary>
+            <param name="source">Dependency object</param>
+            <returns>Command Parameter passed to ICommand</returns>
+        </member>
+        <member name="M:Cinch.UserControlLifetimeEvent.SetCommandParameter(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            This changes the CommandParameter used with this command.
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="value">New Value</param>
+        </member>
+        <member name="T:Cinch.WeakEvent`1">
+             <summary>
+             This class allows the creation of a Weak Event
+             </summary>
+             <example>
+             <![CDATA[
+             
+                    //DECLARING
+                    private readonly WeakEvent<EventHandler<EventArgs>> 
+                         dependencyChangedEvent =
+                             new WeakEvent<EventHandler<EventArgs>>();
+            
+                    public event EventHandler<EventArgs> DependencyChanged
+                    {
+                      add { dependencyChangedEvent.Add(value); }
+                      remove { dependencyChangedEvent.Remove(value); }
+                    }
+            
+                    //RAISING
+                    dependencyChangedEvent.Raise(this, new EventArgs());
+             
+             
+                    //SUBSCRIBING
+                    SourceDependency.DependencyChanged += OnSourceChanged;
+                    ...
+                    private void OnSourceChanged(object sender, EventArgs e)
+                    {
+                    
+                    }
+             ]]>
+             </example>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.#cctor">
+            <summary>
+            Constructs a new WeakEvent
+            </summary>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.Add(`0)">
+            <summary>
+            Add an event handler
+            </summary>
+            <param name="eh">The handler to add</param>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.Clear">
+            <summary>
+            Clear event handlers
+            </summary>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.Remove(`0)">
+            <summary>
+            removes a specific Event handler
+            </summary>
+            <param name="eh">Event handler to remove</param>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.Raise(System.Object,System.EventArgs)">
+            <summary>
+            Raise event
+            </summary>
+            <param name="sender">The sender</param>
+            <param name="e">The EventArgs to use for event</param>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.RemoveDeadEntries">
+            <summary>
+            Remove dead entries
+            </summary>
+        </member>
+        <member name="M:Cinch.WeakEvent`1.EventEntry.#ctor(Cinch.FastSmartWeakEventForwarderProvider.ForwarderDelegate,System.Reflection.MethodInfo,System.WeakReference)">
+            <summary>
+            Creates a new EventEntry Struct
+            </summary>
+        </member>
+        <member name="T:Cinch.FastSmartWeakEventForwarderProvider">
+            <summary>
+            Uses Reflection.Emit to create Dynamic delegate to use for 
+            event forwarding
+            </summary>
+        </member>
+        <member name="M:Cinch.FastSmartWeakEventForwarderProvider.GetForwarder(System.Reflection.MethodInfo)">
+            <summary>
+            Dynamically emits a delegate for event forwarding
+            </summary>
+            <param name="method">The methodInfo to use for forward</param>
+            <returns>Delegate for event forwarding</returns>
+        </member>
+        <member name="T:Cinch.LogType">
+            <summary>
+            Available LogEntry options. 
+            Abstracted to allow some level of UI Agnosticness
+            </summary>
+        </member>
+        <member name="T:Cinch.DispatcherExtensions">
+            <summary>
+            Provides a set of commonly used Dispatcher extension methods
+            </summary>
+        </member>
+        <member name="M:Cinch.DispatcherExtensions.InvokeIfRequired(System.Windows.Threading.Dispatcher,System.Action,System.Windows.Threading.DispatcherPriority)">
+            <summary>
+            A simple threading extension method, to invoke a delegate
+            on the correct thread if it is not currently on the correct thread
+            which can be used with DispatcherObject types.
+            </summary>
+            <param name="dispatcher">The Dispatcher object on which to 
+            perform the Invoke</param>
+            <param name="action">The delegate to run</param>
+            <param name="priority">The DispatcherPriority for the invoke.</param>
+        </member>
+        <member name="M:Cinch.DispatcherExtensions.InvokeIfRequired(System.Windows.Threading.Dispatcher,System.Action)">
+            <summary>
+            A simple threading extension method, to invoke a delegate
+            on the correct thread if it is not currently on the correct thread
+            which can be used with DispatcherObject types.
+            </summary>
+            <param name="dispatcher">The Dispatcher object on which to 
+            perform the Invoke</param>
+            <param name="action">The delegate to run</param>
+        </member>
+        <member name="M:Cinch.DispatcherExtensions.InvokeInBackgroundIfRequired(System.Windows.Threading.Dispatcher,System.Action)">
+            <summary>
+            A simple threading extension method, to invoke a delegate
+            on the correct thread if it is not currently on the correct thread
+            which can be used with DispatcherObject types.
+            </summary>
+            <param name="dispatcher">The Dispatcher object on which to 
+            perform the Invoke</param>
+            <param name="action">The delegate to run</param>
+        </member>
+        <member name="M:Cinch.DispatcherExtensions.InvokeAsynchronouslyInBackground(System.Windows.Threading.Dispatcher,System.Action)">
+            <summary>
+            A simple threading extension method, to invoke a delegate
+            on the correct thread asynchronously if it is not currently 
+            on the correct thread which can be used with DispatcherObject types.
+            </summary>
+            <param name="dispatcher">The Dispatcher object on which to 
+            perform the Invoke</param>
+            <param name="action">The delegate to run</param>
+        </member>
+        <member name="T:Cinch.AddRangeObservableCollection`1">
+            <summary>
+            This class provides a method to allow mutiple entries to be added
+            to an ObservableCollection without the CollectionChanged event being fired.
+            As this class also inherits from DispatcherNotifiedObservableCollection, it
+            also supports the Dispatcher thread marshalling for added items. 
+            
+            This class does not take support any thread sycnhronization of
+            adding items using multiple threads, that level of thread synchronization
+            is left to the user. This class simply marshalls the CollectionChanged
+            call to the correct Dispatcher thread
+            
+            This class was taken and subsequently modified from
+            http://peteohanlon.wordpress.com/2008/10/22/bulk-loading-in-observablecollection/
+            </summary>
+            <typeparam name="T">Type this collection holds</typeparam>
+        </member>
+        <member name="M:Cinch.AddRangeObservableCollection`1.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Only raise the OnCollectionChanged event if there 
+            is currently no suppressed notification
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.AddRangeObservableCollection`1.AddRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Adds a range of items to the Collection, without firing the
+            CollectionChanged event
+            </summary>
+            <param name="list">The items to add</param>
+        </member>
+        <member name="T:Cinch.EventParameters">
+            <summary>
+            This is passed to the ICommand handler for the event
+            </summary>
+        </member>
+        <member name="M:Cinch.EventParameters.#ctor(System.Object,System.EventArgs)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:Cinch.EventParameters.Sender">
+            <summary>
+            The sender of the handled event
+            </summary>
+        </member>
+        <member name="P:Cinch.EventParameters.EventArgs">
+            <summary>
+            The passed EventArgs for the event.
+            </summary>
+        </member>
+        <member name="T:Cinch.CommandEvent">
+            <summary>
+            This represents a single event to command mapping.  
+            It derives from Freezable in order to inherit context and support 
+            element name bindings per Mike Hillberg blog post.
+            </summary>
+        </member>
+        <member name="F:Cinch.CommandEvent.CommandProperty">
+            <summary>
+            Command Property Dependency Property
+            </summary>
+        </member>
+        <member name="F:Cinch.CommandEvent.EventProperty">
+            <summary>
+            Event Dependency Property
+            </summary>
+        </member>
+        <member name="F:Cinch.CommandEvent.DataContextProperty">
+            <summary>
+            DataContext for any bindings applied to this CommandEvent
+            </summary>
+        </member>
+        <member name="M:Cinch.CommandEvent.Subscribe(System.Object)">
+            <summary>
+            Wires up an event to the target
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.CommandEvent.Unsubscribe(System.Object)">
+            <summary>
+            Unwires target event
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.CommandEvent.OnEventRaised(System.Object,System.EventArgs)">
+            <summary>
+            This is invoked by the event - it invokes the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.CommandEvent.CreateInstanceCore">
+            <summary>
+            When implemented in a derived class, creates a new instance of the <see cref="T:System.Windows.Freezable"/> derived class. 
+            </summary>
+            <returns>
+            The new instance.
+            </returns>
+        </member>
+        <member name="P:Cinch.CommandEvent.Command">
+            <summary>
+            Gets or sets the Command property. 
+            </summary>
+        </member>
+        <member name="P:Cinch.CommandEvent.Event">
+            <summary>
+            Gets or sets the Event property.
+            </summary>
+        </member>
+        <member name="T:Cinch.CommandEventCollection">
+            <summary>
+            Collection of command to event mappings
+            </summary>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.Subscribe(System.Object)">
+            <summary>
+            Wire up events to the target
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.Unsubscribe(System.Object)">
+            <summary>
+            Unwire all target events
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.OnCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            This handles the collection change event - it then subscribes and unsubscribes events.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.OnItemAdded(Cinch.CommandEvent)">
+            <summary>
+            A new item has been added to the event list
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Cinch.CommandEventCollection.OnItemRemoved(Cinch.CommandEvent)">
+            <summary>
+            An item has been removed from the event list.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="T:Cinch.EventCommander">
+            <summary>
+            This class manages a collection of command to event mappings.  
+            It is used to wire up View events to a ViewModel ICommand implementation.  
+            Note that if it is lifetime events (Loaded, Activated, Closing, Closed, etc.)
+            then you should use the LifetimeEvents behavior instead.  
+            This is for other input events to be tied to the 
+            ViewModel without codebehind.
+            </summary>
+            <example>
+            <![CDATA[
+            
+            <Grid Background="WhiteSmoke">
+              <Behaviors:EventCommander.Mappings>
+                 <Behaviors:CommandEvent 
+                     Command="{Binding MouseEnterCommand}" 
+                     Event="MouseEnter" />
+                 <Behaviors:CommandEvent 
+                     Command="{Binding MouseLeaveCommand}" 
+                     Event="MouseLeave" />
+              </Behaviors:EventCommander.Mappings>
+            </Grid>
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.EventCommander.InternalGetMappingCollection(System.Windows.DependencyObject)">
+            <summary>
+            Retrieves the mapping collection
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cinch.EventCommander.GetMappings(System.Windows.DependencyObject)">
+            <summary>
+            This retrieves the mapping collection
+            </summary>
+            <param name="obj">Dependency Object</param>
+            <returns>Mapping collection</returns>
+        </member>
+        <member name="M:Cinch.EventCommander.SetMappings(System.Windows.DependencyObject,Cinch.CommandEventCollection)">
+            <summary>
+            This sets the mapping collection.
+            </summary>
+            <param name="obj">Dependency Object</param>
+            <param name="value">Mapping collection</param>
+        </member>
+        <member name="M:Cinch.EventCommander.OnMappingsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This changes the event mapping
+            </summary>
+            <param name="target"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Cinch.WPFOpenFileService">
+            <summary>
+            This class implements the IOpenFileService for WPF purposes.
+            </summary>
+        </member>
+        <member name="F:Cinch.WPFOpenFileService.ofd">
+            <summary>
+            Embedded OpenFileDialog to pass back correctly selected
+            values to ViewModel
+            </summary>
+        </member>
+        <member name="M:Cinch.WPFOpenFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be selected
+            </summary>
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.WPFOpenFileService.FileName">
+            <summary>
+            FileName : Simply use embedded OpenFileDialog.FileName
+            But DO NOT allow a Set as it will ONLY come from user
+            picking a file
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFOpenFileService.Filter">
+            <summary>
+            Filter : Simply use embedded OpenFileDialog.Filter
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFOpenFileService.InitialDirectory">
+            <summary>
+            Filter : Simply use embedded OpenFileDialog.InitialDirectory
+            </summary>
+        </member>
+        <member name="T:Cinch.SingleEventCommand">
+            <summary>
+            This class allows a single command to event mappings.  
+            It is used to wire up View events to a
+            ViewModel ICommand implementation.  
+            </summary>
+            <example>
+            <![CDATA[
+            
+            <Grid Background="WhiteSmoke"
+               Cinch:SingleEventCommand.RoutedEventName="MouseDown"
+                 Cinch:SingleEventCommand.TheCommandToRun=
+                  "{Binding Path=ShowWindowCommand}"/>
+            
+            ]]>
+            </example>
+        </member>
+        <member name="F:Cinch.SingleEventCommand.TheCommandToRunProperty">
+            <summary>
+            TheCommandToRun : The actual ICommand to run
+            </summary>
+        </member>
+        <member name="M:Cinch.SingleEventCommand.GetTheCommandToRun(System.Windows.DependencyObject)">
+            <summary>
+            Gets the TheCommandToRun property.  
+            </summary>
+        </member>
+        <member name="M:Cinch.SingleEventCommand.SetTheCommandToRun(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Sets the TheCommandToRun property.  
+            </summary>
+        </member>
+        <member name="F:Cinch.SingleEventCommand.RoutedEventNameProperty">
+            <summary>
+            RoutedEventName : The event that should actually execute the
+            ICommand
+            </summary>
+        </member>
+        <member name="M:Cinch.SingleEventCommand.GetRoutedEventName(System.Windows.DependencyObject)">
+            <summary>
+            Gets the RoutedEventName property.  
+            </summary>
+        </member>
+        <member name="M:Cinch.SingleEventCommand.SetRoutedEventName(System.Windows.DependencyObject,System.String)">
+            <summary>
+            Sets the RoutedEventName property.  
+            </summary>
+        </member>
+        <member name="M:Cinch.SingleEventCommand.OnRoutedEventNameChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Hooks up a Dynamically created EventHandler (by using the 
+            <see cref="T:Cinch.EventHooker">EventHooker</see> class) that when
+            run will run the associated ICommand
+            </summary>
+        </member>
+        <member name="T:Cinch.EventHooker">
+            <summary>
+            Contains the event that is hooked into the source RoutedEvent
+            that was specified to run the ICommand
+            </summary>
+        </member>
+        <member name="M:Cinch.EventHooker.GetNewEventHandlerToRunCommand(System.Reflection.EventInfo)">
+            <summary>
+            Creates a Dynamic EventHandler that will be run the ICommand
+            when the user specified RoutedEvent fires
+            </summary>
+            <param name="eventInfo">The specified RoutedEvent EventInfo</param>
+            <returns>An Delegate that points to a new EventHandler
+            that will be run the ICommand</returns>
+        </member>
+        <member name="M:Cinch.EventHooker.OnEventRaised(System.Object,System.EventArgs)">
+            <summary>
+            Runs the ICommand when the requested RoutedEvent fires
+            </summary>
+        </member>
+        <member name="P:Cinch.EventHooker.ObjectWithAttachedCommand">
+            <summary>
+            The DependencyObject, that holds a binding to the actual
+            ICommand to execute
+            </summary>
+        </member>
+        <member name="T:Cinch.MessageToActionsMap">
+            <summary>
+            This class is an implementation detail of the Mediator class.
+            </summary>
+        </member>
+        <member name="M:Cinch.MessageToActionsMap.AddAction(System.String,System.Object,System.Reflection.MethodInfo,System.Type)">
+            <summary>
+            Creates a weak callback and adds it to a local list of 
+            weak callbacks
+            </summary>
+            <param name="message">The mediator message</param>
+            <param name="target">The sender</param>
+            <param name="method">The method to call on sender</param>
+            <param name="actionType">The parameter type if using generics</param>
+        </member>
+        <member name="M:Cinch.MessageToActionsMap.GetActions(System.String)">
+            <summary>
+            Gets all weak callbacks for a given Mediator message
+            </summary>
+            <param name="message">Mediator message</param>
+            <returns>All weak callbacks for a given Mediator message</returns>
+        </member>
+        <member name="T:Cinch.UnitySingleton">
+            <summary>
+            Provides a singleton instance which holds a
+            IUnityContainer object.
+            </summary>
+        </member>
+        <member name="P:Cinch.UnitySingleton.Container">
+            <summary>
+            Gets the unity container that was attached 
+            when the UnitySingleton was Initialized.
+            </summary>
+            <value>The global unity container.</value>
+        </member>
+        <member name="T:Cinch.LifetimeEvent">
+            <summary>
+            This allows a Windows lifecycle events to call ICommand(s)
+            within a ViewModel. This allows the ViewModel to know something
+            about the Views lifecycle without the need for a strong link
+            to the actual View.
+            This class is used to attach the Window lifetime events to ICommand implementations.
+            It allows a ViewModel to hook into the lifetime of the view (when necessary) 
+            through simple XAML tags.  Supported events are Loaded, Unloaded, Activated, Deactivated 
+            and Closing/Closed.  For the Closing/Closed event, the CanExecute handler is invoked
+            in response to the Closing event - if it returns true, then the Closed event is 
+            allowed and the Execute handler is called in response.
+            </summary>
+            <example>
+            <![CDATA[  <Window Cinch:LifetimeEvent.Close="{Binding CloseCommand}" />  ]]>
+            </example>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.LoadedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Loaded event
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetLoaded(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetLoaded(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnLoadedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Loaded property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowLoaded(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Loaded event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.ActivatedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Activated event
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetActivated(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetActivated(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnActivatedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Activated property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowActivated(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Activated event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.DeactivatedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Deactivated event
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetDeactivated(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetDeactivated(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnDeactivatedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Deactivated property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowDeactivated(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Deactivated event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.CloseProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Close event
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetClose(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetClose(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnCloseEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Close property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowClosing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            This method is invoked when the Window.Closing event is raised.  
+            It checks with the ICommand.CanExecute handler
+            and cancels the event if the handler returns false.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowClosed(System.Object,System.EventArgs)">
+            <summary>
+            This method is invoked when the Window.Closed event is raised.  
+            It executes the ICommand.Execute handler.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.UnloadedProperty">
+            <summary>
+            Dependency property which holds the ICommand for the Unloaded event
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetUnloaded(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter to retrieve the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetUnloaded(System.Windows.DependencyObject,System.Windows.Input.ICommand)">
+            <summary>
+            Attached Property setter to change the ICommand
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="command">ICommand</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnUnloadedEventInfoChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the Unloaded property.
+            </summary>
+            <param name="sender">Dependency Object</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.OnWindowUnloaded(System.Object,System.EventArgs)">
+            <summary>
+            This is the handler for the Unloaded event to raise the command.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Cinch.LifetimeEvent.CommandParameterProperty">
+            <summary>
+            Parameter for the ICommand
+            </summary>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.GetCommandParameter(System.Windows.DependencyObject)">
+            <summary>
+            This retrieves the CommandParameter used for the command.
+            </summary>
+            <param name="source">Dependency object</param>
+            <returns>Command Parameter passed to ICommand</returns>
+        </member>
+        <member name="M:Cinch.LifetimeEvent.SetCommandParameter(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            This changes the CommandParameter used with this command.
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="value">New Value</param>
+        </member>
+        <member name="T:Cinch.ViewMode">
+            <summary>
+            Used by the ViewModel to set the state of all
+            the data of a particular views data to the correct state
+            Basically what happens is that the ViewModel loops through 
+            a source object (UI Model class is expected really) and attempts
+            to set all Cinch.DataWrapper fields to have the correct 
+            Cinch.DataWrapper.IsEditable 
+            to the correct state based on the current ViewMode 
+            </summary>
+        </member>
+        <member name="T:Cinch.ApplicationHelper">
+            <summary>
+            This class provides static helper methods for 
+            working with the Dispatcher in WPF
+            The following MSDN page is quite useful :
+            http://msdn.microsoft.com/en-us/library/system.windows.threading.dispatcher.pushframe.aspx
+            </summary>
+        </member>
+        <member name="M:Cinch.ApplicationHelper.DoEvents(System.Windows.Threading.DispatcherPriority)">
+            <summary>
+            Forces the WPF message pump to process all enqueued messages
+            that are above the input parameter DispatcherPriority.
+            </summary>
+            <param name="priority">The DispatcherPriority to use
+            as the lowest level of messages to get processed</param>
+        </member>
+        <member name="M:Cinch.ApplicationHelper.DoEvents">
+            <summary>
+            Forces the WPF message pump to process all enqueued messages
+            that are DispatcherPriority.Background or above
+            </summary>
+        </member>
+        <member name="M:Cinch.ApplicationHelper.ExitFrameOperation(System.Object)">
+            <summary>
+            Stops the dispatcher from continuing
+            </summary>
+        </member>
+        <member name="T:Cinch.WeakEventProxy`1">
+             <summary>
+             An event handler wrapper used to create weak-reference event handlers, 
+             so that event subscribers can be garbage collected without the event publisher 
+             interfering. 
+             </summary>
+             <typeparam name="TEventArgs">The type of event arguments used in the event handler.
+             </typeparam>
+             <example>
+             <![CDATA[
+             
+                    You might have an event that is available like ncc.CollectionChanged
+             
+                    //SO DECLARE LISTENERS LIKE
+                    private EventHandler<NotifyCollectionChangedEventArgs> 
+                     collectionChangeHandler;
+                    private WeakEventProxy<NotifyCollectionChangedEventArgs> 
+                     weakCollectionChangeListener;
+            
+                    //THEN WIRE IT UP LIKE
+                    if (weakCollectionChangeListener == null)
+                    {
+                      collectionChangeHandler = OnCollectionChanged;
+                      weakCollectionChangeListener = 
+                         new WeakEventProxy<NotifyCollectionChangedEventArgs>(
+                             collectionChangeHandler);
+                    }
+                    ncc.CollectionChanged += weakCollectionChangeListener.Handler;
+                    
+             
+                    private void OnCollectionChanged(object sender, 
+                     NotifyCollectionChangedEventArgs e)
+                    {
+            
+                    }
+             ]]>
+             </example>
+        </member>
+        <member name="M:Cinch.WeakEventProxy`1.#ctor(System.EventHandler{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cinch.WeakEventProxy`1"/> class.
+            </summary>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:Cinch.WeakEventProxy`1.Handler(System.Object,`0)">
+            <summary>
+            Used as the event handler which should be subscribed to source collections.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.WeakEventProxy`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:Cinch.RegexRule">
+            <summary>
+            A class to define a RegEx rule, using a delegate for validation.
+            </summary>
+        </member>
+        <member name="M:Cinch.RegexRule.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="T:Cinch.WPFSaveFileService">
+            <summary>
+            This class implements the ISaveFileService for WPF purposes.
+            </summary>
+        </member>
+        <member name="F:Cinch.WPFSaveFileService.sfd">
+            <summary>
+            Embedded SaveFileDialog to pass back correctly selected
+            values to ViewModel
+            </summary>
+        </member>
+        <member name="M:Cinch.WPFSaveFileService.ShowDialog">
+            <summary>
+            This method should show a window that allows a file to be selected
+            </summary>
+            <param name="owner">The owner window of the dialog</param>
+            <returns>A bool from the ShowDialog call</returns>
+        </member>
+        <member name="P:Cinch.WPFSaveFileService.FileName">
+            <summary>
+            FileName : Simply use embedded SaveFileDialog.FileName
+            But DO NOT allow a Set as it will ONLY come from user
+            picking a file
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFSaveFileService.Filter">
+            <summary>
+            Filter : Simply use embedded SaveFileDialog.Filter
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFSaveFileService.InitialDirectory">
+            <summary>
+            Filter : Simply use embedded SaveFileDialog.InitialDirectory
+            </summary>
+        </member>
+        <member name="P:Cinch.WPFSaveFileService.OverwritePrompt">
+            <summary>
+            OverwritePrompt : Simply use embedded SaveFileDialog.OverwritePrompt
+            </summary>
+        </member>
+        <member name="T:Cinch.ValidatingViewModelBase">
+            <summary>
+            The class all validating ViewModel objects must inherit from. 
+            Allows changes via a BeginEdit()/EndEdit() combination, and 
+            provides rollbacks for cancels. This class also support validation
+            rules that can be added using the AddRule()
+            method, such as
+            </summary>
+            <example>
+            <![CDATA[
+            
+            AddRule(new SimpleRule("FirstName", "Firstname can not be SAM.",
+                     delegate
+                     {
+                       return this.FirstName.ToString() == "SAM";
+                     }));
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.ValidatingViewModelBase.GetBrokenRules">
+            <summary>
+            Validates all rules on this domain object, returning a list of the broken rules.
+            </summary>
+            <returns>A read-only collection of rules that have been broken.</returns>
+        </member>
+        <member name="M:Cinch.ValidatingViewModelBase.GetBrokenRules(System.String)">
+            <summary>
+            Validates all rules on this domain object for a given property, 
+            returning a list of the broken rules.
+            </summary>
+            <param name="property">The name of the property to check for. 
+            If null or empty, all rules will be checked.</param>
+            <returns>A read-only collection of rules that have been broken.</returns>
+        </member>
+        <member name="M:Cinch.ValidatingViewModelBase.AddRule(Cinch.Rule)">
+            <summary>
+            Adds a new rule to the list of rules
+            </summary>
+            <param name="newRule">The new rule</param>
+        </member>
+        <member name="M:Cinch.ValidatingViewModelBase.NotifyChanged(System.String[])">
+            <summary>
+            A helper method that raises the PropertyChanged event for a property.
+            </summary>
+            <param name="propertyNames">The names of the properties that changed.</param>
+        </member>
+        <member name="M:Cinch.ValidatingViewModelBase.CleanString(System.String)">
+            <summary>
+            Cleans a string by ensuring it isn't null and trimming it.
+            </summary>
+            <param name="s">The string to clean.</param>
+        </member>
+        <member name="P:Cinch.ValidatingViewModelBase.IsValid">
+            <summary>
+            Gets a value indicating whether or not this domain object is valid. 
+            </summary>
+        </member>
+        <member name="P:Cinch.ValidatingViewModelBase.Error">
+            <summary>
+            Gets an error message indicating what is wrong with this domain object. 
+            The default is an empty string ("").
+            </summary>
+        </member>
+        <member name="P:Cinch.ValidatingViewModelBase.Item(System.String)">
+            <summary>
+            Gets the error message for the property with the given name.
+            </summary>
+            <param name="propertyName">The name of the property whose error 
+            message to get.</param>
+            <returns>The error message for the property. 
+            The default is an empty string ("").</returns>
+        </member>
+        <member name="T:Cinch.CustomDialogButtons">
+            <summary>
+            Available Button options. 
+            Abstracted to allow some level of UI Agnosticness
+            </summary>
+        </member>
+        <member name="T:Cinch.CustomDialogIcons">
+            <summary>
+            Available Icon options.
+            Abstracted to allow some level of UI Agnosticness
+            </summary>
+        </member>
+        <member name="T:Cinch.CustomDialogResults">
+            <summary>
+            Available DialogResults options.
+            Abstracted to allow some level of UI Agnosticness
+            </summary>
+        </member>
+        <member name="T:Cinch.TestUIVisualizerService">
+            <summary>
+            This class implements the IUIVisualizerService for Unit testing purposes.
+            </summary>
+            <example>
+            <![CDATA[
+            
+               TestUIVisualizerService testUIVisualizerService =
+                 (TestUIVisualizerService)
+                   ViewModelBase.ServiceProvider.Resolve<IUIVisualizerService>();
+                   
+               //Queue up the response we expect for our given TestUIVisualizerService
+               //for a given ICommand/Method call within the test ViewModel
+               testUIVisualizerService.ShowDialogResultResponders.Enqueue
+                (() =>
+                   {
+                       return true;
+                   }
+                );
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.TestUIVisualizerService.#ctor">
+            <summary>
+            Ctor
+            </summary>
+        </member>
+        <member name="M:Cinch.TestUIVisualizerService.Show(System.Type,System.Object,System.Boolean,System.EventHandler{Cinch.UICompletedEventArgs})">
+            <summary>
+            Returns the next Dequeue Show response expected. See the tests for 
+            the Func callback expected values
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <param name="setOwner">Set the owner of the window</param>
+            <param name="completedProc">Callback used when UI closes (may be null)</param>
+            <returns>True/False if UI is displayed</returns>
+        </member>
+        <member name="M:Cinch.TestUIVisualizerService.ShowDialog(System.Type,System.Object)">
+            <summary>
+            Returns the next Dequeue ShowDialog response expected. See the tests for 
+            the Func callback expected values
+            </summary>
+            <param name="type">Type of the window.</param>
+            <param name="state">Object state to associate with the dialog</param>
+            <returns>True/False if UI is displayed.</returns>
+        </member>
+        <member name="P:Cinch.TestUIVisualizerService.ShowResultResponders">
+            <summary>
+            Queue of callback delegates for the Show methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="P:Cinch.TestUIVisualizerService.ShowDialogResultResponders">
+            <summary>
+            Queue of callback delegates for the ShowDialog methods expected
+            for the item under test
+            </summary>
+        </member>
+        <member name="T:Cinch.BackgroundTaskManager`1">
+             <summary>
+             Class that manages the execution of background tasks, which allows
+             a ViewModel to setup a background task using a Func&lt;T&gt; and use
+             the completed results using a Action&lt;T&gt;. This class also
+             allows Unit tests to be notified when the background tasks completes.
+            
+             Taken aand subsequently modified from 
+             http://blogs.msdn.com/delay/archive/2009/04/08/nobody-likes-seeing-the-hourglass-keep-your-application-responsive-with-backgroundtaskmanager-on-wpf-and-silverlight.aspx
+             
+             </summary>
+             <example>
+             <![CDATA[
+             
+                //==================================================================
+                //
+                //  EXAMPLE :  Using the BackgroundTaskCompleted Event raised by
+                //              the BackgroundTaskManager
+                //
+                //==================================================================
+                //Have a property for the BackgroundTaskManager in the ViewModel
+                public BackgroundTaskManager<Int32> BgWorker
+                {
+                    get { return bgWorker; }
+                    set
+                    {
+                        bgWorker = value;
+                        OnPropertyChanged();
+                    }
+                }
+                
+                //Then wire it up
+                bgWorker = new BackgroundTaskManager<int>(
+                    () =>
+                        {
+                            Int32 innerCount = 0;
+                            for (innerCount = 0; innerCount < 200000000; innerCount++)
+                            {
+            
+                            }
+                            return innerCount;
+                        },
+                    (result) =>
+                        {
+                            Count = result;
+                        });
+                 
+                //Some ViewModel method
+                public void Test()
+                {
+                    bgWorker.RunBackgroundTask();
+                }
+                        
+               //Then use it in Unit test as follows
+               ManualResetEvent manualEvent = new ManualResetEvent(false);
+               vm.BgWorker.BackgroundTaskCompleted += delegate(object sender, EventArgs args)
+               {
+                   // Signal the waiting NUnit thread that we're ready to move on.
+                   manualEvent.Set();
+               };
+               vm.Test();
+               manualEvent.WaitOne(5000, false);
+               Assert.AreEqual(200000000, vm.Count);
+             ]]>
+             </example>
+        </member>
+        <member name="M:Cinch.BackgroundTaskManager`1.#ctor(System.Func{`0},System.Action{`0})">
+            <summary>
+            Constructs a new BackgroundTaskManager with
+            the function to run, and the action to call when the function to run
+            completes
+            </summary>
+            <param name="taskFunc">The function to run in the background</param>
+            <param name="completionAction">The completed action to call
+            when the background function completes</param>
+        </member>
+        <member name="F:Cinch.BackgroundTaskManager`1.BackgroundTaskStarted">
+            <summary>
+            Event invoked when a background task is started.
+            </summary>
+        </member>
+        <member name="F:Cinch.BackgroundTaskManager`1.BackgroundTaskCompleted">
+            <summary>
+            Event invoked when a background task completes.
+            </summary>
+        </member>
+        <member name="M:Cinch.BackgroundTaskManager`1.RunBackgroundTask">
+            <summary>
+            Runs a task function on a background thread; 
+            invokes a completion action on the main thread.
+            </summary>
+        </member>
+        <member name="P:Cinch.BackgroundTaskManager`1.CompletionWaitHandle">
+            <summary>
+            Allows the Unit test to be notified on Task completion
+            </summary>
+        </member>
+        <member name="T:Cinch.MouseBinding">
+            <summary>
+            Mouse Binding support
+            </summary>
+        </member>
+        <member name="T:Cinch.BindableInput">
+            <summary>
+             This allows InputBinding based classes to have bindable 
+             ICommand and CommandParameter elements.
+            </summary>
+        </member>
+        <member name="F:Cinch.BindableInput.CommandProperty">
+            <summary>
+            ICommand implementation to bind to the input type.
+            </summary>
+        </member>
+        <member name="F:Cinch.BindableInput.CommandParameterProperty">
+            <summary>
+            Parameter for the ICommand
+            </summary>
+        </member>
+        <member name="F:Cinch.BindableInput.DataContextProperty">
+            <summary>
+            DataContext for any bindings applied to this CommandEvent
+            </summary>
+        </member>
+        <member name="M:Cinch.BindableInput.IsInputBindingMatch(System.Windows.Input.InputBinding)">
+            <summary>
+            This method is used to match input bindings to remove them from the list.
+            </summary>
+            <param name="binding">Binding being matched</param>
+            <returns>True if binding matches this object</returns>
+        </member>
+        <member name="M:Cinch.BindableInput.CreateInputBinding">
+            <summary>
+            This method creates a WPF input binding from the Gesture in this object.
+            </summary>
+            <returns>WPF input binding.</returns>
+        </member>
+        <member name="M:Cinch.BindableInput.CreateInstanceCore">
+            <summary>
+            Required override - not implemented.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Cinch.BindableInput.Command">
+            <summary>
+            Gets and sets the Command
+            </summary>
+        </member>
+        <member name="P:Cinch.BindableInput.CommandParameter">
+            <summary>
+            Gets and sets the CommandParameter
+            </summary>
+        </member>
+        <member name="P:Cinch.BindableInput.Gesture">
+            <summary>
+            Gesture mapped to input
+            </summary>
+        </member>
+        <member name="T:Cinch.BindableInput.CommandParameterRouter">
+            <summary>
+            This class wraps an existing ICommand implementation and 
+            supplies the CommandParameter support.
+            </summary>
+        </member>
+        <member name="M:Cinch.MouseBinding.IsInputBindingMatch(System.Windows.Input.InputBinding)">
+            <summary>
+            This method is used to match input bindings to remove them from the list.
+            </summary>
+            <param name="binding">Binding being matched</param>
+            <returns>True if binding matches this object</returns>
+        </member>
+        <member name="M:Cinch.MouseBinding.CreateInputBinding">
+            <summary>
+            This method creates a WPF input binding from the Gesture in this object.
+            </summary>
+            <returns>WPF input binding.</returns>
+        </member>
+        <member name="P:Cinch.MouseBinding.Gesture">
+            <summary>
+            Gesture mapped to input
+            </summary>
+        </member>
+        <member name="T:Cinch.KeyBinding">
+            <summary>
+            KeyBinding support
+            </summary>
+        </member>
+        <member name="M:Cinch.KeyBinding.IsInputBindingMatch(System.Windows.Input.InputBinding)">
+            <summary>
+            This method is used to match input bindings to remove them from the list.
+            </summary>
+            <param name="binding">Binding being matched</param>
+            <returns>True if binding matches this object</returns>
+        </member>
+        <member name="M:Cinch.KeyBinding.CreateInputBinding">
+            <summary>
+            This method creates a WPF input binding from the Gesture in this object.
+            </summary>
+            <returns>WPF input binding.</returns>
+        </member>
+        <member name="P:Cinch.KeyBinding.Gesture">
+            <summary>
+            Gesture mapped to input
+            </summary>
+        </member>
+        <member name="P:Cinch.KeyBinding.Modifiers">
+            <summary>
+            Modifier 
+            </summary> 
+        </member>
+        <member name="P:Cinch.KeyBinding.Key">
+            <summary>
+            Key 
+            </summary>
+        </member>
+        <member name="T:Cinch.InputBindingCollection">
+            <summary>
+            Collection of command to event mappings
+            </summary>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.AddBindings(System.Object)">
+            <summary>
+            Wire up events to the target
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.RemoveBindings(System.Object)">
+            <summary>
+            Unwire all target events
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.OnCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            This handles the collection change event - it then subscribes and unsubscribes events.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.OnItemAdded(Cinch.BindableInput)">
+            <summary>
+            A new item has been added to the event list
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Cinch.InputBindingCollection.OnItemRemoved(Cinch.BindableInput)">
+            <summary>
+            An item has been removed from the event list.
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="T:Cinch.InputBinder">
+            <summary>
+            This class replaces the traditional WPF InputBinding collection with a bindable
+            collection that is usable in the MVVM pattern.
+            </summary>
+            <example>
+            <![CDATA[
+            
+            <Cinch:InputBinder.Bindings>
+               <Cinch:KeyBinding Command="{Binding OnF3}" Key="F3" Modifiers="ALT" />
+               <Cinch:MouseBinding Command="{Binding OnWheelClick}" Gesture="Control+WheelClick" />
+            </Cinch:InputBinder.Bindings>
+            
+            ]]>
+            </example>
+        </member>
+        <member name="M:Cinch.InputBinder.InternalGetBindingCollection(System.Windows.DependencyObject)">
+            <summary>
+            Retrieves the mapping collection
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cinch.InputBinder.GetBindings(System.Windows.DependencyObject)">
+            <summary>
+            This retrieves the input binding collection
+            </summary>
+            <param name="obj">Dependency Object</param>
+            <returns>Binding collection</returns>
+        </member>
+        <member name="M:Cinch.InputBinder.SetBindings(System.Windows.DependencyObject,Cinch.InputBindingCollection)">
+            <summary>
+            This sets the mapping collection.
+            </summary>
+            <param name="obj">Dependency Object</param>
+            <param name="value">Mapping collection</param>
+        </member>
+        <member name="M:Cinch.InputBinder.OnBindingsChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This changes the event mapping
+            </summary>
+            <param name="target"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Cinch.EditableValidatingViewModelBase">
+            <summary>
+            Provides a IDataErrorInfo validating object that is also
+            editable by implementing the IEditableObject interface
+            </summary>
+        </member>
+        <member name="F:Cinch.EditableValidatingViewModelBase._savedState">
+            <summary>
+            This stores the current "copy" of the object. 
+            If it is non-null, then we are in the middle of an 
+            editable operation.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.BeginEdit">
+            <summary>
+            Begins an edit on an object.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.OnBeginEdit">
+            <summary>
+            Interception point for derived logic to do work when beginning edit.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.CancelEdit">
+            <summary>
+            Discards changes since the last 
+            <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> call.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.OnCancelEdit">
+            <summary>
+            This is called in response CancelEdit and provides an interception point.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.EndEdit">
+            <summary>
+            Pushes changes since the last 
+            <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> 
+            or <see cref="M:System.ComponentModel.IBindingList.AddNew"/> 
+            call into the underlying object.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.OnEndEdit">
+            <summary>
+            This is called in response EndEdit and provides an interception point.
+            </summary>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.GetFieldValues">
+            <summary>
+            This is used to clone the object.  
+            Override the method to provide a more efficient clone.  
+            The default implementation simply reflects across 
+            the object copying every field.
+            </summary>
+            <returns>Clone of current object</returns>
+        </member>
+        <member name="M:Cinch.EditableValidatingViewModelBase.RestoreFieldValues(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            This restores the state of the current object from the passed clone object.
+            </summary>
+            <param name="fieldValues">Object to restore state from</param>
+        </member>
+        <member name="T:Cinch.WPFMenuItemCinch">
+            <summary>
+            Provides a mechanism for constructing MenuItems
+            within a ViewModel
+            </summary>
+            <example>
+            <![CDATA[
+            
+             AND IN VIEWMODEL C# DO THIS TO CREATE MENUS
+             private List<WPFMenuItem> CreateMenus()
+             {
+               var menu = new List<WPFMenuItem>();
+               //create the File Menu
+               var miFile = new WPFMenuItem("File");
+               var miExit = new WPFMenuItem("Exit");
+               miExit.Command = ExitApplicationCommand;
+               miFile.Children.Add(miExit);
+               menu.Add(miFile);
+               //create the Actions Menu
+               menu.Add(new WPFMenuItem("Actions"));
+               return menu;
+             }
+            
+            
+             public List<WPFMenuItem> MenuOptions
+             {
+                get
+                {
+                    return CreateMenus();
+                }
+             }
+            
+              AND IN XAML DO THE FOLLOWING FOR THE STYLE
+              <Style x:Key="ContextMenuItemStyle">
+                <Setter Property="MenuItem.Header" Value="{Binding Text}"/>
+                <Setter Property="MenuItem.ItemsSource" Value="{Binding Children}"/>
+                <Setter Property="MenuItem.Command" Value="{Binding Command}" />
+                <Setter Property="MenuItem.Icon" Value="{Binding Icon}" />
+              </Style>
+            
+              AND YOU CAN CREATE A MENU LIKE THIS
+              <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding Image}" Width="16" Height="16" />
+                <TextBlock Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Text="{Binding Header}" />
+                <StackPanel.ContextMenu>
+                    <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
+                        ItemsSource="{Binding MenuOptions}" />
+                </StackPanel.ContextMenu>
+              </StackPanel>
+            ]]>
+            </example>
+        </member>
+        <member name="T:Cinch.SimpleCommandCinch">
+            <summary>
+            Implements the ICommand and wraps up all the verbose stuff so that you 
+            can just pass 2 delegates 1 for the CanExecute and one for the Execute
+            </summary>
+        </member>
+        <member name="M:Cinch.SimpleCommandCinch.CanExecute(System.Object)">
+            <summary>
+            Checks if the command Execute method can run
+            </summary>
+            <param name="parameter">THe command parameter to be passed</param>
+            <returns>Returns true if the command can execute. 
+            By default true is returned so that if the user of SimpleCommand 
+            does not specify a CanExecuteCommand delegate the command 
+            still executes.</returns>
+        </member>
+        <member name="M:Cinch.SimpleCommandCinch.Execute(System.Object)">
+            <summary>
+            Executes the actual command
+            </summary>
+            <param name="parameter">THe command parameter to be passed</param>
+        </member>
+        <member name="P:Cinch.SimpleCommandCinch.CanExecuteDelegate">
+            <summary>
+            Gets or sets the Predicate to execute when the 
+            CanExecute of the command gets called
+            </summary>
+        </member>
+        <member name="P:Cinch.SimpleCommandCinch.ExecuteDelegate">
+            <summary>
+            Gets or sets the action to be called when the 
+            Execute method of the command gets called
+            </summary>
+        </member>
+        <member name="T:Cinch.NumericTextBoxBehavior">
+            <summary>
+            This forces a TextBoxBase control to be numeric-entry only
+            </summary>
+            <example>
+            <![CDATA[  <TextBox Cinch:NumericTextBoxBehavior.IsEnabled="True" />  ]]>
+            </example>
+        </member>
+        <member name="F:Cinch.NumericTextBoxBehavior.IsEnabledProperty">
+            <summary>
+            Dependency Property for turning on numeric behavior in a TextBox.
+            </summary>
+        </member>
+        <member name="M:Cinch.NumericTextBoxBehavior.GetIsEnabled(System.Windows.DependencyObject)">
+            <summary>
+            Attached Property getter for the IsEnabled property.
+            </summary>
+            <param name="source">Dependency Object</param>
+            <returns>Current property value</returns>
+        </member>
+        <member name="M:Cinch.NumericTextBoxBehavior.SetIsEnabled(System.Windows.DependencyObject,System.Boolean)">
+            <summary>
+            Attached Property setter for the IsEnabled property.
+            </summary>
+            <param name="source">Dependency Object</param>
+            <param name="value">Value to set on the object</param>
+        </member>
+        <member name="M:Cinch.NumericTextBoxBehavior.OnEnabledStateChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            This is the property changed handler for the IsEnabled property.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Cinch.NumericTextBoxBehavior.OnClipboardPaste(System.Object,System.Windows.DataObjectPastingEventArgs)">
+            <summary>
+            This method handles paste and drag/drop events onto the TextBox.  It restricts the character
+            set to numerics and ensures we have consistent behavior.
+            </summary>
+            <param name="sender">TextBox sender</param>
+            <param name="e">EventArgs</param>
+        </member>
+        <member name="M:Cinch.NumericTextBoxBehavior.OnKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            This checks the PreviewKeyDown on the TextBox and 
+            constrains it to a numeric value.
+            </summary>
+        </member>
+    </members>
+</doc>
