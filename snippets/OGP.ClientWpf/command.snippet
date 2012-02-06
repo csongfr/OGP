@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>command</Title>
+			<Shortcut>command</Shortcut>
+			<Description>Code snippet for an automatically implemented command property, adapted for MVVM pattern.</Description>
+			<Author>Vivien RUIZ, SopraGroup</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>property</ID>
+					<ToolTip>Property name</ToolTip>
+					<Default>MyProperty</Default>
+				</Literal>
+        <Literal>
+          <ID>backingStore</ID>
+          <ToolTip>Backing store property name</ToolTip>
+          <Default>myProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>description</ID>
+          <ToolTip>Description</ToolTip>
+          <Default>fait le café</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[/// <summary>
+        /// Stocke la commande qui $description$.
+        /// </summary>
+        private SimpleCommand $backingStore$;
+        
+        /// <summary>
+        /// Gets ou sets la commande qui $description$.
+        /// </summary>
+        public SimpleCommand $property$
+					        {
+					            get
+                      {
+                          if ($backingStore$ == null)
+                          {
+                              $backingStore$ = new SimpleCommand
+                              {
+                                  ExecuteDelegate = delegate
+                                  {
+                                      $end$
+                                  }
+                              };
+                          }
+                          return $backingStore$;
+                      }
+					        }]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

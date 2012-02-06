@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>propvm</Title>
+			<Shortcut>propvm</Shortcut>
+			<Description>Code snippet for an automatically implemented property, adapted for MVVM pattern.</Description>
+			<Author>Vivien RUIZ, SopraGroup</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<ToolTip>Property type</ToolTip>
+					<Default>int</Default>
+				</Literal>
+				<Literal>
+					<ID>property</ID>
+					<ToolTip>Property name</ToolTip>
+					<Default>MyProperty</Default>
+				</Literal>
+        <Literal>
+          <ID>backProperty</ID>
+          <ToolTip>Backing store property name</ToolTip>
+          <Default>myProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>changeArgs</ID>
+          <ToolTip>Change args property name</ToolTip>
+          <Default>property</Default>
+        </Literal>
+				<Literal>
+					<ID>object</ID>
+					<ToolTip>Object wrapped</ToolTip>
+					<Default>this</Default>
+				</Literal>
+        <Literal Editable="false">
+          <ID>classname</ID>
+          <ToolTip>Class name</ToolTip>
+          <Function>ClassName()</Function>
+          <Default>ClassNamePlaceHolder</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[/// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs $changeArgs$ChangeArgs = Sopra.Technique.Util.ObservableHelper.CreateArgs<$classname$>(x => x.$property$);
+        
+        public $type$ $property$
+					        {
+					            get
+                      {
+                          return $object$.$backProperty$;
+                      }
+					            set
+					            {
+					                if ($object$.$backProperty$ == value)
+                          {
+					                    return;
+                          }
+
+					                $object$.$backProperty$ = value;
+
+					                 NotifyPropertyChanged($changeArgs$ChangeArgs);
+					            }
+					        }$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
