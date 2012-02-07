@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP.All", "OGP.All\OGP.All.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP.Bll", "OGP.Bll\OGP.Bll.csproj", "{DB3E59BE-8440-4142-A64D-C4D1477F12CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP.test", "OGP.test\OGP.test.csproj", "{D32F9656-0C39-4496-942A-C504841F77AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -283,6 +285,46 @@ Global
 		{DB3E59BE-8440-4142-A64D-C4D1477F12CE}.ReleaseCea64|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DB3E59BE-8440-4142-A64D-C4D1477F12CE}.ReleaseCea64|Mixed Platforms.Build.0 = Release|Any CPU
 		{DB3E59BE-8440-4142-A64D-C4D1477F12CE}.ReleaseCea64|x86.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciDebug|Any CPU.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciDebug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciDebug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciDebug|x86.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciRelease|Any CPU.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciRelease|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciRelease|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GciRelease|x86.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirDebug|Any CPU.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirDebug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirDebug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirDebug|x86.ActiveCfg = Debug|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirRelease|Any CPU.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirRelease|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirRelease|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.GtirRelease|x86.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release64|Any CPU.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release64|Any CPU.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release64|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release64|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.Release64|x86.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.ReleaseCea64|Any CPU.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.ReleaseCea64|Any CPU.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.ReleaseCea64|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.ReleaseCea64|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32F9656-0C39-4496-942A-C504841F77AE}.ReleaseCea64|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

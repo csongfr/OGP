@@ -11,6 +11,7 @@ using System.IO;
 using OGP.ClientWpf.View;
 using System.Windows;
 using Utils.Observable;
+using System.Collections.ObjectModel;
 
 
 
@@ -20,19 +21,29 @@ namespace OGP.ClientWpf.ViewModel
     {                                 
         #region Membres privés
 
+        /// <summary>
+        /// Commande qui ferme l'application
+        /// </summary>
         private RelayCommand exitCommand;
 
+        /// <summary>
+        /// Stock le catalogue des plugins
+        /// </summary>
         private CompositionContainer _container;
 
         /// <summary>
-        /// Stocke le plugin actif.
+        /// Stock le plugin actif.
         /// </summary>
-        private String pluginActif;
+        private string pluginActif;
 
         /// <summary>
-        /// Stocke la liste des plugins actifs.
+        /// Stock la liste des plugins actifs.
         /// </summary>
-        private List<DocumentContent> listeDocuments;
+        private ObservableCollection<DocumentContent> listeDocuments;
+
+        /// <summary>
+        /// Stock la listes de tous les plugins
+        /// </summary>
         [ImportMany]
         private IEnumerable<Lazy<DocumentContent, IDocumentData>> Plugin
         {
@@ -44,7 +55,10 @@ namespace OGP.ClientWpf.ViewModel
 
         #region listes plugins
 
-        public List<string> ListesPlugins
+        /// <summary>
+        /// Stock le titre des plugins
+        /// </summary>
+        public ObservableCollection<string> ListesPlugins
         {
             get;
             set;
@@ -58,7 +72,7 @@ namespace OGP.ClientWpf.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs listeDocumentsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeDocuments);
 
-        public List<DocumentContent> ListeDocuments
+        public ObservableCollection<DocumentContent> ListeDocuments
         {
             get
             {
@@ -67,8 +81,10 @@ namespace OGP.ClientWpf.ViewModel
             set
             {
                 this.listeDocuments = value;
+                NotifyPropertyChanged(listeDocumentsChangeArgs);
             }
         }
+
 
         /// <summary>
         /// Cinch : INPC Helper
@@ -78,7 +94,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Gets ou Sets du plugin actif.
         /// </summary>
-        public String PluginActif
+        public string PluginActif
         {
             get
             {
@@ -88,6 +104,7 @@ namespace OGP.ClientWpf.ViewModel
             {
                 this.pluginActif = value;
                 ChargerPlugins();
+                NotifyPropertyChanged(pluginActifChangeArgs);
 
             }
         }
@@ -124,8 +141,8 @@ namespace OGP.ClientWpf.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            this.ListeDocuments = new List<DocumentContent>();
-            this.ListesPlugins = new List<string>();
+            this.ListeDocuments = new ObservableCollection<DocumentContent>();
+            this.ListesPlugins = new ObservableCollection<string>();
             ChargerPlugins();
             Listeplugins();
         }
@@ -134,6 +151,9 @@ namespace OGP.ClientWpf.ViewModel
 
         #region Méthodes privées
 
+        /// <summary>
+        /// Stock les titres des plugins dans la liste 
+        /// </summary>
         private void Listeplugins()
         {
             foreach (var plugin in this.Plugin)
@@ -145,7 +165,9 @@ namespace OGP.ClientWpf.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// récupère les plugins présent dans le répertoire ..\..\Ressources\Plugins
+        /// </summary>
         private void ChargerPlugins()
         {
             try
@@ -159,7 +181,9 @@ namespace OGP.ClientWpf.ViewModel
                     if (plugin.Value != null)
                     {
                         if (plugin.Metadata.Title.Equals(pluginActif))
-                            this.ListeDocuments.Add(plugin.Value);
+                        {
+                          ListeDocuments.Add(plugin.Value);
+                        }
                     }
                 }
             }

@@ -22,15 +22,22 @@
                     <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
                 </Fluent:RibbonGroupBox>
 
-                <!--Gallery with all persons-->
+                <!--Gallery with all persons
                 <Fluent:RibbonGroupBox Header="Liste des plugins" Name="P" Width="200">
                     <Fluent:InRibbonGallery ItemWidth="100" ItemHeight="56" ResizeMode="Both"                             
                                       ItemsSource="{Binding Persons}"
                                       SelectedItem="{Binding Current}">
                     </Fluent:InRibbonGallery>
-                </Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>-->
                 <Fluent:RibbonGroupBox Header="Plugin" >
                     <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            
+            <Fluent:RibbonTabItem Header="Gestion des tâches" Width="200">
+                <Fluent:RibbonGroupBox Header="Actions">
+                    <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
+                    <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

@@ -4,13 +4,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
-    Title="MonDocument">
+    Title="ToDoList">
 
   <Grid>
-    <StackPanel>
-      <Label>Bonjour</Label>
-      <Button Content="Button" Height="23" Name="button1" Width="75" />
-    </StackPanel>
+    <StackPanel Width="1023">
+                <DataGrid AutoGenerateColumns="False" Height="434" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" Width="887">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="!" Width="50" />
+                        <DataGridTextColumn Header="%" Width="50"/>
+                        <DataGridTextColumn Header="Est." Width="40"/>
+                        <DataGridTextColumn Header="Temps passé" Width="90"/>
+                        <DataGridTextColumn Header="" Width="45"/>
+                        <DataGridTextColumn Header="Date limite" Width="90"/>
+                        <DataGridTextColumn Header="Personnes" Width="90"/>
+                        <DataGridTextColumn Header="Status" Width="90"/>
+                        <DataGridTextColumn Header="Catégories" Width="90"/>
+                        <DataGridTextColumn Header="Sauvegarder" Width="90"/>
+                        <DataGridCheckBoxColumn Header="Terminé" Width="90"/>
+                        <DataGridTextColumn Header="Titre" Width="70"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+        </StackPanel>
   </Grid>
 
 </ad:DocumentContent>

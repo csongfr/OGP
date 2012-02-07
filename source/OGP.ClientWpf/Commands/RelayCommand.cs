@@ -8,8 +8,6 @@
 // The license is available online http://fluent.codeplex.com/license
 
 #endregion
-
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -27,6 +25,7 @@ namespace OGP.ClientWpf.Comands
         #region CanExecute Automatic Updating
 
         [SuppressMessage("Microsoft.Performance", "CA1823", Justification = "This variable is used. I can swear")]
+
         static DispatcherTimer timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200), DispatcherPriority.SystemIdle, (s, e) => UpdateCanExcecute(), Dispatcher.CurrentDispatcher);
 
         static void UpdateCanExcecute()
@@ -128,7 +127,6 @@ namespace OGP.ClientWpf.Comands
         /// <summary>
         /// Executes the command
         /// </summary>
-        /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
             execute(parameter);

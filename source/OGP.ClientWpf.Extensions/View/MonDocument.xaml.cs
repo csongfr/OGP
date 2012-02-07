@@ -7,7 +7,7 @@ namespace OGP.ClientWpf.Extensions
     /// Logique d'interaction pour MonDocument.xaml
     /// </summary>
     [Export(typeof(DocumentContent))]
-    [ExportMetadata("Title", "MonDocument")]
+    [ExportMetadata("Title", "ToDoList")]
     public partial class MonDocument : DocumentContent
     {
         public MonDocument()

@@ -5,6 +5,11 @@ using System.Text;
 
 namespace OGP.ClientWpf.ViewModel
 {
+    /// <summary>
+    /// Titre du plugin
+    /// </summary>
+    /// 
+
     public interface IDocumentData
     {
         string Title { get; }
