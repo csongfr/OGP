@@ -144,8 +144,7 @@ namespace OGP.ClientWpf.ViewModel
                 }
             }
         }
-
-
+                                     
         private void ChargerPlugins()
         {
             try
