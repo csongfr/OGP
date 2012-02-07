@@ -9,6 +9,7 @@
 
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top">
+
             <!--Quick Access Toolbar Items-->
             <Fluent:Ribbon.QuickAccessItems>
                 <Fluent:QuickAccessMenuItem/>
@@ -28,6 +29,9 @@
                                       SelectedItem="{Binding Current}">
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Plugin" >
+                    <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <!--Backstage Items-->
@@ -39,18 +43,19 @@
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
         </Fluent:Ribbon>
-        
+
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="Barre de statut"/>
         </StatusBar>
-        
+
+
         <ad:DockingManager>
             <ad:ResizingPanel>
                 <ad:DockablePane ad:ResizingPanel.ResizeWidth="300">
                     <ad:DockableContent Title="Test1">test</ad:DockableContent>
                     <ad:DockableContent Title="Test2">test</ad:DockableContent>
                 </ad:DockablePane>
-                <ad:DocumentPane ItemsSource="{Binding Documents}" />
+                <ad:DocumentPane ItemsSource="{Binding ListeDocuments}"  />
             </ad:ResizingPanel>
         </ad:DockingManager>
     </DockPanel>

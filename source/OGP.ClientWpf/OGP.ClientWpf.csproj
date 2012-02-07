@@ -76,6 +76,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ViewModel\IDocumentData.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -129,6 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ressources\Plugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
+      <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
+      <Name>Utils.Observable</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
