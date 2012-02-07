@@ -1,0 +1,5 @@
+D:\projet\OGP\source\OGP.All\bin\Debug\OGP.All.dll
+D:\projet\OGP\source\OGP.All\bin\Debug\OGP.All.pdb
+D:\projet\OGP\source\OGP.All\obj\Debug\ResolveAssemblyReference.cache
+D:\projet\OGP\source\OGP.All\obj\Debug\OGP.All.dll
+D:\projet\OGP\source\OGP.All\obj\Debug\OGP.All.pdb
