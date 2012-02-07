@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumPriorite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VOCategorie.cs" />
+    <Compile Include="VOPersonne.cs" />
+    <Compile Include="VOTache.cs" />
+    <Compile Include="VOToDoList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
