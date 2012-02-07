@@ -1,0 +1,16 @@
+﻿<Fluent:RibbonWindow x:Class="OGP.ClientWpf.View.GestionDesTaches"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        Title="GestionDesTaches" Height="292" Width="455">
+    <DockPanel LastChildFill="True">
+        <Fluent:Ribbon DockPanel.Dock="Top">
+            <Fluent:RibbonTabItem Header="Gestion des tâches" Width="200">
+                <Fluent:RibbonGroupBox Header="Actions">
+                    <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
+                    <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+    </DockPanel>
+</Fluent:RibbonWindow>

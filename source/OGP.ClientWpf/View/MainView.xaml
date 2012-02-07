@@ -16,7 +16,7 @@
             </Fluent:Ribbon.QuickAccessItems>
 
             <!--Tabs-->
-            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)">
+            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False">
                 <Fluent:RibbonGroupBox Header="Actions">
                     <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
                     <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
@@ -29,18 +29,17 @@
                                       SelectedItem="{Binding Current}">
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>-->
-                <Fluent:RibbonGroupBox Header="Plugin" >
+                
+                <Fluent:RibbonGroupBox Header="Plugin"  Width="115">
                     <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            
-            <Fluent:RibbonTabItem Header="Gestion des tâches" Width="200">
-                <Fluent:RibbonGroupBox Header="Actions">
-                    <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
-                    <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
 
+            <Fluent:RibbonTabItem Header="Gestion Des Tâches">
+                <Fluent:RibbonTabItem.Resources>
+     
+                </Fluent:RibbonTabItem.Resources>
+            </Fluent:RibbonTabItem>
             <!--Backstage Items-->
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>

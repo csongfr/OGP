@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</ProjectGuid>
+    <ProjectGuid>{A1C4CF3D-AF46-4BFC-8EDB-62BBB8B4EB74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OGP.ValueObjects</RootNamespace>
-    <AssemblyName>OGP.ValueObjects</AssemblyName>
+    <RootNamespace>Utils.Wcf</RootNamespace>
+    <AssemblyName>Utils.Wcf</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,12 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumPriorite.cs" />
+    <Compile Include="BasicWcfHelper.cs" />
+    <Compile Include="ConfigurationWcf.cs" />
+    <Compile Include="Interfaces\IWcfHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VOCategorie.cs" />
-    <Compile Include="VOPersonne.cs" />
-    <Compile Include="VOTache.cs" />
-    <Compile Include="VOToDoList.cs" />
+    <Compile Include="WcfHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
