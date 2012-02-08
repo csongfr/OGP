@@ -1,9 +1,0 @@
-D:\Projets\OGP\source\OGP.ClientWpf\Ressources\Plugins\OGP.test.dll
-D:\Projets\OGP\source\OGP.ClientWpf\Ressources\Plugins\OGP.test.pdb
-D:\Projets\OGP\source\OGP.test\obj\Debug\ResolveAssemblyReference.cache
-D:\Projets\OGP\source\OGP.test\obj\Debug\test.baml
-D:\Projets\OGP\source\OGP.test\obj\Debug\test.g.cs
-D:\Projets\OGP\source\OGP.test\obj\Debug\OGP.test_MarkupCompile.cache
-D:\Projets\OGP\source\OGP.test\obj\Debug\OGP.test.g.resources
-D:\Projets\OGP\source\OGP.test\obj\Debug\OGP.test.dll
-D:\Projets\OGP\source\OGP.test\obj\Debug\OGP.test.pdb
