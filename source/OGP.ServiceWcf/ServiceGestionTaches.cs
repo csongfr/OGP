@@ -4,8 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using OGP.ValueObjects;
 using OGP.All;
+using OGP.ValueObjects;
 
 namespace OGP.ServiceWcf
 {
@@ -26,6 +26,19 @@ namespace OGP.ServiceWcf
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
             return allGestionTaches.ChargerFichier(nomFichier);
+        }
+
+        /// <summary>
+        /// Création d'un nouveau projet
+        /// </summary>
+        /// <param name="nomFichier">Le nom du fichier</param>
+        /// <param name="nomProjet">Le nom du projet</param>
+        /// <returns>VOToDoList</returns>
+        public VOToDoList NouvelleToDoList(string nomFichier, string nomProjet)
+        {
+            IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
+
+            return allGestionTaches.NouvelleGestionTaches(nomFichier, nomProjet);
         }
     }
 }

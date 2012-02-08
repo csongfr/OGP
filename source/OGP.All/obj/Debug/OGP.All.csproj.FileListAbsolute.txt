@@ -10,3 +10,5 @@ D:\Projets\OGP\source\OGP.All\obj\Debug\OGP.All.dll
 D:\Projets\OGP\source\OGP.All\obj\Debug\OGP.All.pdb
 D:\Projets\OGP\source\OGP.All\bin\Debug\OGP.ValueObjects.dll
 D:\Projets\OGP\source\OGP.All\bin\Debug\OGP.ValueObjects.pdb
+D:\Projets\OGP\source\OGP.All\bin\Debug\OGP.Bll.dll
+D:\Projets\OGP\source\OGP.All\bin\Debug\OGP.Bll.pdb

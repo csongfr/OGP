@@ -42,11 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllGestionTaches.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Interfaces\AllFactory.cs" />
     <Compile Include="Interfaces\IAllGestionTaches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OGP.Bll\OGP.Bll.csproj">
+      <Project>{DB3E59BE-8440-4142-A64D-C4D1477F12CE}</Project>
+      <Name>OGP.Bll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OGP.ValueObjects\OGP.ValueObjects.csproj">
       <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
       <Name>OGP.ValueObjects</Name>

@@ -13,7 +13,7 @@ namespace OGP.All
         /// <summary>
         /// Méthode permettant de générer l'objet AllGestionTaches
         /// </summary>
-        /// <returns></returns>
+        /// <returns>IAllGestionTaches : objet permettant la gestion des taches</returns>
         public static IAllGestionTaches GetAllGestionTaches()
         {
             return new AllGestionTaches();

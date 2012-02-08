@@ -26,14 +26,19 @@ namespace ClientTests
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
                 "ClientTest",
                 client =>
                 {
-                    VOToDoList listetaches = client.ChagerListeTaches("");
-
+                    //VOToDoList listetaches = client.ChagerListeTaches("");
+                    VOToDoList listetaches = client.NouvelleToDoList("TestNewToDoList", "Test");
                 });
 
             if (exception != null)

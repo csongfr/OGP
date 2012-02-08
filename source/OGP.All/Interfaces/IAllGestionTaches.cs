@@ -21,8 +21,16 @@ namespace OGP.All
         /// <summary>
         /// Prototype de la méthode permettant d'ajouter une tâche
         /// </summary>
-        /// <param name="nouvelleToDoList"></param>
-        /// <param name="nouvelleTache"></param>
+        /// <param name="nouvelleToDoList">projet dans lequel on ajoute une tâche</param>
+        /// <param name="nouvelleTache"> la tâche à ajouter</param>
         void AjouterTache(VOToDoList nouvelleToDoList, VOTache nouvelleTache);
+
+        /// <summary>
+        /// Prototype de la méthode permettant de créer une nouvelle gestion de projet
+        /// </summary>
+        /// <param name="nomFichier">Nom du fichier</param>
+        /// <param name="NomProjet">Nom du projet</param>
+        /// <returns>VOToDoList</returns>
+        VOToDoList NouvelleGestionTaches(string nomFichier, string nomProjet);
     }
 }
