@@ -7,3 +7,12 @@ D:\projet\OGP\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions
 D:\projet\OGP\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.g.resources
 D:\projet\OGP\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.dll
 D:\projet\OGP\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.pdb
+D:\projet\final\ogp\source\OGP.ClientWpf\Ressources\Plugins\OGP.ClientWpf.Extensions.dll
+D:\projet\final\ogp\source\OGP.ClientWpf\Ressources\Plugins\OGP.ClientWpf.Extensions.pdb
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\ResolveAssemblyReference.cache
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\View\MonDocument.baml
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\View\MonDocument.g.cs
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions_MarkupCompile.cache
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.g.resources
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.dll
+D:\projet\final\ogp\source\OGP.ClientWpf.Extensions\obj\Debug\OGP.ClientWpf.Extensions.pdb

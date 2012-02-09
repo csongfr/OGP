@@ -65,6 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
+    <Compile Include="View\NouvelleGestionTache.xaml.cs">
+      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\GestionDesTaches.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -89,6 +93,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\NouvelleGestionTache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -144,6 +152,10 @@
       <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
       <Name>Utils.Observable</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\nouveau1-16x16.png" />
+    <Resource Include="Ressources\Images\nouveau1-32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

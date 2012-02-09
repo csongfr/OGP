@@ -1,15 +1,22 @@
 ﻿<Fluent:RibbonWindow x:Class="OGP.ClientWpf.View.MainView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:View="clr-namespace:OGP.ClientWpf.View"
+        xmlns:ViewModel="clr-namespace:OGP.ClientWpf.ViewModel"
+        xmlns:local="clr-namespace:OGP.ClientWpf"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         Title="OGP - Outil de Gestion de Projet" Width="1650"
         Height="1020" WindowStyle="None" Background="#FFEBEDF0" 
         Icon="..\Ressources\Images\logo-16x16.png">
-
+    
+ 
+    
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top">
 
+          
+        
             <!--Quick Access Toolbar Items-->
             <Fluent:Ribbon.QuickAccessItems>
                 <Fluent:QuickAccessMenuItem/>
@@ -18,8 +25,9 @@
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False">
                 <Fluent:RibbonGroupBox Header="Actions">
-                    <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
-                    <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+                    <Fluent:Button Header="Ajouter" Command="{Binding AjouterPlugin}" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
+                    <Fluent:Button Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+                    <Fluent:Button Header="Nouveau" Command="{Binding OuvrirFichier}" Icon="..\Ressources\Images\nouveau1-16x16.png" LargeIcon="..\Ressources\Images\nouveau1-32x32.png"/>
                 </Fluent:RibbonGroupBox>
 
                 <!--Gallery with all persons
@@ -30,16 +38,13 @@
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>-->
                 
-                <Fluent:RibbonGroupBox Header="Plugin"  Width="115">
+                <Fluent:RibbonGroupBox Header="Liste Des Plugins"  Width="115">
                     <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-
-            <Fluent:RibbonTabItem Header="Gestion Des Tâches">
-                <Fluent:RibbonTabItem.Resources>
-     
-                </Fluent:RibbonTabItem.Resources>
-            </Fluent:RibbonTabItem>
+            
+                <View:GestionDesTaches/>
+            
             <!--Backstage Items-->
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>
@@ -55,11 +60,11 @@
         </StatusBar>
 
 
-        <ad:DockingManager>
+       <ad:DockingManager>
             <ad:ResizingPanel>
                 <ad:DockablePane ad:ResizingPanel.ResizeWidth="300">
-                    <ad:DockableContent Title="Test1">test</ad:DockableContent>
-                    <ad:DockableContent Title="Test2">test</ad:DockableContent>
+                    <!--<ad:DockableContent Title="Test1">test</ad:DockableContent>
+                    <ad:DockableContent Title="Test2"></ad:DockableContent>-->
                 </ad:DockablePane>
                 <ad:DocumentPane ItemsSource="{Binding ListeDocuments}"  />
             </ad:ResizingPanel>

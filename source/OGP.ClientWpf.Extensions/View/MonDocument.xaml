@@ -3,10 +3,78 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
-    Title="ToDoList">
+    Title="ToDoList" mc:Ignorable="d" d:DesignWidth="1200">
+    
+    <ad:DockingManager>
+        <ad:ResizingPanel>
+            <ad:DockablePane ad:ResizingPanel.ResizeWidth="218">
+                <ad:DockableContent Title="Descripteur">
+                    <Fluent:Ribbon>
+                        <Fluent:RibbonTabItem Header="Accueil">
+                            <Fluent:RibbonGroupBox Header="Police">
+                                <Fluent:RibbonToolBar>
+                                    <Fluent:ComboBox  Width="100" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" IsTextSearchEnabled="True"   SizeDefinition="Small" SelectedIndex="0" />
+                                    <Fluent:ComboBox  Width="49"  Height="22" SelectedIndex="1"  Foreground="#FF222222" Text="12"  IsEditable="False" SizeDefinition="Small"/>
+                                    <Fluent:ToggleButton  SizeDefinition="Small" HorizontalAlignment="Left" >
+                                        <Fluent:ToggleButton.Icon>
+                                            <Image Source="..\Ressources\Images\Bold.png"/>
+                                        </Fluent:ToggleButton.Icon>
+                                    </Fluent:ToggleButton>
+                                    <Fluent:ToggleButton SizeDefinition="Small" HorizontalAlignment="Left" >
+                                        <Fluent:ToggleButton.Icon>
+                                            <Image Source="..\Ressources\Images\Italic.png" />
+                                        </Fluent:ToggleButton.Icon>
+                                    </Fluent:ToggleButton>
+                                    <Fluent:ToggleButton SizeDefinition="Small" HorizontalAlignment="Left" >
+                                        <Fluent:ToggleButton.Icon>
+                                            <Image Source="..\Ressources\Images\Underline.png" />
+                                        </Fluent:ToggleButton.Icon>
+                                    </Fluent:ToggleButton>
+                                    <Fluent:DropDownButton SizeDefinition="Middle" HorizontalAlignment="Left">
+                                        <Fluent:DropDownButton.Icon>
+                                            <Grid Width="16" Height="16">
+                                                <Image Source="..\Ressources\Images\FontColor.png"/>
+                                                <Border BorderThickness="0" VerticalAlignment="Bottom" Height="4">
+                                                    <Border.Background>
+                                                        <SolidColorBrush Color="{Binding ElementName=colorGalleryStandard, Path=SelectedColor, FallbackValue=Black}" />
+                                                    </Border.Background>
+                                                </Border>
+                                            </Grid>
+                                        </Fluent:DropDownButton.Icon>
+                                        <Fluent:ColorGallery x:Name="colorGalleryStandard" SelectedColor="Black" IsNoColorButtonVisible="False" />
+                                    </Fluent:DropDownButton>
 
-  <Grid>
+                                </Fluent:RibbonToolBar>
+                            </Fluent:RibbonGroupBox>
+                        </Fluent:RibbonTabItem>  
+                    </Fluent:Ribbon>
+                </ad:DockableContent>
+            </ad:DockablePane>
+            <ad:DocumentPane>
+                <ad:DockableContent Title="ToDoList">
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="!" Width="50" />
+                            <DataGridTextColumn Header="%" Width="50"/>
+                            <DataGridTextColumn Header="Est." Width="40"/>
+                            <DataGridTextColumn Header="Temps passé" Width="90"/>
+                            <DataGridTextColumn Header="" Width="45"/>
+                            <DataGridTextColumn Header="Date limite" Width="90"/>
+                            <DataGridTextColumn Header="Personnes" Width="90"/>
+                            <DataGridTextColumn Header="Status" Width="90"/>
+                            <DataGridTextColumn Header="Catégories" Width="90"/>
+                            <DataGridTextColumn Header="Sauvegarder" Width="90"/>
+                            <DataGridCheckBoxColumn Header="Terminé" Width="90"/>
+                            <DataGridTextColumn Header="Titre" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ad:DockableContent>
+            </ad:DocumentPane>
+        </ad:ResizingPanel>
+    </ad:DockingManager>
+    <!--<Grid>
     <StackPanel Width="1023">
                 <DataGrid AutoGenerateColumns="False" Height="434" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" Width="887">
                     <DataGrid.Columns>
@@ -25,6 +93,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
         </StackPanel>
-  </Grid>
+  </Grid>-->
 
 </ad:DocumentContent>

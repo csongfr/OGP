@@ -19,11 +19,12 @@ namespace OGP.ClientWpf.View
     /// <summary>
     /// Interaction logic for GestionDesTaches.xaml
     /// </summary>
-    public partial class GestionDesTaches : RibbonWindow
+    public partial class GestionDesTaches : RibbonTabItem
     {
         public GestionDesTaches()
         {
             InitializeComponent();
+            DataContext =new GestionDesTachesViewModel();
         }
     }
 }

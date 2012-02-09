@@ -34,6 +34,9 @@
     <Reference Include="AvalonDock">
       <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
     </Reference>
+    <Reference Include="Fluent">
+      <HintPath>..\..\..\..\OGP\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -60,6 +63,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\Bold.png" />
+    <Resource Include="Ressources\Images\ChangeCase.png" />
+    <Resource Include="Ressources\Images\ClearFormatting.png" />
+    <Resource Include="Ressources\Images\GrowFont.png" />
+    <Resource Include="Ressources\Images\Italic.png" />
+    <Resource Include="Ressources\Images\ShrinkFont.png" />
+    <Resource Include="Ressources\Images\Strikethrough.png" />
+    <Resource Include="Ressources\Images\Subscript.png" />
+    <Resource Include="Ressources\Images\Superscript.png" />
+    <Resource Include="Ressources\Images\Underline.png" />
+    <Resource Include="Ressources\Images\FontColor.png" />
+    <Resource Include="Ressources\Images\Shading.png" />
+    <Resource Include="Ressources\Images\TextHighlightColor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

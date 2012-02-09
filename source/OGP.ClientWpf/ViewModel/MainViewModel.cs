@@ -12,6 +12,8 @@ using OGP.ClientWpf.View;
 using System.Windows;
 using Utils.Observable;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
+using Fluent;
 
 
 
@@ -22,9 +24,23 @@ namespace OGP.ClientWpf.ViewModel
         #region Membres privés
 
         /// <summary>
+        /// Commande qui ouvre un gestionnaire de fichier
+        /// </summary>
+        private RelayCommand ouvrirFichier;
+        /// <summary>
         /// Commande qui ferme l'application
         /// </summary>
         private RelayCommand exitCommand;
+
+        /// <summary>
+        /// Commande ajoute un plugin
+        /// </summary>
+        private RelayCommand ajouterPlugin;
+
+        /// <summary>
+        /// Commande qui supprime un plugin
+        /// </summary>
+        private RelayCommand supprimePlugin;
 
         /// <summary>
         /// Stock le catalogue des plugins
@@ -103,7 +119,6 @@ namespace OGP.ClientWpf.ViewModel
             set
             {
                 this.pluginActif = value;
-                ChargerPlugins();
                 NotifyPropertyChanged(pluginActifChangeArgs);
 
             }
@@ -111,7 +126,66 @@ namespace OGP.ClientWpf.ViewModel
 
         #endregion
 
-        #region Commands
+        #region Commandes
+
+        /// <summary>
+        /// Ouvre un fichier
+        /// </summary>
+        #region OuvrirFichier
+
+        public ICommand OuvrirFichier
+        {
+            get
+            {
+                if (ouvrirFichier == null) 
+                {
+                    ouvrirFichier = new RelayCommand(Ouvrir);
+                }
+                return ouvrirFichier;
+            }
+        }
+
+        #endregion
+
+        #region SupprimerPlugin
+
+        /// <summary>
+        /// Supprime un plugin
+        /// </summary>
+        public ICommand SupprimePlugin
+        {
+            get
+            {
+                if (supprimePlugin == null)
+                {
+                    supprimePlugin = new RelayCommand(SupprimerPlugin);
+                }
+                return supprimePlugin;
+            }
+
+        }
+
+        #endregion
+
+        #region AjouterPlugin
+
+        /// <summary>
+        /// Ajoute un plugin
+        /// </summary>
+        public ICommand AjouterPlugin
+        {
+            get
+            {
+                if (ajouterPlugin == null)
+                {
+                    ajouterPlugin = new RelayCommand(ChargerPlugin);
+                }
+                return ajouterPlugin;
+            }
+            
+        }
+
+        #endregion
 
         #region Exit
 
@@ -150,6 +224,29 @@ namespace OGP.ClientWpf.ViewModel
         #endregion
 
         #region Méthodes privées
+
+        private void Ouvrir(object param)
+        {
+            new NouvelleGestionTache().ShowDialog(); 
+        }
+
+        /// <summary>
+        /// Supprime le plugin de la fenêtre
+        /// </summary>
+        /// <param name="param"></param>
+        private void SupprimerPlugin(object param)
+        {
+            ListeDocuments.Clear();         
+        }
+
+        /// <summary>
+        /// appelle la fonction ChargerPlugins lors du click sur ajouter plugin
+        /// </summary>
+        /// <param name="param"></param>
+        private void ChargerPlugin(object param)
+        {
+            ChargerPlugins();
+        }
 
         /// <summary>
         /// Stock les titres des plugins dans la liste 
