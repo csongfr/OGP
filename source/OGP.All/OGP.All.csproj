@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,7 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllGestionTaches.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Interfaces\AllFactory.cs" />
+    <Compile Include="Interfaces\IAllGestionTaches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OGP.Bll\OGP.Bll.csproj">
+      <Project>{DB3E59BE-8440-4142-A64D-C4D1477F12CE}</Project>
+      <Name>OGP.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ValueObjects\OGP.ValueObjects.csproj">
+      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
+      <Name>OGP.ValueObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

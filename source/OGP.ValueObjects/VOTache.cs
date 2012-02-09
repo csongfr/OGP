@@ -98,7 +98,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Gets et sets du temps estimé à la tâche
         /// </summary>
-        public TimeSpan Estimation { get; set; }
+        public long Estimation { get; set; }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -106,7 +106,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Gets et sets du temps passé sur la tâche
         /// </summary>
-        public TimeSpan TpsDepense { get; set; }
+        public long TpsDepense { get; set; }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -146,7 +146,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Gets et sets du temps réel
         /// </summary>
-        public TimeSpan TempsReel { get; set; }
+        public long TempsReel { get; set; }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
