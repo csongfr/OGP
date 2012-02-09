@@ -35,7 +35,7 @@
       <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
     </Reference>
     <Reference Include="Fluent">
-      <HintPath>..\..\..\..\OGP\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
+      <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
