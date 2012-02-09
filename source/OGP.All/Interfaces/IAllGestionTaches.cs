@@ -29,7 +29,7 @@ namespace OGP.All
         /// Prototype de la méthode permettant de créer une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomFichier">Nom du fichier</param>
-        /// <param name="NomProjet">Nom du projet</param>
+        /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
         VOToDoList NouvelleGestionTaches(string nomFichier, string nomProjet);
     }

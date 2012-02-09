@@ -65,10 +65,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
-    <Compile Include="View\NouvelleGestionTache.xaml.cs">
-      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\GestionDesTaches.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -93,10 +89,6 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\NouvelleGestionTache.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -116,6 +108,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,9 +143,25 @@
     <Folder Include="Ressources\Plugins\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OGP.ClientWpf.Extensions\OGP.ClientWpf.Extensions.csproj">
+      <Project>{CC03621A-3D9F-47EC-8102-9C035F538923}</Project>
+      <Name>OGP.ClientWpf.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ServiceWcf\OGP.ServiceWcf.csproj">
+      <Project>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</Project>
+      <Name>OGP.ServiceWcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ValueObjects\OGP.ValueObjects.csproj">
+      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
+      <Name>OGP.ValueObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
       <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
       <Name>Utils.Observable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Wcf\Utils.Wcf.csproj">
+      <Project>{A1C4CF3D-AF46-4BFC-8EDB-62BBB8B4EB74}</Project>
+      <Name>Utils.Wcf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

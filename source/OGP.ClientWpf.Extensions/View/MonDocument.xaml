@@ -6,7 +6,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
     Title="ToDoList" mc:Ignorable="d" d:DesignWidth="1200">
-    
+
     <ad:DockingManager>
         <ad:ResizingPanel>
             <ad:DockablePane ad:ResizingPanel.ResizeWidth="218">
@@ -14,6 +14,7 @@
                     <Fluent:Ribbon>
                         <Fluent:RibbonTabItem Header="Accueil">
                             <Fluent:RibbonGroupBox Header="Police">
+                                <Fluent:Button Header="Nouveau" Command="{Binding OuvrirFichier}" />
                                 <Fluent:RibbonToolBar>
                                     <Fluent:ComboBox  Width="100" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" IsTextSearchEnabled="True"   SizeDefinition="Small" SelectedIndex="0" />
                                     <Fluent:ComboBox  Width="49"  Height="22" SelectedIndex="1"  Foreground="#FF222222" Text="12"  IsEditable="False" SizeDefinition="Small"/>
@@ -45,15 +46,14 @@
                                         </Fluent:DropDownButton.Icon>
                                         <Fluent:ColorGallery x:Name="colorGalleryStandard" SelectedColor="Black" IsNoColorButtonVisible="False" />
                                     </Fluent:DropDownButton>
-
                                 </Fluent:RibbonToolBar>
                             </Fluent:RibbonGroupBox>
                         </Fluent:RibbonTabItem>  
                     </Fluent:Ribbon>
                 </ad:DockableContent>
             </ad:DockablePane>
-            <ad:DocumentPane>
-                <ad:DockableContent Title="ToDoList">
+            <ad:DockablePane Visibility="{Binding Visible}" >
+                <ad:DockableContent Title="{Binding NomProjet}" >
                     <DataGrid>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="!" Width="50" />
@@ -71,28 +71,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </ad:DockableContent>
-            </ad:DocumentPane>
+            </ad:DockablePane>
         </ad:ResizingPanel>
     </ad:DockingManager>
-    <!--<Grid>
-    <StackPanel Width="1023">
-                <DataGrid AutoGenerateColumns="False" Height="434" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" Width="887">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="!" Width="50" />
-                        <DataGridTextColumn Header="%" Width="50"/>
-                        <DataGridTextColumn Header="Est." Width="40"/>
-                        <DataGridTextColumn Header="Temps passé" Width="90"/>
-                        <DataGridTextColumn Header="" Width="45"/>
-                        <DataGridTextColumn Header="Date limite" Width="90"/>
-                        <DataGridTextColumn Header="Personnes" Width="90"/>
-                        <DataGridTextColumn Header="Status" Width="90"/>
-                        <DataGridTextColumn Header="Catégories" Width="90"/>
-                        <DataGridTextColumn Header="Sauvegarder" Width="90"/>
-                        <DataGridCheckBoxColumn Header="Terminé" Width="90"/>
-                        <DataGridTextColumn Header="Titre" Width="70"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-        </StackPanel>
-  </Grid>-->
-
 </ad:DocumentContent>

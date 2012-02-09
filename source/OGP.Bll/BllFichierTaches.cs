@@ -20,9 +20,10 @@ namespace OGP.Bll
         /// <returns>VOToDoList</returns>
         public VOToDoList CreerFichierTachesXml(string cheminFichier, string nomProjet)
         {
-            VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
+            // VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
             try
             {
+                VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
                 System.IO.FileStream fichier = System.IO.File.Create(cheminFichier);
 
                 // Création d'un objet permettant la sérialisation d'un objet de type VOToDoList
@@ -31,12 +32,12 @@ namespace OGP.Bll
                 // Sérialisation du fichier
                 serialiser.Serialize(fichier, nouvelleVOToDoList);
                 fichier.Close();
+                return nouvelleVOToDoList;
             }
             catch (Exception ex)
             {
-                // TODO : gérer l'exception.
+                return null;
             }
-            return nouvelleVOToDoList;
         }
     }
 }

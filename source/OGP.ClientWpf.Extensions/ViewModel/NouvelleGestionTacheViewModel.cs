@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using OGP.ClientWpf.Comands;
-using OGP.ClientWpf.View;
+using OGP.ClientWpf.Extensions.ViewModel;
+using OGP.Todolist.CommandsToDoList;
+using OGP.ValueObjects;
+using Utils.Wcf;
 
-namespace OGP.ClientWpf.ViewModel
+namespace OGP.ClientWpf.Extensions.ViewModel
 {
     /// <summary>
     /// Classe qui gère la popup
     /// </summary>
-    public class NouvelleGestionTacheViewModel : ViewModelBase
+    public class NouvelleGestionTacheViewModel : ViewModelDocumentBase
     {
         #region Membres privés
 
@@ -29,7 +31,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Commande pour enregistrer le nom du projet et du fichier
         /// </summary>
-        private RelayCommand enregistrer;
+        private RelayCommandToDoList enregistrer;
 
         #endregion
 
@@ -57,7 +59,7 @@ namespace OGP.ClientWpf.ViewModel
                 NotifyPropertyChanged(nomDuProjetChangeArgs);
             }
         }
-
+       
         /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
@@ -82,7 +84,7 @@ namespace OGP.ClientWpf.ViewModel
                 NotifyPropertyChanged(nomDuFichierChangeArgs);
             }
         }
-       
+
         #region Commandes
 
         /// <summary>
@@ -94,10 +96,9 @@ namespace OGP.ClientWpf.ViewModel
             {
                 if (enregistrer == null)
                 {
-                    enregistrer = new RelayCommand(
+                    enregistrer = new RelayCommandToDoList(
                         delegate
-                        {
-                            MessageBox.Show("Nom du Projet :" + " " + NomDuProjet + "\n" + "Nom du Fichier :" + " " + NomDuFichier);
+                        { 
                         },
                         delegate
                         {

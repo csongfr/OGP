@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace OGP.ClientWpf.ViewModel
+namespace OGP.ClientWpf.Extensions.ViewModel
 {
     /// <summary>
     /// Classe qui gère les INotifyPropertyChanged
     /// </summary>
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelDocumentBase : INotifyPropertyChanged
     {
         #region Events
 
@@ -44,4 +44,5 @@ namespace OGP.ClientWpf.ViewModel
 
         #endregion
     }
-}
+    }
+

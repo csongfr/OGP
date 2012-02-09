@@ -5,7 +5,8 @@
         Height="292"  Header="Gestion Des Tâches">
     <Fluent:RibbonGroupBox Header="Actions">
         <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
-                <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+        <Fluent:Button Header="Supprimer" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+        <Fluent:Button Header="Nouveau" Command="{Binding OuvrirFichier}" Icon="..\Ressources\Images\nouveau1-16x16.png" LargeIcon="..\Ressources\Images\nouveau1-32x32.png"/>
 
-</Fluent:RibbonGroupBox>
+    </Fluent:RibbonGroupBox>
 </Fluent:RibbonTabItem>

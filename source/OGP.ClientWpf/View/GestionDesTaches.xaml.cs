@@ -21,10 +21,13 @@ namespace OGP.ClientWpf.View
     /// </summary>
     public partial class GestionDesTaches : RibbonTabItem
     {
+        /// <summary>
+        /// Constructeur de la gestion des tâches
+        /// </summary>
         public GestionDesTaches()
         {
             InitializeComponent();
-            DataContext =new GestionDesTachesViewModel();
+            DataContext = new GestionDesTachesViewModel();
         }
     }
 }

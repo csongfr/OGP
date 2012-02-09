@@ -21,6 +21,9 @@ namespace OGP.ClientWpf.View
     /// </summary>
     public partial class MainView : RibbonWindow
     {
+        /// <summary>
+        /// Constructeur de l'application
+        /// </summary>
         public MainView()
         {
             InitializeComponent();         

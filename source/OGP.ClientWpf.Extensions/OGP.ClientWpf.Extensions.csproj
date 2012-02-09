@@ -54,8 +54,13 @@
     <Compile Include="CommandsToDoList\RelayCommandToDoList.cs" />
     <Compile Include="ViewModel\MonDocumentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelDocumentBase.cs" />
     <Compile Include="View\MonDocument.xaml.cs">
       <DependentUpon>MonDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NouvelleGestionTache.xaml.cs">
+      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -63,21 +68,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\NouvelleGestionTache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Ressources\Images\Bold.png" />
-    <Resource Include="Ressources\Images\ChangeCase.png" />
-    <Resource Include="Ressources\Images\ClearFormatting.png" />
-    <Resource Include="Ressources\Images\GrowFont.png" />
     <Resource Include="Ressources\Images\Italic.png" />
-    <Resource Include="Ressources\Images\ShrinkFont.png" />
-    <Resource Include="Ressources\Images\Strikethrough.png" />
-    <Resource Include="Ressources\Images\Subscript.png" />
-    <Resource Include="Ressources\Images\Superscript.png" />
     <Resource Include="Ressources\Images\Underline.png" />
     <Resource Include="Ressources\Images\FontColor.png" />
-    <Resource Include="Ressources\Images\Shading.png" />
-    <Resource Include="Ressources\Images\TextHighlightColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OGP.ServiceWcf\OGP.ServiceWcf.csproj">
+      <Project>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</Project>
+      <Name>OGP.ServiceWcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ValueObjects\OGP.ValueObjects.csproj">
+      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
+      <Name>OGP.ValueObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
+      <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
+      <Name>Utils.Observable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Wcf\Utils.Wcf.csproj">
+      <Project>{A1C4CF3D-AF46-4BFC-8EDB-62BBB8B4EB74}</Project>
+      <Name>Utils.Wcf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,23 +10,87 @@ namespace OGP.Todolist.CommandsToDoList
 {
     class RelayCommandToDoList : ICommand
     {
-        //cette classe implementant l'interface ICommand va nous permette de binder des ICommand sur des bouton afin de déclencher des fonction contenu dans le ViewModel
+         #region CanExecute Automatic Updating
 
-        Func<object, bool> canExecute;
-        Action<object> executeAction;
+        [SuppressMessage("Microsoft.Performance", "CA1823", Justification = "This variable is used. I can swear")]
 
+        static DispatcherTimer timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200), DispatcherPriority.SystemIdle, (s, e) => UpdateCanExcecute(), Dispatcher.CurrentDispatcher);
 
-        public RelayCommandToDoList(Action<object> executeAction)
+        static void UpdateCanExcecute()
         {
-            this.executeAction = executeAction;
+            foreach (var command in automaticCanExecuteUpdatingCommand)
+            {
+                command.RaiseCanExecuteChanged();
+            }
         }
 
-        //Methode qui sera appeler Sur un ICommand du ViewModel afin de pouvoir lancer une methode lors du click sur un bouton de la vue, il faut préciser un test et une fonction a executer
-        public RelayCommandToDoList(Action<object> executeAction, Func<object, bool> canExecute)
+        static List<RelayCommandToDoList> automaticCanExecuteUpdatingCommand = new List<RelayCommandToDoList>();
+
+        static void RegisterForCanExecuteUpdating(RelayCommandToDoList command)
         {
-            this.executeAction = executeAction;
+            automaticCanExecuteUpdatingCommand.Add(command);
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when CanExecute property changed
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+
+        #endregion
+
+        #region Fields
+
+        readonly Action<object> execute;
+        readonly Predicate<object> canExecute;
+
+        #endregion // Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Construcotor
+        /// </summary>
+        /// <param name="execute">Action to execute</param>
+        public RelayCommandToDoList(Action<object> execute)
+            : this(execute, null, false)
+        {
+        }
+
+        /// <summary>
+        /// Construcotor
+        /// </summary>
+        /// <param name="execute">Action to execute</param>
+        /// <param name="canExecute">Predicate to check whether command can be executed</param>
+        public RelayCommandToDoList(Action<object> execute, Predicate<object> canExecute)
+            : this(execute, canExecute, false)
+        {
+
+        }
+
+        /// <summary>
+        /// Construcotor
+        /// </summary>
+        /// <param name="execute">Action to execute</param>
+        /// <param name="canExecute">Predicate to check whether command can be executed</param>
+        /// <param name="autoCanExecuteUpdating">Use this flag only if you can not invoke RaiseCanExecuteChanged</param>
+        public RelayCommandToDoList(Action<object> execute, Predicate<object> canExecute, bool autoCanExecuteUpdating)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
+
+            this.execute = execute;
             this.canExecute = canExecute;
+
+            if (autoCanExecuteUpdating) RegisterForCanExecuteUpdating(this);
         }
+
+        #endregion
+
+        #region ICommand Members
 
         /// <summary>
         /// Gets whether the command can be executed
@@ -39,13 +103,23 @@ namespace OGP.Todolist.CommandsToDoList
             return canExecute == null ? true : canExecute(parameter);
         }
 
-
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
+        /// <summary>
+        /// Raises CanExecuteChanged event 
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1030")]
+        public void RaiseCanExecuteChanged()
         {
-            executeAction(parameter);
+            if (CanExecuteChanged != null) CanExecuteChanged(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Executes the command
+        /// </summary>
+        public void Execute(object parameter)
+        {
+            execute(parameter);
+        }
+
+        #endregion
     }
 }

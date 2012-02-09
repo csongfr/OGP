@@ -1,13 +1,14 @@
-﻿<Window x:Class="OGP.ClientWpf.View.NouvelleGestionTache"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="213" Width="424">
-   
+﻿<Window x:Class="OGP.ClientWpf.Extensions.View.NouvelleGestionTache"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Height="213" Width="424">
     <Grid Height="145">
         <Label Content="Nom du Projet :" Height="28" HorizontalAlignment="Left" Margin="12,21,0,0" Name="label1" VerticalAlignment="Top" Width="97" />
         <Label Content="Nom du Fichier :" Height="28" HorizontalAlignment="Left" Margin="12,58,0,0" Name="label2" VerticalAlignment="Top" Width="97" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="115,21,0,0" Name="textBox1" VerticalAlignment="Top" Width="195" Text="{Binding NomDuProjet}" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="115,60,0,0" Name="textBox2" VerticalAlignment="Top" Width="195" Text="{Binding NomDuFichier}" />
-        <Button Content="Enregistrer"  Height="23"  HorizontalAlignment="Left" Margin="315,101,0,0" Name="button1" VerticalAlignment="Top" Width="75"  Command="{Binding Enregistrer}"  />
+        <Button Content="Enregistrer"  Height="23"  HorizontalAlignment="Left" Margin="315,101,0,0" Name="button1" VerticalAlignment="Top" Width="75"  Command="{Binding Enregistrer}" Click="Button1_Click" />
     </Grid>
 </Window>

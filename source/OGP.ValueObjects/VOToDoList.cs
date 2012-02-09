@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 namespace OGP.ValueObjects
 {
@@ -51,6 +51,10 @@ namespace OGP.ValueObjects
         { 
         }
 
+        /// <summary>
+        /// Constructeur d'une ToDoList à partir du nom du projet
+        /// </summary>
+        /// <param name="nomProjet">Nom du projet</param>
         public VOToDoList(string nomProjet)
         {
             this.NomDuProjet = nomProjet;

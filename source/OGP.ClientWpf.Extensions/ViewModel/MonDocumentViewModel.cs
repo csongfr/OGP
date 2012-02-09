@@ -1,98 +1,145 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Input;
+using OGP.ClientWpf.Extensions;
+using OGP.ClientWpf.Extensions.View;
+using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.Todolist.CommandsToDoList;
+using OGP.ValueObjects;
+using Utils.Wcf;
+
 namespace OGP.ClientWpf.Extensions
 {
-    public class MonDocumentViewModel:INotifyPropertyChanged
+    /// <summary>
+    /// Mon ToDoList
+    /// </summary>
+    public class MonDocumentViewModel : ViewModelDocumentBase
     {
-
-        
-        
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            protected virtual void OnPropertyChanged(string propertyName)
-            {
-
-                if (this.PropertyChanged != null)
-                {
-                    this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
-            }
-        
-
-        private RelayCommandToDoList _AjouterLigneCommande;
-        private RelayCommandToDoList _FermerCommande;
-        
-        #region fonction
+        #region Membres privés
 
         /// <summary>
-        ///  //La fonction a executer pour ajouter une ligne
+        /// Commande qui ouvre la popup
         /// </summary>
-       
-        public void AjouterLigne(object param)
-        {
-   
-        }
-
-        //Le test a faire avant la fonction a executer
-        public bool CanAjouterLigne(object param)
-        {
-            return true;
-        }
+        private RelayCommandToDoList ouvrirFichier;
 
         /// <summary>
-        /// La fonction a executer pour fermer l'application todolist
+        /// Permet de communiquer avec la view
         /// </summary>
-        /// 
+        private NouvelleGestionTache fenetre;
 
-        public void Fermer(object param)
-        {
-            string reponse = (MessageBox.Show("Voulez vous Quitter ?", "Fermer ToDoList", MessageBoxButton.YesNo)).ToString();
-            if (reponse == "Yes")
-            {
-                System.Windows.Application.Current.Shutdown();
-            }
-        }
+        /// <summary>
+        /// Permet de stocker le nom du projet
+        /// </summary>
+        private string nomProjet; 
+
+        /// <summary>
+        /// Permet de rendre Hidden la fenêtre par defaut
+        /// </summary>
+        private Visibility visible;
 
         #endregion
 
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs nomProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MonDocumentViewModel>(x => x.NomProjet);
 
-        #region AjouterLigne 
-        public ICommand AjouterLigneCommande
+        /// <summary>
+        /// Gets ou Sets pour afficher le nom du projet dans la todolist.
+        /// </summary>
+        public string NomProjet
         {
             get
             {
-               
-                 if (this._AjouterLigneCommande == null)
-                { 
-                    //On lui appropri un DelegateCommande qui prend en parametre la fonction a executer et le tes a effeectuer avant d'executer la fonction
-                    _AjouterLigneCommande = new RelayCommandToDoList(AjouterLigne);
-                }
-                return _AjouterLigneCommande;
+                return this.nomProjet;
             }
-            
-        }
-        #endregion
-
-        #region Fermer 
-        public ICommand FermerToDoList
-        {
-            get
+            set
             {
-
-                if (this._FermerCommande == null)
+                if (this.nomProjet == value)
                 {
-                    //On lui appropri un DelegateCommande qui prend en parametre la fonction a executer et le tes a effeectuer avant d'executer la fonction
-                    _FermerCommande = new RelayCommandToDoList(Fermer);
+                    return;
                 }
-                return _FermerCommande;
-            }
 
+                this.nomProjet = value;
+
+                NotifyPropertyChanged(nomProjetChangeArgs);
+            }
+        } 
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs visibleChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MonDocumentViewModel>(x => x.Visible);
+
+        /// <summary>
+        /// Gets ou Sets pour afficher le todolist.
+        /// </summary>
+        public Visibility Visible
+        {
+            get
+            {
+                return this.visible;
+            }
+            set
+            {
+                if (this.visible == value)
+                {
+                    return;
+                }
+                this.visible = value;
+
+                NotifyPropertyChanged(visibleChangeArgs);
+            }
         }
+
+        #region Méthodes privées
+
+        /// <summary>
+        /// Permet d'ouvrir une nouvelle gestion de projet
+        /// </summary>
+        /// <param name="param">object</param>
+        private void Ouvrir(object param)
+        {
+            fenetre = new NouvelleGestionTache();
+            fenetre.ShowDialog();
+
+            if (fenetre.Vm.NomDuProjet != null)
+            {
+                var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+                               "ClientTest",
+                               client =>
+                               {
+                                   // VOToDoList listetaches = client.ChagerListeTaches("");
+                                   VOToDoList listetaches = client.NouvelleToDoList(fenetre.Vm.NomDuFichier, fenetre.Vm.NomDuProjet);
+                               });
+
+                if (exception != null)
+                {
+                    // TODO : gérer l'exception.
+                }
+                Visible = Visibility.Visible;
+                NomProjet = fenetre.Vm.NomDuProjet;
+            }
+        }
+
+        /// <summary>
+        /// Commande qui ouvre la popup
+        /// </summary>
+        public ICommand OuvrirFichier
+        {
+            get
+            {
+                if (ouvrirFichier == null)
+                {
+                    ouvrirFichier = new RelayCommandToDoList(Ouvrir);
+                }
+                return ouvrirFichier;
+            }
+        }
+
         #endregion
 
         #region Constructeur
@@ -102,7 +149,9 @@ namespace OGP.ClientWpf.Extensions
         /// </summary>
         public MonDocumentViewModel()
         {
+            Visible = Visibility.Hidden;
         }
+
         #endregion
     }
 }

@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using OGP.ClientWpf.Comands;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition;
-using AvalonDock;
-using System.IO;
-using OGP.ClientWpf.View;
-using System.Windows;
-using Utils.Observable;
 using System.Collections.ObjectModel;
-using Microsoft.Win32;
+using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
+using AvalonDock;
 using Fluent;
-
-
+using Microsoft.Win32;
+using OGP.ClientWpf.Comands;
+using OGP.ClientWpf.View;
+using Utils.Observable;
 
 namespace OGP.ClientWpf.ViewModel
 {
+    /// <summary>
+    /// Fenêtre principale
+    /// </summary>
     public class MainViewModel : ViewModelBase
     {                                 
         #region Membres privés
 
-        /// <summary>
-        /// Commande qui ouvre un gestionnaire de fichier
-        /// </summary>
-        private RelayCommand ouvrirFichier;
         /// <summary>
         /// Commande qui ferme l'application
         /// </summary>
@@ -45,7 +42,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Stock le catalogue des plugins
         /// </summary>
-        private CompositionContainer _container;
+        private CompositionContainer container;
 
         /// <summary>
         /// Stock le plugin actif.
@@ -88,6 +85,9 @@ namespace OGP.ClientWpf.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs listeDocumentsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeDocuments);
 
+        /// <summary>
+        /// Get et set des plgins
+        /// </summary>
         public ObservableCollection<DocumentContent> ListeDocuments
         {
             get
@@ -100,7 +100,6 @@ namespace OGP.ClientWpf.ViewModel
                 NotifyPropertyChanged(listeDocumentsChangeArgs);
             }
         }
-
 
         /// <summary>
         /// Cinch : INPC Helper
@@ -120,32 +119,12 @@ namespace OGP.ClientWpf.ViewModel
             {
                 this.pluginActif = value;
                 NotifyPropertyChanged(pluginActifChangeArgs);
-
             }
         }
 
         #endregion
 
         #region Commandes
-
-        /// <summary>
-        /// Ouvre un fichier
-        /// </summary>
-        #region OuvrirFichier
-
-        public ICommand OuvrirFichier
-        {
-            get
-            {
-                if (ouvrirFichier == null) 
-                {
-                    ouvrirFichier = new RelayCommand(Ouvrir);
-                }
-                return ouvrirFichier;
-            }
-        }
-
-        #endregion
 
         #region SupprimerPlugin
 
@@ -162,7 +141,6 @@ namespace OGP.ClientWpf.ViewModel
                 }
                 return supprimePlugin;
             }
-
         }
 
         #endregion
@@ -182,7 +160,6 @@ namespace OGP.ClientWpf.ViewModel
                 }
                 return ajouterPlugin;
             }
-            
         }
 
         #endregion
@@ -225,15 +202,10 @@ namespace OGP.ClientWpf.ViewModel
 
         #region Méthodes privées
 
-        private void Ouvrir(object param)
-        {
-            new NouvelleGestionTache().ShowDialog(); 
-        }
-
         /// <summary>
         /// Supprime le plugin de la fenêtre
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="param">object</param>
         private void SupprimerPlugin(object param)
         {
             ListeDocuments.Clear();         
@@ -242,7 +214,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// appelle la fonction ChargerPlugins lors du click sur ajouter plugin
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="param">object</param>
         private void ChargerPlugin(object param)
         {
             ChargerPlugins();
@@ -271,8 +243,8 @@ namespace OGP.ClientWpf.ViewModel
             {
                 var catalog = new AggregateCatalog();
                 catalog.Catalogs.Add(new DirectoryCatalog(@"..\..\Ressources\Plugins"));
-                _container = new CompositionContainer(catalog);
-                this._container.ComposeParts(this);
+                container = new CompositionContainer(catalog);
+                this.container.ComposeParts(this);
                 foreach (var plugin in this.Plugin)
                 {
                     if (plugin.Value != null)
@@ -296,12 +268,8 @@ namespace OGP.ClientWpf.ViewModel
             {
                 Console.Error.WriteLine(ex.Message);
             }
-
         }
 
         #endregion
     }
 }
-
-
-

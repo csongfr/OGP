@@ -6,12 +6,13 @@ using System.Text;
 namespace OGP.ClientWpf.ViewModel
 {
     /// <summary>
-    /// Titre du plugin
+    /// Interface des documents
     /// </summary>
-    /// 
-
     public interface IDocumentData
     {
+        /// <summary>
+        /// Titre du plugin
+        /// </summary>
         string Title { get; }
     }
 }

@@ -10,6 +10,9 @@ namespace OGP.ClientWpf.Extensions
     [ExportMetadata("Title", "ToDoList")]
     public partial class MonDocument : DocumentContent
     {
+        /// <summary>
+        /// Constructeur de la TODoList
+        /// </summary>
         public MonDocument()
         {
             InitializeComponent();

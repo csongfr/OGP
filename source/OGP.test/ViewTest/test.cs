@@ -8,7 +8,7 @@ namespace OGP.test.ViewTest
     /// <summary>
     /// class de test pour générer un nouveau plugin
     /// </summary>
-    class test
+    public class test
     {
     }
 }
