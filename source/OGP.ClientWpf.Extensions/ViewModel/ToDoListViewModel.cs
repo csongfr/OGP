@@ -114,7 +114,7 @@ namespace OGP.ClientWpf.Extensions
                                client =>
                                {
                                    // VOToDoList listetaches = client.ChagerListeTaches("");
-                                   VOToDoList listetaches = client.NouvelleToDoList(fenetre.Vm.NomDuFichier, fenetre.Vm.NomDuProjet);
+                                   VOToDoList listetaches = client.NouvelleToDoList(/*fenetre.Vm.NomDuFichier,*/ fenetre.Vm.NomDuProjet);
                                });
 
                 if (exception != null)
