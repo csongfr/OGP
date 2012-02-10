@@ -28,7 +28,6 @@ namespace Utils.ViewModel
             return ServiceProvider.Resolve<T>();
         }
 
-
         #region Events
 
         /// <summary>

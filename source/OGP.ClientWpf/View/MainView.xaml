@@ -13,22 +13,13 @@
  
     
     <DockPanel LastChildFill="True">
-        <Fluent:Ribbon DockPanel.Dock="Top">
-
-          
-        
-            <!--Quick Access Toolbar Items-->
-            <Fluent:Ribbon.QuickAccessItems>
-                <Fluent:QuickAccessMenuItem/>
-            </Fluent:Ribbon.QuickAccessItems>
-
+        <Fluent:Ribbon DockPanel.Dock="Top" >
             <!--Tabs-->
-            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False">
+            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False" >
                 <Fluent:RibbonGroupBox Header="Actions">
                     <Fluent:Button Header="Ajouter" Command="{Binding AjouterPlugin}" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
                     <Fluent:Button Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
                 </Fluent:RibbonGroupBox>
-
                 <!--Gallery with all persons
                 <Fluent:RibbonGroupBox Header="Liste des plugins" Name="P" Width="200">
                     <Fluent:InRibbonGallery ItemWidth="100" ItemHeight="56" ResizeMode="Both"                             
@@ -36,14 +27,11 @@
                                       SelectedItem="{Binding Current}">
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>-->
-                
                 <Fluent:RibbonGroupBox Header="Liste Des Plugins"  Width="115">
                     <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
+                    
                 </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-            
-                <View:GestionDesTaches/>
-            
+            </Fluent:RibbonTabItem >
             <!--Backstage Items-->
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>
@@ -53,19 +41,12 @@
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
         </Fluent:Ribbon>
-
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="Barre de statut"/>
         </StatusBar>
-
-
        <ad:DockingManager>
             <ad:ResizingPanel>
-                <ad:DockablePane ad:ResizingPanel.ResizeWidth="300">
-                    <!--<ad:DockableContent Title="Test1">test</ad:DockableContent>
-                    <ad:DockableContent Title="Test2"></ad:DockableContent>-->
-                </ad:DockablePane>
-                <ad:DocumentPane ItemsSource="{Binding ListeDocuments}"  />
+                <ad:DocumentPane ItemsSource="{Binding ListeDocuments}" />
             </ad:ResizingPanel>
         </ad:DockingManager>
     </DockPanel>

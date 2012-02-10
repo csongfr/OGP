@@ -8,9 +8,9 @@ using OGP.ClientWpf.Extensions;
 using OGP.ClientWpf.Extensions.View;
 using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.ValueObjects;
-using Utils.Wcf;
 using Utils.Commands;
 using Utils.ViewModel;
+using Utils.Wcf;
 
 namespace OGP.ClientWpf.Extensions
 {
@@ -107,7 +107,7 @@ namespace OGP.ClientWpf.Extensions
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
 
-            if (fenetre.Vm.NomDuProjet != null)
+            if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
             {
                 var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
                                "ClientTest",

@@ -40,7 +40,7 @@ namespace OGP.ClientWpf.Extensions.View
         }
 
         /// <summary>
-        /// Bof
+        /// bof
         /// </summary>
         /// <param name="sender">object</param>
         /// <param name="e">RoutedEventArgs</param>

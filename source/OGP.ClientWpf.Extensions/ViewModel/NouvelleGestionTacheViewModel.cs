@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Input;
 using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.ValueObjects;
-using Utils.Wcf;
 using Utils.Commands;
 using Utils.ViewModel;
+using Utils.Wcf;
 
 namespace OGP.ClientWpf.Extensions.ViewModel
 {
@@ -25,6 +25,11 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         private string nomDuProjet;
 
         /// <summary>
+        /// bool pour savoir si enregistrer et bien selectionné
+        /// </summary>
+        private bool actif;
+
+        /// <summary>
         /// Stocke le  nom du fichier est vide
         /// </summary>
         private string nomDuFichier;
@@ -35,6 +40,33 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         private RelayCommand enregistrer;
 
         #endregion
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs sucessChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.Actif);
+
+        /// <summary>
+        /// Gets ou Sets pour savoir si le bouton enregistrer est cliqué.
+        /// </summary>
+        public bool Actif
+        {
+            get
+            {
+                return this.actif;
+            }
+            set
+            {
+                if (this.actif == value)
+                {
+                    return;
+                }
+
+                this.actif = value;
+
+                NotifyPropertyChanged(sucessChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC Helper
@@ -99,7 +131,8 @@ namespace OGP.ClientWpf.Extensions.ViewModel
                 {
                     enregistrer = new RelayCommand(
                         delegate
-                        { 
+                        {
+                            Actif = true;
                         },
                         delegate
                         {
@@ -124,7 +157,9 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         /// </summary>
         public NouvelleGestionTacheViewModel()
         {
+            Actif = false;
         }
+
         #endregion
     }
 }
