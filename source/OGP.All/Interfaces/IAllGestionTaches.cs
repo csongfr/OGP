@@ -31,5 +31,11 @@ namespace OGP.All
         /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
         VOToDoList NouvelleGestionTaches(string nomProjet);
+
+        /// <summary>
+        /// Désérialisation des fichiers du dossier grâce à leurs chemins
+        /// </summary>
+        /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
+        List<VOToDoList> ObtenirTousLesFichiers();
     }
 }

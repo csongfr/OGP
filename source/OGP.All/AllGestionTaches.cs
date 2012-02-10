@@ -17,6 +17,7 @@ namespace OGP.All
     /// </summary>
     public class AllGestionTaches : IAllGestionTaches
     {
+        #region méthodes publiques
         /// <summary>
         /// Méthode permettant de gérer le chargement d'un fichier
         /// </summary>
@@ -45,18 +46,66 @@ namespace OGP.All
         /// <returns>VOToDoList</returns>
         public VOToDoList NouvelleGestionTaches(string nomProjet)
         {
+            // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
 
-            if (!Directory.Exists(repertoire))
+            nomProjet = nomProjet + Constants.ExtensionFichierXml;
+            // Création du dossier si il n'existe pas
+            if (!Directory.Exists(nomProjet))
             {
                 Directory.CreateDirectory(repertoire);
             }
 
-            // Extension du fichier sous format 'xml'
-            nomProjet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
+            // Obtention du chemin complet
+            string cheminComplet = Path.Combine(repertoire, nomProjet);
 
-            return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(nomProjet);
+            // Dossier existant?
+            bool verif = DossierExistant(cheminComplet);
+            if (verif == true)
+            {
+                return null;
+            }
+            else
+            {
+                return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(cheminComplet);
+            }
         }
+
+        /// <summary>
+        /// Désérialisation des fichiers du dossier grâce à leurs chemins
+        /// </summary>
+        /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
+        public List<VOToDoList> ObtenirTousLesFichiers()
+        {
+            // Ouverture du dossier
+            var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
+            string repertoire = section["repertoireStockage"].ToString();
+
+            // Création d'une liste contenant les chemins complets de chaque fichiers
+            string[] tableauFichiersExistants = Directory.GetFiles(repertoire);
+            List<string> listeFichiersExistants = tableauFichiersExistants.ToList();
+
+            // Retourne les fichiers désérialisés et classés
+            return BllFactory.GetBllGestionTaches().DeserialisationFichiers(listeFichiersExistants).OrderBy(tdl => tdl.DateDerniereModif).ToList();
+        }
+        #endregion
+
+        #region Méthodes privées
+        /// <summary>
+        /// Vérifie l'existance d'un projet identique
+        /// </summary>
+        /// <param name="nomChemin">Nom du projet à ajouter</param>
+        /// <returns>Vrai si le fichier existe, faux sinon</returns>
+        private bool DossierExistant(string nomChemin)
+        {
+            if (File.Exists(nomChemin))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        #endregion 
     }
 }

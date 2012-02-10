@@ -27,11 +27,9 @@ namespace Utils.ViewModel
         {
             return ServiceProvider.Resolve<T>();
         }
-
-
+        
         #region Events
-
-        /// <summary>
+                /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
@@ -59,7 +57,6 @@ namespace Utils.ViewModel
                 PropertyChanged(this, args);
             }
         }
-
         #endregion
     }
 }

@@ -25,11 +25,6 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         private string nomDuProjet;
 
         /// <summary>
-        /// Stocke le  nom du fichier est vide
-        /// </summary>
-        private string nomDuFichier;
-
-        /// <summary>
         /// Commande pour enregistrer le nom du projet et du fichier
         /// </summary>
         private RelayCommand enregistrer;
@@ -60,31 +55,6 @@ namespace OGP.ClientWpf.Extensions.ViewModel
                 NotifyPropertyChanged(nomDuProjetChangeArgs);
             }
         }
-       
-        /// <summary>
-        /// Cinch : INPC Helper
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomDuFichierChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.NomDuFichier);
-
-        /// <summary>
-        /// Gets ou Sets NomDuFichier.
-        /// </summary>
-        public string NomDuFichier
-        {
-            get
-            {
-                return nomDuFichier;
-            }
-            set
-            {
-                if (nomDuFichier == value)
-                {
-                    return;
-                }
-                this.nomDuFichier = value;
-                NotifyPropertyChanged(nomDuFichierChangeArgs);
-            }
-        }
 
         #region Commandes
 
@@ -100,10 +70,11 @@ namespace OGP.ClientWpf.Extensions.ViewModel
                     enregistrer = new RelayCommand(
                         delegate
                         { 
+                            // Definir commande
                         },
                         delegate
                         {
-                            if (!string.IsNullOrEmpty(NomDuProjet) == false || !string.IsNullOrEmpty(NomDuFichier) == false)
+                            if ( (!string.IsNullOrEmpty(NomDuProjet) == false))
                             {
                                 return false;
                             }
