@@ -52,19 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandsToDoList\RelayCommandToDoList.cs" />
-    <Compile Include="ViewModel\MonDocumentViewModel.cs" />
+    <Compile Include="ViewModel\ToDoListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
     <Compile Include="ViewModel\ViewModelDocumentBase.cs" />
-    <Compile Include="View\MonDocument.xaml.cs">
-      <DependentUpon>MonDocument.xaml</DependentUpon>
+    <Compile Include="View\ToDoList.xaml.cs">
+      <DependentUpon>ToDoList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NouvelleGestionTache.xaml.cs">
       <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\MonDocument.xaml">
+    <Page Include="View\ToDoList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
