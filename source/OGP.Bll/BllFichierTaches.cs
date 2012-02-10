@@ -15,29 +15,20 @@ namespace OGP.Bll
         /// <summary>
         /// Création d'une nouvelle gestion de projet
         /// </summary>
-        /// <param name="cheminFichier">Chemin du fichier</param>
         /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList CreerFichierTachesXml(string cheminFichier, string nomProjet)
+        public VOToDoList CreerFichierTachesXml(string nomProjet)
         {
-            // VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
-            try
-            {
-                VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
-                System.IO.FileStream fichier = System.IO.File.Create(cheminFichier);
+            VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
+            System.IO.FileStream fichier = System.IO.File.Create(nomProjet);
 
-                // Création d'un objet permettant la sérialisation d'un objet de type VOToDoList
-                XmlSerializer serialiser = new XmlSerializer(typeof(VOToDoList));
+            // Création d'un objet permettant la sérialisation d'un objet de type VOToDoList
+            XmlSerializer serialiser = new XmlSerializer(typeof(VOToDoList));
 
-                // Sérialisation du fichier
-                serialiser.Serialize(fichier, nouvelleVOToDoList);
-                fichier.Close();
-                return nouvelleVOToDoList;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            // Sérialisation du fichier
+            serialiser.Serialize(fichier, nouvelleVOToDoList);
+            fichier.Close();
+            return nouvelleVOToDoList;
         }
     }
 }

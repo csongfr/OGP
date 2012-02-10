@@ -31,14 +31,13 @@ namespace OGP.ServiceWcf
         /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
-        /// <param name="nomFichier">Le nom du fichier</param>
         /// <param name="nomProjet">Le nom du projet</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList NouvelleToDoList(string nomFichier, string nomProjet)
+        public VOToDoList NouvelleToDoList(string nomProjet)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
-            return allGestionTaches.NouvelleGestionTaches(nomFichier, nomProjet);
+            return allGestionTaches.NouvelleGestionTaches(nomProjet);
         }
     }
 }

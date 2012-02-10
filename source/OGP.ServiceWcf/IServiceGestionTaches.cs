@@ -27,10 +27,9 @@ namespace OGP.ServiceWcf
         /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
-        /// <param name="nomFichier">le nom du fichier</param>
         /// <param name="nomProjet">Le nom du projet</param>
         /// <returns>VOToDoList</returns>
         [OperationContract]
-        VOToDoList NouvelleToDoList(string nomFichier, string nomProjet);
+        VOToDoList NouvelleToDoList(string nomProjet);        
     }
 }

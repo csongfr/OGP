@@ -41,10 +41,9 @@ namespace OGP.All
         /// <summary>
         /// Création d'une nouvelle gestion de projet
         /// </summary>
-        /// <param name="nomFichier">Nom du fichier</param>
         /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList NouvelleGestionTaches(string nomFichier, string nomProjet)
+        public VOToDoList NouvelleGestionTaches(string nomProjet)
         {
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
@@ -55,9 +54,9 @@ namespace OGP.All
             }
 
             // Extension du fichier sous format 'xml'
-            nomFichier = Path.Combine(repertoire, nomFichier + Constants.ExtensionFichierXml);
-            
-            return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(nomFichier, nomProjet); 
+            nomProjet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
+
+            return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(nomProjet);
         }
     }
 }
