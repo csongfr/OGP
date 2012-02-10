@@ -1,3 +1,6 @@
 
 *.pdb
 *.dll
+*.config
+*.xml
+*.exe
