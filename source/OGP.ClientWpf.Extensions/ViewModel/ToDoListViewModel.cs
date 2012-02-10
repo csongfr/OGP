@@ -8,9 +8,9 @@ using OGP.ClientWpf.Extensions;
 using OGP.ClientWpf.Extensions.View;
 using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.ValueObjects;
-using Utils.Wcf;
 using Utils.Commands;
 using Utils.ViewModel;
+using Utils.Wcf;
 
 namespace OGP.ClientWpf.Extensions
 {
@@ -107,21 +107,30 @@ namespace OGP.ClientWpf.Extensions
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
 
-            if (fenetre.Vm.NomDuProjet != null)
+            if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
             {
                 var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
                                "ClientTest",
                                client =>
                                {
                                    // VOToDoList listetaches = client.ChagerListeTaches("");
-                                   VOToDoList listetaches = client.NouvelleToDoList(/*fenetre.Vm.NomDuFichier,*/ fenetre.Vm.NomDuProjet);
+                                    VOToDoList listetaches = client.NouvelleToDoList(fenetre.Vm.NomDuProjet);
+                                    if (listetaches == null)
+                                    {
+                                        MessageBox.Show("Erreur, le dossier existe déjà");
+                                        Visible = Visibility.Hidden;
+                                    }
+                                    else
+                                    {
+                                        Visible = Visibility.Visible;
+                                    } 
                                });
 
                 if (exception != null)
                 {
                     // TODO : gérer l'exception.
                 }
-                Visible = Visibility.Visible;
+                // Visible = Visibility.Visible;
                 NomProjet = fenetre.Vm.NomDuProjet;
             }
         }

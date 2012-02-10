@@ -30,6 +30,13 @@ namespace OGP.ServiceWcf
         /// <param name="nomProjet">Le nom du projet</param>
         /// <returns>VOToDoList</returns>
         [OperationContract]
-        VOToDoList NouvelleToDoList(string nomProjet);        
+        VOToDoList NouvelleToDoList(string nomProjet);
+
+        /// <summary>
+        /// Chargement des fichiers
+        /// </summary>
+        /// <returns>liste des fichiers chargés et désérialisés</returns>
+        [OperationContract]
+        List<VOToDoList> ChargementFichiers();
     }
 }

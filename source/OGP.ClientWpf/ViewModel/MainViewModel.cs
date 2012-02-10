@@ -12,9 +12,9 @@ using AvalonDock;
 using Fluent;
 using Microsoft.Win32;
 using OGP.ClientWpf.View;
+using Utils.Commands;
 using Utils.Observable;
 using Utils.ViewModel;
-using Utils.Commands;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -59,7 +59,7 @@ namespace OGP.ClientWpf.ViewModel
         /// Stock la listes de tous les plugins
         /// </summary>
         [ImportMany]
-        private IEnumerable<Lazy<DocumentContent, IDocumentData>> Plugin
+        private IEnumerable<Lazy<DocumentContent, IPluginData>> Plugin
         {
             get;
             set;
@@ -227,7 +227,7 @@ namespace OGP.ClientWpf.ViewModel
         private void Listeplugins()
         {
             foreach (var plugin in this.Plugin)
-            {
+            { 
                 if (plugin.Value != null)
                 {
                     this.ListesPlugins.Add(plugin.Metadata.Title);

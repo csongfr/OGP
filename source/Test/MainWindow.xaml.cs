@@ -11,8 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Utils.Wcf;
 using OGP.ValueObjects;
+using Utils.Wcf;
 
 namespace Test
 {
@@ -32,14 +32,16 @@ namespace Test
                 "ClientTest",
                 client =>
                 {
-                    //VOToDoList listetaches = client.ChagerListeTaches("");
-                    //VOToDoList listetaches = client.NouvelleToDoList("Test");
-                    //List<string>
+                    List<VOToDoList> list = client.ChargementFichiers();
+                    foreach (VOToDoList liste in list)
+                    {
+                        MessageBox.Show("Le nom est : " + liste.NomDuProjet + " Heure : " + liste.DateDerniereModif.Hour);
+                    }
                 });
 
             if (exception != null)
             {
-                //TODO : gérer l'exception.
+                // TODO : gérer l'exception.
             }
 
         }

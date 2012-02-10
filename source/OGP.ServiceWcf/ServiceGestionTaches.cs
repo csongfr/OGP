@@ -16,6 +16,7 @@ namespace OGP.ServiceWcf
     /// </summary>
     public class ServiceGestionTaches : IServiceGestionTaches
     {
+        #region méthodes publiques
         /// <summary>
         /// Méthode qui charge la liste des tâches
         /// </summary>
@@ -39,5 +40,16 @@ namespace OGP.ServiceWcf
 
             return allGestionTaches.NouvelleGestionTaches(nomProjet);
         }
+
+        /// <summary>
+        /// Chargement des fichiers
+        /// </summary>
+        /// <returns>liste des fichiers chargés et désérialisés</returns>
+        public List<VOToDoList> ChargementFichiers()
+        {
+            IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
+            return allGestionTaches.ObtenirTousLesFichiers();
+        }
+        #endregion
     }
 }

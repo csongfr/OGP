@@ -14,11 +14,15 @@ namespace OGP.Bll
         /// <summary>
         /// Prototype de la méthode permettant de créer un nouveau fichier de tâches
         /// </summary>
-        /// <param name="nomFichier">Le nom du fichier</param>
         /// <param name="nomProjet">Le nom du projet</param>
         /// <returns>VOToDoList</returns>
-        //VOToDoList CreerFichierTachesXml(string nomFichier, string nomProjet);
-
         VOToDoList CreerFichierTachesXml(string nomProjet);
+
+        /// <summary>
+        /// Désérialisation des fichiers Xml présents dans le répertoire
+        /// </summary>
+        /// <param name="listeFichiersExistants">liste des chemins</param>
+        /// <returns>Liste des gestions de tâches désérialisées</returns>
+        List<VOToDoList> DeserialisationFichiers(List<string> listeFichiersExistants);
     }
 }

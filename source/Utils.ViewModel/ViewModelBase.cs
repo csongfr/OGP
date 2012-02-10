@@ -28,7 +28,6 @@ namespace Utils.ViewModel
             return ServiceProvider.Resolve<T>();
         }
 
-
         #region Events
 
         /// <summary>
@@ -59,7 +58,6 @@ namespace Utils.ViewModel
                 PropertyChanged(this, args);
             }
         }
-
         #endregion
     }
 }

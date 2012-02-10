@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using AvalonDock;
+using OGP.ClientWpf.ViewModel;
 
 namespace OGP.ClientWpf.Extensions
 {
