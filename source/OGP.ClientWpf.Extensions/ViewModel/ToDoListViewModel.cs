@@ -7,23 +7,24 @@ using System.Windows.Input;
 using OGP.ClientWpf.Extensions;
 using OGP.ClientWpf.Extensions.View;
 using OGP.ClientWpf.Extensions.ViewModel;
-using OGP.Todolist.CommandsToDoList;
 using OGP.ValueObjects;
 using Utils.Wcf;
+using Utils.Commands;
+using Utils.ViewModel;
 
 namespace OGP.ClientWpf.Extensions
 {
     /// <summary>
     /// Mon ToDoList
     /// </summary>
-    public class ToDoListViewModel : ViewModelDocumentBase
+    public class ToDoListViewModel : ViewModelBase
     {
         #region Membres privés
 
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        private RelayCommandToDoList ouvrirFichier;
+        private RelayCommand ouvrirFichier;
 
         /// <summary>
         /// Permet de communiquer avec la view
@@ -134,7 +135,7 @@ namespace OGP.ClientWpf.Extensions
             {
                 if (ouvrirFichier == null)
                 {
-                    ouvrirFichier = new RelayCommandToDoList(Ouvrir);
+                    ouvrirFichier = new RelayCommand(Ouvrir);
                 }
                 return ouvrirFichier;
             }

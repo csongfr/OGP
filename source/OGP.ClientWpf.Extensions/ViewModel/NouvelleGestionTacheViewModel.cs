@@ -5,16 +5,17 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using OGP.ClientWpf.Extensions.ViewModel;
-using OGP.Todolist.CommandsToDoList;
 using OGP.ValueObjects;
 using Utils.Wcf;
+using Utils.Commands;
+using Utils.ViewModel;
 
 namespace OGP.ClientWpf.Extensions.ViewModel
 {
     /// <summary>
     /// Classe qui gère la popup
     /// </summary>
-    public class NouvelleGestionTacheViewModel : ViewModelDocumentBase
+    public class NouvelleGestionTacheViewModel : ViewModelBase
     {
         #region Membres privés
 
@@ -31,7 +32,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         /// <summary>
         /// Commande pour enregistrer le nom du projet et du fichier
         /// </summary>
-        private RelayCommandToDoList enregistrer;
+        private RelayCommand enregistrer;
 
         #endregion
 
@@ -96,7 +97,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
             {
                 if (enregistrer == null)
                 {
-                    enregistrer = new RelayCommandToDoList(
+                    enregistrer = new RelayCommand(
                         delegate
                         { 
                         },
