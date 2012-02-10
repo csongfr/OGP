@@ -58,7 +58,6 @@ namespace Utils.ViewModel
                 PropertyChanged(this, args);
             }
         }
-
         #endregion
     }
 }

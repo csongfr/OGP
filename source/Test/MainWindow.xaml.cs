@@ -11,10 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Utils.Wcf;
 using OGP.ValueObjects;
+using Utils.Wcf;
 
-namespace ClientTests
+namespace Test
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,25 +26,24 @@ namespace ClientTests
             InitializeComponent();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+             var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
                 "ClientTest",
                 client =>
                 {
-                    //VOToDoList listetaches = client.ChagerListeTaches("");
-                    VOToDoList listetaches = client.NouvelleToDoList("TestNewToDoList", "Test");
+                    List<VOToDoList> list = client.ChargementFichiers();
+                    foreach (VOToDoList liste in list)
+                    {
+                        MessageBox.Show("Le nom est : " + liste.NomDuProjet + " Heure : " + liste.DateDerniereModif.Hour);
+                    }
                 });
 
             if (exception != null)
             {
-                //TODO : gérer l'exception.
+                // TODO : gérer l'exception.
             }
+
         }
     }
 }

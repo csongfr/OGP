@@ -28,9 +28,14 @@ namespace OGP.All
         /// <summary>
         /// Prototype de la méthode permettant de créer une nouvelle gestion de projet
         /// </summary>
-        /// <param name="nomFichier">Nom du fichier</param>
         /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
-        VOToDoList NouvelleGestionTaches(string nomFichier, string nomProjet);
+        VOToDoList NouvelleGestionTaches(string nomProjet);
+
+        /// <summary>
+        /// Désérialisation des fichiers du dossier grâce à leurs chemins
+        /// </summary>
+        /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
+        List<VOToDoList> ObtenirTousLesFichiers();
     }
 }
