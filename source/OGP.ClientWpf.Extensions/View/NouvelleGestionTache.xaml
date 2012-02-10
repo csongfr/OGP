@@ -6,7 +6,7 @@
              Height="213" Width="424">
     <Grid Height="145">
         <Label Content="Nom du Projet :" Height="28" HorizontalAlignment="Left" Margin="28,42,0,0" Name="label1" VerticalAlignment="Top" Width="97" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,44,0,0" Name="textBox1" VerticalAlignment="Top" Width="195" Text="{Binding NomDuProjet}" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="131,44,0,0" Name="textBox1" VerticalAlignment="Top" Width="195" Text="{Binding NomDuProjet, UpdateSourceTrigger=PropertyChanged}" />
         <Button Content="Enregistrer"  Height="23"  HorizontalAlignment="Left" Margin="315,101,0,0" Name="button1" VerticalAlignment="Top" Width="75"  Command="{Binding Enregistrer}" Click="Button1_Click" />
     </Grid>
 </Window>

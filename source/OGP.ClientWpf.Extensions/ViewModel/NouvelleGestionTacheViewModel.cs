@@ -20,12 +20,12 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         #region Membres privés
 
         /// <summary>
-        /// Stocke le  nom du projet est vide
+        /// Stocke le nom du projet est vide
         /// </summary>
         private string nomDuProjet;
 
         /// <summary>
-        /// bool pour savoir si enregistrer et bien selectionné
+        /// Booléen permettant de savoir si le bouton "Enregistrer" est bien selectionné
         /// </summary>
         private bool actif;
 
@@ -47,7 +47,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         private static System.ComponentModel.PropertyChangedEventArgs sucessChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.Actif);
 
         /// <summary>
-        /// Gets ou Sets pour savoir si le bouton enregistrer est cliqué.
+        /// Gets ou Sets pour savoir si le bouton "Enregistrer" est cliqué
         /// </summary>
         public bool Actif
         {
@@ -74,7 +74,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         private static System.ComponentModel.PropertyChangedEventArgs nomDuProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.NomDuProjet);
 
         /// <summary>
-        /// Gets ou Sets du plugin actif.
+        /// Gets ou Sets du plugin actif
         /// </summary>
         public string NomDuProjet
         {
@@ -96,7 +96,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         #region Commandes
 
         /// <summary>
-        /// permet d'enregistrer le nom du projet et du fichier
+        /// Permet d'enregistrer le nom du projet et du fichier
         /// </summary>
         public ICommand Enregistrer
         {
@@ -111,7 +111,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
                         },
                         delegate
                         {
-                            if ( (!string.IsNullOrEmpty(NomDuProjet) == false))
+                            if ((!string.IsNullOrEmpty(NomDuProjet) == false))
                             {
                                 return false;
                             }
