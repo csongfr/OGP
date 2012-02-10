@@ -11,9 +11,10 @@ using System.Windows.Input;
 using AvalonDock;
 using Fluent;
 using Microsoft.Win32;
-using OGP.ClientWpf.Comands;
 using OGP.ClientWpf.View;
 using Utils.Observable;
+using Utils.ViewModel;
+using Utils.Commands;
 
 namespace OGP.ClientWpf.ViewModel
 {
