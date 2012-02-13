@@ -42,14 +42,14 @@ namespace OGP.ClientWpf.ViewModel
         private RelayCommand supprimePlugin;
 
         /// <summary>
-        /// Stock le catalogue des plugins
+        /// Stocke la liste de tous les plugins
         /// </summary>
-        private CompositionContainer cataloguePlugins;
+        private ObservableCollection<DocumentContent> listePlugins;
 
         /// <summary>
         /// Stock le plugin actif.
         /// </summary>
-        private ComposablePartDefinition pluginActif;
+        private DocumentContent pluginActif;
 
         /// <summary>
         /// Stock la liste des plugins actifs.
@@ -61,33 +61,23 @@ namespace OGP.ClientWpf.ViewModel
         #region Membres publiques
 
         /// <summary>
-        /// Stock la listes de tous les plugins
-        /// </summary>
-        [ImportMany]
-        public IEnumerable<Lazy<DocumentContent, IPluginData>> ListePlugins
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs cataloguePluginsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.CataloguePlugins);
+        private static System.ComponentModel.PropertyChangedEventArgs listePluginsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListePlugins);
 
         /// <summary>
-        /// Get et set des plgins
+        /// Stocke la liste de tous les plugins
         /// </summary>
-        public CompositionContainer CataloguePlugins
+        [ImportMany]
+        public ObservableCollection<DocumentContent> ListePlugins
         {
             get
             {
-                return cataloguePlugins;
+                return this.listePlugins;
             }
             set
             {
-                this.cataloguePlugins = value;
-                NotifyPropertyChanged(cataloguePluginsChangeArgs);
+                this.listePlugins = value;
             }
         }
 
@@ -97,7 +87,7 @@ namespace OGP.ClientWpf.ViewModel
         private static System.ComponentModel.PropertyChangedEventArgs listeDocumentsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeDocuments);
 
         /// <summary>
-        /// Get et set des plgins
+        /// Get et set des plugins
         /// </summary>
         public ObservableCollection<DocumentContent> ListeDocuments
         {
@@ -120,7 +110,8 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Gets ou Sets du plugin actif.
         /// </summary>
-        public ComposablePartDefinition PluginActif
+        //public ComposablePartDefinition PluginActif
+        public DocumentContent PluginActif
         {
             get
             {
@@ -171,7 +162,7 @@ namespace OGP.ClientWpf.ViewModel
                     supprimePlugin = new RelayCommand(
                         delegate
                         {
-                            SupprimerPlugin(PluginActif.ToString());
+                            SupprimerPlugin(PluginActif.Title);
                         },
                         delegate
                         {
@@ -199,7 +190,7 @@ namespace OGP.ClientWpf.ViewModel
                     chargerPlugin = new RelayCommand(
                         delegate
                         {
-                            ChargerPluginActif(PluginActif.ToString());
+                            ChargerPluginActif(PluginActif.Title);
                         },
                         delegate
                         {
@@ -273,11 +264,11 @@ namespace OGP.ClientWpf.ViewModel
             // On ajoute le plugin aux documents
             foreach (var plugin in this.ListePlugins)
             {
-                if (plugin.Value != null)
+                if (plugin != null)
                 {
-                    if (plugin.Metadata.Title.Equals(nomPlugin))
+                    if (plugin.Title.Equals(nomPlugin))
                     {
-                        ListeDocuments.Add(plugin.Value);
+                        ListeDocuments.Add(plugin);
                     }
                 }
             }
@@ -292,8 +283,8 @@ namespace OGP.ClientWpf.ViewModel
             {
                 var catalog = new AggregateCatalog();
                 catalog.Catalogs.Add(new DirectoryCatalog(@"..\..\Ressources\Plugins"));
-                CataloguePlugins = new CompositionContainer(catalog);
-                CataloguePlugins.ComposeParts(this);
+                CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
+                cataloguePlugins.ComposeParts(this);
             }
             catch (CompositionException compositionException)
             {
@@ -321,7 +312,7 @@ namespace OGP.ClientWpf.ViewModel
             }
             else
             {
-                return ListeDocuments.Any(doc => doc.Title == pluginActif.ToString());
+                return ListeDocuments.Any(doc => doc.Title == pluginActif.Title);
             }
         }
 

@@ -21,7 +21,7 @@
                     <Fluent:Button SizeDefinition="Large" Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="Liste Des Plugins" Width="160">
-                    <Fluent:ComboBox HorizontalAlignment="Center" SizeDefinition="Large" Width="150" Name="plugin" ItemsSource="{Binding CataloguePlugins.Catalog.Parts}" SelectedItem="{Binding PluginActif, UpdateSourceTrigger=PropertyChanged}" />
+                    <Fluent:ComboBox HorizontalAlignment="Center" SizeDefinition="Large" Width="150" Name="plugin" ItemsSource="{Binding ListePlugins}" DisplayMemberPath="Title" SelectedItem="{Binding PluginActif, UpdateSourceTrigger=PropertyChanged}" />
                     <Fluent:Button HorizontalAlignment="Center" SizeDefinition="Middle" Header="Recharger" Command="{Binding RecupererPlugins}"  Icon="{StaticResource RechargerPetite}" LargeIcon="{StaticResource RechargerGrande}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem >
