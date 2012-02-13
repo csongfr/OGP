@@ -8,7 +8,6 @@ namespace Plugin.Todolist
     /// Logique d'interaction pour MonDocument.xaml
     /// </summary>
     [Export(typeof(DocumentContent))]
-    [ExportMetadata("Title", "Plugin.Todolist.Todolist")]
     public partial class Todolist : DocumentContent
     {
         /// <summary>
