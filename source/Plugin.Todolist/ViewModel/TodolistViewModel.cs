@@ -22,9 +22,19 @@ namespace Plugin.Todolist
         private RelayCommand nouveauCommand;
 
         /// <summary>
+        /// Commande qui ouvre la fenêtre de sélection de fichiers
+        /// </summary>
+        private RelayCommand commandeOuvrirFichier;
+
+        /// <summary>
         /// Permet de communiquer avec la view
         /// </summary>
         private NouvelleGestionTache fenetre;
+
+        /// <summary>
+        /// Communication avec la vue de la fenêtre ouvrant tous les fichiers
+        /// </summary>
+        private PopupOuvrirTodolistView fenetreTousFichiers;
 
         /// <summary>
         /// Permet de stocker le nom du projet
@@ -113,18 +123,18 @@ namespace Plugin.Todolist
                                "Plugin.Todolist",
                                client =>
                                {
-                                    string messageErreur = string.Empty;
+                                   string messageErreur = string.Empty;
 
-                                    Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet, out messageErreur);
-                                   
-                                    if (!string.IsNullOrEmpty(messageErreur))
-                                    {
-                                        MessageBox.Show(messageErreur);
-                                    }
-                                    else 
-                                    {
-                                        NomProjet = Todolist.NomDuProjet;
-                                    }
+                                   Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet, out messageErreur);
+
+                                   if (!string.IsNullOrEmpty(messageErreur))
+                                   {
+                                       MessageBox.Show(messageErreur);
+                                   }
+                                   else
+                                   {
+                                       NomProjet = Todolist.NomDuProjet;
+                                   }
                                });
 
                 if (exception != null)
@@ -149,6 +159,36 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Commande qui ouvre la popup
+        /// </summary>
+        public ICommand CommandeOuvrirFichier
+        {
+            get
+            {
+                if (commandeOuvrirFichier == null)
+                {
+                    commandeOuvrirFichier = new RelayCommand(OuvrirProjet);
+                }
+                return commandeOuvrirFichier;
+            }
+        }
+
+        /// <summary>
+        /// Ouvre la popup et charge le projet sélectionné
+        /// </summary>
+        /// <param name="param">object</param>
+        private void OuvrirProjet(object param)
+        {
+            this.fenetreTousFichiers = new PopupOuvrirTodolistView();
+            this.fenetreTousFichiers.ShowDialog();
+
+            if (fenetreTousFichiers.Vm.OuvertureActivee == true)
+            {
+                Todolist = fenetreTousFichiers.Vm.ProjetSelectionne;              
+            }
+        }
+
         #endregion
 
         #region Constructeur
@@ -157,7 +197,7 @@ namespace Plugin.Todolist
         /// Default constructor
         /// </summary>
         public TodolistViewModel()
-        {
+        {  
         }
 
         #endregion

@@ -11,7 +11,7 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top">
             <Button Content="Nouveau" Height="25" Name="Nouveau" Width="100" Command="{Binding CreerCommand}" />
-            <Button Content="Ouvrir" Height="25" Name="Ouvrir" Width="100" />
+            <Button Content="Ouvrir" Height="25" Name="Ouvrir" Width="100" Command="{Binding CommandeOuvrirFichier}"/>
             <Button Content="Enregistrer" Height="25" Name="AjouterTache" Width="100" />
         </StackPanel>
         <!--<Fluent:Ribbon DockPanel.Dock="Top" IsQuickAccessToolBarVisible="False" >
