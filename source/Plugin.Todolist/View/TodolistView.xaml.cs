@@ -1,23 +1,23 @@
 ﻿using System.ComponentModel.Composition;
 using AvalonDock;
-using OGP.ClientWpf.ViewModel;
+using Fluent;
 
-namespace OGP.ClientWpf.Extensions
+namespace Plugin.Todolist
 {
     /// <summary>
     /// Logique d'interaction pour MonDocument.xaml
     /// </summary>
     [Export(typeof(DocumentContent))]
-    [ExportMetadata("Title", "ToDoList")]
-    public partial class ToDoList : DocumentContent
+    [ExportMetadata("Title", "Plugin.Todolist.Todolist")]
+    public partial class Todolist : DocumentContent
     {
         /// <summary>
         /// Constructeur de la TODoList
         /// </summary>
-        public ToDoList()
+        public Todolist()
         {
             InitializeComponent();
-            this.DataContext = new ToDoListViewModel();
+            this.DataContext = new TodolistViewModel();
         }
     }
 }

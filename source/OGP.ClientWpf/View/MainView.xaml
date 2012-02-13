@@ -8,7 +8,7 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         Title="OGP - Outil de Gestion de Projet" Width="1650"
         Height="1020" WindowStyle="None" Background="#FFEBEDF0" 
-        Icon="..\Ressources\Images\logo-16x16.png">
+        Icon="{StaticResource LogoPetite}">
     
  
     
@@ -17,26 +17,19 @@
             <!--Tabs-->
             <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False" >
                 <Fluent:RibbonGroupBox Header="Actions">
-                    <Fluent:Button Header="Ajouter" Command="{Binding AjouterPlugin}" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
-                    <Fluent:Button Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="..\Ressources\Images\supprimer-16x16.png" LargeIcon="..\Ressources\Images\supprimer-32x32.png"/>
+                    <Fluent:Button SizeDefinition="Large" Header="Charger" Command="{Binding ChargerPlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
+                    <Fluent:Button SizeDefinition="Large" Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
                 </Fluent:RibbonGroupBox>
-                <!--Gallery with all persons
-                <Fluent:RibbonGroupBox Header="Liste des plugins" Name="P" Width="200">
-                    <Fluent:InRibbonGallery ItemWidth="100" ItemHeight="56" ResizeMode="Both"                             
-                                      ItemsSource="{Binding Persons}"
-                                      SelectedItem="{Binding Current}">
-                    </Fluent:InRibbonGallery>
-                </Fluent:RibbonGroupBox>-->
-                <Fluent:RibbonGroupBox Header="Liste Des Plugins"  Width="115">
-                    <Fluent:ComboBox Width="100" Name="plugin" ItemsSource="{Binding ListesPlugins, Mode=TwoWay}" SelectedItem="{Binding PluginActif}"  IsSynchronizedWithCurrentItem="True"/>
-                    
+                <Fluent:RibbonGroupBox Header="Liste Des Plugins" Width="160">
+                    <Fluent:ComboBox HorizontalAlignment="Center" SizeDefinition="Large" Width="150" Name="plugin" ItemsSource="{Binding CataloguePlugins.Catalog.Parts}" SelectedItem="{Binding PluginActif, UpdateSourceTrigger=PropertyChanged}" />
+                    <Fluent:Button HorizontalAlignment="Center" SizeDefinition="Middle" Header="Recharger" Command="{Binding RecupererPlugins}"  Icon="{StaticResource RechargerPetite}" LargeIcon="{StaticResource RechargerGrande}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem >
             <!--Backstage Items-->
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>
                     <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Close" Command="{Binding ExitCommand}" Icon="..\Ressources\Images\fermer-16x16.png"/>
+                        <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>

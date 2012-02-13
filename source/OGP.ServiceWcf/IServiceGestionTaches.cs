@@ -22,21 +22,22 @@ namespace OGP.ServiceWcf
         /// <param name="nomFichier">Nom du fichier à charger.</param>
         /// <returns>Liste des taches.</returns>
         [OperationContract]
-        VOToDoList ChagerListeTaches(string nomFichier);
+        VOTodolist ChagerListeTaches(string nomFichier);
 
         /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
+        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
         [OperationContract]
-        VOToDoList NouvelleToDoList(string nomProjet);
+        VOTodolist NouvelleToDoList(string nomProjet, out string messageErreur);
 
         /// <summary>
         /// Chargement des fichiers
         /// </summary>
         /// <returns>liste des fichiers chargés et désérialisés</returns>
         [OperationContract]
-        List<VOToDoList> ChargementFichiers();
+        List<VOTodolist> ChargementFichiers();
     }
 }

@@ -17,13 +17,14 @@ namespace OGP.All
     /// </summary>
     public class AllGestionTaches : IAllGestionTaches
     {
-        #region méthodes publiques
+        #region Méthodes publiques
+
         /// <summary>
         /// Méthode permettant de gérer le chargement d'un fichier
         /// </summary>
         /// <param name="nomFichier">Nom du Fichier.</param>
         /// <returns>Liste de taches.</returns>
-        public VOToDoList ChargerFichier(string nomFichier)
+        public VOTodolist ChargerFichier(string nomFichier)
         {
             // FileStream fichierIn = new FileStream();
             return null;
@@ -34,7 +35,7 @@ namespace OGP.All
         /// </summary>
         /// <param name="nouvelleToDoList">Projet auquel on ajoute une tâche</param>
         /// <param name="nouvelleTache">tâche à ajouter</param>
-        public void AjouterTache(VOToDoList nouvelleToDoList, VOTache nouvelleTache)
+        public void AjouterTache(VOTodolist nouvelleToDoList, VOTache nouvelleTache)
         {
             nouvelleToDoList.ListeDesTaches.Add(nouvelleTache);
         }
@@ -43,14 +44,19 @@ namespace OGP.All
         /// Création d'une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
+        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList NouvelleGestionTaches(string nomProjet)
+        public VOTodolist NouvelleGestionTaches(string nomProjet, out string messageErreur)
         {
+            // Initialisation du message d'erreur
+            messageErreur = string.Empty;
+
             // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
 
             nomProjet = nomProjet + Constants.ExtensionFichierXml;
+
             // Création du dossier si il n'existe pas
             if (!Directory.Exists(nomProjet))
             {
@@ -64,6 +70,7 @@ namespace OGP.All
             bool verif = DossierExistant(cheminComplet);
             if (verif == true)
             {
+                messageErreur = "Erreur, il existe déjà un projet de ce nom.";
                 return null;
             }
             else
@@ -76,7 +83,7 @@ namespace OGP.All
         /// Désérialisation des fichiers du dossier grâce à leurs chemins
         /// </summary>
         /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
-        public List<VOToDoList> ObtenirTousLesFichiers()
+        public List<VOTodolist> ObtenirTousLesFichiers()
         {
             // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
@@ -89,6 +96,7 @@ namespace OGP.All
             // Retourne les fichiers désérialisés et classés
             return BllFactory.GetBllGestionTaches().DeserialisationFichiers(listeFichiersExistants).OrderBy(tdl => tdl.DateDerniereModif).ToList();
         }
+
         #endregion
 
         #region Méthodes privées

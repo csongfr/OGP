@@ -16,13 +16,13 @@ namespace OGP.Bll
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
         /// <returns>VOToDoList</returns>
-        VOToDoList CreerFichierTachesXml(string nomProjet);
+        VOTodolist CreerFichierTachesXml(string nomProjet);
 
         /// <summary>
         /// Désérialisation des fichiers Xml présents dans le répertoire
         /// </summary>
         /// <param name="listeFichiersExistants">liste des chemins</param>
         /// <returns>Liste des gestions de tâches désérialisées</returns>
-        List<VOToDoList> DeserialisationFichiers(List<string> listeFichiersExistants);
+        List<VOTodolist> DeserialisationFichiers(List<string> listeFichiersExistants);
     }
 }

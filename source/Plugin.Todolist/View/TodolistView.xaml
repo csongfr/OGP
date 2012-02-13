@@ -1,15 +1,20 @@
-﻿<ad:DocumentContent x:Class="OGP.ClientWpf.Extensions.ToDoList"
+﻿<ad:DocumentContent x:Class="Plugin.Todolist.Todolist"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:View="clr-namespace:OGP.ClientWpf.Extensions.View"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
-    Title="ToDoList" mc:Ignorable="d" d:DesignWidth="1200">
+    Title="Plugin.Todolist.Todolist" mc:Ignorable="d" d:DesignWidth="1200">
 
+    
     <DockPanel>
-        <Fluent:Ribbon DockPanel.Dock="Top" IsQuickAccessToolBarVisible="False" >
+        <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top">
+            <Button Content="Nouveau" Height="25" Name="Nouveau" Width="100" Command="{Binding CreerCommand}" />
+            <Button Content="Ouvrir" Height="25" Name="Ouvrir" Width="100" />
+            <Button Content="Nouvelle Tache" Height="25" Name="AjouterTache" Width="100" />
+        </StackPanel>
+        <!--<Fluent:Ribbon DockPanel.Dock="Top" IsQuickAccessToolBarVisible="False" >
             <Fluent:RibbonTabItem Header="Gestion Des Tâches">
                 <Fluent:RibbonGroupBox Header="Actions">
                     <Fluent:Button Header="Ajouter" Icon="..\Ressources\Images\ajouter-16x16.png" LargeIcon="..\Ressources\Images\ajouter-32x32.png"/>
@@ -53,13 +58,14 @@
                             </Fluent:DropDownButton>
                         </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>  
-        </Fluent:Ribbon >
+            </Fluent:RibbonTabItem> 
+        </Fluent:Ribbon >-->
         <ad:DockablePane Visibility="{Binding Visible}" > 
             <ad:DockableContent Title="{Binding NomProjet}" >
-                <DataGrid>
+                <DataGrid ItemsSource="{Binding Todolist.ListeDesTaches}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="!" Width="50" />
+                        <DataGridTextColumn Header="Titre" />
                         <DataGridTextColumn Header="%" Width="50"/>
                         <DataGridTextColumn Header="Est." Width="40"/>
                         <DataGridTextColumn Header="Temps passé" Width="90"/>
@@ -70,7 +76,6 @@
                         <DataGridTextColumn Header="Catégories" Width="90"/>
                         <DataGridTextColumn Header="Sauvegarder" Width="90"/>
                         <DataGridCheckBoxColumn Header="Terminé" Width="90"/>
-                        <DataGridTextColumn Header="Titre" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ad:DockableContent>

@@ -16,13 +16,14 @@ namespace OGP.ServiceWcf
     /// </summary>
     public class ServiceGestionTaches : IServiceGestionTaches
     {
-        #region méthodes publiques
+        #region Méthodes publiques
+
         /// <summary>
         /// Méthode qui charge la liste des tâches
         /// </summary>
         /// <param name="nomFichier">Nom du fichier à charger.</param>
         /// <returns>Liste des taches.</returns>
-        public VOToDoList ChagerListeTaches(string nomFichier)
+        public VOTodolist ChagerListeTaches(string nomFichier)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
@@ -33,19 +34,20 @@ namespace OGP.ServiceWcf
         /// Création d'un nouveau projet
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
+        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList NouvelleToDoList(string nomProjet)
+        public VOTodolist NouvelleToDoList(string nomProjet, out string messageErreur)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
-            return allGestionTaches.NouvelleGestionTaches(nomProjet);
+            return allGestionTaches.NouvelleGestionTaches(nomProjet, out messageErreur);
         }
 
         /// <summary>
         /// Chargement des fichiers
         /// </summary>
         /// <returns>liste des fichiers chargés et désérialisés</returns>
-        public List<VOToDoList> ChargementFichiers()
+        public List<VOTodolist> ChargementFichiers()
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
             return allGestionTaches.ObtenirTousLesFichiers();

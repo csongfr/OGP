@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ImageSource x:Key="AjouterPetite">Images/ajouter-16x16.png</ImageSource>
+    <ImageSource x:Key="AjouterGrande">Images/ajouter-32x32.png</ImageSource>
+    <ImageSource x:Key="FermerPetite">Images/fermer-16x16.png</ImageSource>
+    <ImageSource x:Key="FermerGrande">Images/fermer-32x32.png</ImageSource>
+    <ImageSource x:Key="HomePetite">Images/home-16x16.png</ImageSource>
+    <ImageSource x:Key="LogoPetite">Images/logo-16x16.png</ImageSource>
+    <ImageSource x:Key="NouveauPetite">Images/nouveau-16x16.png</ImageSource>
+    <ImageSource x:Key="NouveauGrande">Images/nouveau-32x32.png</ImageSource>
+    <ImageSource x:Key="PluginPetite">Images/plugin-16x16.png</ImageSource>
+    <ImageSource x:Key="PluginGrande">Images/plugin-32x32.png</ImageSource>
+    <ImageSource x:Key="RechargerPetite">Images/recharger-16x16.png</ImageSource>
+    <ImageSource x:Key="RechargerGrande">Images/recharger-32x32.png</ImageSource>
+    <ImageSource x:Key="SupprimerPetite">Images/supprimer-16x16.png</ImageSource>
+    <ImageSource x:Key="SupprimerGrande">Images/supprimer-32x32.png</ImageSource>
+
+</ResourceDictionary>

@@ -6,18 +6,16 @@ using System.Text;
 
 namespace OGP.ValueObjects
 {
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-
     /// <summary>
     /// Classe correspondant à la ToDoList
     /// </summary>
-    public class VOToDoList
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute]
+    [System.Diagnostics.DebuggerStepThroughAttribute]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    public class VOTodolist
     {
         /// <summary>
         /// Gets et sets des tâches de la ToDoList
@@ -47,7 +45,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public VOToDoList()
+        public VOTodolist()
         { 
         }
 
@@ -55,10 +53,13 @@ namespace OGP.ValueObjects
         /// Constructeur d'une ToDoList à partir du nom du projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
-        public VOToDoList(string nomProjet)
+        public VOTodolist(string nomProjet)
         {
             this.NomDuProjet = nomProjet;
             this.DateDerniereModif = DateTime.Now;
+
+            // Initialisation de la liste des taches
+            this.ListeDesTaches = new List<VOTache>();
         }
     }
 }

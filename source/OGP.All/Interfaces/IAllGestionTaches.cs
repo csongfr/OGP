@@ -16,26 +16,27 @@ namespace OGP.All
         /// </summary>
         /// <param name="nomFichier">Nom du Fichier.</param>
         /// <returns>Liste de taches.</returns>
-        VOToDoList ChargerFichier(string nomFichier);
+        VOTodolist ChargerFichier(string nomFichier);
 
         /// <summary>
         /// Prototype de la méthode permettant d'ajouter une tâche
         /// </summary>
         /// <param name="nouvelleToDoList">projet dans lequel on ajoute une tâche</param>
         /// <param name="nouvelleTache"> la tâche à ajouter</param>
-        void AjouterTache(VOToDoList nouvelleToDoList, VOTache nouvelleTache);
+        void AjouterTache(VOTodolist nouvelleToDoList, VOTache nouvelleTache);
 
         /// <summary>
-        /// Prototype de la méthode permettant de créer une nouvelle gestion de projet
+        /// Création d'une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
+        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        VOToDoList NouvelleGestionTaches(string nomProjet);
+        VOTodolist NouvelleGestionTaches(string nomProjet, out string messageErreur);
 
         /// <summary>
         /// Désérialisation des fichiers du dossier grâce à leurs chemins
         /// </summary>
         /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
-        List<VOToDoList> ObtenirTousLesFichiers();
+        List<VOTodolist> ObtenirTousLesFichiers();
     }
 }

@@ -6,154 +6,118 @@ using System.Xml.Serialization;
 
 namespace OGP.ValueObjects
 {    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-
     /// <summary>
     /// Classe correspondant à une tâche
     /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.1")]
+    [System.SerializableAttribute]
+    [System.Diagnostics.DebuggerStepThroughAttribute]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
    public class VOTache
    {
        #region Membres publics
-
-       /// <remarks/>
+        
+        /// <summary>
+        /// Gets et sets de la liste de sous-tâches
+        /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("SousTaches", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-
-       /// <summary>
-       /// Gets et sets de la liste de sous-tâches
-       /// </summary>
         public List<int> SousTaches { get; set; }
-
-       /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-
+        
         /// <summary>
         /// Gets et sets du titre
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public string Titre { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de l'identifiant
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public int Identifiant { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
 
         /// <summary>
         /// Gets et sets des Personnes
         /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<VOPersonne> ListeDesPersonnes { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("CategorieDeLaTache", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
 
         /// <summary>
         /// Gets et sets des catégories
         /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("CategorieDeLaTache", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<VOCategorie> ListeDesCategories { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la priorité
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public EnumPriorite PrioriteDeLaTache { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du risque
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public string Risque { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du % effectué
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public int PourcentageEffectue { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du calcul du % effectué
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public float CalculDuPourcentageEffectue { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du temps estimé à la tâche
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public long Estimation { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du temps passé sur la tâche
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public long TpsDepense { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la date limite de la tâche
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateLimite { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la date du début
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateDeDebut { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la date de création
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateDeCreation { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la date de dernière modification
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateDeDernièreModif { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets du temps réel
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public long TempsReel { get; set; }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
 
         /// <summary>
         /// Gets et sets de la date à laquelle la date a été finie
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
 
         #endregion

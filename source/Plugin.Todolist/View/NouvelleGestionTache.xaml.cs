@@ -11,9 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using OGP.ClientWpf.Extensions.ViewModel;
+using Plugin.Todolist.ViewModel;
 
-namespace OGP.ClientWpf.Extensions.View
+namespace Plugin.Todolist.View
 {
     /// <summary>
     /// Interaction logic for NouvelleGestionTache.xaml

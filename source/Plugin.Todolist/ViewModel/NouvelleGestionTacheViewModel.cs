@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
 
-namespace OGP.ClientWpf.Extensions.ViewModel
+namespace Plugin.Todolist.ViewModel
 {
     /// <summary>
     /// Classe qui gère la popup
@@ -28,11 +27,6 @@ namespace OGP.ClientWpf.Extensions.ViewModel
         /// Booléen permettant de savoir si le bouton "Enregistrer" est bien selectionné
         /// </summary>
         private bool actif;
-
-        /// <summary>
-        /// Stocke le  nom du fichier est vide
-        /// </summary>
-        private string nomDuFichier;
 
         /// <summary>
         /// Commande pour enregistrer le nom du projet et du fichier
@@ -111,7 +105,7 @@ namespace OGP.ClientWpf.Extensions.ViewModel
                         },
                         delegate
                         {
-                            if ((!string.IsNullOrEmpty(NomDuProjet) == false))
+                            if (!string.IsNullOrEmpty(NomDuProjet) == false)
                             {
                                 return false;
                             }

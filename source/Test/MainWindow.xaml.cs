@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OGP.ValueObjects;
 using Utils.Wcf;
 
@@ -21,29 +11,36 @@ namespace Test
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Bouton de test
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void BoutonTest(object sender, RoutedEventArgs e)
         {
-             var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
-                "ClientTest",
-                client =>
-                {
-                    List<VOToDoList> list = client.ChargementFichiers();
-                    foreach (VOToDoList liste in list)
-                    {
-                        MessageBox.Show("Le nom est : " + liste.NomDuProjet + " Heure : " + liste.DateDerniereModif.Hour);
-                    }
-                });
+            var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+               "ClientTest",
+               client =>
+               {
+                   List<VOTodolist> list = client.ChargementFichiers();
+                   foreach (VOTodolist liste in list)
+                   {
+                       MessageBox.Show("Le nom est : " + liste.NomDuProjet + " Heure : " + liste.DateDerniereModif.Hour);
+                   }
+               });
 
             if (exception != null)
             {
                 // TODO : gérer l'exception.
             }
-
         }
     }
 }

@@ -19,18 +19,19 @@ namespace OGP.Bll
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
         /// <returns>VOToDoList</returns>
-        public VOToDoList CreerFichierTachesXml(string nomProjet)
+        public VOTodolist CreerFichierTachesXml(string nomProjet)
         {
-            VOToDoList nouvelleVOToDoList = new VOToDoList(nomProjet);
+            VOTodolist nouvelleTodolist = new VOTodolist(nomProjet);
+            
             System.IO.FileStream fichier = System.IO.File.Create(nomProjet);
 
             // Création d'un objet permettant la sérialisation d'un objet de type VOToDoList
-            XmlSerializer serialiser = new XmlSerializer(typeof(VOToDoList));
+            XmlSerializer serialiser = new XmlSerializer(typeof(VOTodolist));
 
             // Sérialisation du fichier
-            serialiser.Serialize(fichier, nouvelleVOToDoList);
+            serialiser.Serialize(fichier, nouvelleTodolist);
             fichier.Close();
-            return nouvelleVOToDoList;
+            return nouvelleTodolist;
         }
 
         /// <summary>
@@ -38,24 +39,25 @@ namespace OGP.Bll
         /// </summary>
         /// <param name="listeFichiersExistants">Liste des chemins du répertoire</param>
         /// <returns>Liste des gestions de tâches désérialisées</returns>
-        public List<VOToDoList> DeserialisationFichiers(List<string> listeFichiersExistants)
+        public List<VOTodolist> DeserialisationFichiers(List<string> listeFichiersExistants)
         {
             // Une gestion de tâches
-            VOToDoList uneGestionTache;
-            List<VOToDoList> listeVOToDoListDeserialisees = new List<VOToDoList>();
+            VOTodolist uneGestionTache;
+            List<VOTodolist> listeVOToDoListDeserialisees = new List<VOTodolist>();
 
             // Création d'un objet permettant la sérialisation d'un objet de type VOToDoList
-            XmlSerializer serialisateur = new XmlSerializer(typeof(VOToDoList));
+            XmlSerializer serialisateur = new XmlSerializer(typeof(VOTodolist));
 
             // Pour chaque chemin
             foreach (string nomChemin in listeFichiersExistants)
             {
                 // On désérialise le fichier se trouvant au chemin correspondant...
                 FileStream file = new FileStream(nomChemin, FileMode.Open);
-                uneGestionTache = (VOToDoList)serialisateur.Deserialize(file);
+                uneGestionTache = (VOTodolist)serialisateur.Deserialize(file);
                 // ... Puis on l'ajoute à la liste
                 listeVOToDoListDeserialisees.Add(uneGestionTache);
             }
+
             return listeVOToDoListDeserialisees;
         }
         #endregion

@@ -1,30 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using OGP.ClientWpf.Extensions;
-using OGP.ClientWpf.Extensions.View;
-using OGP.ClientWpf.Extensions.ViewModel;
 using OGP.ValueObjects;
+using Plugin.Todolist.View;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
 
-namespace OGP.ClientWpf.Extensions
+namespace Plugin.Todolist
 {
     /// <summary>
     /// Mon ToDoList
     /// </summary>
-    public class ToDoListViewModel : ViewModelBase
+    public class TodolistViewModel : ViewModelBase
     {
         #region Membres privés
 
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        private RelayCommand ouvrirFichier;
+        private RelayCommand nouveauCommand;
 
         /// <summary>
         /// Permet de communiquer avec la view
@@ -34,19 +28,21 @@ namespace OGP.ClientWpf.Extensions
         /// <summary>
         /// Permet de stocker le nom du projet
         /// </summary>
-        private string nomProjet; 
+        private string nomProjet;
 
         /// <summary>
-        /// Permet de rendre Hidden la fenêtre par defaut
+        /// Stocke le VOTodolist
         /// </summary>
-        private Visibility visible;
+        private VOTodolist todolist;
 
         #endregion
+
+        #region Propriétés de présentation
 
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<ToDoListViewModel>(x => x.NomProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs nomProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.NomProjet);
 
         /// <summary>
         /// Gets ou Sets pour afficher le nom du projet dans la todolist.
@@ -68,33 +64,36 @@ namespace OGP.ClientWpf.Extensions
 
                 NotifyPropertyChanged(nomProjetChangeArgs);
             }
-        } 
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs visibleChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<ToDoListViewModel>(x => x.Visible);
+        private static System.ComponentModel.PropertyChangedEventArgs todolistChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Todolist);
 
         /// <summary>
-        /// Gets ou Sets pour afficher le todolist.
+        /// Gets ou Sets pour afficher le nom du projet dans la todolist.
         /// </summary>
-        public Visibility Visible
+        public VOTodolist Todolist
         {
             get
             {
-                return this.visible;
+                return this.todolist;
             }
             set
             {
-                if (this.visible == value)
+                if (this.todolist == value)
                 {
                     return;
                 }
-                this.visible = value;
 
-                NotifyPropertyChanged(visibleChangeArgs);
+                this.todolist = value;
+
+                NotifyPropertyChanged(todolistChangeArgs);
             }
         }
+
+        #endregion
 
         #region Méthodes privées
 
@@ -102,7 +101,7 @@ namespace OGP.ClientWpf.Extensions
         /// Permet d'ouvrir une nouvelle gestion de projet
         /// </summary>
         /// <param name="param">object</param>
-        private void Ouvrir(object param)
+        private void CreerTodolist(object param)
         {
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
@@ -110,27 +109,24 @@ namespace OGP.ClientWpf.Extensions
             if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
             {
                 var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
-                               "ClientTest",
+                               "Plugin.Todolist",
                                client =>
                                {
-                                   // VOToDoList listetaches = client.ChagerListeTaches("");
-                                    VOToDoList listetaches = client.NouvelleToDoList(fenetre.Vm.NomDuProjet);
-                                    if (listetaches == null)
+                                    string messageErreur = string.Empty;
+
+                                    Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet, out messageErreur);
+
+                                    if (!string.IsNullOrEmpty(messageErreur))
                                     {
-                                        MessageBox.Show("Erreur, le dossier existe déjà");
-                                        Visible = Visibility.Hidden;
+                                        MessageBox.Show(messageErreur);
                                     }
-                                    else
-                                    {
-                                        Visible = Visibility.Visible;
-                                    } 
                                });
 
                 if (exception != null)
                 {
                     // TODO : gérer l'exception.
                 }
-                // Visible = Visibility.Visible;
+
                 NomProjet = fenetre.Vm.NomDuProjet;
             }
         }
@@ -138,15 +134,15 @@ namespace OGP.ClientWpf.Extensions
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        public ICommand OuvrirFichier
+        public ICommand CreerCommand
         {
             get
             {
-                if (ouvrirFichier == null)
+                if (nouveauCommand == null)
                 {
-                    ouvrirFichier = new RelayCommand(Ouvrir);
+                    nouveauCommand = new RelayCommand(CreerTodolist);
                 }
-                return ouvrirFichier;
+                return nouveauCommand;
             }
         }
 
@@ -157,9 +153,8 @@ namespace OGP.ClientWpf.Extensions
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ToDoListViewModel()
+        public TodolistViewModel()
         {
-            Visible = Visibility.Hidden;
         }
 
         #endregion
