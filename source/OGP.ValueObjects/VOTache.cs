@@ -40,7 +40,7 @@ namespace OGP.ValueObjects
         /// Gets et sets des Personnes
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<VOPersonne> ListeDesPersonnes { get; set; }
+        public List<VOPersonne> ListeDesPersonnes /*Pour une tache*/{ get; set; }
 
         /// <summary>
         /// Gets et sets des catégories
@@ -120,6 +120,57 @@ namespace OGP.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
 
+        private string listePersonnes;
+
+        public string ListePersonnes
+        { get
+            {
+                int nb = ListeDesPersonnes.Count;
+                int nb1=0;
+                foreach (VOPersonne personne in ListeDesPersonnes) 
+                {
+                    nb1++;
+                    if (nb1 < nb)
+                    {
+                        
+                        listePersonnes = personne.Nom + ", " + listePersonnes;
+                    }
+                    else
+                    {
+                        listePersonnes = listePersonnes+personne.Nom;
+                    }
+                
+                }
+                 return listePersonnes;
+            }
+        }
+
+
+        private string listeCat;
+
+        public string ListCat
+        {
+            get
+            {
+                int nb = ListeDesCategories.Count;
+                int nb1 = 0;
+                foreach (VOCategorie categories in ListeDesCategories)
+                {
+                    nb1++;
+                    if (nb1 < nb)
+                    {
+
+                        listeCat = categories.Nom + ", " + listeCat;
+                    }
+                    else
+                    {
+                        listeCat = listeCat + categories.Nom;
+                    }
+
+                }
+                return listeCat;
+            }
+        }
         #endregion
     }
 }

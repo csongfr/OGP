@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using OGP.ValueObjects;
 using Plugin.Todolist.View;
@@ -115,10 +116,14 @@ namespace Plugin.Todolist
                                     string messageErreur = string.Empty;
 
                                     Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet, out messageErreur);
-
+                                   
                                     if (!string.IsNullOrEmpty(messageErreur))
                                     {
                                         MessageBox.Show(messageErreur);
+                                    }
+                                    else 
+                                    {
+                                        NomProjet = Todolist.NomDuProjet;
                                     }
                                });
 
@@ -126,8 +131,6 @@ namespace Plugin.Todolist
                 {
                     // TODO : gérer l'exception.
                 }
-
-                NomProjet = fenetre.Vm.NomDuProjet;
             }
         }
 

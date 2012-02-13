@@ -25,7 +25,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Gets et sets des personnes affectées au projet
         /// </summary>
-        public List<VOPersonne> Personnes { get; set; }
+        public List<VOPersonne> Personnes/*Projet*/ { get; set; }
 
         /// <summary>
         /// Gets et sets des différentes catégories du projet
@@ -60,6 +60,37 @@ namespace OGP.ValueObjects
 
             // Initialisation de la liste des taches
             this.ListeDesTaches = new List<VOTache>();
+            this.Personnes = new List<VOPersonne>();
+            this.Categories = new List<VOCategorie>();
+            VOTache ta = new VOTache();
+            ta.ListeDesPersonnes=new List<VOPersonne>();
+            ta.ListeDesCategories = new List<VOCategorie>();
+            ta.Titre="trop facile";
+            ta.PrioriteDeLaTache = EnumPriorite.Normal;
+            ta.PourcentageEffectue = 50;
+            ta.Estimation = 102;
+            ta.TpsDepense = 150;
+            ta.DateLimite = DateTime.Now;
+            VOPersonne test = new VOPersonne();
+            test.Nom = "Florian";
+            test.Prenom = "Bortolin";
+            test.Identifiant =Guid.NewGuid();
+            VOPersonne test1 = new VOPersonne();
+            test1.Nom = "matthieu";
+            test1.Prenom = "Bortolin";
+            test1.Identifiant = Guid.NewGuid();
+            Personnes.Add(test);
+            Personnes.Add(test1);
+            ta.ListeDesPersonnes.Add(test);
+            ta.ListeDesPersonnes.Add(test1);
+            VOCategorie cat = new VOCategorie();
+            cat.Identifiant = Guid.NewGuid();
+            cat.Nom = "informatique";
+            cat.Description = "";
+            Categories.Add(cat);
+            ta.ListeDesCategories.Add(cat);
+            ListeDesTaches.Add(ta);
+
         }
     }
 }

@@ -29,7 +29,7 @@ namespace OGP.ValueObjects
         /// <summary>
         /// Gets et sets de l'identifiant
         /// </summary>
-        public int Identifiant { get; set; }
+        public Guid Identifiant { get; set; }
 
         /// <summary>
         /// Constructeur par défaut

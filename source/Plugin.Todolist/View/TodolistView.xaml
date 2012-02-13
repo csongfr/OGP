@@ -12,7 +12,7 @@
         <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top">
             <Button Content="Nouveau" Height="25" Name="Nouveau" Width="100" Command="{Binding CreerCommand}" />
             <Button Content="Ouvrir" Height="25" Name="Ouvrir" Width="100" />
-            <Button Content="Nouvelle Tache" Height="25" Name="AjouterTache" Width="100" />
+            <Button Content="Enregistrer" Height="25" Name="AjouterTache" Width="100" />
         </StackPanel>
         <!--<Fluent:Ribbon DockPanel.Dock="Top" IsQuickAccessToolBarVisible="False" >
             <Fluent:RibbonTabItem Header="Gestion Des Tâches">
@@ -61,21 +61,20 @@
             </Fluent:RibbonTabItem> 
         </Fluent:Ribbon >-->
         <ad:DockablePane Visibility="{Binding Visible}" > 
-            <ad:DockableContent Title="{Binding NomProjet}" >
-                <DataGrid ItemsSource="{Binding Todolist.ListeDesTaches}">
+            <ad:DockableContent Title="{Binding NomProjet}"  >
+                <DataGrid ItemsSource="{Binding Todolist.ListeDesTaches}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="!" Width="50" />
-                        <DataGridTextColumn Header="Titre" />
-                        <DataGridTextColumn Header="%" Width="50"/>
-                        <DataGridTextColumn Header="Est." Width="40"/>
-                        <DataGridTextColumn Header="Temps passé" Width="90"/>
-                        <DataGridTextColumn Header="" Width="45"/>
-                        <DataGridTextColumn Header="Date limite" Width="90"/>
-                        <DataGridTextColumn Header="Personnes" Width="90"/>
-                        <DataGridTextColumn Header="Status" Width="90"/>
-                        <DataGridTextColumn Header="Catégories" Width="90"/>
-                        <DataGridTextColumn Header="Sauvegarder" Width="90"/>
-                        <DataGridCheckBoxColumn Header="Terminé" Width="90"/>
+                        <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
+                        <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
+                        <DataGridTextColumn Header="%" Width="50"  Binding="{Binding PourcentageEffectue}" />
+                        <DataGridTextColumn Header="Est." Width="40" Binding="{Binding Estimation}"/>
+                        <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
+                        <DataGridTextColumn Header="" Width="45" Binding="{Binding PourcentageEffectue}"/>
+                        <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
+                        <DataGridTextColumn Header="Personnes" Width="90" Binding="{Binding ListePersonnes}"/>
+                        <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
+                        <DataGridTextColumn Header="Sauvegarder" Width="90" />
+                        <DataGridCheckBoxColumn Header="Terminé" Width="90" />
                     </DataGrid.Columns>
                 </DataGrid>
             </ad:DockableContent>
