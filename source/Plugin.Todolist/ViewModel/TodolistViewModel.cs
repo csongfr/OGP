@@ -199,8 +199,10 @@ namespace Plugin.Todolist
                 {
                     enregistrerTaches = new RelayCommand(EnregistrerModif);
                 }
-                    return enregistrerTaches;
+                return enregistrerTaches;
 
+            }
+        }
         /// Commande qui ouvre la popup
         /// </summary>
         public ICommand CommandeOuvrirFichier
