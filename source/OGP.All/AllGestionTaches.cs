@@ -41,6 +41,29 @@ namespace OGP.All
         }
 
         /// <summary>
+        /// Enregistrement de ma ToDolist
+        /// </summary>
+        /// <param name="ToDoList"> ma ToDoList</param>
+        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <returns>VOToDoList</returns>
+        public VOTodolist EnregistrerNouvelleToDoList(VOTodolist ToDoList, out string messageErreurEnregistrer)
+        {
+            // Initialisation du message d'erreur
+            messageErreurEnregistrer = string.Empty;
+
+            string nomProjet = ToDoList.NomDuProjet;
+
+            // Ouverture du dossier
+            var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
+            string repertoire = section["repertoireStockage"].ToString();
+
+            // Obtention du chemin complet
+            string cheminComplet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
+
+            return BllFactory.GetBllGestionTaches().ModifierFichierTachesXml(cheminComplet, ToDoList); 
+        }
+
+        /// <summary>
         /// Création d'une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
@@ -55,17 +78,14 @@ namespace OGP.All
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
 
-            nomProjet = nomProjet + Constants.ExtensionFichierXml;
+            // Obtention du chemin complet
+            string cheminComplet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
 
             // Création du dossier si il n'existe pas
-            if (!Directory.Exists(nomProjet))
+            if (!Directory.Exists(repertoire))
             {
                 Directory.CreateDirectory(repertoire);
             }
-
-            // Obtention du chemin complet
-            string cheminComplet = Path.Combine(repertoire, nomProjet);
-
             // Dossier existant?
             bool verif = DossierExistant(cheminComplet);
             if (verif == true)
@@ -75,7 +95,7 @@ namespace OGP.All
             }
             else
             {
-                return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(cheminComplet);
+                return BllFactory.GetBllGestionTaches().CreerFichierTachesXml(nomProjet, cheminComplet);
             }
         }
 

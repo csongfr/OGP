@@ -21,16 +21,10 @@ namespace OGP.ValueObjects
         /// </summary>
         public string Nom { get; set; }
 
-        /// <summary>
-        /// Gets et sets de la description
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets et sets de l'identifiant
-        /// </summary>
-        public Guid Identifiant { get; set; }
-
+        public override string ToString()
+        {
+            return Nom;
+        }
         /// <summary>
         /// Constructeur par défaut
         /// </summary>

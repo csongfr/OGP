@@ -25,6 +25,15 @@ namespace OGP.ServiceWcf
         VOTodolist ChagerListeTaches(string nomFichier);
 
         /// <summary>
+        /// Méthode qui enregistre la liste des tâches
+        /// </summary>
+        /// <param name="maToDoList">Nom de la ToDoList à enregistrer</param>
+        /// <param name="messageErreurnregistrer">retourne un message d'erreur si elle ne peut être enregistrer</param>
+        /// <returns>VOToDoList</returns>
+        [OperationContract]
+        VOTodolist EnregistrerToDoList(VOTodolist maToDoList,out string messageErreurEnregistrer);
+
+        /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
@@ -39,5 +48,6 @@ namespace OGP.ServiceWcf
         /// <returns>liste des fichiers chargés et désérialisés</returns>
         [OperationContract]
         List<VOTodolist> ChargementFichiers();
+
     }
 }

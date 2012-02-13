@@ -31,6 +31,19 @@ namespace OGP.ServiceWcf
         }
 
         /// <summary>
+        /// Méthode qui enregistre les modifications du projet
+        /// </summary>
+        /// <param name="maToDoList">Nom de ma ToDoList</param>
+        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <returns>VOToDoList</returns>
+        public VOTodolist EnregistrerToDoList(VOTodolist maToDoList, out string messageErreurEnregistrer)
+        {
+            IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
+
+            return allGestionTaches.EnregistrerNouvelleToDoList(maToDoList,out messageErreurEnregistrer);
+        }
+
+        /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
@@ -52,6 +65,7 @@ namespace OGP.ServiceWcf
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
             return allGestionTaches.ObtenirTousLesFichiers();
         }
+
         #endregion
     }
 }

@@ -34,9 +34,18 @@ namespace OGP.All
         VOTodolist NouvelleGestionTaches(string nomProjet, out string messageErreur);
 
         /// <summary>
+        /// Enregistre les nouvelles modifications
+        /// </summary>
+        /// <param name="maToDoList">Nom de ma ToDoList</param>
+        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <returns>VOToDoList</returns>
+        VOTodolist EnregistrerNouvelleToDoList(VOTodolist maToDoList, out string messageErreurEnregistrer);
+
+        /// <summary>
         /// Désérialisation des fichiers du dossier grâce à leurs chemins
         /// </summary>
         /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
         List<VOTodolist> ObtenirTousLesFichiers();
+
     }
 }

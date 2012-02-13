@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 
 namespace OGP.ValueObjects
-{    
+{
     /// <summary>
     /// Classe correspondant à une tâche
     /// </summary>
@@ -14,16 +14,16 @@ namespace OGP.ValueObjects
     [System.Diagnostics.DebuggerStepThroughAttribute]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-   public class VOTache
-   {
-       #region Membres publics
-        
+    public class VOTache
+    {
+        #region Membres publics
+
         /// <summary>
         /// Gets et sets de la liste de sous-tâches
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("SousTaches", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public List<int> SousTaches { get; set; }
-        
+
         /// <summary>
         /// Gets et sets du titre
         /// </summary>
@@ -36,11 +36,6 @@ namespace OGP.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public int Identifiant { get; set; }
 
-        /// <summary>
-        /// Gets et sets des Personnes
-        /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<VOPersonne> ListeDesPersonnes /*Pour une tache*/{ get; set; }
 
         /// <summary>
         /// Gets et sets des catégories
@@ -120,33 +115,53 @@ namespace OGP.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
 
-        private string listePersonnes;
+        [XmlIgnore]
+        public List<VOPersonne> ListePersonnes
+        {
+            get;
+            set;
+        }
 
-        public string ListePersonnes
-        { get
+        /// <summary>
+        /// Gets et sets des Personnes
+        /// </summary>
+        [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string ListePersonnesXml
+        {
+            get
             {
-                int nb = ListeDesPersonnes.Count;
-                int nb1=0;
-                foreach (VOPersonne personne in ListeDesPersonnes) 
+                string strPersonnes = string.Empty;
+
+                foreach (VOPersonne personne in ListePersonnes)
                 {
-                    nb1++;
-                    if (nb1 < nb)
+                    if (!string.IsNullOrEmpty(strPersonnes))
                     {
-                        
-                        listePersonnes = personne.Nom + ", " + listePersonnes;
+                        strPersonnes += ", ";
                     }
-                    else
-                    {
-                        listePersonnes = listePersonnes+personne.Nom;
-                    }
-                
+                    strPersonnes += personne.ToString();
                 }
-                 return listePersonnes;
+                
+                return strPersonnes;
+            }
+            set 
+            {
+               
+                foreach (VOPersonne personne in ListePersonnes)
+                {
+                  
+                    if (value != personne.ToString())
+                    {
+                        ListePersonnes.Add(new VOPersonne(value));
+
+                       
+                    }
+
+                    
+                }   
             }
         }
 
-
-        private string listeCat;
+        /*private string listeCat;
 
         public string ListCat
         {
@@ -170,7 +185,8 @@ namespace OGP.ValueObjects
                 }
                 return listeCat;
             }
-        }
+        }*/
         #endregion
+
     }
 }

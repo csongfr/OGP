@@ -22,6 +22,11 @@ namespace Plugin.Todolist
         private RelayCommand nouveauCommand;
 
         /// <summary>
+        /// Commande pour enregistrer des tâches
+        /// </summary>
+        private RelayCommand enregistrerTaches;
+
+        /// <summary>
         /// Permet de communiquer avec la view
         /// </summary>
         private NouvelleGestionTache fenetre;
@@ -99,10 +104,34 @@ namespace Plugin.Todolist
         #region Méthodes privées
 
         /// <summary>
+        /// Fonction qui enregistre les modifications sur le projet
+        /// </summary>
+        /// <param name="param">object</param>
+        public void EnregistrerModif(object param)
+        {
+            string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
+            if (enregistrer == "Yes")
+            {
+                var erreur = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+                    "Plugin.ToDoList",
+                    client =>
+                    {
+                        string messageErreurEnregistrer = string.Empty;
+
+                        Todolist = client.EnregistrerToDoList(Todolist, out messageErreurEnregistrer);
+                    });
+                if(erreur !=null)
+                {
+                    // TODO : gérer l'exception.
+                }
+            }
+        }
+
+        /// <summary>
         /// Permet d'ouvrir une nouvelle gestion de projet
         /// </summary>
         /// <param name="param">object</param>
-        private void CreerTodolist(object param)
+        public void CreerTodolist(object param)
         {
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
@@ -146,6 +175,21 @@ namespace Plugin.Todolist
                     nouveauCommand = new RelayCommand(CreerTodolist);
                 }
                 return nouveauCommand;
+            }
+        }
+
+        /// <summary>
+        /// appelle la fonction qui enregistre les modifications sur le projet
+        /// </summary>
+        public ICommand EnregistrerTaches
+        {
+            get
+            {
+                if (enregistrerTaches == null)
+                {
+                    enregistrerTaches = new RelayCommand(EnregistrerModif);
+                }
+                    return enregistrerTaches;
             }
         }
 
