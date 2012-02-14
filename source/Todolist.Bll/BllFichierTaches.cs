@@ -38,7 +38,7 @@ namespace Plugin.Todolist.Bll
         /// <summary>
         /// Permet d'ouvrir et de sérialiser les modifications
         /// </summary>
-        /// <param name="nomProjet">Nom du projet</param>
+        /// <param name="cheminFichier">Nom du projet</param>
         /// <param name="ToDoList">Nom de ma ToDoList</param>
         /// <returns>VOToDoList</returns>
         public VOProjet ModifierFichierTachesXml(string cheminFichier, VOProjet ToDoList)

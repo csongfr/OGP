@@ -46,6 +46,5 @@ namespace Plugin.Todolist.All
         /// </summary>
         /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
         List<VOProjet> ObtenirTousLesFichiers();
-
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -11,8 +13,6 @@ using System.Windows.Input;
 using AvalonDock;
 using Utils.Commands;
 using Utils.ViewModel;
-using System.Configuration;
-using System.Collections.Specialized;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -117,7 +117,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Gets ou Sets du plugin actif.
         /// </summary>
-        //public ComposablePartDefinition PluginActif
+        // public ComposablePartDefinition PluginActif
         public DocumentContent PluginActif
         {
             get

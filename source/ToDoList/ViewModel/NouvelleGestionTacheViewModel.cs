@@ -34,6 +34,19 @@ namespace Plugin.Todolist.ViewModel
 
         #endregion
 
+        #region Constructeur
+
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public NouvelleGestionTacheViewModel()
+        {
+            Actif = false;
+        }
+
+        #endregion
+
+        #region propriétés de présentation
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
@@ -85,6 +98,7 @@ namespace Plugin.Todolist.ViewModel
                 NotifyPropertyChanged(nomDuProjetChangeArgs);
             }
         }
+        #endregion
 
         #region Commandes
 
@@ -114,18 +128,6 @@ namespace Plugin.Todolist.ViewModel
                 }
                 return enregistrer;
             }
-        }
-
-        #endregion
-
-        #region Constructeur
-
-        /// <summary>
-        /// Constructeur
-        /// </summary>
-        public NouvelleGestionTacheViewModel()
-        {
-            Actif = false;
         }
 
         #endregion

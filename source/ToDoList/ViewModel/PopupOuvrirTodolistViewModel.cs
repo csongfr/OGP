@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Plugin.Todolist.Service;
+using Plugin.Todolist.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
-using Plugin.Todolist.ValueObjects;
-using Plugin.Todolist.Service;
 
 namespace Todolist.ViewModel
 {
@@ -25,7 +25,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Projet sélectionné par l'utilisateur
         /// </summary>
-        private VOProjet projetSelectionne;
+        private VOProjet projetAOuvrir;
 
         /// <summary>
         /// Commande pour ouvrir le fichier sélectionné
@@ -49,10 +49,14 @@ namespace Todolist.ViewModel
             OuvertureActivee = false;
             // Appel au service pour charger les VOTodolist
             var exception = WcfHelper.Execute<IServiceGestionTaches>(
-                               "Plugin.Todolist",
+                               "Todolist",
                                client =>
                                {
                                    ListeCouranteTodolist = client.ChargementFichiers();
+                                   if ((this.listeCouranteTodolist != null) && (this.listeCouranteTodolist.Count == 1))
+                                   {
+                                       projetAOuvrir = ListeCouranteTodolist.First();
+                                   }
                                });
 
             if (exception != null)
@@ -62,6 +66,7 @@ namespace Todolist.ViewModel
         }
         #endregion
 
+        #region Propriétés de présentation
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
@@ -92,32 +97,33 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs projetSelectionneChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ProjetSelectionne);
+        private static System.ComponentModel.PropertyChangedEventArgs projetAOuvrirChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ProjetAOuvrir);
 
         /// <summary>
         /// Gets et sets du projet sélectionné
         /// </summary>
-        public VOProjet ProjetSelectionne
+        public VOProjet ProjetAOuvrir
         {
             get
             {
-                return this.projetSelectionne;
+                return this.projetAOuvrir;
             }
             set
             {
-                if (this.projetSelectionne == value)
+                if (this.projetAOuvrir == value)
                 {
                     return;
                 }
 
-                this.projetSelectionne = value;
-                NotifyPropertyChanged(projetSelectionneChangeArgs);
+                this.projetAOuvrir = value;
+                NotifyPropertyChanged(projetAOuvrirChangeArgs);
             }
         }
 
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
+        /// 
         private static System.ComponentModel.PropertyChangedEventArgs ouvertureActiveeChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.OuvertureActivee);
 
         /// <summary>
@@ -142,6 +148,8 @@ namespace Todolist.ViewModel
             }
         }
 
+        #endregion
+
         #region commandes
 
         /// <summary>
@@ -160,7 +168,7 @@ namespace Todolist.ViewModel
                             },
                             delegate
                             {
-                                if (projetSelectionne == null)
+                                if (projetAOuvrir == null)
                                 {
                                     return false;
                                 }

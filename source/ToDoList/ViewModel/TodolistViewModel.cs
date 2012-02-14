@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
-using Plugin.Todolist.View;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
+using Plugin.Todolist.View;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
@@ -26,6 +27,7 @@ namespace Plugin.Todolist
         /// </summary>
         private RelayCommand enregistrerTaches;
 
+        /// <summary>
         /// Commande qui ouvre la fenêtre de sélection de fichiers
         /// </summary>
         private RelayCommand commandeOuvrirFichier;
@@ -41,45 +43,24 @@ namespace Plugin.Todolist
         private PopupOuvrirTodolistView fenetreTousFichiers;
 
         /// <summary>
-        /// Permet de stocker le nom du projet
-        /// </summary>
-        private string nomProjet;
-
-        /// <summary>
         /// Stocke le VOTodolist
         /// </summary>
         private VOProjet todolist;
 
         #endregion
 
-        #region Propriétés de présentation
+        #region Constructeur
 
         /// <summary>
-        /// Cinch : INPC helper.
+        /// Default constructor
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.NomProjet);
-
-        /// <summary>
-        /// Gets ou Sets pour afficher le nom du projet dans la todolist.
-        /// </summary>
-        public string NomProjet
+        public TodolistViewModel()
         {
-            get
-            {
-                return this.nomProjet;
-            }
-            set
-            {
-                if (this.nomProjet == value)
-                {
-                    return;
-                }
-
-                this.nomProjet = value;
-
-                NotifyPropertyChanged(nomProjetChangeArgs);
-            }
         }
+
+        #endregion
+
+        #region Propriétés de présentation
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -110,37 +91,72 @@ namespace Plugin.Todolist
 
         #endregion
 
-        #region Méthodes privées
-
+        #region commandes
         /// <summary>
-        /// Fonction qui enregistre les modifications sur le projet
+        /// Commande qui ouvre la popup
         /// </summary>
-        /// <param name="param">object</param>
-        public void EnregistrerModif(object param)
+        public ICommand CreerCommand
         {
-            string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
-            if (enregistrer == "Yes")
+            get
             {
-                var erreur = WcfHelper.Execute<IServiceGestionTaches>(
-                    "Plugin.ToDoList",
-                    client =>
-                    {
-                        string messageErreurEnregistrer = string.Empty;
-
-                        Todolist = client.EnregistrerToDoList(Todolist, out messageErreurEnregistrer);
-                    });
-                if (erreur != null)
+                if (nouveauCommand == null)
                 {
-                    // TODO : gérer l'exception.
+                    nouveauCommand = new RelayCommand(CreerTodolist);
                 }
+                return nouveauCommand;
             }
         }
 
         /// <summary>
+        /// appelle la fonction qui enregistre les modifications sur le projet
+        /// </summary>
+        public ICommand EnregistrerTaches
+        {
+            get
+            {
+                if (enregistrerTaches == null)
+                {
+                    enregistrerTaches = new RelayCommand(
+                            delegate
+                            {
+                                // OuvertureActivee = true;
+                            },
+                            delegate
+                            {
+                                if (this.todolist == null)
+                                {
+                                    return false;
+                                }
+                                return true;
+                            },
+                            true);
+                }
+                return enregistrerTaches;
+            }
+        }
+
+        /// <summary>
+        /// Commande qui ouvre la popup
+        /// </summary>
+        public ICommand CommandeOuvrirFichier
+        {
+            get
+            {
+                if (commandeOuvrirFichier == null)
+                {
+                    commandeOuvrirFichier = new RelayCommand(OuvrirProjet);
+                }
+                return commandeOuvrirFichier;
+            }
+        }
+        #endregion
+
+        #region méthodes privées
+        /// <summary>
         /// Permet d'ouvrir une nouvelle gestion de projet
         /// </summary>
-        /// <param name="param">object</param>
-        public void CreerTodolist(object param)
+        /// <param name="param">object</param> 
+        private void CreerTodolist(object param)
         {
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
@@ -159,10 +175,6 @@ namespace Plugin.Todolist
                                    {
                                        MessageBox.Show(messageErreur);
                                    }
-                                   else
-                                   {
-                                       NomProjet = Todolist.NomDuProjet;
-                                   }
                                });
 
                 if (exception != null)
@@ -173,48 +185,26 @@ namespace Plugin.Todolist
         }
 
         /// <summary>
-        /// Commande qui ouvre la popup
+        /// Fonction qui enregistre les modifications sur le projet
         /// </summary>
-        public ICommand CreerCommand
+        /// <param name="param">object</param>
+        public void EnregistrerModif(object param)
         {
-            get
+            string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
+            if (enregistrer == "Yes")
             {
-                if (nouveauCommand == null)
+                var erreur = WcfHelper.Execute<IServiceGestionTaches>(
+                    "Todolist",
+                    client =>
+                    {
+                        string messageErreurEnregistrer = string.Empty;
+
+                        Todolist = client.EnregistrerToDoList(Todolist, out messageErreurEnregistrer);
+                    });
+                if (erreur != null)
                 {
-                    nouveauCommand = new RelayCommand(CreerTodolist);
+                    // TODO : gérer l'exception.
                 }
-                return nouveauCommand;
-            }
-        }
-
-        /// <summary>
-
-        /// appelle la fonction qui enregistre les modifications sur le projet
-        /// </summary>
-        public ICommand EnregistrerTaches
-        {
-            get
-            {
-                if (enregistrerTaches == null)
-                {
-                    enregistrerTaches = new RelayCommand(EnregistrerModif);
-                }
-                return enregistrerTaches;
-
-            }
-        }
-
-        /// Commande qui ouvre la popup
-        /// </summary>
-        public ICommand CommandeOuvrirFichier
-        {
-            get
-            {
-                if (commandeOuvrirFichier == null)
-                {
-                    commandeOuvrirFichier = new RelayCommand(OuvrirProjet);
-                }
-                return commandeOuvrirFichier;
             }
         }
 
@@ -225,24 +215,33 @@ namespace Plugin.Todolist
         private void OuvrirProjet(object param)
         {
             this.fenetreTousFichiers = new PopupOuvrirTodolistView();
-            this.fenetreTousFichiers.ShowDialog();
 
-            if (fenetreTousFichiers.Vm.OuvertureActivee == true)
+            // cas où le répertoire n'existe pas
+            if ((fenetreTousFichiers.Vm.ListeCouranteTodolist == null) || (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 0))
             {
-                Todolist = fenetreTousFichiers.Vm.ProjetSelectionne;
-
+                MessageBox.Show("Le répertoire ne contient pas de fichier");
             }
-        }
+            else
+            {
+                string resultat = string.Empty;
 
-        #endregion
+                // Cas où il n'y a qu'un seul projet
+                if (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 1)
+                {
+                    // Est ce que l'utilisateur veut l'ouvrir?
+                    resultat = MessageBox.Show("Un seul fichier présent dans le répertoire, il s'agit du projet " + fenetreTousFichiers.Vm.ProjetAOuvrir.NomDuProjet + "\nSouhaitez vous l'ouvrir?", "Un seul fichier", MessageBoxButton.YesNo).ToString();
+                }
+                else
+                {
+                    // Si il y a plusieurs fichiers dans la fenêtre
+                    this.fenetreTousFichiers.ShowDialog();
+                }
 
-        #region Constructeur
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public TodolistViewModel()
-        {
+                if (resultat == "Yes" || fenetreTousFichiers.Vm.OuvertureActivee == true)
+                {
+                    Todolist = fenetreTousFichiers.Vm.ProjetAOuvrir;
+                }
+            }
         }
 
         #endregion

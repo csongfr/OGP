@@ -60,8 +60,8 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem> 
         </Fluent:Ribbon >-->
-        <ad:DockablePane Visibility="{Binding Visible}" > 
-            <ad:DockableContent Title="{Binding NomProjet}"  >
+        <ad:DockablePane Visibility="{Binding Visible}" >
+            <ad:DockableContent Title="{Binding Todolist.NomDuProjet}"  >
                 <DataGrid ItemsSource="{Binding Todolist.ListeDesTaches}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
