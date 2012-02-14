@@ -119,7 +119,7 @@ namespace Plugin.Todolist
                     enregistrerTaches = new RelayCommand(
                             delegate
                             {
-                                // OuvertureActivee = true;
+                               EnregistrerModif();
                             },
                             delegate
                             {
@@ -187,8 +187,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Fonction qui enregistre les modifications sur le projet
         /// </summary>
-        /// <param name="param">object</param>
-        public void EnregistrerModif(object param)
+        private void EnregistrerModif()
         {
             string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
             if (enregistrer == "Yes")
