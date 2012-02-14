@@ -72,6 +72,7 @@ namespace Plugin.Todolist.Bll
                 uneGestionTache = (VOProjet)serialisateur.Deserialize(file);
                 // ... Puis on l'ajoute à la liste
                 listeVOToDoListDeserialisees.Add(uneGestionTache);
+                file.Close();
             }
 
             return listeVOToDoListDeserialisees;

@@ -8,8 +8,8 @@
     <ProjectGuid>{BC46E8E9-DF0D-4CC7-BC14-10C62DDAA869}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.Todolist.All</RootNamespace>
-    <AssemblyName>Plugin.Todolist.All</AssemblyName>
+    <RootNamespace>OGP.All</RootNamespace>
+    <AssemblyName>OGP.All</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,13 +48,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Todolist.Bll\Todolist.Bll.csproj">
+    <ProjectReference Include="..\OGP.Bll\OGP.Bll.csproj">
       <Project>{DB3E59BE-8440-4142-A64D-C4D1477F12CE}</Project>
-      <Name>Todolist.Bll</Name>
+      <Name>OGP.Bll</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Todolist.ValueObjects\Todolist.ValueObjects.csproj">
+    <ProjectReference Include="..\OGP.ValueObjects\OGP.ValueObjects.csproj">
       <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
-      <Name>Todolist.ValueObjects</Name>
+      <Name>OGP.ValueObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

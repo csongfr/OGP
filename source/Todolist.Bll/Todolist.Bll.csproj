@@ -8,8 +8,8 @@
     <ProjectGuid>{DB3E59BE-8440-4142-A64D-C4D1477F12CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OGP.Bll</RootNamespace>
-    <AssemblyName>OGP.Bll</AssemblyName>
+    <RootNamespace>Plugin.Todolist.Bll</RootNamespace>
+    <AssemblyName>Plugin.Todolist.Bll</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

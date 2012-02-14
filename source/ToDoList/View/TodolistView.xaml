@@ -71,7 +71,7 @@
                         <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
                         <DataGridTextColumn Header="" Width="45" Binding="{Binding PourcentageEffectue}"/>
                         <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
-                        <DataGridTextColumn Header="Personnes" Width="90" Binding="{Binding ListePersonnes}"/>
+                        <DataGridTextColumn Header="Personnes" Width="90" Binding="{Binding ListePersonnesXml}"/>
                         <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
                         <DataGridTextColumn Header="Sauvegarder" Width="90" />
                         <DataGridCheckBoxColumn Header="Terminé" Width="90" />

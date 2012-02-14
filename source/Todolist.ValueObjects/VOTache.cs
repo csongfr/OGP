@@ -128,8 +128,8 @@ namespace Plugin.Todolist.ValueObjects
         [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string ListePersonnesXml
         {
-            get
-            {
+            get;
+           /* {
                 string strPersonnes = string.Empty;
 
                 foreach (VOPersonne personne in ListePersonnes)
@@ -142,9 +142,9 @@ namespace Plugin.Todolist.ValueObjects
                 }
                 
                 return strPersonnes;
-            }
-            set 
-            {
+            }*/
+            set ;
+            /*{
                
                 foreach (VOPersonne personne in ListePersonnes)
                 {
@@ -157,8 +157,8 @@ namespace Plugin.Todolist.ValueObjects
                     }
 
                     
-                }   
-            }
+                }  
+            }*/
         }
 
         /*private string listeCat;

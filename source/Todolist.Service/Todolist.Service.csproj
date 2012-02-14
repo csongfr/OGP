@@ -8,8 +8,8 @@
     <ProjectGuid>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OGP.ServiceWcf</RootNamespace>
-    <AssemblyName>OGP.ServiceWcf</AssemblyName>
+    <RootNamespace>Plugin.Todolist.Service</RootNamespace>
+    <AssemblyName>Plugin.Todolist.Service</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -72,6 +72,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>rem copy /y  "$(TargetPath)" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+rem copy /y  "$(TargetPath).config" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+rem copy  /y "$(TargetDir)Plugin.Todolist.Service.pdb" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

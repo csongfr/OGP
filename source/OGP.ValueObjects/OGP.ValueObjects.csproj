@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BC46E8E9-DF0D-4CC7-BC14-10C62DDAA869}</ProjectGuid>
+    <ProjectGuid>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.Todolist.All</RootNamespace>
-    <AssemblyName>Plugin.Todolist.All</AssemblyName>
+    <RootNamespace>OGP.ValueObjects</RootNamespace>
+    <AssemblyName>OGP.ValueObjects</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,21 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllGestionTaches.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Interfaces\AllFactory.cs" />
-    <Compile Include="Interfaces\IAllGestionTaches.cs" />
+    <Compile Include="EnumPriorite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Todolist.Bll\Todolist.Bll.csproj">
-      <Project>{DB3E59BE-8440-4142-A64D-C4D1477F12CE}</Project>
-      <Name>Todolist.Bll</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Todolist.ValueObjects\Todolist.ValueObjects.csproj">
-      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
-      <Name>Todolist.ValueObjects</Name>
-    </ProjectReference>
+    <Compile Include="VOCategorie.cs" />
+    <Compile Include="VOPersonne.cs" />
+    <Compile Include="VOTache.cs" />
+    <Compile Include="VOTodolist.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
