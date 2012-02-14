@@ -5,22 +5,17 @@
 /source/OGP.ClientWpf/bin
 /source/OGP.ClientWpf/obj
 /source/OGP.ClientWpf/StyleCop.Cache
-/source/OGP.ClientWpf.Extensions/bin
-/source/OGP.ClientWpf.Extensions/obj
 
-/source/ClientTests/obj
-/source/ClientTests/bin
-/source/OGP.test/bin
-/source/OGP.test/obj
-
-/source/OGP.ServiceWcf/bin
-/source/OGP.ServiceWcf/obj
-/source/OGP.All/bin
-/source/OGP.All/obj
-/source/OGP.Bll/bin
-/source/OGP.Bll/obj
-/source/OGP.ValueObjects/bin
-/source/OGP.ValueObjects/obj
+/source/Todolist/bin
+/source/Todolist/obj
+/source/Todolist.All/bin
+/source/Todolist.All/obj
+/source/Todolist.Bll/bin
+/source/Todolist.Bll/obj
+/source/Todolist.Service/bin
+/source/Todolist.Service/obj
+/source/Todolist.ValueObjects/bin
+/source/Todolist.ValueObjects/obj
 
 /source/Utils.Commands/obj
 /source/Utils.Commands/bin
@@ -30,5 +25,3 @@
 /source/Utils.ViewModel/obj
 /source/Utils.Wcf/bin
 /source/Utils.Wcf/obj
-/source/Plugin.Todolist/obj
-/source/Plugin.Todolist/bin
