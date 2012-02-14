@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using OGP.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OGP.ValueObjects;
+using Plugin.Todolist.ValueObjects;
 
-namespace OGP.Bll
+namespace Plugin.Todolist.Bll
 {
     /// <summary>
     /// interface de la Bll de gestion de fichiers

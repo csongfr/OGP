@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using OGP.ValueObjects;
 using Plugin.Todolist.View;
+using Plugin.Todolist.Service;
+using Plugin.Todolist.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
@@ -121,7 +121,7 @@ namespace Plugin.Todolist
             string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
             if (enregistrer == "Yes")
             {
-                var erreur = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+                var erreur = WcfHelper.Execute<IServiceGestionTaches>(
                     "Plugin.ToDoList",
                     client =>
                     {
@@ -147,7 +147,7 @@ namespace Plugin.Todolist
 
             if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
             {
-                var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+                var exception = WcfHelper.Execute<IServiceGestionTaches>(
                                "Todolist",
                                client =>
                                {

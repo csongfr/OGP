@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OGP.All
+namespace Plugin.Todolist.All
 {
     /// <summary>
     /// Classe permettant de créer une extension .xml

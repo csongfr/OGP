@@ -62,6 +62,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -118,6 +119,7 @@
     </EmbeddedResource>
     <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -151,14 +153,6 @@
     <Folder Include="Ressources\Plugins\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Todolist.Service\Todolist.Service.csproj">
-      <Project>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</Project>
-      <Name>Todolist.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Todolist.ValueObjects\Todolist.ValueObjects.csproj">
-      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
-      <Name>Todolist.ValueObjects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils.Commands\Utils.Commands.csproj">
       <Project>{B1CFE9A1-9194-40A7-98D0-1199EA7B6623}</Project>
       <Name>Utils.Commands</Name>

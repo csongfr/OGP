@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using OGP.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
+using Plugin.Todolist.ValueObjects;
+using Plugin.Todolist.Service;
 
 namespace Todolist.ViewModel
 {
@@ -47,7 +48,7 @@ namespace Todolist.ViewModel
         {
             OuvertureActivee = false;
             // Appel au service pour charger les VOTodolist
-            var exception = WcfHelper.Execute<OGP.ServiceWcf.IServiceGestionTaches>(
+            var exception = WcfHelper.Execute<IServiceGestionTaches>(
                                "Plugin.Todolist",
                                client =>
                                {

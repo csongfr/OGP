@@ -7,10 +7,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
-using OGP.Bll;
-using OGP.ValueObjects;
+using Plugin.Todolist.Bll;
+using Plugin.Todolist.ValueObjects;
 
-namespace OGP.All
+namespace Plugin.Todolist.All
 {
     /// <summary>
     /// Service permettant la gestion des taches

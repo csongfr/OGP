@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace OGP.ValueObjects
+namespace Plugin.Todolist.ValueObjects
 {
     /// <summary>
     /// Classe correspondant à la ToDoList

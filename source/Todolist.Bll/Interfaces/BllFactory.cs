@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OGP.Bll
+namespace Plugin.Todolist.Bll
 {
     /// <summary>
     /// Classe BllFactory qui permet d'utiliser le Bll de gestion de fichiers

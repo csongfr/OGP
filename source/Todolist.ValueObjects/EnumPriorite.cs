@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OGP.ValueObjects
+namespace Plugin.Todolist.ValueObjects
 {
     /// <summary>
     /// Enumeration de la priorite

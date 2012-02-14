@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using OGP.ValueObjects;
+using Plugin.Todolist.ValueObjects;
 
-namespace OGP.Bll
+namespace Plugin.Todolist.Bll
 {
     /// <summary>
     /// Classe permettant de gérer la gestion de fichiers

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using AvalonDock;
 using Utils.Commands;
 using Utils.ViewModel;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -40,6 +42,11 @@ namespace OGP.ClientWpf.ViewModel
         /// Commande qui supprime un plugin
         /// </summary>
         private RelayCommand supprimePlugin;
+
+        /// <summary>
+        /// Liste des répertoire contenant les plugins
+        /// </summary>
+        private List<DirectoryCatalog> repertoiresPlugins;
 
         /// <summary>
         /// Stocke la liste de tous les plugins
@@ -275,14 +282,17 @@ namespace OGP.ClientWpf.ViewModel
         }
 
         /// <summary>
-        /// Récupère les plugins présent dans le répertoire ..\..\Ressources\Plugins
+        /// Récupère les plugins présents dans le répertoire défini dans le fichier de config du client
         /// </summary>
         private void ChargerPluginsDisponibles()
         {
             try
             {
+                var section = ConfigurationManager.GetSection("OGP.ClientWpf") as NameValueCollection;
+                string repertoire = section["repertoirePlugins"].ToString();
+
                 var catalog = new AggregateCatalog();
-                catalog.Catalogs.Add(new DirectoryCatalog(@"..\..\Ressources\Plugins"));
+                catalog.Catalogs.Add(new DirectoryCatalog(@repertoire));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);
             }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OGP.ValueObjects;
+using Plugin.Todolist.ValueObjects;
 
-namespace OGP.All
+namespace Plugin.Todolist.All
 {
     /// <summary>
     /// Interface de l'All de gestion de taches

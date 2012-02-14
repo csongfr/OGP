@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace OGP.ValueObjects
+namespace Plugin.Todolist.ValueObjects
 {
     /// <summary>
     /// Classe correspondant à une tâche
