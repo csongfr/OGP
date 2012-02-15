@@ -66,52 +66,23 @@ namespace Utils.Wcf
         /// Cree et gere la vie d'une connexion WCF, mˆme en cas d'exception.
         /// </summary>
         /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service … contacter. Un groupe de section doit exister … ce nom dans le fichier de config.</param>
         /// <param name="action">Code … executer.</param>
         /// <returns>Si une exception a eu lieu, on la catche et on la retourne.</returns>
-        public static Exception Execute<T>(string application, Action<T> action)
+        public static Exception Execute<T>(Action<T> action)
         {
-            return instance.Execute<T>(application, action);
+            return instance.Execute<T>(action);
         }
 
         /// <summary>
         /// Cree et gere la vie d'une connexion WCF, mˆme en cas d'exception.
         /// </summary>
         /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service … contacter. Un groupe de section doit exister … ce nom dans le fichier de config.</param>
         /// <param name="action">Code … executer.</param>
         /// <param name="configurationWcf">Configuration de l'appel WCF.</param>
         /// <returns>Si une exception a eu lieu, on la catche et on la retourne.</returns>
-        public static Exception Execute<T>(string application, Action<T> action, ConfigurationWcf configurationWcf)
+        public static Exception Execute<T>(Action<T> action, ConfigurationWcf configurationWcf)
         {
-            return instance.Execute<T>(application, action, configurationWcf);
-        }
-
-        /// <summary>
-        /// Exécute un appel WCF au sein d'un BackgroundWorker.
-        /// </summary>
-        /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service à contacter. Un groupe de section doit exister à ce nom dans le fichier de config.</param>
-        /// <param name="action">Code à exécuter dans le BackgroundWorker.</param>
-        /// <param name="actionCompletedHandler">Code à exécuter une fois le BackgroundWorker terminé. Prend en argument l'exception qui est éventuellement survenue.</param>
-        public static void Execute<T>(string application, Action<T> action, Action<Exception> actionCompletedHandler)
-        {
-            var exception = instance.Execute<T>(application, action);
-            actionCompletedHandler(exception);
-        }
-
-        /// <summary>
-        /// Exécute un appel WCF au sein d'un BackgroundWorker.
-        /// </summary>
-        /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service à contacter. Un groupe de section doit exister à ce nom dans le fichier de config.</param>
-        /// <param name="action">Code à exécuter dans le BackgroundWorker.</param>
-        /// <param name="actionCompletedHandler">Code à exécuter une fois le BackgroundWorker terminé. Prend en argument l'exception qui est éventuellement survenue.</param>
-        /// <param name="configurationWcf">Configuration de l'appel WCF.</param>
-        public static void Execute<T>(string application, Action<T> action, Action<Exception> actionCompletedHandler, ConfigurationWcf configurationWcf)
-        {
-            var exception = instance.Execute<T>(application, action, configurationWcf);
-            actionCompletedHandler(exception);
+            return instance.Execute<T>(action, configurationWcf);
         }
     }
 }
