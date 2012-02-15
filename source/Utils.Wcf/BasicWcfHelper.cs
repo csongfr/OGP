@@ -18,23 +18,21 @@ namespace Utils.Wcf
         /// Cree et gere la vie d'une connexion WCF, même en cas d'exception.
         /// </summary>
         /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service … contacter. Un groupe de section doit exister … ce nom dans le fichier de config.</param>
         /// <param name="action">Code … executer.</param>
         /// <returns>Si une exception a eu lieu, on la catche et on la retourne.</returns>
-        public Exception Execute<T>(string application, Action<T> action)
+        public Exception Execute<T>(Action<T> action)
         {
-            return Execute<T>(application, action, ConfigurationWcf.Defaut);
+            return Execute<T>(action, ConfigurationWcf.Defaut);
         }
 
         /// <summary>
         /// Cree et gere la vie d'une connexion WCF, même en cas d'exception.
         /// </summary>
         /// <typeparam name="T">Interface du service consomme.</typeparam>
-        /// <param name="application">Nom de l'application/service … contacter. Un groupe de section doit exister … ce nom dans le fichier de config.</param>
         /// <param name="action">Code … executer.</param>
         /// <param name="configurationWcf">Configuration de l'appel WCF.</param>
         /// <returns>Si une exception a eu lieu, on la catche et on la retourne.</returns>
-        public Exception Execute<T>(string application, Action<T> action, ConfigurationWcf configurationWcf)
+        public Exception Execute<T>(Action<T> action, ConfigurationWcf configurationWcf)
         {
             if (configurationWcf == null)
             {
@@ -49,7 +47,7 @@ namespace Utils.Wcf
 
                 try
                 {
-                    BeforeAction<T>(factory, application);
+                    BeforeAction<T>(factory);
 
                     if (action != null)
                     {
@@ -96,8 +94,7 @@ namespace Utils.Wcf
         /// </summary>
         /// <typeparam name="T">Type.</typeparam>
         /// <param name="factory">Factory de l'appel.</param>
-        /// <param name="application">Nom application (section de config).</param>
-        protected virtual void BeforeAction<T>(ChannelFactory<T> factory, string application)
+        protected virtual void BeforeAction<T>(ChannelFactory<T> factory)
         {
         }
 

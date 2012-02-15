@@ -22,10 +22,10 @@ namespace Plugin.Todolist.Bll
         /// <summary>
         /// Prototype de la méthode permettant de modifier et enregistrer un fichier de tâches
         /// </summary>
-        /// <param name="nomProjet">Le nom du projet</param>
-        /// <param name="ToDoList">ma todolist</param>
+        /// <param name="cheminFichier">Le chemin du projet</param>
+        /// <param name="toDoList">ma todolist</param>
         /// <returns>VOToDoList</returns>
-        VOProjet ModifierFichierTachesXml(string cheminFichier, VOProjet ToDoList);
+        VOProjet ModifierFichierTachesXml(string cheminFichier, VOProjet toDoList);
 
         /// <summary>
         /// Désérialisation des fichiers Xml présents dans le répertoire
@@ -33,7 +33,5 @@ namespace Plugin.Todolist.Bll
         /// <param name="listeFichiersExistants">liste des chemins</param>
         /// <returns>Liste des gestions de tâches désérialisées</returns>
         List<VOProjet> DeserialisationFichiers(List<string> listeFichiersExistants);
-
-
     }
 }

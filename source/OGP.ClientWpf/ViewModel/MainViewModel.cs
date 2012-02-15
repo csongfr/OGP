@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -11,8 +13,6 @@ using System.Windows.Input;
 using AvalonDock;
 using Utils.Commands;
 using Utils.ViewModel;
-using System.Configuration;
-using System.Collections.Specialized;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -46,7 +46,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Liste des répertoire contenant les plugins
         /// </summary>
-        private List<DirectoryCatalog> repertoiresPlugins;
+        // private List<DirectoryCatalog> repertoiresPlugins;
 
         /// <summary>
         /// Stocke la liste de tous les plugins
@@ -117,7 +117,6 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Gets ou Sets du plugin actif.
         /// </summary>
-        //public ComposablePartDefinition PluginActif
         public DocumentContent PluginActif
         {
             get
@@ -136,8 +135,6 @@ namespace OGP.ClientWpf.ViewModel
 
         #region Commandes
 
-        #region RecupererPlugins
-
         /// <summary>
         /// Supprime un plugin
         /// </summary>
@@ -152,10 +149,6 @@ namespace OGP.ClientWpf.ViewModel
                 return recupererCommand;
             }
         }
-
-        #endregion
-
-        #region SupprimerPlugin
 
         /// <summary>
         /// Supprime un plugin
@@ -181,10 +174,6 @@ namespace OGP.ClientWpf.ViewModel
             }
         }
 
-        #endregion
-
-        #region ChargerPlugin
-
         /// <summary>
         /// Ajoute un plugin
         /// </summary>
@@ -209,10 +198,6 @@ namespace OGP.ClientWpf.ViewModel
             }
         }
 
-        #endregion
-
-        #region Fermer
-
         /// <summary>
         /// Exit from the application
         /// </summary>
@@ -227,8 +212,6 @@ namespace OGP.ClientWpf.ViewModel
                 return fermerCommand;
             }
         }
-
-        #endregion
 
         #endregion
 
@@ -260,6 +243,10 @@ namespace OGP.ClientWpf.ViewModel
             {
                 ListeDocuments.Remove(pluginCourant);
             }
+            else
+            {
+                throw new ClientException("Pas de plugin");
+            }   
         }
 
         /// <summary>
@@ -271,12 +258,9 @@ namespace OGP.ClientWpf.ViewModel
             // On ajoute le plugin aux documents
             foreach (var plugin in this.ListePlugins)
             {
-                if (plugin != null)
+                if (plugin.Title.Equals(nomPlugin))
                 {
-                    if (plugin.Title.Equals(nomPlugin))
-                    {
-                        ListeDocuments.Add(plugin);
-                    }
+                    ListeDocuments.Add(plugin);
                 }
             }
         }
@@ -292,7 +276,7 @@ namespace OGP.ClientWpf.ViewModel
                 string repertoire = section["repertoirePlugins"].ToString();
 
                 var catalog = new AggregateCatalog();
-                catalog.Catalogs.Add(new DirectoryCatalog(@repertoire));
+                catalog.Catalogs.Add(new DirectoryCatalog(repertoire));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);
             }
@@ -300,13 +284,9 @@ namespace OGP.ClientWpf.ViewModel
             {
                 Console.WriteLine(compositionException.ToString());
             }
-            catch (DirectoryNotFoundException)
+            catch (DirectoryNotFoundException ex)
             {
-                MessageBox.Show("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine(ex.Message);
+                throw new ClientException("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", ex); 
             }
         }
 
@@ -318,7 +298,7 @@ namespace OGP.ClientWpf.ViewModel
         {
             if (pluginActif == null)
             {
-                return false;
+                return false; 
             }
             else
             {

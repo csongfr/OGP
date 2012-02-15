@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Plugin.Todolist.Service;
+using Plugin.Todolist.ValueObjects;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
-using Plugin.Todolist.ValueObjects;
-using Plugin.Todolist.Service;
 
 namespace Todolist.ViewModel
 {
@@ -16,7 +16,8 @@ namespace Todolist.ViewModel
     /// </summary>
     public class PopupOuvrirTodolistViewModel : ViewModelBase
     {
-        #region membres privés
+        #region Membres privés
+
         /// <summary>
         /// Pour gérer la liste de fichiers dans le répertoire courant
         /// </summary>
@@ -39,7 +40,7 @@ namespace Todolist.ViewModel
 
         #endregion
 
-        #region constructeur
+        #region Constructeur
 
         /// <summary>
         /// Constructeur de la popup
@@ -48,18 +49,17 @@ namespace Todolist.ViewModel
         {
             OuvertureActivee = false;
             // Appel au service pour charger les VOTodolist
-            var exception = WcfHelper.Execute<IServiceGestionTaches>(
-                               "Plugin.Todolist",
-                               client =>
+            var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                                {
                                    ListeCouranteTodolist = client.ChargementFichiers();
                                });
 
             if (exception != null)
             {
-                // TODO Gérer exception
+                throw new PluginException("Pas de fichier");
             }
         }
+
         #endregion
 
         /// <summary>

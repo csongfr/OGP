@@ -17,13 +17,39 @@ namespace Plugin.Todolist.ValueObjects
     public class VOPersonne
     {
         /// <summary>
+        /// Bool pour savoir si la personne doit être ajoutée au projet
+        /// </summary>
+        private bool ajouterPersonne;
+
+        /// <summary>
         /// Gets et sets du nom
         /// </summary>
+        [System.Xml.Serialization.XmlAttributeAttribute]
         public string Nom { get; set; }
 
+        /// <summary>
+        /// Surcharge de la méthode
+        /// </summary>
+        /// <returns>Nom de la personne</returns>
         public override string ToString()
         {
             return Nom;
+        }
+
+        /// <summary>
+        /// Gets et sets pour savoir sile nom de la personne est coché
+        /// </summary>
+        [XmlIgnore]
+        public bool AjouterPersonne 
+        {
+            get
+            {
+                return ajouterPersonne;
+            }
+            set
+            {
+                ajouterPersonne = value;
+            }
         }
 
         /// <summary>
@@ -34,9 +60,9 @@ namespace Plugin.Todolist.ValueObjects
         }
 
         /// <summary>
-        /// 
+        /// Constructeur à partir d'un nom de personne 
         /// </summary>
-        /// <param name="nom"></param>
+        /// <param name="nom">Nom de la personne</param>
         public VOPersonne(string nom)
         {
             Nom = nom;

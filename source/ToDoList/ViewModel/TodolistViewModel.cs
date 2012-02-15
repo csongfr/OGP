@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
-using Plugin.Todolist.View;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
+using Plugin.Todolist.View;
+using Todolist.ViewModel;
 using Utils.Commands;
 using Utils.ViewModel;
 using Utils.Wcf;
@@ -26,6 +28,7 @@ namespace Plugin.Todolist
         /// </summary>
         private RelayCommand enregistrerTaches;
 
+        /// <summary>
         /// Commande qui ouvre la fenêtre de sélection de fichiers
         /// </summary>
         private RelayCommand commandeOuvrirFichier;
@@ -50,9 +53,83 @@ namespace Plugin.Todolist
         /// </summary>
         private VOProjet todolist;
 
+        /// <summary>
+        /// Permet de selectionner une tâche pour la modifier
+        /// </summary>
+        private VOTache tacheSelectionnee;
+
+        /// <summary>
+        /// Stocke la liste des personnes affectées sur le projet.
+        /// </summary>
+        private ObservableCollection<VOPersonne> listePersonnesProjet;
+
+        /// <summary>
+        /// Stocke la personne active.
+        /// </summary>
+        private VOPersonne personneActive;
+
+        /// <summary>
+        /// permet de gérer le ViewModel du menu
+        /// </summary>
+        private MenuViewModel menuViewModel;
+
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs menuViewModelChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Menu);
+
+        /// <summary>
+        /// Gets et Sets du MenuViewModel
+        /// </summary>
+        public MenuViewModel Menu
+        {
+            get
+            {
+                return this.menuViewModel;
+            }
+            set
+            {
+                if (this.menuViewModel == value)
+                {
+                    return;
+                }
+
+                this.menuViewModel = value;
+
+                NotifyPropertyChanged(menuViewModelChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs tacheSelectionneeChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheSelectionnee);
+
+        /// <summary>
+        /// Gets et Sets de la tâche sélectionnée
+        /// </summary>
+        public VOTache TacheSelectionnee
+        {
+            get
+            {
+                return this.tacheSelectionnee;
+            }
+            set
+            {
+                if (this.tacheSelectionnee == value)
+                {
+                    return;
+                }
+
+                this.tacheSelectionnee = value;
+
+                NotifyPropertyChanged(tacheSelectionneeChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -108,6 +185,66 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listePersonnesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.ListePersonnesProjet);
+
+        /// <summary>
+        /// Gets ou Sets la liste des personnes affectées au projet.
+        /// </summary>
+        public ObservableCollection<VOPersonne> ListePersonnesProjet
+        {
+            get
+            {
+                return this.listePersonnesProjet;
+            }
+            set
+            {
+                if (this.listePersonnesProjet == value)
+                {
+                    return;
+                }
+
+                this.listePersonnesProjet = value;
+
+                NotifyPropertyChanged(listePersonnesProjetChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs personneActiveChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.PersonneActive);
+
+        /// <summary>
+        /// Gets ou Sets la personne active.
+        /// </summary>
+        public VOPersonne PersonneActive
+        {
+            get
+            {
+                return this.personneActive;
+            }
+            set
+            {
+                if (this.personneActive == value)
+                {
+                    return;
+                }
+
+                this.personneActive = value;
+                
+                // TODO : Méthode permettant de mettre à jour la liste coté TacheSelectionnée
+                if (this.personneActive.AjouterPersonne)
+                {
+                    tacheSelectionnee.ListePersonnesXml = this.personneActive.ToString();
+                }
+
+                NotifyPropertyChanged(personneActiveChangeArgs);
+            }
+        }
+
         #endregion
 
         #region Méthodes privées
@@ -121,17 +258,15 @@ namespace Plugin.Todolist
             string enregistrer = MessageBox.Show("Voulez Vous enregistrer les modifications", "Enregistrer", MessageBoxButton.YesNo).ToString();
             if (enregistrer == "Yes")
             {
-                var erreur = WcfHelper.Execute<IServiceGestionTaches>(
-                    "Plugin.ToDoList",
-                    client =>
+                var erreur = WcfHelper.Execute<IServiceGestionTaches>(client =>
                     {
                         string messageErreurEnregistrer = string.Empty;
 
-                        Todolist = client.EnregistrerToDoList(Todolist, out messageErreurEnregistrer);
+                        Todolist = client.EnregistrerToDoList(Todolist);
                     });
                 if (erreur != null)
                 {
-                    // TODO : gérer l'exception.
+                    throw new PluginException("Projet vide");
                 }
             }
         }
@@ -147,27 +282,15 @@ namespace Plugin.Todolist
 
             if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
             {
-                var exception = WcfHelper.Execute<IServiceGestionTaches>(
-                               "Todolist",
-                               client =>
+                var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                                {
-                                   string messageErreur = string.Empty;
-
-                                   Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet, out messageErreur);
-
-                                   if (!string.IsNullOrEmpty(messageErreur))
-                                   {
-                                       MessageBox.Show(messageErreur);
-                                   }
-                                   else
-                                   {
-                                       NomProjet = Todolist.NomDuProjet;
-                                   }
+                                   Todolist = client.NouvelleToDoList(fenetre.Vm.NomDuProjet);
+                                   NomProjet = Todolist.NomDuProjet;
                                });
 
                 if (exception != null)
                 {
-                    // TODO : gérer l'exception.
+                    throw new PluginException("Erreur, il existe déjà un projet de ce nom.");
                 }
             }
         }
@@ -188,7 +311,6 @@ namespace Plugin.Todolist
         }
 
         /// <summary>
-
         /// appelle la fonction qui enregistre les modifications sur le projet
         /// </summary>
         public ICommand EnregistrerTaches
@@ -200,13 +322,13 @@ namespace Plugin.Todolist
                     enregistrerTaches = new RelayCommand(EnregistrerModif);
                 }
                 return enregistrerTaches;
-
             }
         }
 
+        /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        public ICommand CommandeOuvrirFichier
+        public ICommand CommandeOuvrirFichier 
         {
             get
             {
@@ -230,7 +352,7 @@ namespace Plugin.Todolist
             if (fenetreTousFichiers.Vm.OuvertureActivee == true)
             {
                 Todolist = fenetreTousFichiers.Vm.ProjetSelectionne;
-
+                ListePersonnesProjet = new ObservableCollection<VOPersonne>(todolist.Personnes);
             }
         }
 
@@ -243,6 +365,10 @@ namespace Plugin.Todolist
         /// </summary>
         public TodolistViewModel()
         {
+            // FIXME : temporaire voir comment on peut initialiser plus proprement
+            ListePersonnesProjet = new ObservableCollection<VOPersonne>();
+            ListePersonnesProjet.Add(new VOPersonne("NLA"));
+            this.Menu = new MenuViewModel();
         }
 
         #endregion

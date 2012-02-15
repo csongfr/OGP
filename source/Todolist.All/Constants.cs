@@ -8,7 +8,7 @@ namespace Plugin.Todolist.All
     /// <summary>
     /// Classe permettant de créer une extension .xml
     /// </summary>
-    public class Constants
+    public static class Constants
     {
         /// <summary>
         /// Extension constante en .xml

@@ -21,10 +21,15 @@ namespace Plugin.Todolist.ValueObjects
         /// </summary>
         public string Nom { get; set; }
 
+        /// <summary>
+        /// Surcharge de la méthode
+        /// </summary>
+        /// <returns>Nom de la catégorie</returns>
         public override string ToString()
         {
             return Nom;
         }
+
         /// <summary>
         /// Constructeur par défaut
         /// </summary>

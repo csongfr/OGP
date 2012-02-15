@@ -38,16 +38,16 @@ namespace Plugin.Todolist.Bll
         /// <summary>
         /// Permet d'ouvrir et de sérialiser les modifications
         /// </summary>
-        /// <param name="nomProjet">Nom du projet</param>
-        /// <param name="ToDoList">Nom de ma ToDoList</param>
+        /// <param name="cheminFichier">Chemin du projet</param>
+        /// <param name="toDoList">Nom de ma ToDoList</param>
         /// <returns>VOToDoList</returns>
-        public VOProjet ModifierFichierTachesXml(string cheminFichier, VOProjet ToDoList)
+        public VOProjet ModifierFichierTachesXml(string cheminFichier, VOProjet toDoList)
         {
             System.IO.FileStream fichier = System.IO.File.Open(cheminFichier, FileMode.Open);
             XmlSerializer serialiser = new XmlSerializer(typeof(VOProjet));
-             serialiser.Serialize(fichier, ToDoList);
+             serialiser.Serialize(fichier, toDoList);
             fichier.Close();
-            return ToDoList;
+            return toDoList;
         }
 
         /// <summary>

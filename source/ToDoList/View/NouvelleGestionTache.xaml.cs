@@ -35,8 +35,6 @@ namespace Plugin.Todolist.View
         public NouvelleGestionTache()
         {
             InitializeComponent();
-            Vm = new NouvelleGestionTacheViewModel();
-            DataContext = Vm;
         }
 
         /// <summary>
@@ -47,6 +45,17 @@ namespace Plugin.Todolist.View
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Fonction qui est chargée à l'ouverture de la fenêtre
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">RoutedEventArgs</param>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Vm = new NouvelleGestionTacheViewModel();
+            DataContext = Vm;
         }
     }
 }

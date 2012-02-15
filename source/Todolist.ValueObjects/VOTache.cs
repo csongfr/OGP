@@ -36,7 +36,6 @@ namespace Plugin.Todolist.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public int Identifiant { get; set; }
 
-
         /// <summary>
         /// Gets et sets des catégories
         /// </summary>
@@ -115,52 +114,57 @@ namespace Plugin.Todolist.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
 
-        [XmlIgnore]
-        public List<VOPersonne> ListePersonnes
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         /// Gets et sets des Personnes
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("Personne", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        [System.Xml.Serialization.XmlElementAttribute("Personnes", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public string ListePersonnesXml
         {
             get;
-           /* {
-                string strPersonnes = string.Empty;
+            // {
+            // string strPersonnes = string.Empty;
 
-                foreach (VOPersonne personne in ListePersonnes)
-                {
-                    if (!string.IsNullOrEmpty(strPersonnes))
-                    {
-                        strPersonnes += ", ";
-                    }
-                    strPersonnes += personne.ToString();
-                }
-                
-                return strPersonnes;
-            }*/
-            set ;
-            /*{
-               
-                foreach (VOPersonne personne in ListePersonnes)
-                {
-                  
-                    if (value != personne.ToString())
-                    {
-                        ListePersonnes.Add(new VOPersonne(value));
+            // foreach (VOPersonne personne in ListePersonnes)
+            // {
+            //    if (!string.IsNullOrEmpty(strPersonnes))
+            //    {
+            //        strPersonnes += ", ";
+            //    }
+            //    strPersonnes += personne.ToString();
+            // }
 
-                       
-                    }
+            // return strPersonnes;
+            // }
+            set;
+            // {
+            // string[] tab=value.Split(new string[]{", "}, StringSplitOptions.RemoveEmptyEntries);
 
-                    
-                }  
-            }*/
+            // foreach (string p in tab)
+            // {
+            //    bool trouver = false;
+
+            //    foreach (VOPersonne personne in ListePersonnes)
+            //    {
+            //        if (personne.AjouterPersonne==true)
+            //        {
+            //            trouver = true;
+            //        }
+            //    }
+            //    if (!trouver)
+            //    {
+            //        ListePersonnes.Add(new VOPersonne(p));
+            //    }
+            // }
+            // }
         }
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
+        public VOTache()
+        {
+           // ListePersonnes = new List<VOPersonne>();
+        }
         /*private string listeCat;
 
         public string ListCat
@@ -187,6 +191,5 @@ namespace Plugin.Todolist.ValueObjects
             }
         }*/
         #endregion
-
     }
 }

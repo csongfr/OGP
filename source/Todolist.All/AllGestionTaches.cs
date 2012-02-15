@@ -27,7 +27,7 @@ namespace Plugin.Todolist.All
         public VOProjet ChargerFichier(string nomFichier)
         {
             // FileStream fichierIn = new FileStream();
-            return null;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -43,15 +43,11 @@ namespace Plugin.Todolist.All
         /// <summary>
         /// Enregistrement de ma ToDolist
         /// </summary>
-        /// <param name="ToDoList"> ma ToDoList</param>
-        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <param name="toDoList"> ma ToDoList</param>
         /// <returns>VOToDoList</returns>
-        public VOProjet EnregistrerNouvelleToDoList(VOProjet ToDoList, out string messageErreurEnregistrer)
+        public VOProjet EnregistrerNouvelleToDoList(VOProjet toDoList)
         {
-            // Initialisation du message d'erreur
-            messageErreurEnregistrer = string.Empty;
-
-            string nomProjet = ToDoList.NomDuProjet;
+            string nomProjet = toDoList.NomDuProjet;
 
             // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
@@ -60,20 +56,16 @@ namespace Plugin.Todolist.All
             // Obtention du chemin complet
             string cheminComplet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
 
-            return BllFactory.GetBllGestionTaches().ModifierFichierTachesXml(cheminComplet, ToDoList); 
+            return BllFactory.GetBllGestionTaches().ModifierFichierTachesXml(cheminComplet, toDoList); 
         }
 
         /// <summary>
         /// Création d'une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
-        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        public VOProjet NouvelleGestionTaches(string nomProjet, out string messageErreur)
+        public VOProjet NouvelleGestionTaches(string nomProjet)
         {
-            // Initialisation du message d'erreur
-            messageErreur = string.Empty;
-
             // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
@@ -90,7 +82,6 @@ namespace Plugin.Todolist.All
             bool verif = DossierExistant(cheminComplet);
             if (verif == true)
             {
-                messageErreur = "Erreur, il existe déjà un projet de ce nom.";
                 return null;
             }
             else

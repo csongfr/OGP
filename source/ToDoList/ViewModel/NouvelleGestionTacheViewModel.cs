@@ -104,11 +104,7 @@ namespace Plugin.Todolist.ViewModel
                         },
                         delegate
                         {
-                            if (!string.IsNullOrEmpty(NomDuProjet) == false)
-                            {
-                                return false;
-                            }
-                            return true;
+                            return !string.IsNullOrEmpty(NomDuProjet);
                         },
                         true);
                 }

@@ -29,23 +29,20 @@ namespace Plugin.Todolist.All
         /// Création d'une nouvelle gestion de projet
         /// </summary>
         /// <param name="nomProjet">Nom du projet</param>
-        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        VOProjet NouvelleGestionTaches(string nomProjet, out string messageErreur);
+        VOProjet NouvelleGestionTaches(string nomProjet);
 
         /// <summary>
         /// Enregistre les nouvelles modifications
         /// </summary>
-        /// <param name="maToDoList">Nom de ma ToDoList</param>
-        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <param name="toDoList">Nom de ma ToDoList</param>
         /// <returns>VOToDoList</returns>
-        VOProjet EnregistrerNouvelleToDoList(VOProjet maToDoList, out string messageErreurEnregistrer);
+        VOProjet EnregistrerNouvelleToDoList(VOProjet toDoList);
 
         /// <summary>
         /// Désérialisation des fichiers du dossier grâce à leurs chemins
         /// </summary>
         /// <returns>Liste des fichiers désérialisés dans l'ordre du plus récent au plus vieux</returns>
         List<VOProjet> ObtenirTousLesFichiers();
-
     }
 }

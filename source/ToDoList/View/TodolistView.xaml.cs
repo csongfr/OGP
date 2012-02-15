@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using AvalonDock;
 using Fluent;
+using Todolist.ViewModel;
 
 namespace Plugin.Todolist
 {

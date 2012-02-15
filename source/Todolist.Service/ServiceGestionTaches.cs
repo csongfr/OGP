@@ -33,27 +33,25 @@ namespace Plugin.Todolist.Service
         /// <summary>
         /// Méthode qui enregistre les modifications du projet
         /// </summary>
-        /// <param name="maToDoList">Nom de ma ToDoList</param>
-        /// <param name="messageErreurEnregistrer">Message d'erreur</param>
+        /// <param name="toDoList">Nom de ma ToDoList</param>
         /// <returns>VOToDoList</returns>
-        public VOProjet EnregistrerToDoList(VOProjet maToDoList, out string messageErreurEnregistrer)
+        public VOProjet EnregistrerToDoList(VOProjet toDoList)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
-            return allGestionTaches.EnregistrerNouvelleToDoList(maToDoList,out messageErreurEnregistrer);
+            return allGestionTaches.EnregistrerNouvelleToDoList(toDoList);
         }
 
         /// <summary>
         /// Création d'un nouveau projet
         /// </summary>
         /// <param name="nomProjet">Le nom du projet</param>
-        /// <param name="messageErreur">Message d'erreur.</param>
         /// <returns>VOToDoList</returns>
-        public VOProjet NouvelleToDoList(string nomProjet, out string messageErreur)
+        public VOProjet NouvelleToDoList(string nomProjet)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 
-            return allGestionTaches.NouvelleGestionTaches(nomProjet, out messageErreur);
+            return allGestionTaches.NouvelleGestionTaches(nomProjet);
         }
 
         /// <summary>
