@@ -5,8 +5,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using Utils.Commands;
-using Utils.ViewModel;
 using Utils.Wcf;
+using Cinch;
 
 namespace Plugin.Todolist.ViewModel
 {

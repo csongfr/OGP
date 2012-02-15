@@ -7,7 +7,7 @@ namespace Cinch
     /// Implements the ICommand and wraps up all the verbose stuff so that you 
     /// can just pass 2 delegates 1 for the CanExecute and one for the Execute
     /// </summary>
-    public class SimpleCommandCinch : ICommand
+    public class SimpleCommand : ICommand
     {
         #region Public Properties
 

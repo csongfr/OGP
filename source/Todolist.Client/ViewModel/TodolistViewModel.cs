@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
+using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
-using Utils.Commands;
-using Utils.ViewModel;
+using Todolist.ViewModel;
 using Utils.Wcf;
 
 namespace Plugin.Todolist
@@ -20,17 +19,17 @@ namespace Plugin.Todolist
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        private RelayCommand nouveauCommand;
+        private SimpleCommand nouveauCommand;
 
         /// <summary>
         /// Commande pour enregistrer des tâches
         /// </summary>
-        private RelayCommand enregistrerTaches;
+        private SimpleCommand enregistrerTaches;
 
         /// <summary>
         /// Commande qui ouvre la fenêtre de sélection de fichiers
         /// </summary>
-        private RelayCommand commandeOuvrirFichier;
+        private SimpleCommand commandeOuvrirFichier;
 
         /// <summary>
         /// Permet de communiquer avec la view
@@ -95,13 +94,19 @@ namespace Plugin.Todolist
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
-        public ICommand CreerCommand
+        public SimpleCommand CreerCommand
         {
             get
             {
                 if (nouveauCommand == null)
                 {
-                    nouveauCommand = new RelayCommand(CreerTodolist);
+                    nouveauCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            CreerTodolist();
+                        }
+                    };
                 }
                 return nouveauCommand;
             }
@@ -110,26 +115,23 @@ namespace Plugin.Todolist
         /// <summary>
         /// appelle la fonction qui enregistre les modifications sur le projet
         /// </summary>
-        public ICommand EnregistrerTaches
+        public SimpleCommand EnregistrerTaches
         {
             get
             {
                 if (enregistrerTaches == null)
                 {
-                    enregistrerTaches = new RelayCommand(
-                            delegate
-                            {
-                               EnregistrerModif();
-                            },
-                            delegate
-                            {
-                                if (this.todolist == null)
-                                {
-                                    return false;
-                                }
-                                return true;
-                            },
-                            true);
+                    enregistrerTaches = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            EnregistrerModif();
+                        },
+                        CanExecuteDelegate = delegate
+                        {
+                            return this.todolist == null;
+                        }
+                    };
                 }
                 return enregistrerTaches;
             }
@@ -144,7 +146,13 @@ namespace Plugin.Todolist
             {
                 if (commandeOuvrirFichier == null)
                 {
-                    commandeOuvrirFichier = new RelayCommand(OuvrirProjet);
+                    commandeOuvrirFichier = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            OuvrirProjet();
+                        }
+                    };
                 }
                 return commandeOuvrirFichier;
             }
@@ -155,8 +163,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Permet d'ouvrir une nouvelle gestion de projet
         /// </summary>
-        /// <param name="param">object</param> 
-        private void CreerTodolist(object param)
+        private void CreerTodolist()
         {
             fenetre = new NouvelleGestionTache();
             fenetre.ShowDialog();
@@ -210,9 +217,17 @@ namespace Plugin.Todolist
         /// <summary>
         /// Ouvre la popup et charge le projet sélectionné
         /// </summary>
-        /// <param name="param">object</param>
-        private void OuvrirProjet(object param)
+        private void OuvrirProjet()
         {
+            var visualizerService = Resolve<IUIVisualizerService>();
+            object popup;
+            var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
+
+            if (res == true)
+            {
+                // TODO : A compléter une fois la gestionde la popup OK
+            }
+
             this.fenetreTousFichiers = new PopupOuvrirTodolistView();
 
             // cas où le répertoire n'existe pas

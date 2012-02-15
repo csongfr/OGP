@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
+using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
-using Utils.Commands;
-using Utils.ViewModel;
 using Utils.Wcf;
 
 namespace Todolist.ViewModel
@@ -30,7 +27,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Commande pour ouvrir le fichier sélectionné
         /// </summary>
-        private RelayCommand ouvrirProjetSelectionneCommand;
+        private SimpleCommand ouvrirProjetSelectionneCommand;
 
         /// <summary>
         /// permet de savoir si l'on a cliqué sur ouvrir
@@ -155,26 +152,27 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Commande de l'ouverture d'un projet
         /// </summary>
-        public ICommand OuvrirProjetSelectionneCommand
+        public SimpleCommand OuvrirProjetSelectionneCommand
         {
             get
             {
                 if (ouvrirProjetSelectionneCommand == null)
                 {
-                    ouvrirProjetSelectionneCommand = new RelayCommand(
-                            delegate
-                            {
-                                OuvertureActivee = true;
-                            },
-                            delegate
-                            {
-                                if (projetAOuvrir == null)
-                                {
-                                    return false;
-                                }
-                                return true;
-                            },
-                            true);
+                    ouvrirProjetSelectionneCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                               {
+                                   OuvertureActivee = true;
+                               },
+                        CanExecuteDelegate = delegate
+                             {
+                                 if (projetAOuvrir == null)
+                                 {
+                                     return false;
+                                 }
+                                 return true;
+                             }
+                    };
                 }
                 return ouvrirProjetSelectionneCommand;
             }

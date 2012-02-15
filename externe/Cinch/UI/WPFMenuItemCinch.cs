@@ -64,7 +64,7 @@ namespace Cinch
         public String Text { get; set; }
         public String IconUrl { get; set; }
         public List<WPFMenuItemCinch> Children { get; private set; }
-        public SimpleCommandCinch Command { get; set; }
+        public SimpleCommand Command { get; set; }
         #endregion
 
         #region Ctor
