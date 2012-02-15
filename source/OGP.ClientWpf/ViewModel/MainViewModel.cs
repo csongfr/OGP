@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using AvalonDock;
 using Utils.Commands;
-using Utils.ViewModel;
+using Cinch;
 
 namespace OGP.ClientWpf.ViewModel
 {
