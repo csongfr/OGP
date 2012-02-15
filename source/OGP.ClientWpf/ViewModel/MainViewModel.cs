@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Input;
 using AvalonDock;
-using Utils.Commands;
-using Utils.ViewModel;
+using Cinch;
+
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -26,27 +22,24 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Commande qui ferme l'application
         /// </summary>
-        private RelayCommand fermerCommand;
+        private SimpleCommand fermerCommand;
 
         /// <summary>
         /// Stocke la commande chargeant les plugins disponibles
         /// </summary>
-        private RelayCommand recupererCommand;
+        private SimpleCommand recupererCommand;
 
         /// <summary>
         /// Commande ajoute un plugin
         /// </summary>
-        private RelayCommand chargerPlugin;
-
-        /// <summary>
-        /// Commande qui supprime un plugin
-        /// </summary>
-        private RelayCommand supprimePlugin;
+        private SimpleCommand chargerPlugin;
 
         /// <summary>
         /// Liste des répertoire contenant les plugins
         /// </summary>
         // private List<DirectoryCatalog> repertoiresPlugins;
+
+        private SimpleCommand supprimePlugin;
 
         /// <summary>
         /// Stocke la liste de tous les plugins
@@ -138,13 +131,19 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Supprime un plugin
         /// </summary>
-        public ICommand RecupererPlugins
+        public SimpleCommand RecupererPlugins
         {
             get
             {
                 if (recupererCommand == null)
                 {
-                    recupererCommand = new RelayCommand(x => this.ChargerPluginsDisponibles());
+                    recupererCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            this.ChargerPluginsDisponibles();
+                        }
+                    };
                 }
                 return recupererCommand;
             }
@@ -153,22 +152,23 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Supprime un plugin
         /// </summary>
-        public ICommand SupprimePlugin
+        public SimpleCommand SupprimePlugin
         {
             get
             {
                 if (supprimePlugin == null)
                 {
-                    supprimePlugin = new RelayCommand(
-                        delegate
+                    supprimePlugin = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
                         {
                             SupprimerPlugin(PluginActif.Title);
                         },
-                        delegate
-                        {
-                            return IsPluginCharge();
-                        },
-                        true);
+                        CanExecuteDelegate = delegate
+                         {
+                             return IsPluginCharge();
+                         }
+                    };
                 }
                 return supprimePlugin;
             }
@@ -177,22 +177,23 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Ajoute un plugin
         /// </summary>
-        public ICommand ChargerPlugin
+        public SimpleCommand ChargerPlugin
         {
             get
             {
                 if (chargerPlugin == null)
                 {
-                    chargerPlugin = new RelayCommand(
-                        delegate
+                    chargerPlugin = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
                         {
                             ChargerPluginActif(PluginActif.Title);
                         },
-                        delegate
+                        CanExecuteDelegate = delegate
                         {
                             return pluginActif != null && !IsPluginCharge();
-                        },
-                        true);
+                        }
+                    };
                 }
                 return chargerPlugin;
             }
@@ -201,13 +202,19 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Exit from the application
         /// </summary>
-        public ICommand FermerCommand
+        public SimpleCommand FermerCommand
         {
             get
             {
                 if (fermerCommand == null)
                 {
-                    fermerCommand = new RelayCommand(x => System.Windows.Application.Current.Shutdown());
+                    fermerCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            System.Windows.Application.Current.Shutdown();
+                        }
+                    };
                 }
                 return fermerCommand;
             }

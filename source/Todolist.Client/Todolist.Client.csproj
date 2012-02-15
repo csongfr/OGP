@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC03621A-3D9F-47EC-8102-9C035F538923}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Todolist</RootNamespace>
+    <AssemblyName>Todolist</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AvalonDock">
+      <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Fluent">
+      <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Exception\PluginException.cs" />
+    <Compile Include="TodolistLoader.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\TodolistViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
+    <Compile Include="ViewModel\PopupOuvrirTodolistViewModel.cs" />
+    <Compile Include="View\TodolistView.xaml.cs">
+      <DependentUpon>TodolistView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NouvelleGestionTache.xaml.cs">
+      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PopupOuvrirTodolistView.xaml.cs">
+      <DependentUpon>PopupOuvrirTodolistView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="View\TodolistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NouvelleGestionTache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PopupOuvrirTodolistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Ressources\Images\Bold.png" />
+    <Resource Include="Ressources\Images\Italic.png" />
+    <Resource Include="Ressources\Images\Underline.png" />
+    <Resource Include="Ressources\Images\FontColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
+      <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
+      <Name>Cinch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ClientWpf\OGP.ClientWpf.csproj">
+      <Project>{9DCA1678-8B1C-49AD-B279-0010C0A5F9F9}</Project>
+      <Name>OGP.ClientWpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todolist.Service\Todolist.Service.csproj">
+      <Project>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</Project>
+      <Name>Todolist.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todolist.ValueObjects\Todolist.ValueObjects.csproj">
+      <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
+      <Name>Todolist.ValueObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
+      <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
+      <Name>Utils.Observable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Wcf\Utils.Wcf.csproj">
+      <Project>{A1C4CF3D-AF46-4BFC-8EDB-62BBB8B4EB74}</Project>
+      <Name>Utils.Wcf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>rem copy /y  "$(TargetPath)" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+rem copy /y  "$(TargetPath).config" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+:: copy  /y "$(TargetDir)Todolist.pdb" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+:: copy  /y "$(TargetDir)Utils.Wcf.dll" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"
+:: copy  /y "$(TargetDir)Utils.Wcf.pdb" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

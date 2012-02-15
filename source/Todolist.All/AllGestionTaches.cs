@@ -99,13 +99,21 @@ namespace Plugin.Todolist.All
             // Ouverture du dossier
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
+            
+            // Création du dossier si il n'existe pas
+            if (!Directory.Exists(repertoire))
+            {
+                return null;
+            }
+            else
+            {
+                // Création d'une liste contenant les chemins complets de chaque fichiers
+                string[] tableauFichiersExistants = Directory.GetFiles(repertoire);
+                List<string> listeFichiersExistants = tableauFichiersExistants.ToList();
 
-            // Création d'une liste contenant les chemins complets de chaque fichiers
-            string[] tableauFichiersExistants = Directory.GetFiles(repertoire);
-            List<string> listeFichiersExistants = tableauFichiersExistants.ToList();
-
-            // Retourne les fichiers désérialisés et classés
-            return BllFactory.GetBllGestionTaches().DeserialisationFichiers(listeFichiersExistants).OrderBy(tdl => tdl.DateDerniereModif).ToList();
+                // Retourne les fichiers désérialisés et classés
+                return BllFactory.GetBllGestionTaches().DeserialisationFichiers(listeFichiersExistants).OrderBy(tdl => tdl.DateDerniereModif).ToList();
+            }
         }
 
         #endregion

@@ -1,0 +1,78 @@
+﻿<ad:DocumentContent x:Class="Plugin.Todolist.Todolist"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:View="clr-namespace:Plugin.Todolist.View"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+    xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
+    Title="Todolist" mc:Ignorable="d" d:DesignWidth="1200">
+
+    <ad:DockingManager>
+        <ad:ResizingPanel>
+            <ad:DockablePane>
+                <!--<ad:DockablePane.Resources>
+                    <DataTemplate DataType="x:Type vm:Menu">-->
+                        <ad:DockableContent Title="Menu" IsCloseable="False" >
+                        <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top">
+                            <Expander Header="Menu">
+                                <StackPanel>
+                                    <Button Content="Ouvrir" Height="25" Name="Ouvrir" Width="100" Command="{Binding CommandeOuvrirFichier}" />
+                                    <Button Content="Nouveau" Height="25" Name="Nouveau" Width="100" Command="{Binding CreerCommand}" />
+                                    <Button Content="Enregistrer" Height="25" Name="AjouterTache" Width="100" Command="{Binding EnregistrerTaches}"/>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Ajouter Une Catégorie">
+                                <DataGrid AutoGenerateColumns="False" Width="225">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="200" />
+                                        <DataGridCheckBoxColumn  />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                            <Expander Header="Ajouter Des Personnes">
+                                <DataGrid ItemsSource="{Binding ListePersonnesProjet}" SelectedItem="{Binding PersonneActive}" AutoGenerateColumns="False" Width="225">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Width="200" Binding="{Binding Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <DataGridCheckBoxColumn Binding="{Binding AjouterPersonne,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </StackPanel>
+                        </ad:DockableContent>
+                   <!-- </DataTemplate>
+                </ad:DockablePane.Resources>-->
+            </ad:DockablePane>
+            <ad:DockablePane Visibility="{Binding Visible}" >
+                <ad:DockableContent Title="{Binding Projet.NomDuProjet}"  >
+                    <DataGrid ItemsSource="{Binding Projet.ListeDesTaches}" AutoGenerateColumns="False" SelectedItem="{Binding TacheSelectionnee}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
+                            <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
+                            <DataGridTextColumn Header="%" Width="50"  Binding="{Binding PourcentageEffectue}" />
+                            <DataGridTextColumn Header="Est." Width="40" Binding="{Binding Estimation}"/>
+                            <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
+                            <DataGridTextColumn Header="" Width="45" Binding="{Binding PourcentageEffectue}"/>
+                            <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
+                            <DataGridTemplateColumn Header="Personnes" Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox>
+                                            <StackPanel Orientation="Horizontal">
+                                            <ComboBoxItem>tetsons</ComboBoxItem>
+                                                    <CheckBox />
+                                            </StackPanel>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
+                            <DataGridTextColumn Header="Sauvegarder" Width="90" />
+                            <DataGridCheckBoxColumn Header="Terminé" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ad:DockableContent>
+            </ad:DockablePane>
+        </ad:ResizingPanel>
+    </ad:DockingManager>
+</ad:DocumentContent>

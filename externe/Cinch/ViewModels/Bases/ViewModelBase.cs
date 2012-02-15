@@ -31,19 +31,19 @@ namespace Cinch
     {
         #region Data
         static readonly Mediator mediator = new Mediator();
-        private SimpleCommandCinch closeActivePopUpCommand;
-        private SimpleCommandCinch activatedCommand;
-        private SimpleCommandCinch deactivatedCommand;
-        private SimpleCommandCinch loadedCommand;
-        private SimpleCommandCinch unloadedCommand;
-        private SimpleCommandCinch closeCommand;
+        private SimpleCommand closeActivePopUpCommand;
+        private SimpleCommand activatedCommand;
+        private SimpleCommand deactivatedCommand;
+        private SimpleCommand loadedCommand;
+        private SimpleCommand unloadedCommand;
+        private SimpleCommand closeCommand;
         static ILoggerService logger = null;
 
         private string displayName;
         private SolidColorBrush displayNameColor = Brushes.Black;
 
         //workspace data
-        private SimpleCommandCinch closeWorkSpaceCommand;
+        private SimpleCommand closeWorkSpaceCommand;
         private Boolean isCloseable = true;
 
         /// <summary>
@@ -82,31 +82,31 @@ namespace Cinch
             //Mediator.Register(this);
 
             #region Wire up Window/UserControl based Lifetime commands
-            activatedCommand = new SimpleCommandCinch
+            activatedCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnWindowActivated()
             };
 
-            deactivatedCommand = new SimpleCommandCinch
+            deactivatedCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnWindowDeactivated()
             };
 
-            loadedCommand = new SimpleCommandCinch
+            loadedCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnWindowLoaded()
             };
 
-            unloadedCommand = new SimpleCommandCinch
+            unloadedCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnWindowUnloaded()
             };
 
-            closeCommand = new SimpleCommandCinch
+            closeCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnWindowClose()
@@ -116,7 +116,7 @@ namespace Cinch
             #region Wire up Workspace Command
 
             //This is used for popup control only
-            closeWorkSpaceCommand = new SimpleCommandCinch
+            closeWorkSpaceCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => ExecuteCloseWorkSpaceCommand()
@@ -125,7 +125,7 @@ namespace Cinch
             #endregion
 
             //This is used for popup control only
-            closeActivePopUpCommand = new SimpleCommandCinch
+            closeActivePopUpCommand = new SimpleCommand
             {
                 CanExecuteDelegate = x => true,
                 ExecuteDelegate = x => OnCloseActivePopUp(x)
@@ -316,7 +316,7 @@ namespace Cinch
         /// <summary>
         /// ActivatedCommand : Window Lifetime command
         /// </summary>
-        public SimpleCommandCinch ActivatedCommand
+        public SimpleCommand ActivatedCommand
         {
             get { return activatedCommand; }
         }
@@ -324,7 +324,7 @@ namespace Cinch
         /// <summary>
         /// DeactivatedCommand : Window Lifetime command
         /// </summary>
-        public SimpleCommandCinch DeactivatedCommand
+        public SimpleCommand DeactivatedCommand
         {
             get { return deactivatedCommand; }
         }
@@ -332,7 +332,7 @@ namespace Cinch
         /// <summary>
         /// LoadedCommand : Window/UserControl Lifetime command
         /// </summary>
-        public SimpleCommandCinch LoadedCommand
+        public SimpleCommand LoadedCommand
         {
             get { return loadedCommand; }
         }
@@ -340,7 +340,7 @@ namespace Cinch
         /// <summary>
         /// UnloadedCommand : Window/UserControl Lifetime command
         /// </summary>
-        public SimpleCommandCinch UnloadedCommand
+        public SimpleCommand UnloadedCommand
         {
             get { return unloadedCommand; }
         }
@@ -348,7 +348,7 @@ namespace Cinch
         /// <summary>
         /// CloseCommand : Window Lifetime command
         /// </summary>
-        public SimpleCommandCinch CloseCommand
+        public SimpleCommand CloseCommand
         {
             get { return closeCommand; }
         }
@@ -356,7 +356,7 @@ namespace Cinch
         /// <summary>
         /// CloseCommand : Close popup command
         /// </summary>
-        public SimpleCommandCinch CloseActivePopUpCommand
+        public SimpleCommand CloseActivePopUpCommand
         {
             get { return closeActivePopUpCommand; }
         }
@@ -365,7 +365,7 @@ namespace Cinch
         /// Returns the command that, when invoked, attempts
         /// to remove this workspace from the user interface.
         /// </summary>
-        public SimpleCommandCinch CloseWorkSpaceCommand
+        public SimpleCommand CloseWorkSpaceCommand
         {
             get
             {
