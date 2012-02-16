@@ -29,16 +29,5 @@ namespace Plugin.Todolist.View
             //Vm = new PopupOuvrirTodolistViewModel();
             this.DataContext = new PopupOuvrirTodolistViewModel();
         }
-
-        /// <summary>
-        /// Action de fermeture
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">event</param>
-        private void Button1_Click(object sender, RoutedEventArgs e)
-        {
-            // TODO fhu : plus propre
-            this.Close();
-        }
     }
 }

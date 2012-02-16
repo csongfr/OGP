@@ -53,6 +53,11 @@ namespace Plugin.Todolist.All
             var section = ConfigurationManager.GetSection("gestionTaches") as NameValueCollection;
             string repertoire = section["repertoireStockage"].ToString();
 
+            if (!Directory.Exists(repertoire))
+            {
+                return null;
+            }
+
             // Obtention du chemin complet
             string cheminComplet = Path.Combine(repertoire, nomProjet + Constants.ExtensionFichierXml);
 

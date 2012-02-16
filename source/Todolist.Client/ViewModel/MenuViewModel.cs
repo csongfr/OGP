@@ -164,13 +164,16 @@ namespace Todolist.ViewModel
         private void OuvrirProjet()
         {
             var visualizerService = Resolve<IUIVisualizerService>();
+           
             object popup;
+            
 
             // Ouverture de la popup d'ouverture de projet
-            visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
-
+            var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
+            
             // Cast pour manipuler l'objet PopupOuvrirTodolistViewModel
             PopupOuvrirTodolistViewModel popupCast = (PopupOuvrirTodolistViewModel)popup;
+            //res = popupCast.OuvertureActivee;
 
             // Gestion de l'exception dans le cas où le repertoire n'existe pas
             if (popupCast.ListeCouranteTodolist == null)
@@ -178,7 +181,9 @@ namespace Todolist.ViewModel
                 throw new PluginException("Pas de fichier");
             }
 
-            if (popupCast.OuvertureActivee == true)
+            //if (popupCast.OuvertureActivee == true)
+            //if (popupCast.OuvertureActivee == true)
+            if (res==true)
             {
                 ProjetOuvert = popupCast.ProjetAOuvrir;
             }
@@ -215,14 +220,18 @@ namespace Todolist.ViewModel
             var visualizerService = Resolve<IUIVisualizerService>();
             object popupCreation;
 
-            visualizerService.ShowDialog(typeof(NouvelleGestionTache), new NouvelleGestionTacheViewModel(), out popupCreation);
+            var ouverturePopupCreation = visualizerService.ShowDialog(typeof(NouvelleGestionTache), new NouvelleGestionTacheViewModel(), out popupCreation);
 
-            if (((NouvelleGestionTacheViewModel)popupCreation).Actif == true)
+            if (ouverturePopupCreation == true)
             {
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
                 });
+                if (ProjetOuvert == null)
+                {
+                    throw new PluginException("Pas de fichier");
+                }
             }
         }
         #endregion

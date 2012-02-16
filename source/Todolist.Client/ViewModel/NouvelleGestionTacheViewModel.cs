@@ -15,11 +15,6 @@ namespace Todolist.ViewModel
         private string nomDuProjet;
 
         /// <summary>
-        /// Booléen permettant de savoir si le bouton "Enregistrer" est bien selectionné
-        /// </summary>
-        private bool actif;
-
-        /// <summary>
         /// Commande pour enregistrer le nom du projet et du fichier
         /// </summary>
         private SimpleCommand enregistrer;
@@ -33,39 +28,11 @@ namespace Todolist.ViewModel
         /// </summary>
         public NouvelleGestionTacheViewModel()
         {
-            Actif = false; 
         }
 
         #endregion
 
         #region propriétés de présentation
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs sucessChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.Actif);
-
-        /// <summary>
-        /// Gets ou Sets pour savoir si le bouton "Enregistrer" est cliqué
-        /// </summary>
-        public bool Actif
-        {
-            get
-            {
-                return this.actif;
-            }
-            set
-            {
-                if (this.actif == value)
-                {
-                    return;
-                }
-
-                this.actif = value;
-
-                NotifyPropertyChanged(sucessChangeArgs);
-            }
-        }
 
         /// <summary>
         /// Cinch : INPC Helper
@@ -110,7 +77,7 @@ namespace Todolist.ViewModel
                      {
                          ExecuteDelegate = delegate
                           {
-                              Actif = true;
+                              this.RaiseCloseRequest(true);
                           },
                          CanExecuteDelegate = delegate
                           {

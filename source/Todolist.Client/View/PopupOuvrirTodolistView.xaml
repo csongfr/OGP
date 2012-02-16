@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="395" d:DesignWidth="553" SizeToContent="WidthAndHeight">
-    <Grid >
-        <Label Content="Choisissez votre fichier" Height="30" HorizontalAlignment="Center" Name="label1" VerticalAlignment="Top" Width="300" />
-        <DataGrid Width="310"  AutoGenerateColumns="False" ItemsSource="{Binding ListeCouranteTodolist}" Margin="0,37,0,53" SelectedItem="{Binding ProjetAOuvrir, UpdateSourceTrigger=PropertyChanged}" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="300" Header="Nom du projet" Binding="{Binding NomDuProjet}" />
-            </DataGrid.Columns>
+        <StackPanel>
+            <Label Content="Choisissez votre fichier" HorizontalAlignment="Center" Name="label1" VerticalAlignment="Top" Width="300" />
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListeCouranteTodolist}" SelectedItem="{Binding ProjetAOuvrir, UpdateSourceTrigger=PropertyChanged}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="Nom du projet" Binding="{Binding NomDuProjet}" />
+                </DataGrid.Columns>
         </DataGrid>
-        <Button  Content="Ouvrir" Height="35" HorizontalAlignment="Left" Margin="163,309,0,0" Name="button1" VerticalAlignment="Top" Width="192" Command ="{Binding OuvrirProjetSelectionneCommand}"  Click="Button1_Click" />
-    </Grid>
+            <Button  Content="Ouvrir" HorizontalAlignment="Center"  Name="button1" VerticalAlignment="Bottom" Width="192" Command ="{Binding OuvrirProjetSelectionneCommand}"  />
+        </StackPanel>
 </Window>

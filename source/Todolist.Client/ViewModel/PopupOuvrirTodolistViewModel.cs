@@ -29,11 +29,6 @@ namespace Todolist.ViewModel
         /// </summary>
         private SimpleCommand ouvrirProjetSelectionneCommand;
 
-        /// <summary>
-        /// permet de savoir si l'on a cliqué sur ouvrir
-        /// </summary>
-        private bool ouvertureActivee;
-
         #endregion
 
         #region Constructeur
@@ -43,7 +38,6 @@ namespace Todolist.ViewModel
         /// </summary>
         public PopupOuvrirTodolistViewModel()
         {
-            OuvertureActivee = false;
             // Appel au service pour charger les VOTodolist
             var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                                {
@@ -116,34 +110,6 @@ namespace Todolist.ViewModel
             }
         }
 
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        /// 
-        private static System.ComponentModel.PropertyChangedEventArgs ouvertureActiveeChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.OuvertureActivee);
-
-        /// <summary>
-        /// Gets et sets de l'ouverture du projet
-        /// </summary>
-        public bool OuvertureActivee
-        {
-            get
-            {
-                return this.ouvertureActivee;
-            }
-            set
-            {
-                if (this.ouvertureActivee == value)
-                {
-                    return;
-                }
-
-                this.ouvertureActivee = value;
-
-                NotifyPropertyChanged(ouvertureActiveeChangeArgs);
-            }
-        }
-
         #endregion
 
         #region commandes
@@ -161,11 +127,12 @@ namespace Todolist.ViewModel
                     {
                         ExecuteDelegate = delegate
                                {
-                                   OuvertureActivee = true;
+                                   this.RaiseCloseRequest(true);
                                },
                         CanExecuteDelegate = delegate
                              {
                                  return projetAOuvrir != null;
+
                              }
                     };
                 }
