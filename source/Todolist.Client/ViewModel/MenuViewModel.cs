@@ -161,25 +161,26 @@ namespace Todolist.ViewModel
 
         #region Méthodes privées
 
-        /// <summary>
-        /// Permet d'ouvrir une nouvelle gestion de projet
-        /// </summary>
-        private void CreerTodolist()
+        private void OuvrirProjet()
         {
-            fenetre = new NouvelleGestionTache();
-            fenetre.ShowDialog();
+            var visualizerService = Resolve<IUIVisualizerService>();
+            object popup;
 
-            if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
+            // Ouverture de la popup d'ouverture de projet
+            visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
+
+            // Cast pour manipuler l'objet PopupOuvrirTodolistViewModel
+            PopupOuvrirTodolistViewModel popupCast = (PopupOuvrirTodolistViewModel)popup;
+
+            // Gestion de l'exception dans le cas où le repertoire n'existe pas
+            if (popupCast.ListeCouranteTodolist == null)
             {
-                var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
-                {
-                    ProjetOuvert = client.NouvelleToDoList(fenetre.Vm.NomDuProjet);
-                });
+                throw new PluginException("Pas de fichier");
+            }
 
-                if (exception != null)
-                {
-                    throw new PluginException("Erreur, il existe déjà un projet de ce nom.");
-                }
+            if (popupCast.OuvertureActivee == true)
+            {
+                ProjetOuvert = popupCast.ProjetAOuvrir;
             }
         }
 
@@ -207,52 +208,23 @@ namespace Todolist.ViewModel
         }
 
         /// <summary>
-        /// appelle la fonction qui enregistre les modifications sur le projet
-        /// Ouvre la popup et charge le projet sélectionné
+        /// Permet d'ouvrir une nouvelle gestion de projet
         /// </summary>
-        private void OuvrirProjet()
+        private void CreerTodolist()
         {
             var visualizerService = Resolve<IUIVisualizerService>();
-            object popup;
-            var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
+            object popupCreation;
 
-            if (res == true)
+            visualizerService.ShowDialog(typeof(NouvelleGestionTache), new NouvelleGestionTacheViewModel(), out popupCreation);
+
+            if (((NouvelleGestionTacheViewModel)popupCreation).Actif == true)
             {
-                // TODO : A compléter une fois la gestionde la popup OK
-            }
-
-            this.fenetreTousFichiers = new PopupOuvrirTodolistView();
-
-            // cas où le répertoire n'existe pas
-            if ((fenetreTousFichiers.Vm.ListeCouranteTodolist == null) || (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 0))
-            {
-                ProjetOuvert = fenetreTousFichiers.Vm.ProjetAOuvrir;
-                // ListePersonnesProjet = new ObservableCollection<VOPersonne>(projet.Personnes);
-                MessageBox.Show("Le répertoire ne contient pas de fichier");
-            }
-            else
-            {
-                string resultat = string.Empty;
-
-                // Cas où il n'y a qu'un seul projet
-                if (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 1)
+                var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
-                    // Est ce que l'utilisateur veut l'ouvrir?
-                    resultat = MessageBox.Show("Un seul fichier présent dans le répertoire, il s'agit du projet " + fenetreTousFichiers.Vm.ProjetAOuvrir.NomDuProjet + "\nSouhaitez vous l'ouvrir?", "Un seul fichier", MessageBoxButton.YesNo).ToString();
-                }
-                else
-                {
-                    // Si il y a plusieurs fichiers dans la fenêtre
-                    this.fenetreTousFichiers.ShowDialog();
-                }
-
-                if (resultat == "Yes" || fenetreTousFichiers.Vm.OuvertureActivee == true)
-                {
-                    ProjetOuvert = fenetreTousFichiers.Vm.ProjetAOuvrir;
-                }
+                    ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
+                });
             }
         }
-
         #endregion
 
         #region Constructeur
