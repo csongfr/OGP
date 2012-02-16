@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace QuantumBitDesigns.Core
+namespace Utils.Observable
 {
     /// <summary>
     /// Notifies the clients that a property has changed

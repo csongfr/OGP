@@ -46,7 +46,7 @@
             <ad:DockablePane>
                 <ad:DockablePane.Resources>
                     <DataTemplate DataType="{x:Type ViewModel:TacheViewModel}">
-                        <DataGrid  AutoGenerateColumns="False">
+                        <DataGrid ItemsSource="{Binding UneTache}" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
                                 <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>

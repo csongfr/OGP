@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="395" d:DesignWidth="553" SizeToContent="WidthAndHeight">
         <StackPanel>
-            <Label Content="Choisissez votre fichier" HorizontalAlignment="Center" Name="label1" VerticalAlignment="Top" Width="300" />
+            <Label Content="Choisissez votre fichier" HorizontalAlignment="Center" Name="label1" VerticalAlignment="Top" />
             <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ListeCouranteTodolist}" SelectedItem="{Binding ProjetAOuvrir, UpdateSourceTrigger=PropertyChanged}" >
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Nom du projet" Binding="{Binding NomDuProjet}" />
@@ -14,4 +14,6 @@
         </DataGrid>
             <Button  Content="Ouvrir" HorizontalAlignment="Center"  Name="button1" VerticalAlignment="Bottom" Width="192" Command ="{Binding OuvrirProjetSelectionneCommand}"  />
         </StackPanel>
+    </Grid>
+
 </Window>

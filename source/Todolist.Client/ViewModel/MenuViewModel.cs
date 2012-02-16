@@ -78,7 +78,7 @@ namespace Todolist.ViewModel
 
                 this.projetOuvert = value;
 
-                 NotifyPropertyChanged(projetOuvertChangeArgs);
+                NotifyPropertyChanged(projetOuvertChangeArgs);
             }
         }
 
@@ -124,11 +124,11 @@ namespace Todolist.ViewModel
                         },
                         CanExecuteDelegate = delegate
                         {
-                           if (this.projetOuvert == null)
-                           {
-                            return false;
-                           }
-                           return true;
+                            if (this.projetOuvert == null)
+                            {
+                                return false;
+                            }
+                            return true;
                         }
                     };
                 }
@@ -231,6 +231,13 @@ namespace Todolist.ViewModel
                 if (ProjetOuvert == null)
                 {
                     throw new PluginException("Pas de fichier");
+
+                // TODO gérer exception
+
+                foreach (var tache in ProjetOuvert.ListeDesTaches)
+                {
+                    
+
                 }
             }
         }
