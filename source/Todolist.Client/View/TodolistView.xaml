@@ -3,17 +3,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:View="clr-namespace:Plugin.Todolist.View"
+    xmlns:ViewModel="clr-namespace:Todolist.ViewModel"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
-    Title="Todolist" mc:Ignorable="d" d:DesignWidth="1200">
+    Title="Todolist" mc:Ignorable="d" d:DesignWidth="1200"
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase">
 
     <ad:DockingManager>
         <ad:ResizingPanel>
             <ad:DockablePane>
-                <!--<ad:DockablePane.Resources>
-                    <DataTemplate DataType="x:Type vm:Menu">-->
-                        <ad:DockableContent Title="Menu" IsCloseable="False" >
+                <ad:DockablePane.Resources>
+                    <DataTemplate DataType="{x:Type ViewModel:MenuViewModel}">
                         <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top">
                             <Expander Header="Menu">
                                 <StackPanel>
@@ -31,21 +32,20 @@
                                 </DataGrid>
                             </Expander>
                             <Expander Header="Ajouter Des Personnes">
-                                <DataGrid ItemsSource="{Binding ListePersonnesProjet}" SelectedItem="{Binding PersonneActive}" AutoGenerateColumns="False" Width="225">
+                                <DataGrid AutoGenerateColumns="False" Width="225">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Width="200" Binding="{Binding Nom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                        <DataGridCheckBoxColumn Binding="{Binding AjouterPersonne,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  />
+                                        <DataGridTextColumn Width="200" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>
                         </StackPanel>
-                        </ad:DockableContent>
-                   <!-- </DataTemplate>
-                </ad:DockablePane.Resources>-->
+                    </DataTemplate>
+                </ad:DockablePane.Resources>
+                <ad:DockableContent Title="Menu" IsCloseable="False" Content="{Binding Menu}" />
             </ad:DockablePane>
-            <ad:DockablePane Visibility="{Binding Visible}" >
-                <ad:DockableContent Title="{Binding Projet.NomDuProjet}"  >
-                    <DataGrid ItemsSource="{Binding Projet.ListeDesTaches}" AutoGenerateColumns="False" SelectedItem="{Binding TacheSelectionnee}">
+            <ad:DockablePane>
+                <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}"  >
+                    <DataGrid ItemsSource="{Binding Menu.ProjetOuvert.ListeDesTaches}" AutoGenerateColumns="False" SelectedItem="{Binding TacheSelectionnee}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
                             <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
