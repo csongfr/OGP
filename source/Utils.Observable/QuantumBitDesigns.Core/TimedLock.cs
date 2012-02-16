@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace QuantumBitDesigns.Core
+namespace Utils.Observable
 {
     /// <summary>
     /// Taken From: http://www.interact-sw.co.uk/iangblog/2004/03/23/locking
