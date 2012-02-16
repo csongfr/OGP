@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 using Cinch;
-using Cinch.Services.Service_Interfaces.Lmj;
+using Cinch.Services.Service_Interfaces;
 
 namespace Utils.UiDispatcher
 {

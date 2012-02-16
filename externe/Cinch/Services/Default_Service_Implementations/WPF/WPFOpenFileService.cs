@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Cinch.Services.Service_Interfaces.Lmj;
+using Cinch.Services.Service_Interfaces;
 using Microsoft.Win32;
 
 
