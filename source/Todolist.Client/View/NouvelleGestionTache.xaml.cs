@@ -27,14 +27,9 @@ namespace Plugin.Todolist.View
             InitializeComponent();
         }
 
-        /// <summary>
-        /// bof
-        /// </summary>
-        /// <param name="sender">object</param>
-        /// <param name="e">RoutedEventArgs</param>
-        private void Button1_Click(object sender, RoutedEventArgs e)
+        private void button1_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
     }
 }

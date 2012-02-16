@@ -5,6 +5,7 @@ using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Todolist.ViewModel;
+using Utils.Observable;
 using Utils.Wcf;
 
 namespace Plugin.Todolist
@@ -26,9 +27,15 @@ namespace Plugin.Todolist
         /// </summary>
         private TacheViewModel tacheVM;
 
+        /// <summary>
+        /// Liste des tâches
+        /// </summary>
+        private ObservableList<TacheViewModel> listeTachesViewModel;
+
         #endregion
 
         #region Propriétés de présentation 
+
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
@@ -83,9 +90,37 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listeTachesVmChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.ListeTachesViewModel);
+
+        /// <summary>
+        /// Gets ou Sets la liste des taches.
+        /// </summary>
+        public ObservableList<TacheViewModel> ListeTachesViewModel
+        {
+            get
+            {
+                return this.listeTachesViewModel;
+            }
+            set
+            {
+                if (this.listeTachesViewModel == value)
+                {
+                    return;
+                }
+
+                this.listeTachesViewModel = value;
+
+                NotifyPropertyChanged(listeTachesVmChangeArgs);
+            }
+        }
+
         #endregion
 
         #region Constructeur
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -96,6 +131,7 @@ namespace Plugin.Todolist
             // ListePersonnesProjet.Add(new VOPersonne("NLA"));
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
+            ListeTachesViewModel = new ObservableList<TacheViewModel>();
         }
 
         #endregion
