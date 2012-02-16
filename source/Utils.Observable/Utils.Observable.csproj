@@ -38,11 +38,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuantumBitDesigns.Core\ICollectionItemNotifyPropertyChanged.cs" />
+    <Compile Include="QuantumBitDesigns.Core\LockTimeoutException.cs" />
     <Compile Include="ObservableHelper.cs" />
+    <Compile Include="QuantumBitDesigns.Core\ObservableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantumBitDesigns.Core\TimedLock.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
+      <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
+      <Name>Cinch</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

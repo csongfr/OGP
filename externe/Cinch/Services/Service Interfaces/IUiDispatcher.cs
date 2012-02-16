@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Threading;
 
-namespace Cinch.Services.Service_Interfaces.Lmj
+namespace Cinch.Services.Service_Interfaces
 {
     /// <summary>
     /// Méthodes de manipulation du thread STA.

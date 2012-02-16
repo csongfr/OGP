@@ -42,23 +42,18 @@ namespace Plugin.Todolist
         private VOTache tacheSelectionnee;
 
         /// <summary>
-        /// Stocke la liste des personnes affectées sur le projet.
-        /// </summary>
-        private ObservableCollection<VOPersonne> listePersonnesProjet;
-
-        /// <summary>
-        /// Stocke la personne active.
-        /// </summary>
-        private VOPersonne personneActive;
-
-        /// <summary>
         /// permet de gérer le ViewModel du menu
         /// </summary>
         private MenuViewModel menuViewModel;
 
+        /// <summary>
+        /// Permet de gérer le ViewModel des tâches
+        /// </summary>
+        private TacheViewModel tacheVM;
+
         #endregion
 
-        #region Propriétés de présentation
+        #region Propriétés de présentation 
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
@@ -89,120 +84,34 @@ namespace Plugin.Todolist
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs tacheSelectionneeChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheSelectionnee);
+        private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
 
         /// <summary>
-        /// Gets et Sets de la tâche sélectionnée
+        /// Gets et Sets de la tache ViewModel
         /// </summary>
-        public VOTache TacheSelectionnee
+        public TacheViewModel TacheVM
         {
             get
             {
-                return this.tacheSelectionnee;
+                return this.tacheVM;
             }
             set
             {
-                if (this.tacheSelectionnee == value)
+                if (this.tacheVM == value)
                 {
                     return;
                 }
 
-                this.tacheSelectionnee = value;
+                this.tacheVM = value;
 
-                NotifyPropertyChanged(tacheSelectionneeChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs todolistChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Projet);
-
-        /// <summary>
-        /// Gets ou Sets pour afficher le nom du projet dans la todolist.
-        /// </summary>
-        public VOProjet Projet
-        {
-            get
-            {
-                return this.projet;
-            }
-            set
-            {
-                if (this.projet == value)
-                {
-                    return;
-                }
-
-                this.projet = value;
-
-                NotifyPropertyChanged(todolistChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listePersonnesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.ListePersonnesProjet);
-
-        /// <summary>
-        /// Gets ou Sets la liste des personnes affectées au projet.
-        /// </summary>
-        public ObservableCollection<VOPersonne> ListePersonnesProjet
-        {
-            get
-            {
-                return this.listePersonnesProjet;
-            }
-            set
-            {
-                if (this.listePersonnesProjet == value)
-                {
-                    return;
-                }
-
-                this.listePersonnesProjet = value;
-
-                NotifyPropertyChanged(listePersonnesProjetChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personneActiveChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.PersonneActive);
-
-        /// <summary>
-        /// Gets ou Sets la personne active.
-        /// </summary>
-        public VOPersonne PersonneActive
-        {
-            get
-            {
-                return this.personneActive;
-            }
-            set
-            {
-                if (this.personneActive == value)
-                {
-                    return;
-                }
-
-                this.personneActive = value;
-
-                // TODO : Méthode permettant de mettre à jour la liste coté TacheSelectionnée
-                if (this.personneActive.AjouterPersonne)
-                {
-                    tacheSelectionnee.ListePersonnesXml = this.personneActive.ToString();
-                }
-
-                NotifyPropertyChanged(personneActiveChangeArgs);
+                NotifyPropertyChanged(tacheVMChangeArgs);
             }
         }
 
         #endregion
 
         #region commandes
+
         /// <summary>
         /// Commande qui ouvre la popup
         /// </summary>
@@ -346,6 +255,10 @@ namespace Plugin.Todolist
                 Projet = popupCast.ProjetAOuvrir;
             }
         }
+        
+        #endregion
+
+        #region Constructeur
 
         #endregion
 
@@ -356,9 +269,10 @@ namespace Plugin.Todolist
         public TodolistViewModel()
         {
             // FIXME : temporaire voir comment on peut initialiser plus proprement
-            ListePersonnesProjet = new ObservableCollection<VOPersonne>();
-            ListePersonnesProjet.Add(new VOPersonne("NLA"));
+            // ListePersonnesProjet = new ObservableCollection<VOPersonne>();
+            // ListePersonnesProjet.Add(new VOPersonne("NLA"));
             this.Menu = new MenuViewModel();
+            this.TacheVM = new TacheViewModel();
         }
 
         #endregion

@@ -8,8 +8,8 @@
     <ProjectGuid>{CC03621A-3D9F-47EC-8102-9C035F538923}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Todolist</RootNamespace>
-    <AssemblyName>Todolist</AssemblyName>
+    <RootNamespace>Todolist.Client</RootNamespace>
+    <AssemblyName>Todolist.Client</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,6 +54,7 @@
     <Compile Include="Exception\PluginException.cs" />
     <Compile Include="TodolistLoader.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\TacheViewModel.cs" />
     <Compile Include="ViewModel\TodolistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />

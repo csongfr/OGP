@@ -19,7 +19,7 @@ namespace Plugin.Todolist.ValueObjects
         /// <summary>
         /// Bool pour savoir si la personne doit être ajoutée au projet
         /// </summary>
-        private bool ajouterPersonne;
+        private bool affecte;
 
         /// <summary>
         /// Gets et sets du nom
@@ -40,15 +40,15 @@ namespace Plugin.Todolist.ValueObjects
         /// Gets et sets pour savoir sile nom de la personne est coché
         /// </summary>
         [XmlIgnore]
-        public bool AjouterPersonne 
+        public bool Affecte 
         {
             get
             {
-                return ajouterPersonne;
+                return affecte;
             }
             set
             {
-                ajouterPersonne = value;
+                affecte = value;
             }
         }
 

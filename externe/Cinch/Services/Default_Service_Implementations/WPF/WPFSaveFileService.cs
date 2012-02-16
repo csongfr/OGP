@@ -29,7 +29,7 @@ namespace Cinch
         /// <returns>A bool from the ShowDialog call</returns>
         public bool? ShowDialog()
         {
-            var serviceUiDispatcher = ViewModelBase.ServiceProvider.Resolve<Cinch.Services.Service_Interfaces.Lmj.IUiDispatcher>();
+            var serviceUiDispatcher = ViewModelBase.ServiceProvider.Resolve<Cinch.Services.Service_Interfaces.IUiDispatcher>();
 
             bool? retour = null;
             serviceUiDispatcher.InvokeIfRequired(() =>
