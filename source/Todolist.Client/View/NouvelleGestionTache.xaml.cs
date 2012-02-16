@@ -11,7 +11,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Plugin.Todolist.ViewModel;
 
 namespace Plugin.Todolist.View
 {
@@ -19,16 +18,7 @@ namespace Plugin.Todolist.View
     /// Interaction logic for NouvelleGestionTache.xaml
     /// </summary>
     public partial class NouvelleGestionTache : Window
-    {
-        /// <summary>
-        /// Gets et sets pour accéder à la NouvelleGestionTacheViewModel 
-        /// </summary>
-        public NouvelleGestionTacheViewModel Vm
-        {
-            get;
-            set;
-        }
-        
+    {        
         /// <summary>
         /// Constructeur de popup
         /// </summary>
@@ -45,17 +35,6 @@ namespace Plugin.Todolist.View
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        /// <summary>
-        /// Fonction qui est chargée à l'ouverture de la fenêtre
-        /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">RoutedEventArgs</param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Vm = new NouvelleGestionTacheViewModel();
-            DataContext = Vm;
         }
     }
 }

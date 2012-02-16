@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
-using Cinch;
 using Utils.Wcf;
 
 namespace Todolist.ViewModel
@@ -50,11 +50,11 @@ namespace Todolist.ViewModel
                                    ListeCouranteTodolist = client.ChargementFichiers();
                                    if ((this.listeCouranteTodolist != null) && (this.listeCouranteTodolist.Count == 1))
                                    {
-                                       projetAOuvrir = ListeCouranteTodolist.First();
+                                       ProjetAOuvrir = ListeCouranteTodolist.First();
                                    }
                                });
 
-            if (exception != null)
+            if (ListeCouranteTodolist == null)
             {
                 throw new PluginException("Pas de fichier");
             }
@@ -165,11 +165,7 @@ namespace Todolist.ViewModel
                                },
                         CanExecuteDelegate = delegate
                              {
-                                 if (projetAOuvrir == null)
-                                 {
-                                     return false;
-                                 }
-                                 return true;
+                                 return projetAOuvrir != null;
                              }
                     };
                 }

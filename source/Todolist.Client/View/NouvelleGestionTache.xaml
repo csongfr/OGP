@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             Height="213" Width="424" Loaded="Window_Loaded">
-    <Grid Height="145">
+             Height="213" Width="424">
+    <Grid Height="145" >
         <Label Content="Nom du Projet :" Height="28" HorizontalAlignment="Left" Margin="28,42,0,0" Name="label1" VerticalAlignment="Top" Width="97" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="131,44,0,0" Name="textBox1" VerticalAlignment="Top" Width="195" Text="{Binding NomDuProjet, UpdateSourceTrigger=PropertyChanged}" />
         <Button Content="Enregistrer"  Height="23"  HorizontalAlignment="Left" Margin="315,101,0,0" Name="button1" VerticalAlignment="Top" Width="75"  Command="{Binding Enregistrer}" Click="Button1_Click" />

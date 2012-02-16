@@ -1,7 +1,6 @@
-﻿using System.Windows.Input;
-using Cinch;
+﻿using Cinch;
 
-namespace Plugin.Todolist.ViewModel
+namespace Todolist.ViewModel
 {
     /// <summary>
     /// Classe qui gère la popup
@@ -34,12 +33,13 @@ namespace Plugin.Todolist.ViewModel
         /// </summary>
         public NouvelleGestionTacheViewModel()
         {
-            Actif = false;
+            Actif = false; 
         }
 
         #endregion
 
         #region propriétés de présentation
+
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
@@ -88,9 +88,11 @@ namespace Plugin.Todolist.ViewModel
                     return;
                 }
                 this.nomDuProjet = value;
+
                 NotifyPropertyChanged(nomDuProjetChangeArgs);
             }
         }
+
         #endregion
 
         #region Commandes

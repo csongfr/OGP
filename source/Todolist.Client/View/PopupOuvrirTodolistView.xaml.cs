@@ -21,22 +21,13 @@ namespace Plugin.Todolist.View
     public partial class PopupOuvrirTodolistView : Window
     {
         /// <summary>
-        /// Accède au ViewModel de la popup
-        /// </summary>
-         public PopupOuvrirTodolistViewModel Vm
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Constructeur
         /// </summary>
         public PopupOuvrirTodolistView()
         {
             InitializeComponent();
-            Vm = new PopupOuvrirTodolistViewModel();
-            this.DataContext = Vm;
+            //Vm = new PopupOuvrirTodolistViewModel();
+            this.DataContext = new PopupOuvrirTodolistViewModel();
         }
 
         /// <summary>

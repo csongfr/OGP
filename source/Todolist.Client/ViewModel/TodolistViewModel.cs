@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
+using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
-using Utils.Wcf;
-using Cinch;
 using Todolist.ViewModel;
-using System.Windows;
+using Utils.Wcf;
 
 namespace Plugin.Todolist
 {
@@ -30,16 +30,6 @@ namespace Plugin.Todolist
         /// Commande qui ouvre la fenêtre de sélection de fichiers
         /// </summary>
         private SimpleCommand commandeOuvrirFichier;
-
-        /// <summary>
-        /// Permet de communiquer avec la view
-        /// </summary>
-        private NouvelleGestionTache fenetre;
-
-        /// <summary>
-        /// Communication avec la vue de la fenêtre ouvrant tous les fichiers
-        /// </summary>
-        private PopupOuvrirTodolistView fenetreTousFichiers;
 
         /// <summary>
         /// Stocke le projet
@@ -68,7 +58,8 @@ namespace Plugin.Todolist
 
         #endregion
 
-        #region Propriétés de présentation /// <summary>
+        #region Propriétés de présentation
+        /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs menuViewModelChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Menu);
@@ -250,7 +241,12 @@ namespace Plugin.Todolist
                         },
                         CanExecuteDelegate = delegate
                         {
-                            return this.projet == null;
+                            if (Projet == null)
+                            {
+                                // return this.projet == null;
+                                return false;
+                            }
+                            return true;
                         }
                     };
                 }
@@ -286,20 +282,17 @@ namespace Plugin.Todolist
         /// </summary>
         private void CreerTodolist()
         {
-            fenetre = new NouvelleGestionTache();
-            fenetre.ShowDialog();
+            var visualizerService = Resolve<IUIVisualizerService>();
+            object popupCreation;
 
-            if (fenetre.Vm.NomDuProjet != null && fenetre.Vm.Actif == true)
+            visualizerService.ShowDialog(typeof(NouvelleGestionTache), new NouvelleGestionTacheViewModel(), out popupCreation);
+
+            if (((NouvelleGestionTacheViewModel)popupCreation).Actif == true)
             {
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
-                               {
-                                   Projet = client.NouvelleToDoList(fenetre.Vm.NomDuProjet);
-                               });
-
-                if (exception != null)
                 {
-                    throw new PluginException("Erreur, il existe déjà un projet de ce nom.");
-                }
+                    Projet = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
+                });
             }
         }
 
@@ -335,46 +328,28 @@ namespace Plugin.Todolist
         {
             var visualizerService = Resolve<IUIVisualizerService>();
             object popup;
-            var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
 
-            if (res == true)
+            // Ouverture de la popup d'ouverture de projet
+            visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
+
+            // Cast pour manipuler l'objet PopupOuvrirTodolistViewModel
+            PopupOuvrirTodolistViewModel popupCast = (PopupOuvrirTodolistViewModel)popup;
+
+            // Gestion de l'exception dans le cas où le repertoire n'existe pas
+            if (popupCast.ListeCouranteTodolist == null)
             {
-                // TODO : A compléter une fois la gestionde la popup OK
+                throw new PluginException("Pas de fichier");
             }
 
-            this.fenetreTousFichiers = new PopupOuvrirTodolistView();
-
-            // cas où le répertoire n'existe pas
-            if ((fenetreTousFichiers.Vm.ListeCouranteTodolist == null) || (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 0))
+            if (popupCast.OuvertureActivee == true)
             {
-                Projet = fenetreTousFichiers.Vm.ProjetAOuvrir;
-                ListePersonnesProjet = new ObservableCollection<VOPersonne>(projet.Personnes);
-
-                MessageBox.Show("Le répertoire ne contient pas de fichier");
-            }
-            else
-            {
-                string resultat = string.Empty;
-
-                // Cas où il n'y a qu'un seul projet
-                if (fenetreTousFichiers.Vm.ListeCouranteTodolist.Count == 1)
-                {
-                    // Est ce que l'utilisateur veut l'ouvrir?
-                    resultat = MessageBox.Show("Un seul fichier présent dans le répertoire, il s'agit du projet " + fenetreTousFichiers.Vm.ProjetAOuvrir.NomDuProjet + "\nSouhaitez vous l'ouvrir?", "Un seul fichier", MessageBoxButton.YesNo).ToString();
-                }
-                else
-                {
-                    // Si il y a plusieurs fichiers dans la fenêtre
-                    this.fenetreTousFichiers.ShowDialog();
-                }
-
-                if (resultat == "Yes" || fenetreTousFichiers.Vm.OuvertureActivee == true)
-                {
-                    Projet = fenetreTousFichiers.Vm.ProjetAOuvrir;
-                }
+                Projet = popupCast.ProjetAOuvrir;
             }
         }
 
+        #endregion
+
+        #region Constructeur
         /// <summary>
         /// Default constructor
         /// </summary>

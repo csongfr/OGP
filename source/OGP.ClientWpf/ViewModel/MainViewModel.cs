@@ -9,7 +9,6 @@ using System.Linq;
 using AvalonDock;
 using Cinch;
 
-
 namespace OGP.ClientWpf.ViewModel
 {
     /// <summary>
