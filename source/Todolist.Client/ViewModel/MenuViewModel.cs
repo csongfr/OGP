@@ -231,6 +231,7 @@ namespace Todolist.ViewModel
                 if (ProjetOuvert == null)
                 {
                     throw new PluginException("Pas de fichier");
+                }
 
                 // TODO gérer exception
 
