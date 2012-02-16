@@ -164,6 +164,7 @@ namespace Plugin.Todolist.ValueObjects
         public VOTache()
         {
            // ListePersonnes = new List<VOPersonne>();
+           // recupererPersonneProjets = new List<VOPersonne>();
         }
         /*private string listeCat;
 
@@ -190,6 +191,8 @@ namespace Plugin.Todolist.ValueObjects
                 return listeCat;
             }
         }*/
+
+       
         #endregion
     }
 }

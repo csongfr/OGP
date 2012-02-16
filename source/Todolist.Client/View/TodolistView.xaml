@@ -32,9 +32,9 @@
                                 </DataGrid>
                             </Expander>
                             <Expander Header="Ajouter Des Personnes">
-                                <DataGrid AutoGenerateColumns="False" Width="225">
+                                <DataGrid ItemsSource="{Binding ProjetOuvert.Personnes}" AutoGenerateColumns="False" Width="225">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Width="200" />
+                                        <DataGridTextColumn Width="200" Binding="{Binding Nom}" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>
@@ -44,34 +44,36 @@
                 <ad:DockableContent Title="Menu" IsCloseable="False" Content="{Binding Menu}" />
             </ad:DockablePane>
             <ad:DockablePane>
-                <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}"  >
-                    <DataGrid ItemsSource="{Binding Menu.ProjetOuvert.ListeDesTaches}" AutoGenerateColumns="False" SelectedItem="{Binding TacheSelectionnee}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
-                            <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
-                            <DataGridTextColumn Header="%" Width="50"  Binding="{Binding PourcentageEffectue}" />
-                            <DataGridTextColumn Header="Est." Width="40" Binding="{Binding Estimation}"/>
-                            <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
-                            <DataGridTextColumn Header="" Width="45" Binding="{Binding PourcentageEffectue}"/>
-                            <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
-                            <DataGridTemplateColumn Header="Personnes" Width="90">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ComboBox>
-                                            <StackPanel Orientation="Horizontal">
-                                            <ComboBoxItem>tetsons</ComboBoxItem>
+                <ad:DockablePane.Resources>
+                    <DataTemplate DataType="{x:Type ViewModel:TacheViewModel}">
+                        <DataGrid  AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
+                                <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
+                                <DataGridTextColumn Header="%" Width="50"  Binding="{Binding PourcentageEffectue}" />
+                                <DataGridTextColumn Header="Est." Width="40" Binding="{Binding Estimation}"/>
+                                <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
+                                <DataGridTextColumn Header="" Width="45" Binding="{Binding PourcentageEffectue}"/>
+                                <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
+                                <DataGridTemplateColumn Header="Personnes" Width="90">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox>
+                                                <StackPanel Orientation="Horizontal">
                                                     <CheckBox />
-                                            </StackPanel>
-                                        </ComboBox>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
-                            <DataGridTextColumn Header="Sauvegarder" Width="90" />
-                            <DataGridCheckBoxColumn Header="Terminé" Width="90" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ad:DockableContent>
+                                                </StackPanel>
+                                            </ComboBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
+                                <DataGridTextColumn Header="Sauvegarder" Width="90" />
+                                <DataGridCheckBoxColumn Header="Terminé" Width="90" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DataTemplate>
+                </ad:DockablePane.Resources>
+                <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}" Content="{Binding TacheVM}" />
             </ad:DockablePane>
         </ad:ResizingPanel>
     </ad:DockingManager>

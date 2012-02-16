@@ -21,6 +21,11 @@ namespace Plugin.Todolist
         /// </summary>
         private MenuViewModel menuViewModel;
 
+        /// <summary>
+        /// Permet de gérer le ViewModel des tâches
+        /// </summary>
+        private TacheViewModel tacheVM;
+
         #endregion
 
         #region Propriétés de présentation 
@@ -52,6 +57,33 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
+
+        /// <summary>
+        /// Gets et Sets de la tache ViewModel
+        /// </summary>
+        public TacheViewModel TacheVM
+        {
+            get
+            {
+                return this.tacheVM;
+            }
+            set
+            {
+                if (this.tacheVM == value)
+                {
+                    return;
+                }
+
+                this.tacheVM = value;
+
+                NotifyPropertyChanged(tacheVMChangeArgs);
+            }
+        }
+
         #endregion
 
         #region commandes
@@ -72,6 +104,7 @@ namespace Plugin.Todolist
             // ListePersonnesProjet = new ObservableCollection<VOPersonne>();
             // ListePersonnesProjet.Add(new VOPersonne("NLA"));
             this.Menu = new MenuViewModel();
+            this.TacheVM = new TacheViewModel();
         }
 
         #endregion

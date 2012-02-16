@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -18,11 +20,6 @@ namespace Todolist.ViewModel
     public class MenuViewModel : ViewModelBase
     {
         #region Membre privés
-
-        /// <summary>
-        /// Stocke les personnes du projet
-        /// </summary>
-        private VOPersonne personne;
 
         /// <summary>
         /// Commande qui ouvre la popup
@@ -81,34 +78,7 @@ namespace Todolist.ViewModel
 
                 this.projetOuvert = value;
 
-                NotifyPropertyChanged(projetOuvertChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personneChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.Personne);
-
-        /// <summary>
-        /// Gets et Sets pour ajouter personne
-        /// </summary>
-        public VOPersonne Personne
-        {
-            get
-            {
-                return this.personne;
-            }
-            set
-            {
-                if (this.personne == value)
-                {
-                    return;
-                }
-
-                this.personne = value;
-
-                NotifyPropertyChanged(personneChangeArgs);
+                 NotifyPropertyChanged(projetOuvertChangeArgs);
             }
         }
 
@@ -154,7 +124,11 @@ namespace Todolist.ViewModel
                         },
                         CanExecuteDelegate = delegate
                         {
-                            return this.projetOuvert == null;
+                           if (this.projetOuvert == null)
+                           {
+                            return false;
+                           }
+                           return true;
                         }
                     };
                 }
@@ -279,13 +253,6 @@ namespace Todolist.ViewModel
             }
         }
 
-        /// <summary>
-        /// Fonction qui met à jour la liste VOPersonne
-        /// </summary>
-        private void PersonneVOPersonneAjoutee()
-        {
-        }
-
         #endregion
 
         #region Constructeur
@@ -295,7 +262,6 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
-            Personne = new VOPersonne();
         }
 
         #endregion

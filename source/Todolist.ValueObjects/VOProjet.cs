@@ -63,6 +63,7 @@ namespace Plugin.Todolist.ValueObjects
 
             // Initialisation de la liste des taches
             this.ListeDesTaches = new List<VOTache>();
+            this.Personnes = new List<VOPersonne>();
         }
     }
 }
