@@ -84,6 +84,28 @@ namespace Todolist.ViewModel
 
         #endregion
 
+        #region Evènements
+
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<List<VOTache>> ProjetOuvertChanged;
+        
+        /// <summary>
+        /// Déclenche l'événement ProjetOuvertChanged
+        /// </summary>
+        private void OnProjetOuvertChanged()
+        {
+            var handler = ProjetOuvertChanged;
+
+            if (handler != null)
+            {
+                handler(ProjetOuvert.ListeDesTaches);
+            }
+        }
+
+        #endregion
+
         #region Commandes
 
         /// <summary>
@@ -186,6 +208,7 @@ namespace Todolist.ViewModel
             if (res == true)
             {
                 ProjetOuvert = popupCast.ProjetAOuvrir;
+                OnProjetOuvertChanged();
             }
         }
 
@@ -227,6 +250,7 @@ namespace Todolist.ViewModel
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
+                    OnProjetOuvertChanged();
                 });
                 if (ProjetOuvert == null)
                 {

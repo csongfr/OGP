@@ -124,11 +124,12 @@ namespace Plugin.Todolist
         /// <param name="taches">List VOTache</param>
         private void AfficherTacheOuverture(List<VOTache> taches)
         {
+            ListeTachesViewModel = new ObservableList<TacheViewModel>();
             foreach (var ta in taches)
             {
                 ListeTachesViewModel.Add(new TacheViewModel(ta));
             }
-            ListeTachesViewModel.Add(new TacheViewModel(new VOTache() { Titre = "test" }));
+            ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
         }
 
         #endregion
@@ -144,6 +145,8 @@ namespace Plugin.Todolist
             this.TacheVM = new TacheViewModel();
             ListeTachesViewModel = new ObservableList<TacheViewModel>();
             // ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
+
+            this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
         }
 
         #endregion
