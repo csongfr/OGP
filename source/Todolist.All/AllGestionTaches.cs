@@ -37,7 +37,7 @@ namespace Plugin.Todolist.All
         /// <param name="nouvelleTache">tâche à ajouter</param>
         public void AjouterTache(VOProjet nouvelleToDoList, VOTache nouvelleTache)
         {
-            nouvelleToDoList.ListeDesTaches.Add(nouvelleTache);
+            // nouvelleToDoList.ListeDesTaches.Add(nouvelleTache);
         }
 
         /// <summary>

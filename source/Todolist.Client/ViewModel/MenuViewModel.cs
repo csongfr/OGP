@@ -161,19 +161,21 @@ namespace Todolist.ViewModel
 
         #region Méthodes privées
 
+        /// <summary>
+        /// Fonction qui permet d'ouvri une popup
+        /// </summary>
         private void OuvrirProjet()
         {
             var visualizerService = Resolve<IUIVisualizerService>();
            
             object popup;
             
-
             // Ouverture de la popup d'ouverture de projet
             var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
             
             // Cast pour manipuler l'objet PopupOuvrirTodolistViewModel
             PopupOuvrirTodolistViewModel popupCast = (PopupOuvrirTodolistViewModel)popup;
-            //res = popupCast.OuvertureActivee;
+            // res = popupCast.OuvertureActivee;
 
             // Gestion de l'exception dans le cas où le repertoire n'existe pas
             if (popupCast.ListeCouranteTodolist == null)
@@ -181,9 +183,7 @@ namespace Todolist.ViewModel
                 throw new PluginException("Pas de fichier");
             }
 
-            //if (popupCast.OuvertureActivee == true)
-            //if (popupCast.OuvertureActivee == true)
-            if (res==true)
+            if (res == true)
             {
                 ProjetOuvert = popupCast.ProjetAOuvrir;
             }
@@ -234,12 +234,6 @@ namespace Todolist.ViewModel
                 }
 
                 // TODO gérer exception
-
-                foreach (var tache in ProjetOuvert.ListeDesTaches)
-                {
-                    
-
-                }
             }
         }
         #endregion

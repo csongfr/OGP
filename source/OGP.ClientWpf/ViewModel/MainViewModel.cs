@@ -37,7 +37,6 @@ namespace OGP.ClientWpf.ViewModel
         /// Liste des répertoire contenant les plugins
         /// </summary>
         // private List<DirectoryCatalog> repertoiresPlugins;
-
         private SimpleCommand supprimePlugin;
 
         /// <summary>

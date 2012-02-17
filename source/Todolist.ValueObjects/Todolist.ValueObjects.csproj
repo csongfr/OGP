@@ -47,6 +47,16 @@
     <Compile Include="VOTache.cs" />
     <Compile Include="VOProjet.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
+      <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
+      <Name>Utils.Observable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.UiDispatcher\Utils.UiDispatcher.csproj">
+      <Project>{B0AF0C4F-9D2A-4A9A-A35D-4EAA1AF22E54}</Project>
+      <Name>Utils.UiDispatcher</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

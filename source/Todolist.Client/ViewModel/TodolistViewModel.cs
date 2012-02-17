@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using Cinch;
 using Plugin.Todolist.Service;
@@ -6,7 +7,7 @@ using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Todolist.ViewModel;
 using Utils.Observable;
-using Utils.Wcf;
+using Utils.Wcf; 
 
 namespace Plugin.Todolist
 {
@@ -34,7 +35,7 @@ namespace Plugin.Todolist
 
         #endregion
 
-        #region Propriétés de présentation 
+        #region Propriétés de présentation
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -56,9 +57,7 @@ namespace Plugin.Todolist
                 {
                     return;
                 }
-
                 this.menuViewModel = value;
-
                 NotifyPropertyChanged(menuViewModelChangeArgs);
             }
         }
@@ -83,9 +82,8 @@ namespace Plugin.Todolist
                 {
                     return;
                 }
-
+                
                 this.tacheVM = value;
-
                 NotifyPropertyChanged(tacheVMChangeArgs);
             }
         }
@@ -111,10 +109,26 @@ namespace Plugin.Todolist
                     return;
                 }
 
-                this.listeTachesViewModel = value;
-
+                this.listeTachesViewModel = value;                
                 NotifyPropertyChanged(listeTachesVmChangeArgs);
             }
+        }
+
+        #endregion
+
+        #region Methode privées
+
+        /// <summary>
+        /// Fonction qui permet d'ajouter une tâche
+        /// </summary>
+        /// <param name="taches">List VOTache</param>
+        private void AfficherTacheOuverture(List<VOTache> taches)
+        {
+            foreach (var ta in taches)
+            {
+                ListeTachesViewModel.Add(new TacheViewModel(ta));
+            }
+            ListeTachesViewModel.Add(new TacheViewModel(new VOTache() { Titre = "test" }));
         }
 
         #endregion
@@ -126,12 +140,10 @@ namespace Plugin.Todolist
         /// </summary>
         public TodolistViewModel()
         {
-            // FIXME : temporaire voir comment on peut initialiser plus proprement
-            // ListePersonnesProjet = new ObservableCollection<VOPersonne>();
-            // ListePersonnesProjet.Add(new VOPersonne("NLA"));
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
             ListeTachesViewModel = new ObservableList<TacheViewModel>();
+            // ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
         }
 
         #endregion

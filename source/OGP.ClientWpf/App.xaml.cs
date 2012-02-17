@@ -14,7 +14,6 @@ namespace OGP.ClientWpf
     /// </summary>
     public partial class App : Application
     {                 
-
         /// <summary>
         /// Lancement du boostrapper.
         /// </summary>

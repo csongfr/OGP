@@ -158,14 +158,6 @@ namespace Plugin.Todolist.ValueObjects
             // }
         }
 
-        /// <summary>
-        /// Constructeur par défaut
-        /// </summary>
-        public VOTache()
-        {
-           // ListePersonnes = new List<VOPersonne>();
-           // recupererPersonneProjets = new List<VOPersonne>();
-        }
         /*private string listeCat;
 
         public string ListCat
@@ -192,7 +184,19 @@ namespace Plugin.Todolist.ValueObjects
             }
         }*/
 
-       
+        #endregion
+
+        #region Constructeur
+
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
+        public VOTache()
+        {
+            // ListePersonnes = new List<VOPersonne>();
+            // recupererPersonneProjets = new List<VOPersonne>();
+        }
+
         #endregion
     }
 }

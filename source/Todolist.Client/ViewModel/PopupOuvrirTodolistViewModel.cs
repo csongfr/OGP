@@ -132,7 +132,6 @@ namespace Todolist.ViewModel
                         CanExecuteDelegate = delegate
                              {
                                  return projetAOuvrir != null;
-
                              }
                     };
                 }

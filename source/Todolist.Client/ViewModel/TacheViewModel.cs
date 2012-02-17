@@ -15,9 +15,34 @@ namespace Todolist.ViewModel
         #region Membres privés
 
         /// <summary>
-        /// Stocke uen tâche
+        /// Stocke le titre de la tâche
         /// </summary>
-        private VOTache uneTache;
+        private string titre;
+
+        /// <summary>
+        /// Stocke la priorité de la tâche
+        /// </summary>
+        private EnumPriorite prioriteDeLaTache;
+
+        /// <summary>
+        /// Stocke la liste des catégories
+        /// </summary>
+        private List<VOCategorie> listeDesCategories;
+
+        /// <summary>
+        /// Stocke l'estimation du temps
+        /// </summary>
+        private long estimation;
+
+        /// <summary>
+        /// Stocke le temps passé sur une tache
+        /// </summary>
+        private long tpsDepense;
+
+        /// <summary>
+        /// Stocke la date limite pour faire la tâche
+        /// </summary>
+        private DateTime dateLimite;
 
         #endregion
 
@@ -26,27 +51,162 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs uneTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.UneTache);
+        private static System.ComponentModel.PropertyChangedEventArgs listeDesCategoriesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeDesCategories);
 
         /// <summary>
-        /// Gets et Sets dune tâche
+        /// Gets et Sets de la liste des catégories
         /// </summary>
-        public VOTache UneTache
+        public List<VOCategorie> ListeDesCategories
         {
             get
             {
-                return this.uneTache;
+                return this.listeDesCategories;
             }
             set
             {
-                if (this.uneTache == value)
+                if (this.listeDesCategories == value)
                 {
                     return;
                 }
 
-                this.uneTache = value;
+                this.listeDesCategories = value;
 
-                NotifyPropertyChanged(uneTacheChangeArgs);
+                NotifyPropertyChanged(listeDesCategoriesChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs dateLimiteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.DateLimite);
+
+        /// <summary>
+        /// Gets et Sets de la date limite
+        /// </summary>
+        public DateTime DateLimite
+        {
+            get
+            {
+                return this.dateLimite;
+            }
+            set
+            {
+                if (this.dateLimite == value)
+                {
+                    return;
+                }
+
+                this.dateLimite = value;
+
+                NotifyPropertyChanged(dateLimiteChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs tpsDepenseChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.TpsDepense);
+
+        /// <summary>
+        /// Gets et sets du temps passé sur la tâche 
+        /// </summary>
+        public long TpsDepense
+        {
+            get
+            {
+                return this.tpsDepense;
+            }
+            set
+            {
+                if (this.tpsDepense == value)
+                {
+                    return;
+                }
+
+                this.tpsDepense = value;
+
+                NotifyPropertyChanged(tpsDepenseChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs estimationChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Estimation);
+
+        /// <summary>
+        /// Gets et sets du temps estimé à la tâche
+        /// </summary>
+        public long Estimation
+        {
+            get
+            {
+                return this.estimation;
+            }
+            set
+            {
+                if (this.estimation == value)
+                {
+                    return;
+                }
+
+                this.estimation = value;
+
+                NotifyPropertyChanged(estimationChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs titreChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Titre);
+
+        /// <summary>
+        /// Gets et Sets du titre 
+        /// </summary>
+        public string Titre
+        {
+            get
+            {
+                return this.titre;
+            }
+            set
+            {
+                if (this.titre == value)
+                {
+                    return;
+                }
+
+                this.titre = value;
+
+                NotifyPropertyChanged(titreChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs prioriteDeLaTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PrioriteDeLaTache);
+
+        /// <summary>
+        /// Gets et Sets de la priorité de la tâche
+        /// </summary>
+        public EnumPriorite PrioriteDeLaTache
+        {
+            get
+            {
+                return this.prioriteDeLaTache;
+            }
+            set
+            {
+                if (this.prioriteDeLaTache == value)
+                {
+                    return;
+                }
+
+                this.prioriteDeLaTache = value;
+
+                NotifyPropertyChanged(prioriteDeLaTacheChangeArgs);
             }
         }
 
@@ -59,7 +219,19 @@ namespace Todolist.ViewModel
         /// </summary>
         public TacheViewModel()
         {
-            this.UneTache = new VOTache();
+        }
+
+        /// <summary>
+        /// Constructeur qui prend une VOTache en paramètre
+        /// </summary>
+        /// <param name="tache">VOTache</param>
+        public TacheViewModel(VOTache tache)
+        {
+            this.titre = tache.Titre;
+            this.DateLimite = tache.DateLimite;
+            this.Estimation = tache.Estimation;
+            this.ListeDesCategories = tache.ListeDesCategories;
+            this.prioriteDeLaTache = tache.PrioriteDeLaTache;
         }
 
         #endregion
