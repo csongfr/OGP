@@ -31,7 +31,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Liste des tâches
         /// </summary>
-        private ObservableList<TacheViewModel> listeTachesViewModel;
+        private List<TacheViewModel> listeTachesViewModel;
 
         #endregion
 
@@ -96,7 +96,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Gets ou Sets la liste des taches.
         /// </summary>
-        public ObservableList<TacheViewModel> ListeTachesViewModel
+        public List<TacheViewModel> ListeTachesViewModel
         {
             get
             {
@@ -124,12 +124,24 @@ namespace Plugin.Todolist
         /// <param name="taches">List VOTache</param>
         private void AfficherTacheOuverture(List<VOTache> taches)
         {
-            ListeTachesViewModel = new ObservableList<TacheViewModel>();
+            ListeTachesViewModel = new List<TacheViewModel>();
             foreach (var ta in taches)
             {
                 ListeTachesViewModel.Add(new TacheViewModel(ta));
             }
             ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
+            taches.Add(new VOTache());
+            
+        }
+
+        private void enregistrerTache(VOTache taches)
+        {
+            foreach (var tache in listeTachesViewModel)
+            {
+                taches.Titre = tache.Titre;
+                taches.PrioriteDeLaTache = tache.PrioriteDeLaTache;
+            }
+            
         }
 
         #endregion
@@ -143,10 +155,11 @@ namespace Plugin.Todolist
         {
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
-            ListeTachesViewModel = new ObservableList<TacheViewModel>();
+            //ListeTachesViewModel = new List<TacheViewModel>();
             // ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
 
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
+            this.Menu.ProjetEnregistrerChanged += enregistrerTache;
         }
 
         #endregion

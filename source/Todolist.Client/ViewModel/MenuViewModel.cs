@@ -104,6 +104,27 @@ namespace Todolist.ViewModel
             }
         }
 
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<VOTache> ProjetEnregistrerChanged;
+
+        /// <summary>
+        /// Déclenche l'événement ProjetOuvertChanged
+        /// </summary>
+        private void OnProjetEnregistrerChanged()
+        {
+            var handler = ProjetEnregistrerChanged;
+
+            if (handler != null)
+            {
+                foreach (var tache in projetOuvert.ListeDesTaches)
+                {
+                    handler(tache);
+                }
+            }
+        }
+
         #endregion
 
         #region Commandes
@@ -224,8 +245,7 @@ namespace Todolist.ViewModel
                 var erreur = WcfHelper.Execute<IServiceGestionTaches>(
                     client =>
                     {
-                        string messageErreurEnregistrer = string.Empty;
-
+                        OnProjetEnregistrerChanged();
                         ProjetOuvert = client.EnregistrerToDoList(ProjetOuvert);
                     });
 

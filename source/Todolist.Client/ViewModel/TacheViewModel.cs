@@ -44,9 +44,35 @@ namespace Todolist.ViewModel
         /// </summary>
         private DateTime dateLimite;
 
+        private VOTache taches;
+
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs tachesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Taches);
+
+        public VOTache Taches
+        {
+            get
+            {
+                return this.taches;
+            }
+            set
+            {
+                if (this.taches == value)
+                {
+                    return;
+                }
+
+                this.taches = value;
+
+                NotifyPropertyChanged(tachesChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -178,7 +204,6 @@ namespace Todolist.ViewModel
                 }
 
                 this.titre = value;
-
                 NotifyPropertyChanged(titreChangeArgs);
             }
         }
@@ -212,6 +237,10 @@ namespace Todolist.ViewModel
 
         #endregion
 
+        #region Methode privées
+
+        #endregion
+
         #region Constructeur
 
         /// <summary>
@@ -227,11 +256,11 @@ namespace Todolist.ViewModel
         /// <param name="tache">VOTache</param>
         public TacheViewModel(VOTache tache)
         {
-            this.titre = tache.Titre;
+            this.Titre = tache.Titre;
             this.DateLimite = tache.DateLimite;
             this.Estimation = tache.Estimation;
             this.ListeDesCategories = tache.ListeDesCategories;
-            this.prioriteDeLaTache = tache.PrioriteDeLaTache;
+            this.PrioriteDeLaTache = tache.PrioriteDeLaTache;
         }
 
         #endregion
