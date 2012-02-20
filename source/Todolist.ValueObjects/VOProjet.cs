@@ -63,7 +63,6 @@ namespace Plugin.Todolist.ValueObjects
             this.DateDerniereModif = DateTime.Now;
 
             // Initialisation de la liste des taches
-            this.ListeDesTaches = new ObservableCollection<VOTache>();
             this.Personnes = new List<VOPersonne>();
         }
     }

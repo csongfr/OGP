@@ -118,7 +118,8 @@ namespace Todolist.ViewModel
 
             if (handler != null)
             {
-                    handler(projetOuvert.ListeDesTaches);
+                projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();    
+                handler(projetOuvert.ListeDesTaches);
             }
         }
 
