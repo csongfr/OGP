@@ -4,7 +4,7 @@ using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Utils.Wcf;
-using Todolist.Client;
+using Todolist.Exception;
 
 namespace Todolist.ViewModel
 {

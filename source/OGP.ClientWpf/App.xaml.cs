@@ -8,6 +8,7 @@ using Cinch;
 using Utils.UiDispatcher;
 using System.Windows.Input;
 using Utils.Log;
+using OGP.Plugin.Exception;
 
 namespace OGP.ClientWpf
 {
@@ -93,6 +94,10 @@ namespace OGP.ClientWpf
                 "Une erreur gérée est survenue.",
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
+            }
+            else if (e.Exception is OgpPluginException)
+            {
+                throw new NotImplementedException();
             }
             else
             {

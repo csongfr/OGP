@@ -11,7 +11,7 @@ using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Utils.Wcf;
-using Todolist.Client;
+using Todolist.Exception;
 
 namespace Todolist.ViewModel
 {

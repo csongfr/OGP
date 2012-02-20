@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumPriorite.cs" />
+    <Compile Include="Exception\TodolistPluginException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VOCategorie.cs" />
     <Compile Include="VOPersonne.cs" />
@@ -48,6 +49,10 @@
     <Compile Include="VOProjet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
+      <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
+      <Name>OGP.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
       <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
       <Name>Utils.Observable</Name>
