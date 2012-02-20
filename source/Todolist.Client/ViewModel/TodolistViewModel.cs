@@ -31,7 +31,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Liste des tâches
         /// </summary>
-        private List<TacheViewModel> listeTachesViewModel;
+        private ObservableCollection<TacheViewModel> listeTachesViewModel;
 
         #endregion
 
@@ -96,7 +96,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Gets ou Sets la liste des taches.
         /// </summary>
-        public List<TacheViewModel> ListeTachesViewModel
+        public ObservableCollection<TacheViewModel> ListeTachesViewModel
         {
             get
             {
@@ -122,26 +122,31 @@ namespace Plugin.Todolist
         /// Fonction qui permet d'ajouter une tâche
         /// </summary>
         /// <param name="taches">List VOTache</param>
-        private void AfficherTacheOuverture(List<VOTache> taches)
+        private void AfficherTacheOuverture(ObservableCollection<VOTache> taches)
         {
-            ListeTachesViewModel = new List<TacheViewModel>();
+            ListeTachesViewModel = new ObservableCollection<TacheViewModel>();
             foreach (var ta in taches)
             {
                 ListeTachesViewModel.Add(new TacheViewModel(ta));
             }
             ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
             taches.Add(new VOTache());
-            
         }
 
-        private void enregistrerTache(VOTache taches)
+        /// <summary>
+        /// fonction qui permet d'enregistrer les tâches
+        /// </summary>
+        /// <param name="taches">ObservableCollection de VOTache </param>
+        private void EnregistrerTache(ObservableCollection<VOTache> taches)
         {
+            taches.Clear();
             foreach (var tache in listeTachesViewModel)
             {
-                taches.Titre = tache.Titre;
-                taches.PrioriteDeLaTache = tache.PrioriteDeLaTache;
+                VOTache tacheVO = new VOTache();
+                tacheVO.Titre = tache.Titre;
+                tacheVO.PrioriteDeLaTache = tache.PrioriteDeLaTache;
+                taches.Add(tacheVO);
             }
-            
         }
 
         #endregion
@@ -155,11 +160,8 @@ namespace Plugin.Todolist
         {
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
-            //ListeTachesViewModel = new List<TacheViewModel>();
-            // ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
-
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
-            this.Menu.ProjetEnregistrerChanged += enregistrerTache;
+            this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
         }
 
         #endregion
