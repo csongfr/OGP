@@ -33,3 +33,9 @@
 /source/Utils.UiDispatcher/obj
 /source/Todolist.Client/obj
 /source/Todolist.Client/bin
+
+/source/OGP.Plugin/bin
+/source/OGP.Plugin/obj
+/source/Utils.Log/bin
+/source/Utils.Log/obj
+

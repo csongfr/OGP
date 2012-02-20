@@ -98,6 +98,10 @@
       <Project>{9DCA1678-8B1C-49AD-B279-0010C0A5F9F9}</Project>
       <Name>OGP.ClientWpf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
+      <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
+      <Name>OGP.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Todolist.Service\Todolist.Service.csproj">
       <Project>{2D7FFE82-2DBB-4BD7-9383-AA341A9D3750}</Project>
       <Name>Todolist.Service</Name>

@@ -11,6 +11,7 @@ using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Utils.Wcf;
+using Todolist.Client;
 
 namespace Todolist.ViewModel
 {
@@ -221,7 +222,7 @@ namespace Todolist.ViewModel
             // Gestion de l'exception dans le cas où le repertoire n'existe pas
             if (popupCast.ListeCouranteTodolist == null)
             {
-                throw new PluginException("Pas de fichier");
+                throw new TodolistPluginException("Pas de fichier");
             }
 
             if (res == true)
@@ -272,7 +273,7 @@ namespace Todolist.ViewModel
                 });
                 if (ProjetOuvert == null)
                 {
-                    throw new PluginException("Pas de fichier");
+                    throw new TodolistPluginException("Pas de fichier");
                 }
 
                 // TODO gérer exception

@@ -1,40 +1,50 @@
-﻿[System.Serializable]
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-/// <summary>
-/// Classe qui gère les exceptions du client
-/// </summary>
-public class ClientException : System.ApplicationException
+namespace OGP.ClientWpf
 {
     /// <summary>
-    /// Constructeur par défaut
+    /// Classe qui gère les exceptions du client
     /// </summary>
-    public ClientException() 
-    { 
-    }
-
-    /// <summary>
-    /// Constructeur
-    /// </summary>
-    /// <param name="message"> message d'erreur</param>
-    public ClientException(string message) : base(message) 
-    { 
-    }
-
-    /// <summary>
-    /// Constructeur
-    /// </summary>
-    /// <param name="message">message d'erreur</param>
-    /// <param name="inner">gère un autre type d'exception</param>
-    public ClientException(string message, System.Exception inner) : base(message, inner) 
+    [System.Serializable]
+    public class OgpClientCoreException : System.ApplicationException
     {
-    }
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
+        public OgpClientCoreException()
+        {
+        }
 
-    /// <summary>
-    /// Exception client
-    /// </summary>
-    /// <param name="info">SerializationInfo</param>
-    /// <param name="context">StreamingContext</param>
-    protected ClientException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) 
-    { 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="message"> message d'erreur</param>
+        public OgpClientCoreException(string message)
+            : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="message">message d'erreur</param>
+        /// <param name="inner">gère un autre type d'exception</param>
+        public OgpClientCoreException(string message, System.Exception inner)
+            : base(message, inner)
+        {
+        }
+
+        /// <summary>
+        /// Exception client
+        /// </summary>
+        /// <param name="info">SerializationInfo</param>
+        /// <param name="context">StreamingContext</param>
+        protected OgpClientCoreException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
+        {
+        }
     }
 }
