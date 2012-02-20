@@ -250,7 +250,7 @@ namespace OGP.ClientWpf.ViewModel
             }
             else
             {
-                throw new ClientException("Pas de plugin");
+                throw new OgpClientCoreException("Pas de plugin");
             }   
         }
 
@@ -291,7 +291,7 @@ namespace OGP.ClientWpf.ViewModel
             }
             catch (DirectoryNotFoundException ex)
             {
-                throw new ClientException("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", ex); 
+                throw new OgpClientCoreException("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", ex); 
             }
         }
 

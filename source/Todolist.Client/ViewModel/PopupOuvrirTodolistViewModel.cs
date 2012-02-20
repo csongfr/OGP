@@ -4,6 +4,7 @@ using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Utils.Wcf;
+using Todolist.Client;
 
 namespace Todolist.ViewModel
 {
@@ -50,7 +51,7 @@ namespace Todolist.ViewModel
 
             if (ListeCouranteTodolist == null)
             {
-                throw new PluginException("Pas de fichier");
+                throw new TodolistPluginException("Pas de fichier");
             }
         }
 

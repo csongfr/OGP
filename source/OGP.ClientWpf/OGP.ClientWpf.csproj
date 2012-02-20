@@ -158,6 +158,10 @@
       <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
       <Name>Cinch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils.Log\Utils.Log.csproj">
+      <Project>{CA0B7A0F-B64C-4CA2-A23B-4A6BA53C35C7}</Project>
+      <Name>Utils.Log</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
       <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
       <Name>Utils.Observable</Name>
