@@ -90,7 +90,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Evénement levé
         /// </summary>
-        public event Action<List<VOTache>> ProjetOuvertChanged;
+        public event Action<ObservableCollection<VOTache>> ProjetOuvertChanged;
         
         /// <summary>
         /// Déclenche l'événement ProjetOuvertChanged
@@ -108,7 +108,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Evénement levé
         /// </summary>
-        public event Action<VOTache> ProjetEnregistrerChanged;
+        public event Action<ObservableCollection<VOTache>> ProjetEnregistrerChanged;
 
         /// <summary>
         /// Déclenche l'événement ProjetOuvertChanged
@@ -119,10 +119,7 @@ namespace Todolist.ViewModel
 
             if (handler != null)
             {
-                foreach (var tache in projetOuvert.ListeDesTaches)
-                {
-                    handler(tache);
-                }
+                    handler(projetOuvert.ListeDesTaches);
             }
         }
 

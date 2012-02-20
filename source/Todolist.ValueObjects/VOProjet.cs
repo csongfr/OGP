@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
 
 namespace Plugin.Todolist.ValueObjects
 {
@@ -15,7 +16,7 @@ namespace Plugin.Todolist.ValueObjects
         /// <summary>
         /// Gets et sets des tâches de la ToDoList
         /// </summary>
-        public List<VOTache> ListeDesTaches { get; set; }
+        public ObservableCollection<VOTache> ListeDesTaches { get; set; }
 
         /// <summary>
         /// Gets et sets des personnes affectées au projet
@@ -62,7 +63,7 @@ namespace Plugin.Todolist.ValueObjects
             this.DateDerniereModif = DateTime.Now;
 
             // Initialisation de la liste des taches
-            this.ListeDesTaches = new List<VOTache>();
+            this.ListeDesTaches = new ObservableCollection<VOTache>();
             this.Personnes = new List<VOPersonne>();
         }
     }
