@@ -10,8 +10,8 @@ using Plugin.Todolist;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
-using Utils.Wcf;
 using Todolist.Exception;
+using Utils.Wcf;
 
 namespace Todolist.ViewModel
 {
@@ -52,9 +52,73 @@ namespace Todolist.ViewModel
         /// </summary>
         private SimpleCommand commandeOuvrirFichier;
 
+        /// <summary>
+        /// Stocke les personnes du projet 
+        /// </summary>
+        private ObservableCollection<VOPersonne> personnes;
+
+        /// <summary>
+        /// Bool pour savoir si la personne est ajouté à la tâche
+        /// </summary>
+        private bool personneAjout;
+
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs personneAjoutChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.PersonneAjout);
+
+        /// <summary>
+        /// Gets et Sets Ajout personne tâche
+        /// </summary>
+        public bool PersonneAjout
+        {
+            get
+            {
+                return this.personneAjout;
+            }
+            set
+            {
+                if (this.personneAjout == value)
+                {
+                    return;
+                }
+
+                this.personneAjout = value;
+
+                NotifyPropertyChanged(personneAjoutChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs personnesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.Personnes);
+
+        /// <summary>
+        /// Gets et Sets pour ajouter une personne au projet
+        /// </summary>
+        public ObservableCollection<VOPersonne> Personnes
+        {
+            get
+            {
+                return this.personnes;
+            }
+            set
+            {
+                if (this.personnes == value)
+                {
+                    return;
+                }
+
+                this.personnes = value;
+
+                NotifyPropertyChanged(personnesChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -108,10 +172,28 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Evénement levé
         /// </summary>
+        public event Action<ObservableCollection<VOPersonne>> PersonneChanged;
+
+        /// <summary>
+        /// Déclenche l'événement PersonneChanged
+        /// </summary>
+        private void OnPersonneChanged()
+        {
+            var handler = PersonneChanged;
+
+            if (handler != null)
+            {
+                handler(projetOuvert.Personnes);
+            }
+        }
+
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
         public event Action<ObservableCollection<VOTache>> ProjetEnregistrerChanged;
 
         /// <summary>
-        /// Déclenche l'événement ProjetOuvertChanged
+        /// Déclenche l'événement ProjetEnregistrerChanged
         /// </summary>
         private void OnProjetEnregistrerChanged()
         {
@@ -227,8 +309,10 @@ namespace Todolist.ViewModel
 
             if (res == true)
             {
+                this.Personnes = new ObservableCollection<VOPersonne>();
                 ProjetOuvert = popupCast.ProjetAOuvrir;
                 OnProjetOuvertChanged();
+                OnPersonneChanged();
             }
         }
 
@@ -268,6 +352,7 @@ namespace Todolist.ViewModel
             {
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
+                    this.Personnes = new ObservableCollection<VOPersonne>();
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
                     OnProjetOuvertChanged();
                 });
@@ -279,6 +364,7 @@ namespace Todolist.ViewModel
                 // TODO gérer exception
             }
         }
+        
         #endregion
 
         #region Constructeur
@@ -288,6 +374,7 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
+            this.PersonneAjout = false;
         }
 
         #endregion

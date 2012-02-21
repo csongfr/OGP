@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Cinch;
@@ -44,11 +45,43 @@ namespace Todolist.ViewModel
         /// </summary>
         private DateTime dateLimite;
 
+        /// <summary>
+        /// permet de gérer l'ajout des personnes dans la combobox
+        /// </summary>
+        private ObservableCollection<VOPersonne> personneProjet;
+
         private VOTache taches;
 
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs personneProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PersonneProjet);
+
+        /// <summary>
+        ///  Gets et Sets des personnes sur le projet
+        /// </summary>
+        public ObservableCollection<VOPersonne> PersonneProjet
+        {
+            get
+            {
+                return this.personneProjet;
+            }
+            set
+            {
+                if (this.personneProjet == value)
+                {
+                    return;
+                }
+
+                this.personneProjet = value;
+
+                NotifyPropertyChanged(personneProjetChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -261,6 +294,7 @@ namespace Todolist.ViewModel
             this.Estimation = tache.Estimation;
             this.ListeDesCategories = tache.ListeDesCategories;
             this.PrioriteDeLaTache = tache.PrioriteDeLaTache;
+            this.PersonneProjet = new ObservableCollection<VOPersonne>();
         }
 
         #endregion

@@ -31,7 +31,9 @@
                                 </DataGrid>
                             </Expander>
                             <Expander Header="Ajouter Des Personnes">
-                                <DataGrid ItemsSource="{Binding ProjetOuvert.Personnes}" AutoGenerateColumns="False" Width="225">
+                                <DataGrid ItemsSource="{Binding Personnes}" AutoGenerateColumns="False" Width="225">
+                                   
+                                    <!--ProjetOuvert.Personnes-->
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="200" Binding="{Binding Nom}" />
                                     </DataGrid.Columns>
@@ -54,16 +56,23 @@
                             <DataGridTemplateColumn Header="Personnes" Width="90">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox />
-                                            </StackPanel>
+                                        <ComboBox ItemsSource="{Binding PersonneProjet}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <CheckBox IsChecked="{Binding Affecte}"/>
+                                                        <ComboBoxItem Content="{Binding Nom}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
+
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Catégories" Width="90" Binding="{Binding ListCat}"/>
+                            <DataGridTextColumn Header="Catégories" Width="90"/>
                             <DataGridCheckBoxColumn Header="Terminé" Width="90" />
+                            <DataGridComboBoxColumn  Width="90"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </ad:DockableContent>

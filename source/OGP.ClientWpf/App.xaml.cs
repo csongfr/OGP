@@ -35,6 +35,7 @@ namespace OGP.ClientWpf
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(Application_DispatcherUnhandledException);
 
+
             WaitCursor.UiDispatcher = Dispatcher;
             UiDispatcherHelper.SetUiDispatcher(Dispatcher);
         }
@@ -48,9 +49,9 @@ namespace OGP.ClientWpf
         /// <param name="e">e</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-#if DEBUG
+
             System.Diagnostics.Debugger.Break();
-#endif
+
             Environment.ExitCode = 2;
             // Garantit qu'on a plus le curseur d'attente.
             Mouse.OverrideCursor = null;
@@ -101,9 +102,9 @@ namespace OGP.ClientWpf
             }
             else
             {
-#if DEBUG
+
                 System.Diagnostics.Debugger.Break();
-#endif
+
 
                 // Si on est déjà passé par ce code, c'est que ce code a levé une exception.
                 // On embraye sur la fermeture directe de l'application pour éviter tout artefact d'affichage.
@@ -115,7 +116,7 @@ namespace OGP.ClientWpf
                     LogHelper.Log(new BasicLogEntry { Message = "Erreur survenue", Exception = e.Exception });
 
                     // Dans le cas des exceptions imprévues, on préfère arrêter l'application par sécurité.
-                    MessageBox.Show(
+                     MessageBox.Show(
                         "Une erreur inattendue est survenue. L'application va être arrêtée. Plus d'informations sont disponibles dans le fichier de traces.",
                         "Une erreur est survenue",
                         MessageBoxButton.OK,

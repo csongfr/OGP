@@ -3,9 +3,12 @@ using AvalonDock;
 using Fluent;
 using Todolist.ViewModel;
 using System.Windows;
+<<<<<<< HEAD
 using System.Windows.Input;
 using System;
 using System.Windows.Controls;
+=======
+>>>>>>> 74e42031f74ee47865c950491b37c89e2358e554
 
 namespace Plugin.Todolist
 {

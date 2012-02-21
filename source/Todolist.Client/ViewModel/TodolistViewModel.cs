@@ -131,6 +131,12 @@ namespace Plugin.Todolist
             }
             ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
             taches.Add(new VOTache());
+
+            foreach (var personne in Menu.ProjetOuvert.Personnes)
+            {
+                Menu.Personnes.Add(personne);
+            }
+            Menu.Personnes.Add(new VOPersonne());
         }
 
         /// <summary>
@@ -147,6 +153,28 @@ namespace Plugin.Todolist
                 tacheVO.PrioriteDeLaTache = tache.PrioriteDeLaTache;
                 taches.Add(tacheVO);
             }
+
+            Menu.ProjetOuvert.Personnes.Clear();
+            foreach (var personne in Menu.Personnes)
+	        {
+		        VOPersonne personneVO = new VOPersonne();
+                personneVO.Nom = personne.Nom;
+                Menu.ProjetOuvert.Personnes.Add(personneVO);
+	        } 
+        }
+
+        private void AjouterPersonneProjet(ObservableCollection<VOPersonne> personne)
+        {
+            foreach (var personnes in personne)
+            { 
+                VOPersonne p = new VOPersonne();
+                p.Nom = personnes.Nom;
+
+                foreach (var per in listeTachesViewModel)
+                {
+                   per.PersonneProjet.Add(p);
+               }
+            }
         }
 
         #endregion
@@ -162,6 +190,7 @@ namespace Plugin.Todolist
             this.TacheVM = new TacheViewModel();
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
+            this.Menu.PersonneChanged += AjouterPersonneProjet;
         }
 
         #endregion
