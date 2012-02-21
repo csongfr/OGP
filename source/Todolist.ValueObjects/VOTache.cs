@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
@@ -118,7 +119,7 @@ namespace Plugin.Todolist.ValueObjects
         /// Gets et sets des Personnes
         /// </summary>
         [System.Xml.Serialization.XmlElementAttribute("Personnes", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string ListePersonnesXml
+        public ObservableCollection<string> ListePersonnesXml
         {
             get;
             // {
@@ -193,6 +194,7 @@ namespace Plugin.Todolist.ValueObjects
         /// </summary>
         public VOTache()
         {
+            this.ListePersonnesXml = new ObservableCollection<string>();
             // ListePersonnes = new List<VOPersonne>();
             // recupererPersonneProjets = new List<VOPersonne>();
         }

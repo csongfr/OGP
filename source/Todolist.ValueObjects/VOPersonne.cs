@@ -21,6 +21,9 @@ namespace Plugin.Todolist.ValueObjects
         /// </summary>
         private bool affecte;
 
+        /// <summary>
+        /// Stocke le nom
+        /// </summary>
         private string nom;
 
         /// <summary>
@@ -42,16 +45,11 @@ namespace Plugin.Todolist.ValueObjects
         /// Gets et sets pour savoir sile nom de la personne est coché
         /// </summary>
         [XmlIgnore]
-        public bool Affecte 
+        public bool Affecte
         {
-            get
-            {
-                return affecte;
-            }
-            set
-            {
-                affecte = value;
-            }
+            get;
+
+            set;
         }
 
         /// <summary>

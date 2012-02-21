@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows;
 using AvalonDock;
 using Fluent;
 using Todolist.ViewModel;
-using System.Windows;
 
 namespace Plugin.Todolist
 {

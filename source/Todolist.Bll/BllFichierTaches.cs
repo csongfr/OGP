@@ -56,7 +56,7 @@ namespace Plugin.Todolist.Bll
             XmlSerializer serialiser = new XmlSerializer(typeof(VOProjet));
              serialiser.Serialize(fichier, toDoList);
             fichier.Close();*/
-            using (FileStream fichier = System.IO.File.Open(cheminFichier, FileMode.Open))
+            using (FileStream fichier = System.IO.File.Open(cheminFichier, FileMode.Create))
             {
                 XmlSerializer serialiser = new XmlSerializer(typeof(VOProjet));
                 serialiser.Serialize(fichier, toDoList);

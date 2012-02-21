@@ -57,41 +57,9 @@ namespace Todolist.ViewModel
         /// </summary>
         private ObservableCollection<VOPersonne> personnes;
 
-        /// <summary>
-        /// Bool pour savoir si la personne est ajouté à la tâche
-        /// </summary>
-        private bool personneAjout;
-
         #endregion
 
         #region Propriétés de présentation
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personneAjoutChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.PersonneAjout);
-
-        /// <summary>
-        /// Gets et Sets Ajout personne tâche
-        /// </summary>
-        public bool PersonneAjout
-        {
-            get
-            {
-                return this.personneAjout;
-            }
-            set
-            {
-                if (this.personneAjout == value)
-                {
-                    return;
-                }
-
-                this.personneAjout = value;
-
-                NotifyPropertyChanged(personneAjoutChangeArgs);
-            }
-        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -374,7 +342,6 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
-            this.PersonneAjout = false;
         }
 
         #endregion
