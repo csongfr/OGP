@@ -32,8 +32,10 @@ namespace OGP.ClientWpf
                                                                                                                                                                         
             base.OnStartup(e);
 
+#if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(Application_DispatcherUnhandledException);
+#endif
 
             WaitCursor.UiDispatcher = Dispatcher;
             UiDispatcherHelper.SetUiDispatcher(Dispatcher);
@@ -115,7 +117,7 @@ namespace OGP.ClientWpf
                     LogHelper.Log(new BasicLogEntry { Message = "Erreur survenue", Exception = e.Exception });
 
                     // Dans le cas des exceptions imprévues, on préfère arrêter l'application par sécurité.
-                    MessageBox.Show(
+                     MessageBox.Show(
                         "Une erreur inattendue est survenue. L'application va être arrêtée. Plus d'informations sont disponibles dans le fichier de traces.",
                         "Une erreur est survenue",
                         MessageBoxButton.OK,

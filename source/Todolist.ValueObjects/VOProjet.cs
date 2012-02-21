@@ -21,7 +21,7 @@ namespace Plugin.Todolist.ValueObjects
         /// <summary>
         /// Gets et sets des personnes affectées au projet
         /// </summary>
-        public List<VOPersonne> Personnes { get; set; }
+        public ObservableCollection<VOPersonne> Personnes { get; set; }
 
         /// <summary>
         /// Gets et sets des différentes catégories du projet
@@ -63,7 +63,7 @@ namespace Plugin.Todolist.ValueObjects
             this.DateDerniereModif = DateTime.Now;
 
             // Initialisation de la liste des taches
-            this.Personnes = new List<VOPersonne>();
+            this.Personnes = new ObservableCollection<VOPersonne>();
         }
     }
 }

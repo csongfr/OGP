@@ -21,6 +21,8 @@ namespace Plugin.Todolist.ValueObjects
         /// </summary>
         private bool affecte;
 
+        private string nom;
+
         /// <summary>
         /// Gets et sets du nom
         /// </summary>
