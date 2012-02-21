@@ -27,7 +27,6 @@
                                 <DataGrid AutoGenerateColumns="False" Width="225">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Width="200" />
-                                        <DataGridCheckBoxColumn  />
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>
@@ -45,7 +44,7 @@
             </ad:DockablePane>
             <ad:DockablePane>
                 <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}">
-                    <DataGrid ItemsSource="{Binding ListeTachesViewModel}" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding ListeTachesViewModel}" AutoGenerateColumns="False" AllowDrop="True" DragEnter="OnDragEnter" MouseDown="OnMouseDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
                             <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
