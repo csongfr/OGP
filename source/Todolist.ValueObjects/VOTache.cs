@@ -17,9 +17,6 @@ namespace Plugin.Todolist.ValueObjects
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public class VOTache
     {
-
-        private EnumPriorite prioriteDeLaTache;
-
         #region Membres publics
 
         /// <summary>
@@ -50,18 +47,7 @@ namespace Plugin.Todolist.ValueObjects
         /// Gets et sets de la priorité
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute]
-        public EnumPriorite PrioriteDeLaTache { 
-            get
-            {
-               
-                return prioriteDeLaTache;
-            }
-            set 
-            {
-                this.prioriteDeLaTache = value;
-                int enume = (int)prioriteDeLaTache;
-            }
-        }
+        public EnumPriorite PrioriteDeLaTache { get; set; }
 
         /// <summary>
         /// Gets et sets du risque
@@ -209,8 +195,6 @@ namespace Plugin.Todolist.ValueObjects
         public VOTache()
         {
             this.ListePersonnesXml = new ObservableCollection<string>();
-            // ListePersonnes = new List<VOPersonne>();
-            // recupererPersonneProjets = new List<VOPersonne>();
         }
 
         #endregion

@@ -271,7 +271,6 @@ namespace Todolist.ViewModel
                 }
 
                 this.prioriteDeLaTache = value;
-                int enume=(int)prioriteDeLaTache;
 
                 NotifyPropertyChanged(prioriteDeLaTacheChangeArgs);
             }
