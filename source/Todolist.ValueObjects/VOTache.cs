@@ -14,11 +14,6 @@ namespace Plugin.Todolist.ValueObjects
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public class VOTache
     {
-        /// <summary>
-        /// Stocke la priorité de la tache
-        /// </summary>
-        private EnumPriorite prioriteDeLaTache;
-
         #region Membres publics
 
         /// <summary>
@@ -54,9 +49,6 @@ namespace Plugin.Todolist.ValueObjects
             get;
             set;
         }
-
-        public EnumPriorite PrioriteDeLaTache { get; set; }
-
 
         /// <summary>
         /// Gets et sets du risque
