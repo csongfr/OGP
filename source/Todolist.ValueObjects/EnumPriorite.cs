@@ -10,10 +10,10 @@ namespace Plugin.Todolist.ValueObjects
     /// </summary>
     public enum EnumPriorite
     {
-        Secondaire = 1,
-        Normal = 2,
-        Moyen = 3,
-        Eleve = 4,
-        Urgent = 5
+        Secondaire,
+        Normal,
+        Moyen,
+        Eleve,
+        Urgent,
     }
 }

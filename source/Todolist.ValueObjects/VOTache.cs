@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.Collections.ObjectModel;
 
 namespace Plugin.Todolist.ValueObjects
 {
@@ -18,7 +14,9 @@ namespace Plugin.Todolist.ValueObjects
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public class VOTache
     {
-
+        /// <summary>
+        /// Stocke la priorité de la tache
+        /// </summary>
         private EnumPriorite prioriteDeLaTache;
 
         #region Membres publics
@@ -51,17 +49,10 @@ namespace Plugin.Todolist.ValueObjects
         /// Gets et sets de la priorité
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute]
-        public EnumPriorite PrioriteDeLaTache { 
-            get
-            {
-               
-                return prioriteDeLaTache;
-            }
-            set 
-            {
-                this.prioriteDeLaTache = value;
-                int enume = (int)prioriteDeLaTache;
-            }
+        public EnumPriorite PrioriteDeLaTache
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -130,6 +121,9 @@ namespace Plugin.Todolist.ValueObjects
         [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
 
+        /// <summary>
+        /// Liste des catégories de la tache contenant uniqument le nom
+        /// </summary>
         public ObservableCollection<string> ListeCategoriesTache { get; set; }
 
         /// <summary>
@@ -139,41 +133,8 @@ namespace Plugin.Todolist.ValueObjects
         public ObservableCollection<string> ListePersonnesXml
         {
             get;
-            // {
-            // string strPersonnes = string.Empty;
-
-            // foreach (VOPersonne personne in ListePersonnes)
-            // {
-            //    if (!string.IsNullOrEmpty(strPersonnes))
-            //    {
-            //        strPersonnes += ", ";
-            //    }
-            //    strPersonnes += personne.ToString();
-            // }
-
-            // return strPersonnes;
-            // }
+           
             set;
-            // {
-            // string[] tab=value.Split(new string[]{", "}, StringSplitOptions.RemoveEmptyEntries);
-
-            // foreach (string p in tab)
-            // {
-            //    bool trouver = false;
-
-            //    foreach (VOPersonne personne in ListePersonnes)
-            //    {
-            //        if (personne.AjouterPersonne==true)
-            //        {
-            //            trouver = true;
-            //        }
-            //    }
-            //    if (!trouver)
-            //    {
-            //        ListePersonnes.Add(new VOPersonne(p));
-            //    }
-            // }
-            // }
         }
 
         /*private string listeCat;

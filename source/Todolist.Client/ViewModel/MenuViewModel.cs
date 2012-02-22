@@ -76,6 +76,9 @@ namespace Todolist.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
 
+        /// <summary>
+        /// Gets et sets 
+        /// </summary>
         public ObservableCollection<VOCategorie> CategoriesProjet
         {
             get
@@ -216,10 +219,13 @@ namespace Todolist.ViewModel
             }
         }
 
+        /// <summary>
+        /// Evènement sur les catégories à l'ouverture
+        /// </summary>
         public event Action<ObservableCollection<VOCategorie>> CategorieChanged;
 
         /// <summary>
-        /// Déclenche l'événement PersonneChanged
+        /// Déclenche l'événement CategorieChanged
         /// </summary>
         private void OnCategorieChanged()
         {

@@ -1,14 +1,9 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows;
-using AvalonDock;
-using Fluent;
-using Todolist.ViewModel;
-
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Input;
-using System;
-using System.Windows.Controls;
-
+using AvalonDock;
+using Todolist.ViewModel;
 
 namespace Plugin.Todolist
 {
@@ -42,13 +37,12 @@ namespace Plugin.Todolist
         /// <summary>
         /// Sauvegarde des infos pour le drag and drop
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">object</param>
+        /// <param name="e">MouseEventArgs</param>
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
             // Determines l'item selection.
             // TacheViewModel tvm = ((TacheViewModel)sender);
-           
         }
     }
 }

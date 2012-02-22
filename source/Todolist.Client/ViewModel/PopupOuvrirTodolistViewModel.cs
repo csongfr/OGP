@@ -3,8 +3,8 @@ using System.Linq;
 using Cinch;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
-using Utils.Wcf;
 using Todolist.Exception;
+using Utils.Wcf;
 
 namespace Todolist.ViewModel
 {

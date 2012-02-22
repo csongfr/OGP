@@ -6,13 +6,27 @@ using Cinch;
 
 namespace Todolist.ViewModel
 {
+    /// <summary>
+    /// Classe CategorieViewModel pour le binding sur les combobox de la todolist
+    /// </summary>
     public class CategorieViewModel : ViewModelBase
     {
         #region Membres privés
 
+        /// <summary>
+        /// Nom de la catégorieViewModel
+        /// </summary>
         private string nom;
+
+        /// <summary>
+        /// Cochage de la checkBox de la catégorieViewModel
+        /// </summary>
         private bool check;
-        private bool checkOuverture =false;
+
+        /// <summary>
+        /// Booléen vérifiant si on ouvre un nouveau fichier ou pas
+        /// </summary>
+        private bool checkOuverture = false;
 
         #endregion
 
@@ -23,6 +37,9 @@ namespace Todolist.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs checkOuvertureChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.CheckOuverture);
 
+        /// <summary>
+        /// Gets et sets de bool checkOuverture
+        /// </summary>
         public bool CheckOuverture
         {
             get
@@ -47,6 +64,9 @@ namespace Todolist.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Nom);
 
+        /// <summary>
+        /// Gets et sets du nom de la catégorie
+        /// </summary>
         public string Nom
         {
             get
@@ -71,6 +91,9 @@ namespace Todolist.ViewModel
         /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs checkChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Check);
 
+        /// <summary>
+        /// Gets et sets de bool check
+        /// </summary>
         public bool Check
         {
             get
@@ -97,8 +120,14 @@ namespace Todolist.ViewModel
 
         #region Evènements
 
+        /// <summary>
+        /// Evénement sur le cochage des checbox des catégories
+        /// </summary>
         public event Action<CategorieViewModel> CheckBoxCocheChanged;
 
+        /// <summary>
+        /// Déclenche l'évènement CheckBoxCocheChanged
+        /// </summary>
         private void OncheckBoxCocheChanged()
         {
             var handler = CheckBoxCocheChanged;
@@ -111,11 +140,13 @@ namespace Todolist.ViewModel
 
         #region Constructeur
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public CategorieViewModel()
         {
         }
 
         #endregion
-
     }
 }
