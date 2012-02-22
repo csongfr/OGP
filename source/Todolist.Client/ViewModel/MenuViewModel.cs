@@ -423,7 +423,6 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
-            this.PersonneAjout = false;
         }
 
         #endregion

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Windows;
 using Cinch;
 using Plugin.Todolist.ValueObjects;
+using Todolist.Client.ViewModel;
 
 namespace Todolist.ViewModel
 {
@@ -38,9 +42,9 @@ namespace Todolist.ViewModel
         private DateTime dateLimite;
 
         /// <summary>
-        /// permet de gérer l'ajout des personnes dans la combobox
+        /// Stocke les personnes du projet dans la combobox
         /// </summary>
-        private ObservableCollection<VOPersonne> personneProjet;
+        private ObservableCollection<PersonneViewModel> personneProjet;
 
         /// <summary>
         /// Récupére les catégories du Menu
@@ -51,6 +55,10 @@ namespace Todolist.ViewModel
         /// Liste des catégories affectées à la tache
         /// </summary>
         private ObservableCollection<string> listeCategoriesTache;
+
+        /// Stocke les personnes ajoutées  à une tâche
+        /// </summary>
+        private ObservableCollection<string> listePersonnesXml;
 
         #endregion
 
@@ -76,10 +84,34 @@ namespace Todolist.ViewModel
                 {
                     return;
                 }
+                this.listeCategoriesTache=value;
+                NotifyPropertyChanged(listeCategoriesTacheChangeArgs);
 
+            }
+
+        private static System.ComponentModel.PropertyChangedEventArgs listePersonnesXmlChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePersonnesXml);
+
+        /// <summary>
+        /// Gets et Sets de la liste des personnes d'une tâche
+        /// </summary>
+        public ObservableCollection<string> ListePersonnesXml
+        {
+            get
+            {
+                return this.listePersonnesXml;
+            }
+            set
+            {
+                if (this.listePersonnesXml == value)
+                {
+                    return;
+                }
                 this.listeCategoriesTache = value;
 
                 NotifyPropertyChanged(listeCategoriesTacheChangeArgs);
+                this.listePersonnesXml = value;
+
+                NotifyPropertyChanged(listePersonnesXmlChangeArgs);
             }
         }
 
@@ -100,13 +132,31 @@ namespace Todolist.ViewModel
             set
             {
                 if (this.categoriesProjet == value)
+        private static System.ComponentModel.PropertyChangedEventArgs personneProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PersonneProjet);
+
+        /// <summary>
+        ///  Gets et Sets des personnes sur le projet
+        /// </summary>
+        public ObservableCollection<PersonneViewModel> PersonneProjet
+        {
+            get
+            {
+                return this.personneProjet;
+            }
+            set
+            {
+                if (this.personneProjet == value)
                 {
                     return;
                 }
 
+			}
                 this.categoriesProjet = value;
 
                 NotifyPropertyChanged(categoriesProjetChangeArgs);
+                this.personneProjet = value;
+
+                NotifyPropertyChanged(personneProjetChangeArgs);
             }
         }
 
@@ -299,6 +349,34 @@ namespace Todolist.ViewModel
             {
                 ListeCategoriesTache.Remove(categorieVM.Nom);
             }            
+			
+        /// Fonction qui ajoute la liste de personne à la combobox
+        /// </summary>
+        /// <param name="personne">PersonneViewModel</param>
+        public void PersonneAjout(PersonneViewModel personne)
+        {
+            PersonneProjet.Add(personne);
+            personne.PersonneCheckChanged += PersonneAjouter;
+        }
+
+        /// <summary>
+        /// Evènement déclenché lorsqu que l'on coche ou décoche une personne
+        /// </summary>
+        /// <param name="affect">bool</param>
+        public void PersonneAjouter(bool affect)
+        {
+            this.ListePersonnesXml = new ObservableCollection<string>();
+            this.ListePersonnesXml.Clear();
+            if (affect)
+            {
+                foreach (var personne in PersonneProjet)
+                {
+                    if (personne.Affecte)
+                    {
+                        ListePersonnesXml.Add(personne.Nom);
+                    }
+                }
+            }
         }
 
         #endregion
@@ -328,6 +406,10 @@ namespace Todolist.ViewModel
             this.ListeCategoriesTache = tache.ListeCategoriesTache;
             this.CategoriesProjet = new ObservableCollection<CategorieViewModel>();
             //ListeCategoriesTache = new ObservableCollection<string>();
+
+            this.PersonneProjet = new ObservableCollection<PersonneViewModel>();
+            this.ListePersonnesXml = new ObservableCollection<string>();
+
         }
 
         #endregion

@@ -2,6 +2,12 @@
 using Cinch;
 using Plugin.Todolist.ValueObjects;
 using Todolist.ViewModel;
+using Plugin.Todolist.View;
+using Todolist.Client.ViewModel;
+using Todolist.ViewModel;
+using Utils.Observable;
+using Utils.Wcf;
+
 
 namespace Plugin.Todolist
 {
@@ -76,7 +82,7 @@ namespace Plugin.Todolist
                 {
                     return;
                 }
-                
+
                 this.tacheVM = value;
                 NotifyPropertyChanged(tacheVMChangeArgs);
             }
@@ -103,7 +109,7 @@ namespace Plugin.Todolist
                     return;
                 }
 
-                this.listeTachesViewModel = value;                
+                this.listeTachesViewModel = value;
                 NotifyPropertyChanged(listeTachesVmChangeArgs);
             }
         }
@@ -119,16 +125,22 @@ namespace Plugin.Todolist
         private void AfficherTacheOuverture(ObservableCollection<VOTache> taches)
         {
             ListeTachesViewModel = new ObservableCollection<TacheViewModel>();
-            foreach (var ta in taches)
+            if (taches == null)
             {
-                ListeTachesViewModel.Add(new TacheViewModel(ta));
+                ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
+                taches.Add(new VOTache());
+                Menu.Personnes.Add(new VOPersonne());
             }
-            ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
-            taches.Add(new VOTache());
-
-            foreach (var personne in Menu.ProjetOuvert.Personnes)
+            else
             {
-                Menu.Personnes.Add(personne);
+                foreach (var ta in taches)
+                {
+                    ListeTachesViewModel.Add(new TacheViewModel(ta));
+                }
+                foreach (var personne in Menu.ProjetOuvert.Personnes)
+                {
+                    Menu.Personnes.Add(personne);
+                }
             }
             Menu.Personnes.Add(new VOPersonne());
 
@@ -138,6 +150,7 @@ namespace Plugin.Todolist
                 Menu.CategoriesProjet.Add(categorie);
             }
             // Menu.CategoriesProjet.Add(new VOCategorie());
+
         }
 
         /// <summary>
@@ -156,11 +169,10 @@ namespace Plugin.Todolist
                 tacheVO.PrioriteDeLaTache = tache.PrioriteDeLaTache;
                 taches.Add(tacheVO);
             }
-
             Menu.ProjetOuvert.Personnes.Clear();
             foreach (var personne in Menu.Personnes)
-	        {
-		        VOPersonne personneVO = new VOPersonne();
+            {
+                VOPersonne personneVO = new VOPersonne();
                 personneVO.Nom = personne.Nom;
                 Menu.ProjetOuvert.Personnes.Add(personneVO);
 	        }
@@ -172,19 +184,43 @@ namespace Plugin.Todolist
                 cat.Nom = categorie.Nom;
                 Menu.ProjetOuvert.Categories.Add(cat);
             }
+
+            foreach (var personnes in taches)
+            {
+                personnes.ListePersonnesXml = new ObservableCollection<string>();
+                foreach (var personneTache in listeTachesViewModel)
+                {
+                    if (personnes.Titre == personneTache.Titre)
+                    {
+                        if (personneTache.ListePersonnesXml == null || personneTache.ListePersonnesXml.Count == 0)
+                        {
+                            personneTache.ListePersonnesXml = new ObservableCollection<string>();
+                        }
+                        else
+                        {
+                            personnes.ListePersonnesXml = personneTache.ListePersonnesXml;
+                        }
+                    }
+                }
+            }
         }
 
+        /// <summary>
+        /// Foncion qui permet d'ajouter des personnes à une tâche
+        /// </summary>
+        /// <param name="personne"> Liste de VOPersonne</param>
         private void AjouterPersonneProjet(ObservableCollection<VOPersonne> personne)
         {
-            foreach (var personnes in personne)
-            { 
-                VOPersonne p = new VOPersonne();
-                p.Nom = personnes.Nom;
+            foreach (var per in listeTachesViewModel)
+            {
+                per.PersonneProjet = new ObservableCollection<PersonneViewModel>();
 
-                foreach (var per in listeTachesViewModel)
+                foreach (var personnes in personne)
                 {
-                   per.PersonneProjet.Add(p);
-               }
+                    PersonneViewModel p = new PersonneViewModel();
+                    p.Nom = personnes.Nom;
+                    per.PersonneAjout(p);
+                }
             }
         }
 
