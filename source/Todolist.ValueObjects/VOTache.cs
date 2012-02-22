@@ -55,6 +55,9 @@ namespace Plugin.Todolist.ValueObjects
             set;
         }
 
+        public EnumPriorite PrioriteDeLaTache { get; set; }
+
+
         /// <summary>
         /// Gets et sets du risque
         /// </summary>
@@ -173,8 +176,6 @@ namespace Plugin.Todolist.ValueObjects
         public VOTache()
         {
             this.ListePersonnesXml = new ObservableCollection<string>();
-            // ListePersonnes = new List<VOPersonne>();
-            // recupererPersonneProjets = new List<VOPersonne>();
         }
 
         #endregion

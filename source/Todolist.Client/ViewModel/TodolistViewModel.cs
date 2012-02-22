@@ -202,7 +202,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Foncion qui permet d'ajouter des personnes à une tâche
         /// </summary>
-        /// <param name="projet"> Liste de VOPersonne</param>
+        /// <param name="projet"> Liste de VOProjet</param>
         private void AjouterPersonneProjet(VOProjet projet)
         {
             foreach (var per in listeTachesViewModel)
@@ -241,6 +241,7 @@ namespace Plugin.Todolist
                                     p2.Nom = personnes.Nom;
                                     p2.Affecte = false;
                                     per.PersonneAjout(p2); 
+                                    per.PersonneAjout(p2);
                                 }
                             }
                         }
