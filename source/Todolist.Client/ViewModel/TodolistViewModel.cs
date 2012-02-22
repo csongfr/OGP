@@ -209,17 +209,60 @@ namespace Plugin.Todolist
         /// Foncion qui permet d'ajouter des personnes à une tâche
         /// </summary>
         /// <param name="personne"> Liste de VOPersonne</param>
-        private void AjouterPersonneProjet(ObservableCollection<VOPersonne> personne)
+        private void AjouterPersonneProjet(VOProjet projet)
         {
             foreach (var per in listeTachesViewModel)
             {
-                per.PersonneProjet = new ObservableCollection<PersonneViewModel>();
-
-                foreach (var personnes in personne)
+                per.PersonneProjet.Clear();
+                ObservableCollection<string> test = new ObservableCollection<string>();
+                foreach (var liste in projet.ListeDesTaches)
                 {
-                    PersonneViewModel p = new PersonneViewModel();
-                    p.Nom = personnes.Nom;
-                    per.PersonneAjout(p);
+                    if (per.Titre == liste.Titre)
+                    {
+                        test = liste.ListePersonnesXml;
+                        if (test.Count != 0)
+                        {
+                            per.ListePersonnesXml = liste.ListePersonnesXml;
+                            foreach (var personnes in projet.Personnes)
+                            {
+                                bool affecte=false;
+                            
+                                foreach (var t in test)
+                                {
+                                    if (personnes.Nom == t)
+                                    {
+                                        affecte = true;
+                                    }
+                                }
+                                if (affecte)
+                                {
+                                    PersonneViewModel p2 = new PersonneViewModel();
+                                    p2.Nom = personnes.Nom;
+                                    p2.Affecte = true;
+                                    per.PersonneAjout(p2);
+                                }
+                                else {
+                                    PersonneViewModel p2 = new PersonneViewModel();
+                                    p2.Nom = personnes.Nom;
+                                    p2.Affecte = false;
+                                    per.PersonneAjout(p2);
+                                
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var personnes in projet.Personnes)
+                            {
+                                PersonneViewModel p2 = new PersonneViewModel();
+                                p2.Nom = personnes.Nom;
+                                p2.Affecte = false;
+                                per.PersonneAjout(p2);
+                            }
+                        }
+
+
+                    }
                 }
             }
         }

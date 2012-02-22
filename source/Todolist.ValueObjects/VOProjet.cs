@@ -62,7 +62,7 @@ namespace Plugin.Todolist.ValueObjects
             this.CheminDuProjet = nomFichier;
             this.DateDerniereModif = DateTime.Now;
 
-            // Initialisation de la liste des taches
+            // Initialisation de la liste des personnes
             this.Personnes = new ObservableCollection<VOPersonne>();
         }
     }
