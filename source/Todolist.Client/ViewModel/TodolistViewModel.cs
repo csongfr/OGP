@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using Cinch;
-using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
-using Plugin.Todolist.View;
 using Todolist.ViewModel;
-using Utils.Observable;
-using Utils.Wcf; 
 
 namespace Plugin.Todolist
 {
@@ -137,19 +131,28 @@ namespace Plugin.Todolist
                 Menu.Personnes.Add(personne);
             }
             Menu.Personnes.Add(new VOPersonne());
+
+            // Ajout des catégories au menu
+            foreach (var categorie in Menu.ProjetOuvert.Categories)
+            {
+                Menu.CategoriesProjet.Add(categorie);
+            }
+            // Menu.CategoriesProjet.Add(new VOCategorie());
         }
 
         /// <summary>
         /// fonction qui permet d'enregistrer les tâches
         /// </summary>
-        /// <param name="taches">ObservableCollection de VOTache </param>
+        /// <param name="taches">Liste des taches du projet ouvert</param>
         private void EnregistrerTache(ObservableCollection<VOTache> taches)
         {
             taches.Clear();
+            // On affecte à chaque tache du projetCourant les taches du ViewModel
             foreach (var tache in listeTachesViewModel)
             {
                 VOTache tacheVO = new VOTache();
                 tacheVO.Titre = tache.Titre;
+                tacheVO.ListeCategoriesTache = tache.ListeCategoriesTache;
                 tacheVO.PrioriteDeLaTache = tache.PrioriteDeLaTache;
                 taches.Add(tacheVO);
             }
@@ -160,7 +163,15 @@ namespace Plugin.Todolist
 		        VOPersonne personneVO = new VOPersonne();
                 personneVO.Nom = personne.Nom;
                 Menu.ProjetOuvert.Personnes.Add(personneVO);
-	        } 
+	        }
+
+            Menu.ProjetOuvert.Categories.Clear();
+            foreach (var categorie in Menu.CategoriesProjet)
+            {
+                VOCategorie cat = new VOCategorie();
+                cat.Nom = categorie.Nom;
+                Menu.ProjetOuvert.Categories.Add(cat);
+            }
         }
 
         private void AjouterPersonneProjet(ObservableCollection<VOPersonne> personne)
@@ -177,6 +188,40 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Permet d'ajouter les catégories du Menu à chaque tâche
+        /// </summary>
+        /// <param name="categories">Collection de catégories</param>
+        private void AjoutCategorieProjet(ObservableCollection<VOCategorie> categories)
+        {
+            // Ajout des catégories du projet à chaque tacheViewModel
+            foreach (var tache in ListeTachesViewModel)
+            {
+                foreach (var categorie in /*Menu.CategoriesProjet*/categories)
+                {
+                    CategorieViewModel catVM = new CategorieViewModel();
+                    catVM.Nom = categorie.Nom;
+                    tache.AjouterCategorie(catVM);
+                }
+
+                if (tache.ListeCategoriesTache != null)
+                {
+                    foreach (var categorieTache in tache.ListeCategoriesTache)
+                    {
+                        foreach (var categorieProjet in tache.CategoriesProjet)
+                        {
+                            if (categorieProjet.Nom.Equals(categorieTache))
+                            {
+                                categorieProjet.CheckOuverture = true;
+                                categorieProjet.Check = true;
+                                categorieProjet.CheckOuverture = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Constructeur
@@ -188,9 +233,11 @@ namespace Plugin.Todolist
         {
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
+
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
             this.Menu.PersonneChanged += AjouterPersonneProjet;
+            this.Menu.CategorieChanged += AjoutCategorieProjet;            
         }
 
         #endregion

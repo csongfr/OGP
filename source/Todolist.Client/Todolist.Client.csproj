@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TodolistLoader.cs" />
+    <Compile Include="ViewModel\CategorieViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\TacheViewModel.cs" />
     <Compile Include="ViewModel\TodolistViewModel.cs" />

@@ -24,9 +24,9 @@
                                 </StackPanel>
                             </Expander>
                             <Expander Header="Ajouter Une Catégorie">
-                                <DataGrid AutoGenerateColumns="False" Width="225">
+                                <DataGrid Width="225" ItemsSource="{Binding CategoriesProjet}" AutoGenerateColumns="False">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Width="200" />
+                                        <DataGridTextColumn Width="200" Binding="{Binding Nom}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>
@@ -68,9 +68,25 @@
                                         </ComboBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Catégories" Width="90"/>
+                            
+                            <DataGridTemplateColumn Header="Catégories" Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding CategoriesProjet}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBoxItem Content="{Binding Nom}" />
+                                                        <CheckBox IsChecked="{Binding Check}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
                             <DataGridCheckBoxColumn Header="Terminé" Width="90" />
                             <DataGridComboBoxColumn  Width="90"/>
                         </DataGrid.Columns>

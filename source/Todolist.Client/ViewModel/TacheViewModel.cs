@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using Cinch;
 using Plugin.Todolist.ValueObjects;
 
@@ -26,11 +23,6 @@ namespace Todolist.ViewModel
         private EnumPriorite prioriteDeLaTache;
 
         /// <summary>
-        /// Stocke la liste des catégories
-        /// </summary>
-        private List<VOCategorie> listeDesCategories;
-
-        /// <summary>
         /// Stocke l'estimation du temps
         /// </summary>
         private long estimation;
@@ -50,11 +42,73 @@ namespace Todolist.ViewModel
         /// </summary>
         private ObservableCollection<VOPersonne> personneProjet;
 
-        private VOTache taches;
+        /// <summary>
+        /// Récupére les catégories du Menu
+        /// </summary>
+        private ObservableCollection<CategorieViewModel> categoriesProjet;
+
+        /// <summary>
+        /// Liste des catégories affectées à la tache
+        /// </summary>
+        private ObservableCollection<string> listeCategoriesTache;
 
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listeCategoriesTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeCategoriesTache);
+
+        /// <summary>
+        /// Gets et sets de la lite des catégories de la tache
+        /// </summary>
+        public ObservableCollection<string> ListeCategoriesTache
+        {
+            get
+            {
+                return this.listeCategoriesTache;
+            }
+            set
+            {
+                if (this.listeCategoriesTache == value)
+                {
+                    return;
+                }
+
+                this.listeCategoriesTache = value;
+
+                NotifyPropertyChanged(listeCategoriesTacheChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.CategoriesProjet);
+
+        /// <summary>
+        /// Gets et sets de la liste des catégories du projet
+        /// </summary>
+        public ObservableCollection<CategorieViewModel> CategoriesProjet
+        {
+            get
+            {
+                return this.categoriesProjet;
+            }
+            set
+            {
+                if (this.categoriesProjet == value)
+                {
+                    return;
+                }
+
+                this.categoriesProjet = value;
+
+                NotifyPropertyChanged(categoriesProjetChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -80,57 +134,6 @@ namespace Todolist.ViewModel
                 this.personneProjet = value;
 
                 NotifyPropertyChanged(personneProjetChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs tachesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Taches);
-
-        public VOTache Taches
-        {
-            get
-            {
-                return this.taches;
-            }
-            set
-            {
-                if (this.taches == value)
-                {
-                    return;
-                }
-
-                this.taches = value;
-
-                NotifyPropertyChanged(tachesChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listeDesCategoriesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeDesCategories);
-
-        /// <summary>
-        /// Gets et Sets de la liste des catégories
-        /// </summary>
-        public List<VOCategorie> ListeDesCategories
-        {
-            get
-            {
-                return this.listeDesCategories;
-            }
-            set
-            {
-                if (this.listeDesCategories == value)
-                {
-                    return;
-                }
-
-                this.listeDesCategories = value;
-
-                NotifyPropertyChanged(listeDesCategoriesChangeArgs);
             }
         }
 
@@ -272,6 +275,32 @@ namespace Todolist.ViewModel
 
         #region Methode privées
 
+        /// <summary>
+        /// Permet d'ajouter une catégorie
+        /// </summary>
+        /// <param name="categorieVM">la catégorie à ajouter</param>
+        public void AjouterCategorie(CategorieViewModel categorieVM)
+        {
+            CategoriesProjet.Add(categorieVM);
+            categorieVM.CheckBoxCocheChanged += AjoutCategorieViewModel;
+        }
+
+        /// <summary>
+        /// Ajoute une catégorie cochée à la tache
+        /// </summary>
+        /// <param name="categorieVM">La catégorie cochée</param>
+        private void AjoutCategorieViewModel(CategorieViewModel categorieVM)
+        {
+            if (categorieVM.Check)
+            {
+                ListeCategoriesTache.Add(categorieVM.Nom);
+            }
+            else
+            {
+                ListeCategoriesTache.Remove(categorieVM.Nom);
+            }            
+        }
+
         #endregion
 
         #region Constructeur
@@ -281,6 +310,7 @@ namespace Todolist.ViewModel
         /// </summary>
         public TacheViewModel()
         {
+            listeCategoriesTache = new ObservableCollection<string>();
         }
 
         /// <summary>
@@ -292,9 +322,12 @@ namespace Todolist.ViewModel
             this.Titre = tache.Titre;
             this.DateLimite = tache.DateLimite;
             this.Estimation = tache.Estimation;
-            this.ListeDesCategories = tache.ListeDesCategories;
+            // this.ListeDesCategories = tache.ListeDesCategories;
             this.PrioriteDeLaTache = tache.PrioriteDeLaTache;
             this.PersonneProjet = new ObservableCollection<VOPersonne>();
+            this.ListeCategoriesTache = tache.ListeCategoriesTache;
+            this.CategoriesProjet = new ObservableCollection<CategorieViewModel>();
+            //ListeCategoriesTache = new ObservableCollection<string>();
         }
 
         #endregion

@@ -58,6 +58,11 @@ namespace Todolist.ViewModel
         private ObservableCollection<VOPersonne> personnes;
 
         /// <summary>
+        /// Stocke les catégories du projet de la partie Menu
+        /// </summary>
+        private ObservableCollection<VOCategorie> categoriesProjet;
+
+        /// <summary>
         /// Bool pour savoir si la personne est ajouté à la tâche
         /// </summary>
         private bool personneAjout;
@@ -65,6 +70,30 @@ namespace Todolist.ViewModel
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
+
+        public ObservableCollection<VOCategorie> CategoriesProjet
+        {
+            get
+            {
+                return this.categoriesProjet;
+            }
+            set
+            {
+                if (this.categoriesProjet == value)
+                {
+                    return;
+                }
+
+                this.categoriesProjet = value;
+                // OnCategorieChanged();
+                NotifyPropertyChanged(categoriesProjetChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -187,6 +216,21 @@ namespace Todolist.ViewModel
             }
         }
 
+        public event Action<ObservableCollection<VOCategorie>> CategorieChanged;
+
+        /// <summary>
+        /// Déclenche l'événement PersonneChanged
+        /// </summary>
+        private void OnCategorieChanged()
+        {
+            var handler = CategorieChanged;
+
+            if (handler != null)
+            {
+                handler(projetOuvert.Categories);
+            }
+        }
+
         /// <summary>
         /// Evénement levé
         /// </summary>
@@ -201,7 +245,7 @@ namespace Todolist.ViewModel
 
             if (handler != null)
             {
-                projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();    
+                projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
                 handler(projetOuvert.ListeDesTaches);
             }
         }
@@ -310,9 +354,11 @@ namespace Todolist.ViewModel
             if (res == true)
             {
                 this.Personnes = new ObservableCollection<VOPersonne>();
+                this.CategoriesProjet = new ObservableCollection<VOCategorie>();
                 ProjetOuvert = popupCast.ProjetAOuvrir;
                 OnProjetOuvertChanged();
                 OnPersonneChanged();
+                OnCategorieChanged();
             }
         }
 
@@ -353,7 +399,10 @@ namespace Todolist.ViewModel
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
                     this.Personnes = new ObservableCollection<VOPersonne>();
+                    this.CategoriesProjet = new ObservableCollection<VOCategorie>();
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
+                    projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
+                    projetOuvert.Categories = new ObservableCollection<VOCategorie>();
                     OnProjetOuvertChanged();
                 });
                 if (ProjetOuvert == null)

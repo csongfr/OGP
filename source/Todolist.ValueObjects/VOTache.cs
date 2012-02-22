@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
 
 namespace Plugin.Todolist.ValueObjects
 {
@@ -39,8 +40,8 @@ namespace Plugin.Todolist.ValueObjects
         /// <summary>
         /// Gets et sets des catégories
         /// </summary>
-        [System.Xml.Serialization.XmlElementAttribute("CategorieDeLaTache", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<VOCategorie> ListeDesCategories { get; set; }
+        // [System.Xml.Serialization.XmlElementAttribute("CategorieDeLaTache", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        // public List<VOCategorie> ListeDesCategories { get; set; }
 
         /// <summary>
         /// Gets et sets de la priorité
@@ -113,6 +114,8 @@ namespace Plugin.Todolist.ValueObjects
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute]
         public DateTime DateFin { get; set; }
+
+        public ObservableCollection<string> ListeCategoriesTache { get; set; }
 
         /// <summary>
         /// Gets et sets des Personnes

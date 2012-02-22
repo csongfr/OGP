@@ -26,7 +26,7 @@ namespace Plugin.Todolist.ValueObjects
         /// <summary>
         /// Gets et sets des différentes catégories du projet
         /// </summary>
-        public List<VOCategorie> Categories { get; set; }
+        public ObservableCollection<VOCategorie> Categories { get; set; }
 
         /// <summary>
         /// Gets et sets du nom du projet
