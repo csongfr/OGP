@@ -140,7 +140,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Evénement levé
         /// </summary>
-        public event Action<ObservableCollection<VOPersonne>> PersonneChanged;
+        public event Action<VOProjet> PersonneChanged;
 
         /// <summary>
         /// Déclenche l'événement PersonneChanged
@@ -151,7 +151,7 @@ namespace Todolist.ViewModel
 
             if (handler != null)
             {
-                handler(projetOuvert.Personnes);
+                handler(projetOuvert);
             }
         }
 

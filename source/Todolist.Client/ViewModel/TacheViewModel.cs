@@ -271,6 +271,7 @@ namespace Todolist.ViewModel
                 }
 
                 this.prioriteDeLaTache = value;
+                int enume=(int)prioriteDeLaTache;
 
                 NotifyPropertyChanged(prioriteDeLaTacheChangeArgs);
             }
@@ -298,16 +299,14 @@ namespace Todolist.ViewModel
         {
             this.ListePersonnesXml = new ObservableCollection<string>();
             this.ListePersonnesXml.Clear();
-            if (affect)
+            foreach (var personne in PersonneProjet)
             {
-                foreach (var personne in PersonneProjet)
+                if (personne.Affecte)
                 {
-                    if (personne.Affecte)
-                    {
-                        ListePersonnesXml.Add(personne.Nom);
-                    }
+                    ListePersonnesXml.Add(personne.Nom);
                 }
             }
+            
         }
 
         #endregion
