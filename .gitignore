@@ -39,3 +39,19 @@
 /source/Utils.Log/bin
 /source/Utils.Log/obj
 
+
+/source/Utils.Config/bin/Debug/Utils.Config.dll
+/source/Utils.Config/bin/Debug/Utils.Config.pdb
+/source/Utils.Config/bin/Debug/Utils.dll
+/source/Utils.Config/bin/Debug/Utils.pdb
+/source/Utils.Config/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/source/Utils.Config/obj/Debug/ResolveAssemblyReference.cache
+/source/Utils.Config/obj/Debug/Utils.Config.csproj.FileListAbsolute.txt
+/source/Utils.Config/obj/Debug/Utils.Config.dll
+/source/Utils.Config/obj/Debug/Utils.Config.pdb
+/source/Utils/bin/Debug/Utils.dll
+/source/Utils/bin/Debug/Utils.pdb
+/source/Utils/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/source/Utils/obj/Debug/Utils.csproj.FileListAbsolute.txt
+/source/Utils/obj/Debug/Utils.dll
+/source/Utils/obj/Debug/Utils.pdb
