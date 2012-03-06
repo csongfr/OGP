@@ -48,8 +48,24 @@
                 <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}">
                     <DataGrid ItemsSource="{Binding ListeTachesViewModel}" AutoGenerateColumns="False" AllowDrop="True" DragEnter="OnDragEnter" MouseDown="OnMouseDown">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="!" Width="50" Binding="{Binding PrioriteDeLaTache}"/>
-                            <DataGridTextColumn Header="Titre" Binding="{Binding Titre}"/>
+                            <DataGridTemplateColumn Header="!" Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox  ItemsSource="{Binding ListePriorite}"  SelectedItem="{Binding PrioriteSelect,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Width="15" Height="15" Margin="3" Background="{Binding Couleur}" />
+                                                        <TextBlock Margin="3" Text="{Binding Texte}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Titre" Width="90" Binding="{Binding Titre}"/>
                             <DataGridTextColumn Header="Est." Width="40" Binding="{Binding Estimation}"/>
                             <DataGridTextColumn Header="Temps passé" Width="90" Binding="{Binding TpsDepense}"/>
                             <DataGridTextColumn Header="Date limite" Width="90" Binding="{Binding DateLimite}"/>
@@ -86,9 +102,20 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-
                             <DataGridCheckBoxColumn Header="Terminé" Width="90" />
-                            <DataGridComboBoxColumn  Width="90"/>
+
+                            <DataGridTemplateColumn Header="Supprimer" Width="70">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Fluent:Button Width="24" Height="24" SizeDefinition="Small" HorizontalAlignment="Center" Command="{Binding SupprimerTache}">
+                                            <Fluent:Button.Icon>
+                                                <Image Source="..\Ressources\Images\TacheRemove.png" />
+                                            </Fluent:Button.Icon>
+                                        </Fluent:Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
                         </DataGrid.Columns>
                     </DataGrid>
                 </ad:DockableContent>

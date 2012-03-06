@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Cinch;
 using Plugin.Todolist.ValueObjects;
 using Todolist.Client.ViewModel;
@@ -12,6 +13,11 @@ namespace Plugin.Todolist
     public class TodolistViewModel : ViewModelBase
     {
         #region Membres privés
+
+        /// <summary>
+        /// Stocke l'identifiant de la tâche
+        /// </summary>
+        private int id;
 
         /// <summary>
         /// permet de gérer le ViewModel du menu
@@ -120,31 +126,61 @@ namespace Plugin.Todolist
         private void AfficherTacheOuverture(ObservableCollection<VOTache> taches)
         {
             ListeTachesViewModel = new ObservableCollection<TacheViewModel>();
-            if (taches == null)
+                      
+            foreach (var ta in taches)
             {
-                ListeTachesViewModel.Add(new TacheViewModel(new VOTache()));
-                taches.Add(new VOTache());
-                Menu.Personnes.Add(new VOPersonne());
+                ListeTachesViewModel.Add(new TacheViewModel(ta));
             }
-            else
+            foreach (var tacheView in listeTachesViewModel)
             {
-                foreach (var ta in taches)
-                {
-                    ListeTachesViewModel.Add(new TacheViewModel(ta));
-                }
-                foreach (var personne in Menu.ProjetOuvert.Personnes)
-                {
-                    Menu.Personnes.Add(personne);
-                }
+                tacheView.SupprimerTacheChanged += TacheVM_SupprimerTache;
             }
-            Menu.Personnes.Add(new VOPersonne());
-
+            this.ListeTachesViewModel.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ListeTachesViewModel_CollectionChanged);
+            
+            foreach (var personne in Menu.ProjetOuvert.Personnes)
+            {
+                Menu.Personnes.Add(personne);
+            }
+      
             // Ajout des catégories au menu
             foreach (var categorie in Menu.ProjetOuvert.Categories)
             {
                 Menu.CategoriesProjet.Add(categorie);
             }
-            // Menu.CategoriesProjet.Add(new VOCategorie());
+        }
+
+        /// <summary>
+        /// Cette fonction est décenchée à l'ajout d'une tâche.
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">NotifyCollectionChangedEventArgs</param>
+        public void ListeTachesViewModel_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            int nombreTaches = ListeTachesViewModel.Count;
+            int i = 0;
+
+            if (nombreTaches == 1)
+            {
+                id++;
+            }
+            foreach (var tacheid in ListeTachesViewModel)
+            {
+                i++;
+                if (i == nombreTaches - 1)
+                {
+                    id = tacheid.Identifiant + 1;
+                }
+            }
+
+            int nombreTaches2 = id++;
+            foreach (var tache in ListeTachesViewModel)
+            {
+                if (tache.Identifiant == 0)
+                {
+                    tache.Identifiant = nombreTaches2;
+                }
+                tache.SupprimerTacheChanged += TacheVM_SupprimerTache;
+            }
         }
 
         /// <summary>
@@ -158,17 +194,21 @@ namespace Plugin.Todolist
             foreach (var tache in listeTachesViewModel)
             {
                 VOTache tacheVO = new VOTache();
+                tacheVO.Identifiant = tache.Identifiant;
+                tacheVO.PrioriteDeLaTache = tache.PrioriteSelect.Texte;
                 tacheVO.Titre = tache.Titre;
                 tacheVO.ListeCategoriesTache = tache.ListeCategoriesTache;
-                tacheVO.PrioriteDeLaTache = tache.PrioriteDeLaTache;
                 taches.Add(tacheVO);
             }
             Menu.ProjetOuvert.Personnes.Clear();
             foreach (var personne in Menu.Personnes)
             {
-                VOPersonne personneVO = new VOPersonne();
-                personneVO.Nom = personne.Nom;
-                Menu.ProjetOuvert.Personnes.Add(personneVO);
+                if (personne.Nom != null)
+                {
+                    VOPersonne personneVO = new VOPersonne();
+                    personneVO.Nom = personne.Nom;
+                    Menu.ProjetOuvert.Personnes.Add(personneVO);
+                }
 	        }
 
             Menu.ProjetOuvert.Categories.Clear();
@@ -241,7 +281,6 @@ namespace Plugin.Todolist
                                     p2.Nom = personnes.Nom;
                                     p2.Affecte = false;
                                     per.PersonneAjout(p2); 
-                                    per.PersonneAjout(p2);
                                 }
                             }
                         }
@@ -259,6 +298,44 @@ namespace Plugin.Todolist
                 }
             }
         }
+
+        /*private void AjouterPersonne(VOProjet projet)
+        {
+            foreach (var taches in listeTachesViewModel)
+            {
+                //ObservableCollection<PersonneViewModel> personneProjetTemp = new ObservableCollection<PersonneViewModel>();
+                if (taches.PersonneProjet.Count != 0)
+                {
+                    //foreach (var pers in taches.PersonneProjet)
+                    //{
+                        foreach (var personne in Menu.Personnes)
+                        {
+                            if (personne.Nom != null )
+                            {
+                                PersonneViewModel p2 = new PersonneViewModel();
+                                p2.Nom = personne.Nom;
+                                p2.Affecte = false;
+                                taches.PersonneProjet.Add(p2);
+                            }
+                        }
+                    //}
+
+                }
+                else
+                {
+                    foreach (var personne in Menu.Personnes)
+                    {
+                        if (personne.Nom != null)
+                        {
+                            PersonneViewModel p2 = new PersonneViewModel();
+                            p2.Nom = personne.Nom;
+                            p2.Affecte = false;
+                            taches.PersonneProjet.Add(p2);
+                        }
+                    }
+                }
+            }
+        }*/
 
         /// <summary>
         /// Permet d'ajouter les catégories du Menu à chaque tâche
@@ -294,6 +371,24 @@ namespace Plugin.Todolist
             }
         }
 
+        /// <summary>
+        /// Fonction qui supprime une tâche de la liste.
+        /// </summary>
+        /// <param name="identifiant">int</param>
+        private void TacheVM_SupprimerTache(int identifiant)
+        {
+            TacheViewModel tachesViewModelTemp = new TacheViewModel();
+
+            foreach (var taches in ListeTachesViewModel)
+            {
+                if (identifiant == taches.Identifiant)
+                {
+                    tachesViewModelTemp = taches;
+                }
+            }
+            ListeTachesViewModel.Remove(tachesViewModelTemp);
+        }
+
         #endregion
 
         #region Constructeur
@@ -305,13 +400,12 @@ namespace Plugin.Todolist
         {
             this.Menu = new MenuViewModel();
             this.TacheVM = new TacheViewModel();
-
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
             this.Menu.PersonneChanged += AjouterPersonneProjet;
-            this.Menu.CategorieChanged += AjoutCategorieProjet;            
+            this.Menu.CategorieChanged += AjoutCategorieProjet;
+            // this.Menu.PersonneAjouterChanged += AjouterPersonne;
         }
-
         #endregion
     }
 }

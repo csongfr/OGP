@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Media;
 using Cinch;
 using Plugin.Todolist.ValueObjects;
 using Todolist.Client.ViewModel;
@@ -17,14 +18,19 @@ namespace Todolist.ViewModel
         #region Membres privés
 
         /// <summary>
+        /// Stocke si on passe dans le constructeur par défaut.
+        /// </summary>
+        private bool constructeur;
+
+        /// <summary>
+        /// Stocke l'identifiant de la tâche
+        /// </summary>
+        private int identifiant;
+
+        /// <summary>
         /// Stocke le titre de la tâche
         /// </summary>
         private string titre;
-
-        /// <summary>
-        /// Stocke la priorité de la tâche
-        /// </summary>
-        private EnumPriorite prioriteDeLaTache;
 
         /// <summary>
         /// Stocke l'estimation du temps
@@ -61,6 +67,21 @@ namespace Todolist.ViewModel
         /// </summary>
         private ObservableCollection<string> listePersonnesXml;
 
+        /// <summary>
+        /// Stocke la priorité de la tâche
+        /// </summary>
+        private ObservableCollection<PrioriteViewModel> listePriorite;
+
+        /// <summary>
+        /// Stocke la Priorité selectionnée
+        /// </summary>
+        private PrioriteViewModel prioriteSelect;
+
+        /// <summary>
+        /// Commande pour supprimer une tâche
+        /// </summary>
+        private SimpleCommand supprimerTache;
+
         #endregion
 
         #region Propriétés de présentation
@@ -68,10 +89,116 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs constructeurChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Constructeur);
+
+        /// <summary>
+        /// Gets et sets du constructeur
+        /// </summary>
+        public bool Constructeur
+        {
+            get
+            {
+                return this.constructeur;
+            }
+            set
+            {
+                if (this.constructeur == value)
+                {
+                    return;
+                }
+
+                this.constructeur = value;
+
+                NotifyPropertyChanged(constructeurChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs identifiantChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Identifiant);
+
+        /// <summary>
+        /// Gets et sets de l'identifiant de la tâche
+        /// </summary>
+        public int Identifiant
+        {
+            get
+            {
+                return this.identifiant;
+            }
+            set
+            {
+                if (this.identifiant == value)
+                {
+                    return;
+                }
+
+                this.identifiant = value;
+                NotifyPropertyChanged(identifiantChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs prioriteSelectChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PrioriteSelect);
+
+        /// <summary>
+        /// Gets et sets de la priorité sélectionnée.
+        /// </summary>
+        public PrioriteViewModel PrioriteSelect
+        {
+            get
+            {
+                return this.prioriteSelect;
+            }
+            set
+            {
+                if (this.prioriteSelect == value)
+                {
+                    return;
+                }
+
+                this.prioriteSelect = value;
+                NotifyPropertyChanged(prioriteSelectChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listePrioriteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePriorite);
+
+        /// <summary>
+        /// Gets et sets de la liste des priorités de la tâche
+        /// </summary>
+        public ObservableCollection<PrioriteViewModel> ListePriorite
+        {
+            get
+            {
+                return this.listePriorite;
+            }
+            set
+            {
+                if (this.listePriorite == value)
+                {
+                    return;
+                }
+
+                this.listePriorite = value;
+
+                NotifyPropertyChanged(listePrioriteChangeArgs);
+            }
+        }
+        
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
         private static System.ComponentModel.PropertyChangedEventArgs listeCategoriesTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeCategoriesTache);
 
         /// <summary>
-        /// Gets et sets de la lite des catégories de la tache
+        /// Gets et sets de la liste des catégories de la tâche
         /// </summary>
         public ObservableCollection<string> ListeCategoriesTache
         {
@@ -278,36 +405,64 @@ namespace Todolist.ViewModel
             }
         }
 
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs prioriteDeLaTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PrioriteDeLaTache);
+        #endregion
+
+        #region Commandes
 
         /// <summary>
-        /// Gets et Sets de la priorité de la tâche
+        /// Commande qui ouvre la popup
         /// </summary>
-        public EnumPriorite PrioriteDeLaTache
+        public SimpleCommand SupprimerTache
         {
             get
             {
-                return this.prioriteDeLaTache;
-            }
-            set
-            {
-                if (this.prioriteDeLaTache == value)
+                if (supprimerTache == null)
                 {
-                    return;
+                    supprimerTache = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            SupprimeTache();
+                        }
+                    };
                 }
+                return supprimerTache;
+            }
+        }
 
-                this.prioriteDeLaTache = value;
+        #endregion
 
-                NotifyPropertyChanged(prioriteDeLaTacheChangeArgs);
+        #region Evènements
+
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<int> SupprimerTacheChanged;
+
+        /// <summary>
+        /// Déclenche l'événement PersonneCheckChanged
+        /// </summary>
+        private void OnSupprimerTacheChanged()
+        {
+            var handler = SupprimerTacheChanged;
+
+            if (handler != null)
+            {
+                handler(Identifiant);
             }
         }
 
         #endregion
 
         #region Methode privées
+
+        /// <summary>
+        /// Permet de supprimer un tâche
+        /// </summary>
+        private void SupprimeTache()
+        {
+            OnSupprimerTacheChanged();
+        }
 
         /// <summary>
         /// Permet d'ajouter une catégorie
@@ -341,8 +496,11 @@ namespace Todolist.ViewModel
         /// <param name="personne">PersonneViewModel</param>
         public void PersonneAjout(PersonneViewModel personne)
         {
-            PersonneProjet.Add(personne);
-            personne.PersonneCheckChanged += PersonneAjouter;
+            if (personne.Nom != null)
+            {
+                PersonneProjet.Add(personne);
+                personne.PersonneCheckChanged += PersonneAjouter;
+            }
         }
 
         /// <summary>
@@ -362,6 +520,45 @@ namespace Todolist.ViewModel
             } 
         }
 
+        /// <summary>
+        /// Fonction pour ajouter les priorités
+        /// </summary>
+        /// <param name="constructeurDefault">bool pour savoir le construteur utiliser</param>
+        /// <param name="tache">VOTache</param>
+        public void AjouterPriorite(bool constructeurDefault, VOTache tache)
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                PrioriteViewModel priorite = new PrioriteViewModel();
+                priorite.Texte = i.ToString();
+                switch (i)
+                {
+                    case 1:
+                        priorite.Couleur = Brushes.Green;
+                        break;
+                    case 2:
+                        priorite.Couleur = Brushes.Blue;
+                        break;
+                    case 3:
+                        priorite.Couleur = Brushes.Yellow;
+                        break;
+                    case 4:
+                        priorite.Couleur = Brushes.Orange;
+                        break;
+                    case 5:
+                        priorite.Couleur = Brushes.Red;
+                        break;
+                }
+                listePriorite.Add(priorite);
+                if (constructeurDefault == true)
+                {
+                    if (tache.PrioriteDeLaTache == priorite.Texte)
+                    {
+                        this.prioriteSelect = priorite;
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Constructeur
@@ -371,7 +568,12 @@ namespace Todolist.ViewModel
         /// </summary>
         public TacheViewModel()
         {
+            this.PersonneProjet = new ObservableCollection<PersonneViewModel>();
             listeCategoriesTache = new ObservableCollection<string>();
+            this.listePriorite = new ObservableCollection<PrioriteViewModel>();
+            this.prioriteSelect = new PrioriteViewModel();
+            this.Constructeur = false;
+            this.AjouterPriorite(this.Constructeur, null);
         }
 
         /// <summary>
@@ -380,15 +582,18 @@ namespace Todolist.ViewModel
         /// <param name="tache">VOTache</param>
         public TacheViewModel(VOTache tache)
         {
+            this.prioriteSelect = new PrioriteViewModel();
             this.Titre = tache.Titre;
+            this.Identifiant = tache.Identifiant;
             this.DateLimite = tache.DateLimite;
             this.Estimation = tache.Estimation;
-            this.PrioriteDeLaTache = tache.PrioriteDeLaTache;
             this.PersonneProjet = new ObservableCollection<PersonneViewModel>();
             this.ListeCategoriesTache = tache.ListeCategoriesTache;
             this.CategoriesProjet = new ObservableCollection<CategorieViewModel>();
-            this.PersonneProjet = new ObservableCollection<PersonneViewModel>();
             this.ListePersonnesXml = new ObservableCollection<string>();
+            this.listePriorite = new ObservableCollection<PrioriteViewModel>();
+            this.Constructeur = true;
+            this.AjouterPriorite(this.Constructeur, tache);
         }
 
         #endregion
