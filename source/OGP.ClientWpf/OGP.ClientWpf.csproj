@@ -93,6 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppConfig.cs" />
     <Compile Include="Exception\OgpClientCoreException.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\MainView.xaml.cs">
@@ -161,6 +162,10 @@
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
       <Name>OGP.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Config\Utils.Config.csproj">
+      <Project>{E957F2F3-F256-4795-B56C-654F286301F8}</Project>
+      <Name>Utils.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.Log\Utils.Log.csproj">
       <Project>{CA0B7A0F-B64C-4CA2-A23B-4A6BA53C35C7}</Project>
