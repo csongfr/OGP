@@ -87,7 +87,7 @@ namespace Todolist.Client.ViewModel
         #endregion
 
         #region Evènements
-
+        
         /// <summary>
         /// Evénement levé
         /// </summary>

@@ -212,12 +212,30 @@ namespace Todolist.ViewModel
         private void OnPersonneChanged()
         {
             var handler = PersonneChanged;
-
+           
             if (handler != null)
             {
                 handler(projetOuvert);
             }
         }
+
+     /*   /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<VOProjet> PersonneAjouterChanged;
+
+        /// <summary>
+        /// Déclenche l'événement PersonneChanged
+        /// </summary>
+        private void OnPersonneAjouterChanged()
+        {
+            var handler = PersonneAjouterChanged;
+
+            if (handler != null)
+            {
+                handler(projetOuvert);
+            }
+        }*/
 
         /// <summary>
         /// Evènement sur les catégories à l'ouverture
@@ -360,12 +378,23 @@ namespace Todolist.ViewModel
             if (res == true)
             {
                 this.Personnes = new ObservableCollection<VOPersonne>();
+                // this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);
                 this.CategoriesProjet = new ObservableCollection<VOCategorie>();
                 ProjetOuvert = popupCast.ProjetAOuvrir;
                 OnProjetOuvertChanged();
                 OnPersonneChanged();
                 OnCategorieChanged();
             }
+        }
+
+        /// <summary>
+        /// Cette fonction est déclenchée à chaque ajout d'une personne au projet
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">NotifyCollectionChangedEventArgs</param>
+        public void Personnes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // OnPersonneAjouterChanged();
         }
 
         /// <summary>
@@ -405,6 +434,7 @@ namespace Todolist.ViewModel
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
                     this.Personnes = new ObservableCollection<VOPersonne>();
+                    this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);
                     this.CategoriesProjet = new ObservableCollection<VOCategorie>();
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
                     projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
