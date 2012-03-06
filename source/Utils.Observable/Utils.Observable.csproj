@@ -53,6 +53,10 @@
       <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
       <Name>Cinch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{088EB230-247D-4398-B379-12AE29680E09}</Project>
+      <Name>Utils %28Utils\Utils%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

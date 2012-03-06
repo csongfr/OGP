@@ -277,8 +277,7 @@ namespace OGP.ClientWpf.ViewModel
         {
             try
             {
-                var section = ConfigurationManager.GetSection("OGP.ClientWpf") as NameValueCollection;
-                string repertoire = section["repertoirePlugins"].ToString();
+                string repertoire = AppConfig.Instance.RepertoirePlugins;
 
                 var catalog = new AggregateCatalog();
                 catalog.Catalogs.Add(new DirectoryCatalog(repertoire));

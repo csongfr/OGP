@@ -8,14 +8,23 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         Title="OGP - Outil de Gestion de Projet" Width="1650"
         Height="1020" WindowStyle="None" Background="#FFEBEDF0" WindowState="Maximized" 
-        Icon="{StaticResource LogoPetite}">
+        Icon="{StaticResource LogoPetite}" Loaded="RibbonWindow_Loaded">
     
  
     
     <DockPanel LastChildFill="True">
-        <Fluent:Ribbon DockPanel.Dock="Top" >
-            <!--Tabs-->
-            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="False" >
+        <Fluent:Ribbon x:Name="ribbonPrincipal" DockPanel.Dock="Top" >
+            <!--Menu principal-->
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage>
+                    <Fluent:BackstageTabControl>
+                        <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+            
+            <!--Onglets-->
+            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="True" >
                 <Fluent:RibbonGroupBox Header="Actions">
                     <Fluent:Button SizeDefinition="Large" Header="Charger" Command="{Binding ChargerPlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
                     <Fluent:Button SizeDefinition="Large" Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
@@ -25,14 +34,6 @@
                     <Fluent:Button HorizontalAlignment="Center" SizeDefinition="Middle" Header="Recharger" Command="{Binding RecupererPlugins}"  Icon="{StaticResource RechargerPetite}" LargeIcon="{StaticResource RechargerGrande}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem >
-            <!--Backstage Items-->
-            <Fluent:Ribbon.Menu>
-                <Fluent:Backstage>
-                    <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
-                    </Fluent:BackstageTabControl>
-                </Fluent:Backstage>
-            </Fluent:Ribbon.Menu>
         </Fluent:Ribbon>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="Barre de statut"/>

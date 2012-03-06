@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Utils.Log
 {
@@ -19,7 +16,7 @@ namespace Utils.Log
         public bool IsExceptionMessage
         {
             get
-            {
+            {                       
                 return Exception != null;
             }
         }

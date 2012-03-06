@@ -26,7 +26,11 @@ namespace OGP.ClientWpf.View
         /// </summary>
         public MainView()
         {
-            InitializeComponent();         
+            InitializeComponent();
+        }
+
+        private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             DataContext = new MainViewModel();
         }
     }

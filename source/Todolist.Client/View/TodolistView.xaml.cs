@@ -19,6 +19,10 @@ namespace Plugin.Todolist
         public Todolist()
         {
             InitializeComponent();
+        }
+
+        private void DocumentContent_Loaded(object sender, RoutedEventArgs e)
+        {
             this.DataContext = new TodolistViewModel();
         }
 

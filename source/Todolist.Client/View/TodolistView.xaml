@@ -8,7 +8,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
     Title="Todolist" mc:Ignorable="d" d:DesignWidth="1200"
-    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase">
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase" Loaded="DocumentContent_Loaded">
 
     <ad:DockingManager>
         <ad:ResizingPanel>
