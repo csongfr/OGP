@@ -4,11 +4,11 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using Cinch;
-using Utils.UiDispatcher;
 using System.Windows.Input;
-using Utils.Log;
+using Cinch;
 using OGP.Plugin.Exception;
+using Utils.Log;
+using Utils.UiDispatcher;
 
 namespace OGP.ClientWpf
 {
@@ -35,7 +35,6 @@ namespace OGP.ClientWpf
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             this.DispatcherUnhandledException += new System.Windows.Threading.DispatcherUnhandledExceptionEventHandler(Application_DispatcherUnhandledException);
 
-
             WaitCursor.UiDispatcher = Dispatcher;
             UiDispatcherHelper.SetUiDispatcher(Dispatcher);
         }
@@ -49,7 +48,6 @@ namespace OGP.ClientWpf
         /// <param name="e">e</param>
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-
             System.Diagnostics.Debugger.Break();
 
             Environment.ExitCode = 2;
@@ -83,9 +81,9 @@ namespace OGP.ClientWpf
             // Garantit qu'on a plus le curseur d'attente.
             Mouse.OverrideCursor = null;
 
-            if (e.Exception is OgpClientCoreException )
+            if (e.Exception is OgpClientCoreException)
             {
-                LogHelper.Log(new BasicLogEntry { Message = "Erreur survenue", Exception = e.Exception});
+                LogHelper.Log(new BasicLogEntry { Message = "Erreur survenue", Exception = e.Exception });
 
                 // Evite la fermeture de l'application.
                 e.Handled = true;
@@ -102,9 +100,7 @@ namespace OGP.ClientWpf
             }
             else
             {
-
                 System.Diagnostics.Debugger.Break();
-
 
                 // Si on est déjà passé par ce code, c'est que ce code a levé une exception.
                 // On embraye sur la fermeture directe de l'application pour éviter tout artefact d'affichage.

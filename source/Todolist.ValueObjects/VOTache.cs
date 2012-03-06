@@ -35,16 +35,10 @@ namespace Plugin.Todolist.ValueObjects
         public int Identifiant { get; set; }
 
         /// <summary>
-        /// Gets et sets des catégories
-        /// </summary>
-        // [System.Xml.Serialization.XmlElementAttribute("CategorieDeLaTache", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        // public List<VOCategorie> ListeDesCategories { get; set; }
-
-        /// <summary>
         /// Gets et sets de la priorité
         /// </summary>
         [System.Xml.Serialization.XmlAttributeAttribute]
-        public EnumPriorite PrioriteDeLaTache
+        public string PrioriteDeLaTache
         {
             get;
             set;
