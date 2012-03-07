@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Utils.Observable")]
+[assembly: AssemblyTitle("Utils.Mvvm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SopraGroup")]
-[assembly: AssemblyProduct("Utils.Observable")]
+[assembly: AssemblyProduct("Utils.Mvvm")]
 [assembly: AssemblyCopyright("Copyright © SopraGroup 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3d395777-7add-4fe9-bb4f-7445b821ebee")]
+[assembly: Guid("6200d0a8-df39-423c-b535-da969a62de53")]
 
 // Version information for an assembly consists of the following four values:
 //

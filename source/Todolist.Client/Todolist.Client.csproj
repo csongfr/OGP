@@ -117,9 +117,9 @@
       <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
       <Name>Todolist.ValueObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utils.Observable\Utils.Observable.csproj">
-      <Project>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</Project>
-      <Name>Utils.Observable</Name>
+    <ProjectReference Include="..\Utils.Mvvm\Utils.Mvvm.csproj">
+      <Project>{45ADCAB7-F544-4409-960C-6985F7000CE3}</Project>
+      <Name>Utils.Mvvm</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.Wcf\Utils.Wcf.csproj">
       <Project>{A1C4CF3D-AF46-4BFC-8EDB-62BBB8B4EB74}</Project>

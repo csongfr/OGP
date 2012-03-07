@@ -31,7 +31,7 @@ namespace Todolist.Client.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs texteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PrioriteViewModel>(x => x.Texte);
+        private static System.ComponentModel.PropertyChangedEventArgs texteChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PrioriteViewModel>(x => x.Texte);
 
         /// <summary>
         /// Gets et Sets d'une priorité d'une tâche
@@ -58,7 +58,7 @@ namespace Todolist.Client.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs couleurChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PrioriteViewModel>(x => x.Couleur);
+        private static System.ComponentModel.PropertyChangedEventArgs couleurChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PrioriteViewModel>(x => x.Couleur);
 
         /// <summary>
         /// Gets et Sets de la couleur d'une tâche

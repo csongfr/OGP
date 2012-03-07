@@ -61,7 +61,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listeCouranteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ListeCouranteTodolist);
+        private static System.ComponentModel.PropertyChangedEventArgs listeCouranteChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ListeCouranteTodolist);
 
         /// <summary>
         /// Gets et sets de la liste des VO disponibles
@@ -88,7 +88,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs projetAOuvrirChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ProjetAOuvrir);
+        private static System.ComponentModel.PropertyChangedEventArgs projetAOuvrirChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PopupOuvrirTodolistViewModel>(x => x.ProjetAOuvrir);
 
         /// <summary>
         /// Gets et sets du projet sélectionné

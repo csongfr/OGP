@@ -7,7 +7,7 @@ using System.Windows.Threading;
 using Cinch;
 using Cinch.Services.Service_Interfaces;
 
-namespace Utils.Observable
+namespace QuantumBitDesigns.Core
 {
     /// <summary>
     /// Represents a list that allows cross thread collection and property binding.

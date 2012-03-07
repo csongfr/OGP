@@ -89,7 +89,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs constructeurChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Constructeur);
+        private static System.ComponentModel.PropertyChangedEventArgs constructeurChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Constructeur);
 
         /// <summary>
         /// Gets et sets du constructeur
@@ -116,7 +116,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs identifiantChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Identifiant);
+        private static System.ComponentModel.PropertyChangedEventArgs identifiantChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Identifiant);
 
         /// <summary>
         /// Gets et sets de l'identifiant de la tâche
@@ -142,7 +142,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs prioriteSelectChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PrioriteSelect);
+        private static System.ComponentModel.PropertyChangedEventArgs prioriteSelectChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PrioriteSelect);
 
         /// <summary>
         /// Gets et sets de la priorité sélectionnée.
@@ -168,7 +168,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listePrioriteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePriorite);
+        private static System.ComponentModel.PropertyChangedEventArgs listePrioriteChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePriorite);
 
         /// <summary>
         /// Gets et sets de la liste des priorités de la tâche
@@ -195,7 +195,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listeCategoriesTacheChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeCategoriesTache);
+        private static System.ComponentModel.PropertyChangedEventArgs listeCategoriesTacheChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListeCategoriesTache);
 
         /// <summary>
         /// Gets et sets de la liste des catégories de la tâche
@@ -220,7 +220,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listePersonnesXmlChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePersonnesXml);
+        private static System.ComponentModel.PropertyChangedEventArgs listePersonnesXmlChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.ListePersonnesXml);
 
         /// <summary>
         /// Gets et Sets de la liste des personnes d'une tâche
@@ -249,7 +249,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.CategoriesProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.CategoriesProjet);
 
         /// <summary>
         /// Gets et sets de la liste des catégories du projet
@@ -274,7 +274,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personneProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PersonneProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs personneProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.PersonneProjet);
 
         /// <summary>
         ///  Gets et Sets des personnes sur le projet
@@ -301,7 +301,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs dateLimiteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.DateLimite);
+        private static System.ComponentModel.PropertyChangedEventArgs dateLimiteChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.DateLimite);
 
         /// <summary>
         /// Gets et Sets de la date limite
@@ -328,7 +328,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs tpsDepenseChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.TpsDepense);
+        private static System.ComponentModel.PropertyChangedEventArgs tpsDepenseChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.TpsDepense);
 
         /// <summary>
         /// Gets et sets du temps passé sur la tâche 
@@ -355,7 +355,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs estimationChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Estimation);
+        private static System.ComponentModel.PropertyChangedEventArgs estimationChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Estimation);
 
         /// <summary>
         /// Gets et sets du temps estimé à la tâche
@@ -382,7 +382,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs titreChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Titre);
+        private static System.ComponentModel.PropertyChangedEventArgs titreChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TacheViewModel>(x => x.Titre);
 
         /// <summary>
         /// Gets et Sets du titre 

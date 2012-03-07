@@ -1,11 +1,12 @@
 ﻿using System;
+using Utils;
 
-namespace Utils.Observable
+namespace QuantumBitDesigns.Core
 {
     /// <summary>
     /// Exception
     /// </summary>
-    public class LockTimeoutException : Exception
+    public class LockTimeoutException : UtilsApplicationException
     {
         /// <summary>
         /// Constructeur

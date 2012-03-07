@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Utils.Observable
+namespace Utils.Mvvm
 {
     /// <summary>
     /// A small helper class that has a method to help create

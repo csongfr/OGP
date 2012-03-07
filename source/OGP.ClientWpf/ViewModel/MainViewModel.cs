@@ -61,7 +61,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listePluginsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListePlugins);
+        private static System.ComponentModel.PropertyChangedEventArgs listePluginsChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListePlugins);
 
         /// <summary>
         /// Stocke la liste de tous les plugins
@@ -82,7 +82,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listeDocumentsChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeDocuments);
+        private static System.ComponentModel.PropertyChangedEventArgs listeDocumentsChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeDocuments);
 
         /// <summary>
         /// Get et set des plugins
@@ -103,7 +103,7 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs pluginActifChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MainViewModel>(x => x.PluginActif);
+        private static System.ComponentModel.PropertyChangedEventArgs pluginActifChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.PluginActif);
 
         /// <summary>
         /// Gets ou Sets du plugin actif.
@@ -251,7 +251,7 @@ namespace OGP.ClientWpf.ViewModel
             else
             {
                 throw new OgpClientCoreException("Pas de plugin");
-            }   
+            }
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace OGP.ClientWpf.ViewModel
             }
             catch (DirectoryNotFoundException ex)
             {
-                throw new OgpClientCoreException("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", ex); 
+                throw new OgpClientCoreException("Le répertoire des plugins n'existe pas. Aucun plugin ne sera chargé", ex);
             }
         }
 
@@ -302,7 +302,7 @@ namespace OGP.ClientWpf.ViewModel
         {
             if (pluginActif == null)
             {
-                return false; 
+                return false;
             }
             else
             {

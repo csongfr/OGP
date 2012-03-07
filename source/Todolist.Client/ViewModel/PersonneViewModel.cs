@@ -32,7 +32,7 @@ namespace Todolist.Client.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PersonneViewModel>(x => x.Nom);
+        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PersonneViewModel>(x => x.Nom);
 
         /// <summary>
         /// Gets et Sets du nom de la personne
@@ -59,7 +59,7 @@ namespace Todolist.Client.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs affecteChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<PersonneViewModel>(x => x.Affecte);
+        private static System.ComponentModel.PropertyChangedEventArgs affecteChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<PersonneViewModel>(x => x.Affecte);
 
         /// <summary>
         /// Gets et Sets d'un personne affecté à une tâche

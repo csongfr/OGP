@@ -35,7 +35,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs checkOuvertureChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.CheckOuverture);
+        private static System.ComponentModel.PropertyChangedEventArgs checkOuvertureChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.CheckOuverture);
 
         /// <summary>
         /// Gets et sets de bool checkOuverture
@@ -62,7 +62,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Nom);
+        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Nom);
 
         /// <summary>
         /// Gets et sets du nom de la catégorie
@@ -89,7 +89,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs checkChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Check);
+        private static System.ComponentModel.PropertyChangedEventArgs checkChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<CategorieViewModel>(x => x.Check);
 
         /// <summary>
         /// Gets et sets de bool check

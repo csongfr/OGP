@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Utils.Observable
+namespace QuantumBitDesigns.Core
 {
     /// <summary>
     /// Taken From: http://www.interact-sw.co.uk/iangblog/2004/03/23/locking

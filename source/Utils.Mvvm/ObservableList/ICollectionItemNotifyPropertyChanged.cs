@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Utils.Observable
+namespace QuantumBitDesigns.Core
 {
     /// <summary>
     /// Notifies the clients that a property has changed

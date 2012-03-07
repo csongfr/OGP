@@ -41,7 +41,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs menuViewModelChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Menu);
+        private static System.ComponentModel.PropertyChangedEventArgs menuViewModelChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.Menu);
 
         /// <summary>
         /// Gets et Sets du MenuViewModel
@@ -66,7 +66,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
+        private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
 
         /// <summary>
         /// Gets et Sets de la tache ViewModel
@@ -92,7 +92,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listeTachesVmChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.ListeTachesViewModel);
+        private static System.ComponentModel.PropertyChangedEventArgs listeTachesVmChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.ListeTachesViewModel);
 
         /// <summary>
         /// Gets ou Sets la liste des taches.

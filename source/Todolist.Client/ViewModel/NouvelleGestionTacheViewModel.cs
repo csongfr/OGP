@@ -37,7 +37,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC Helper
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomDuProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.NomDuProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs nomDuProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<NouvelleGestionTacheViewModel>(x => x.NomDuProjet);
 
         /// <summary>
         /// Gets ou Sets du plugin actif

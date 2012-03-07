@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{59166202-E0E4-44C7-9DDE-FB1B1C72F420}</ProjectGuid>
+    <ProjectGuid>{45ADCAB7-F544-4409-960C-6985F7000CE3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Utils.Observable</RootNamespace>
-    <AssemblyName>Utils.Observable</AssemblyName>
+    <RootNamespace>Utils.Mvvm</RootNamespace>
+    <AssemblyName>Utils.Mvvm</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,12 +41,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QuantumBitDesigns.Core\ICollectionItemNotifyPropertyChanged.cs" />
-    <Compile Include="QuantumBitDesigns.Core\LockTimeoutException.cs" />
     <Compile Include="ObservableHelper.cs" />
-    <Compile Include="QuantumBitDesigns.Core\ObservableList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuantumBitDesigns.Core\TimedLock.cs" />
+    <Compile Include="ObservableList\ICollectionItemNotifyPropertyChanged.cs" />
+    <Compile Include="ObservableList\LockTimeoutException.cs" />
+    <Compile Include="ObservableList\ObservableList.cs" />
+    <Compile Include="ObservableList\TimedLock.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
@@ -58,7 +58,6 @@
       <Name>Utils %28Utils\Utils%29</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

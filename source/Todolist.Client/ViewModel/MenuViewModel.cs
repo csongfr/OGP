@@ -74,7 +74,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
 
         /// <summary>
         /// Gets et sets 
@@ -101,7 +101,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personneAjoutChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.PersonneAjout);
+        private static System.ComponentModel.PropertyChangedEventArgs personneAjoutChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.PersonneAjout);
 
         /// <summary>
         /// Gets et Sets Ajout personne tâche
@@ -128,7 +128,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs personnesChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.Personnes);
+        private static System.ComponentModel.PropertyChangedEventArgs personnesChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.Personnes);
 
         /// <summary>
         /// Gets et Sets pour ajouter une personne au projet
@@ -155,7 +155,7 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs projetOuvertChangeArgs = Utils.Observable.ObservableHelper.CreateArgs<MenuViewModel>(x => x.ProjetOuvert);
+        private static System.ComponentModel.PropertyChangedEventArgs projetOuvertChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.ProjetOuvert);
 
         /// <summary>
         /// Gets ou Sets pour afficher le nom du projet dans la todolist.
