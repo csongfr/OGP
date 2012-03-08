@@ -1,0 +1,17 @@
+﻿<Fluent:RibbonTabItem x:Class="OGP.ClientWpf.View.PluginsTab"  Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="True"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Fluent:RibbonGroupBox Header="Actions">
+        <Fluent:Button SizeDefinition="Large" Header="Charger" Command="{Binding ChargerPlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
+        <Fluent:Button SizeDefinition="Large" Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
+    </Fluent:RibbonGroupBox>
+    <Fluent:RibbonGroupBox Header="Liste Des Plugins" Width="160">
+        <Fluent:ComboBox HorizontalAlignment="Center" SizeDefinition="Large" Width="150" Name="plugin" ItemsSource="{Binding ListePlugins}" DisplayMemberPath="Title" SelectedItem="{Binding PluginActif, UpdateSourceTrigger=PropertyChanged}" />
+        <Fluent:Button HorizontalAlignment="Center" SizeDefinition="Middle" Header="Recharger" Command="{Binding RecupererPlugins}"  Icon="{StaticResource RechargerPetite}" LargeIcon="{StaticResource RechargerGrande}" />
+    </Fluent:RibbonGroupBox>
+</Fluent:RibbonTabItem >

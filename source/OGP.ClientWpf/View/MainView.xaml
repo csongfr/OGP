@@ -24,16 +24,7 @@
             </Fluent:Ribbon.Menu>
             
             <!--Onglets-->
-            <Fluent:RibbonTabItem Header="Gestion des plugins" ReduceOrder="(P),(P),(P),(P),(P)" IsSelected="True" >
-                <Fluent:RibbonGroupBox Header="Actions">
-                    <Fluent:Button SizeDefinition="Large" Header="Charger" Command="{Binding ChargerPlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
-                    <Fluent:Button SizeDefinition="Large" Header="Supprimer" Command="{Binding SupprimePlugin}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}"/>
-                </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox Header="Liste Des Plugins" Width="160">
-                    <Fluent:ComboBox HorizontalAlignment="Center" SizeDefinition="Large" Width="150" Name="plugin" ItemsSource="{Binding ListePlugins}" DisplayMemberPath="Title" SelectedItem="{Binding PluginActif, UpdateSourceTrigger=PropertyChanged}" />
-                    <Fluent:Button HorizontalAlignment="Center" SizeDefinition="Middle" Header="Recharger" Command="{Binding RecupererPlugins}"  Icon="{StaticResource RechargerPetite}" LargeIcon="{StaticResource RechargerGrande}" />
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem >
+            
         </Fluent:Ribbon>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="Barre de statut"/>

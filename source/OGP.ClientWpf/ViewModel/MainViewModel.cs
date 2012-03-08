@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using AvalonDock;
 using Cinch;
+using OGP.Plugin.Interfaces;
+using QuantumBitDesigns.Core;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -54,6 +56,11 @@ namespace OGP.ClientWpf.ViewModel
         /// </summary>
         private ObservableCollection<DocumentContent> listeDocuments;
 
+        /// <summary>
+        /// Stocke la liste des menus chargés.
+        /// </summary>
+        private ObservableList<IOgpMenu> listeMenu;
+
         #endregion
 
         #region Membres publiques
@@ -75,7 +82,42 @@ namespace OGP.ClientWpf.ViewModel
             }
             set
             {
+                if (this.listePlugins == value)
+                {
+                    return;
+                }
+
                 this.listePlugins = value;
+
+                NotifyPropertyChanged(listePluginsChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listeMenuChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListeMenu);
+
+        /// <summary>
+        /// Gets ou sets la liste des menus d'OGP.
+        /// </summary>
+        [ImportMany(typeof(IOgpMenu))]
+        public ObservableList<IOgpMenu> ListeMenu
+        {
+            get
+            {
+                return this.listeMenu;
+            }
+            set
+            {
+                if (this.listeMenu == value)
+                {
+                    return;
+                }
+
+                this.listeMenu = value;
+
+                NotifyPropertyChanged(listeMenuChangeArgs);
             }
         }
 
@@ -230,6 +272,8 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments = new ObservableCollection<DocumentContent>();
 
             ChargerPluginsDisponibles();
+
+            this.ListeMenu.Add(new OGP.ClientWpf.View.PluginsTab());
         }
 
         #endregion
