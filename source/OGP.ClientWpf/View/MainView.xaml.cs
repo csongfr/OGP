@@ -58,12 +58,12 @@ namespace OGP.ClientWpf.View
 
         public static void TibbonTabsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ObservableList<IOgpMenu> liste = e.NewValue as ObservableList<IOgpMenu>;
-            ObservableList<IOgpMenu> oldListe = e.OldValue as ObservableList<IOgpMenu>;
+            var liste = e.NewValue as ObservableCollection<IOgpMenu>;
+            var oldListe = e.OldValue as ObservableCollection<IOgpMenu>;
 
             if (oldListe != null)
             {
-                oldListe.ObservableCollection.CollectionChanged -= ObservableCollection_CollectionChanged;
+                oldListe.CollectionChanged -= ObservableCollection_CollectionChanged;
             }
 
             // On a changé de liste, on change donc tous les menus.
@@ -72,16 +72,13 @@ namespace OGP.ClientWpf.View
             if (liste != null)
             {
                 // On locke la liste, afin d'être sûr qu'elle ne bouge pas pendant l'initialisation.
-                lock (liste.AcquireLock())
+                // On initialise avec les menus déjà présent dans la liste.
+                foreach (RibbonTabItem item in liste)
                 {
-                    // On initialise avec les menus déjà présent dans la liste.
-                    foreach (RibbonTabItem item in liste.ObservableCollection)
-                    {
-                        instance.ribbonPrincipal.Tabs.Add(item);
-                    }
-
-                    liste.ObservableCollection.CollectionChanged += ObservableCollection_CollectionChanged;
+                    instance.ribbonPrincipal.Tabs.Add(item);
                 }
+
+                liste.CollectionChanged += ObservableCollection_CollectionChanged;
             }
         }
 
