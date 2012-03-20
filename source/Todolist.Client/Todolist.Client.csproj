@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\bin\Debug\Ressources\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\OGP.ClientWpf\Ressources\Plugins\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\bin\Release\Ressources\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,6 +42,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -66,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
     <Compile Include="ViewModel\PopupOuvrirTodolistViewModel.cs" />
+    <Compile Include="View\RibbonTabTest.xaml.cs">
+      <DependentUpon>RibbonTabTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TodolistView.xaml.cs">
       <DependentUpon>TodolistView.xaml</DependentUpon>
     </Compile>
@@ -77,6 +82,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\RibbonTabTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TodolistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,10 +109,6 @@
     <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
       <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
       <Name>Cinch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OGP.ClientWpf\OGP.ClientWpf.csproj">
-      <Project>{9DCA1678-8B1C-49AD-B279-0010C0A5F9F9}</Project>
-      <Name>OGP.ClientWpf</Name>
     </ProjectReference>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>

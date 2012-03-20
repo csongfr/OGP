@@ -273,7 +273,7 @@ namespace OGP.ClientWpf.ViewModel
 
             ChargerPluginsDisponibles();
 
-            this.ListeMenu.Add(new OGP.ClientWpf.View.PluginsTab());
+            this.ListeMenu.Insert(0, new OGP.ClientWpf.View.PluginsTab());
         }
 
         #endregion
