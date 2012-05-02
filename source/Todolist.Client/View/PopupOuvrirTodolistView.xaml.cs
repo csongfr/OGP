@@ -26,12 +26,6 @@ namespace Plugin.Todolist.View
         public PopupOuvrirTodolistView()
         {
             InitializeComponent();
-            //this.DataContext= new PopupOuvrirTodolistViewModel();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = new PopupOuvrirTodolistViewModel();
         }
     }
 }

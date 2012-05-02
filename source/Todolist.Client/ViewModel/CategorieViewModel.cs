@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cinch;
+using Plugin.Todolist.ValueObjects;
 
 namespace Todolist.ViewModel
 {
@@ -136,6 +137,7 @@ namespace Todolist.ViewModel
                 handler(this);
             }
         }
+
         #endregion
 
         #region Constructeur
@@ -147,6 +149,10 @@ namespace Todolist.ViewModel
         {
         }
 
+        public CategorieViewModel(VOCategorie categorie)
+        {
+            Nom = categorie.Nom;
+        }
         #endregion
     }
 }
