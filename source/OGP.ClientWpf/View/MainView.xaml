@@ -6,7 +6,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-        Title="OGP - Outil de Gestion de Projet" Width="1650"
+        Title="OGP - Outil de Gestion de Plugins" Width="1650"
         Height="1020" WindowStyle="None" Background="#FFEBEDF0" WindowState="Maximized" 
         Icon="{StaticResource LogoPetite}" Loaded="RibbonWindow_Loaded">
     
