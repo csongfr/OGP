@@ -28,7 +28,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Permet de gérer le ViewModel des tâches
         /// </summary>
-        //private TacheViewModel tacheVM;
+        // private TacheViewModel tacheVM;
 
         private CategoriesMenuViewModel categorieMenuVM;
 
@@ -180,7 +180,7 @@ namespace Plugin.Todolist
             // Ajout des catégories au menu
             foreach (var categorie in Menu.ProjetOuvert.Categories)
             {
-                Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(new VOCategorie() { Nom = categorie.Nom}));
+                Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(new VOCategorie() { Nom = categorie.Nom }));
             }
             /*foreach (var categorie in Menu.ProjetOuvert.Categories)
             {
@@ -213,8 +213,8 @@ namespace Plugin.Todolist
         {
             foreach (var tache in listeTachesViewModel)
             {
-                int i=0;
-                int pos=-1;
+                int i = 0;
+                int pos =-1;
 
                 foreach (var cat in tache.CategoriesProjet)
                 {
@@ -224,7 +224,7 @@ namespace Plugin.Todolist
                     }
                     i++;
                 }
-                if (pos>-1)
+                if (pos > -1)
                 {
                     tache.CategoriesProjet[pos].Nom = nouveauNom;
                 }
@@ -428,7 +428,7 @@ namespace Plugin.Todolist
                 {
                     foreach (var categorie in /*Menu.CategoriesProjet*/categories)
                     {
-                        //this.Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(categorie));
+                        // this.Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(categorie));
 
                         CategorieViewModel catVM = new CategorieViewModel();
                         catVM.Nom = categorie.Nom;
