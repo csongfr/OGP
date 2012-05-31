@@ -24,9 +24,9 @@
                                 </StackPanel>
                             </Expander>
                             <Expander Header="Ajouter Une Catégorie">
-                                <DataGrid Width="225" ItemsSource="{Binding CategoriesProjet}" AutoGenerateColumns="False">
+                                <DataGrid Width="225" ItemsSource="{Binding ListeCategoriesMenuVM}" AutoGenerateColumns="False" ><!--CategoriesProjet-->
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Width="200" Binding="{Binding Nom}"/>
+                                        <DataGridTextColumn Width="200" Binding="{Binding NomCategorie}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>
@@ -93,8 +93,8 @@
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <ComboBoxItem Content="{Binding Nom}" />
                                                         <CheckBox IsChecked="{Binding Check}" />
+                                                        <ComboBoxItem Content="{Binding Nom}" />
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using Cinch;
-using Plugin.Todolist;
 using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
+using Todolist.Client.ViewModel;
 using Todolist.Exception;
 using Utils.Wcf;
 
@@ -58,9 +55,14 @@ namespace Todolist.ViewModel
         private ObservableCollection<VOPersonne> personnes;
 
         /// <summary>
-        /// Stocke les catégories du projet de la partie Menu
+        /// Catégories dans le menu (volet de gauche)
         /// </summary>
-        private ObservableCollection<VOCategorie> categoriesProjet;
+        // private ObservableCollection<VOCategorie> categoriesProjet;
+
+        /// <summary>
+        /// Categories du menu
+        /// </summary>
+        private ObservableCollection<CategoriesMenuViewModel> listeCategoriesMenuVM;
 
         /// <summary>
         /// Bool pour savoir si la personne est ajouté à la tâche
@@ -74,12 +76,39 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
+        private static System.ComponentModel.PropertyChangedEventArgs listeCategoriesMenuVMChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.ListeCategoriesMenuVM);
+
+        /// <summary>
+        /// Gets et sets des catégories du menu
+        /// </summary>
+        public ObservableCollection<CategoriesMenuViewModel> ListeCategoriesMenuVM
+        {
+            get
+            {
+                return this.listeCategoriesMenuVM;
+            }
+            set
+            {
+                if (this.listeCategoriesMenuVM == value)
+                {
+                    return;
+                }
+
+                this.listeCategoriesMenuVM = value;
+
+                NotifyPropertyChanged(listeCategoriesMenuVMChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        // private static System.ComponentModel.PropertyChangedEventArgs categoriesProjetChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.CategoriesProjet);
 
         /// <summary>
         /// Gets et sets 
         /// </summary>
-        public ObservableCollection<VOCategorie> CategoriesProjet
+        /*public ObservableCollection<VOCategorie> CategoriesProjet
         {
             get
             {
@@ -96,7 +125,7 @@ namespace Todolist.ViewModel
                 // OnCategorieChanged();
                 NotifyPropertyChanged(categoriesProjetChangeArgs);
             }
-        }
+        }*/
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -219,21 +248,21 @@ namespace Todolist.ViewModel
             }
         }
 
-     /*   /// <summary>
+        /// <summary>
         /// Evénement levé
         /// </summary>
-        public event Action<VOProjet> PersonneAjouterChanged;
+        public event Action<ObservableCollection<PersonneViewModel>> PersonneAjouterChanged;
 
         /// <summary>
         /// Déclenche l'événement PersonneChanged
         /// </summary>
-        private void OnPersonneAjouterChanged()
+       /* private void OnPersonneAjouterChanged()
         {
             var handler = PersonneAjouterChanged;
 
             if (handler != null)
             {
-                handler(projetOuvert);
+                handler(listePersonneVM);
             }
         }*/
 
@@ -377,9 +406,10 @@ namespace Todolist.ViewModel
 
             if (res == true)
             {
+                ListeCategoriesMenuVM = new ObservableCollection<CategoriesMenuViewModel>();
                 this.Personnes = new ObservableCollection<VOPersonne>();
-                // this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);
-                this.CategoriesProjet = new ObservableCollection<VOCategorie>();
+                this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);               
+                
                 ProjetOuvert = popupCast.ProjetAOuvrir;
                 OnProjetOuvertChanged();
                 OnPersonneChanged();
@@ -394,6 +424,7 @@ namespace Todolist.ViewModel
         /// <param name="e">NotifyCollectionChangedEventArgs</param>
         public void Personnes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            // MessageBox.Show("toto");
             // OnPersonneAjouterChanged();
         }
 
@@ -433,9 +464,11 @@ namespace Todolist.ViewModel
             {
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
                 {
+                    ListeCategoriesMenuVM = new ObservableCollection<CategoriesMenuViewModel>();
                     this.Personnes = new ObservableCollection<VOPersonne>();
                     this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);
-                    this.CategoriesProjet = new ObservableCollection<VOCategorie>();
+                    // this.CategoriesProjet = new ObservableCollection<VOCategorie>();
+                    // this.CategoriesProjet.CollectionChanged += new NotifyCollectionChangedEventHandler(Categories_CollectionChanged);
                     ProjetOuvert = client.NouvelleToDoList(((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet);
                     projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
                     projetOuvert.Categories = new ObservableCollection<VOCategorie>();
@@ -449,7 +482,6 @@ namespace Todolist.ViewModel
                 // TODO gérer exception
             }
         }
-        
         #endregion
 
         #region Constructeur

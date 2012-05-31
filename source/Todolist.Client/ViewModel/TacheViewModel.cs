@@ -400,6 +400,9 @@ namespace Todolist.ViewModel
                     return;
                 }
 
+                
+                    OnNouveauTitreTache();
+
                 this.titre = value;
                 NotifyPropertyChanged(titreChangeArgs);
             }
@@ -433,6 +436,40 @@ namespace Todolist.ViewModel
         #endregion
 
         #region Evènements
+
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<string, string> TitreChanged;
+
+        /// <summary>
+        /// Déclenche l'événement TitreChanged
+        /// </summary>
+        private void OnTitreChanged(string ancienneValeur, string nouvelleValeur)
+        {
+            var handler = TitreChanged;
+            if (handler != null)
+            {
+                handler(ancienneValeur, nouvelleValeur);
+            }
+        }
+
+        /// <summary>
+        /// Evénement levé
+        /// </summary>
+        public event Action<TacheViewModel> TitreTacheChanged;
+
+        /// <summary>
+        /// Déclenche l'événement TitreTacheChanged
+        /// </summary>
+        private void OnNouveauTitreTache()
+        {
+            var handler = TitreTacheChanged;
+            if (handler != null)
+            {
+                handler(this);
+            }
+        }
 
         /// <summary>
         /// Evénement levé

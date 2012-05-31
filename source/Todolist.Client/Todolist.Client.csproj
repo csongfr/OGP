@@ -59,6 +59,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TodolistLoader.cs" />
+    <Compile Include="ViewModel\CategoriesMenuViewModel.cs" />
     <Compile Include="ViewModel\CategorieViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\PersonneViewModel.cs" />

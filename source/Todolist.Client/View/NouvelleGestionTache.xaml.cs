@@ -27,10 +27,5 @@ namespace Plugin.Todolist.View
         {
             InitializeComponent();
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.DataContext = new NouvelleGestionTacheViewModel();
-        }
     }
 }

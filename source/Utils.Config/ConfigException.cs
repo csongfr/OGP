@@ -13,7 +13,7 @@ namespace Utils.Config
         /// <param name="sectionGroupName">Nom du groupe de section.</param>
         /// <param name="sectionName">Nom de la section</param>
         public ConfigException(string sectionGroupName, string sectionName)
-            : this (sectionGroupName, sectionName, (Exception)null)
+            : this(sectionGroupName, sectionName, (Exception)null)
         {
           
         }
@@ -38,7 +38,7 @@ namespace Utils.Config
         /// <param name="sectionName">Nom de la section</param>
         /// <param name="keyName">Nom de l'entrée.</param>
         public ConfigException(string sectionGroupName, string sectionName, string keyName)
-            :this(sectionGroupName, sectionName, keyName, null)
+            : this(sectionGroupName, sectionName, keyName, null)
         {
         }
 

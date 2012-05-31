@@ -4,6 +4,7 @@ using Cinch;
 using Plugin.Todolist.ValueObjects;
 using Todolist.Client.ViewModel;
 using Todolist.ViewModel;
+using System.Collections.Specialized;
 
 namespace Plugin.Todolist
 {
@@ -27,7 +28,9 @@ namespace Plugin.Todolist
         /// <summary>
         /// Permet de gérer le ViewModel des tâches
         /// </summary>
-        private TacheViewModel tacheVM;
+        // private TacheViewModel tacheVM;
+
+        private CategoriesMenuViewModel categorieMenuVM;
 
         /// <summary>
         /// Liste des tâches
@@ -37,6 +40,30 @@ namespace Plugin.Todolist
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs categorieMenuVMChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.CategorieMenuVM);
+
+        public CategoriesMenuViewModel CategorieMenuVM
+        {
+            get
+            {
+                return this.categorieMenuVM;
+            }
+            set
+            {
+                if (this.categorieMenuVM == value)
+                {
+                    return;
+                }
+
+                this.categorieMenuVM = value;
+
+                NotifyPropertyChanged(categorieMenuVMChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -66,7 +93,7 @@ namespace Plugin.Todolist
         /// <summary>
         /// Cinch : INPC helper.
         /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
+        /*private static System.ComponentModel.PropertyChangedEventArgs tacheVMChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<TodolistViewModel>(x => x.TacheVM);
 
         /// <summary>
         /// Gets et Sets de la tache ViewModel
@@ -87,7 +114,7 @@ namespace Plugin.Todolist
                 this.tacheVM = value;
                 NotifyPropertyChanged(tacheVMChangeArgs);
             }
-        }
+        }*/
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -135,8 +162,16 @@ namespace Plugin.Todolist
             {
                 tacheView.SupprimerTacheChanged += TacheVM_SupprimerTache;
             }
+
             this.ListeTachesViewModel.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ListeTachesViewModel_CollectionChanged);
+            // this.Menu.ListeCategoriesMenuVM.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ListeCategoriesMenuVM_CollectionChanged);
+            this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(NouvelleCategorie_CollectionChanged);
+            this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(ModifCategorie_CollectionChanged);
+
+            this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVM_CollectionChanged);
+            this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVMModifTitre_CollectionChanged);
             
+
             foreach (var personne in Menu.ProjetOuvert.Personnes)
             {
                 Menu.Personnes.Add(personne);
@@ -145,40 +180,55 @@ namespace Plugin.Todolist
             // Ajout des catégories au menu
             foreach (var categorie in Menu.ProjetOuvert.Categories)
             {
-                Menu.CategoriesProjet.Add(categorie);
+                Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(new VOCategorie() { Nom = categorie.Nom }));
             }
+            /*foreach (var categorie in Menu.ProjetOuvert.Categories)
+            {
+                Menu.CategoriesProjet.Add(categorie);
+
+                // Ajout des catégories au listVM du Menu
+                Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(categorie));
+            }*/
+        }
+
+        private void ajoutCategorieANouvelleTache(TacheViewModel tacheVM)
+        {
+            ObservableCollection<CategorieViewModel> listCatVM = new ObservableCollection<CategorieViewModel>();
+
+            // Création de la nouvelle liste de catégorie
+            foreach (var cat in Menu.ListeCategoriesMenuVM)
+            {
+                CategorieViewModel catVM = new CategorieViewModel(new VOCategorie() { Nom = cat.NomCategorie });
+                listCatVM.Add(catVM);
+            }
+
+            tacheVM.CategoriesProjet = listCatVM;
         }
 
         /// <summary>
-        /// Cette fonction est décenchée à l'ajout d'une tâche.
+        /// Fonction qui permet de passer à chaque tacheViewModel (les taches en cours), les catégories du Menu (volet de gauche)
         /// </summary>
-        /// <param name="sender">object</param>
-        /// <param name="e">NotifyCollectionChangedEventArgs</param>
-        public void ListeTachesViewModel_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <param name="nom">Nom de la catégorie</param>
+        private void ChangementCategorieDuMenu(string ancienNom, string nouveauNom)
         {
-            int nombreTaches = ListeTachesViewModel.Count;
-            int i = 0;
+            foreach (var tache in listeTachesViewModel)
+            {
+                int i = 0;
+                int pos =-1;
 
-            if (nombreTaches == 1)
-            {
-                id++;
-            }
-            foreach (var tacheid in ListeTachesViewModel)
-            {
-                i++;
-                if (i == nombreTaches - 1)
+                foreach (var cat in tache.CategoriesProjet)
                 {
-                    id = tacheid.Identifiant + 1;
+                    if (cat.Nom.CompareTo(ancienNom) == 0)
+                    {
+                        pos = i;
+                    }
+                    i++;
                 }
-            }
+                if (pos > -1)
+                {
+                    tache.CategoriesProjet[pos].Nom = nouveauNom;
+                }
 
-            int nombreTaches2 = id++;
-            foreach (var tache in ListeTachesViewModel)
-            {
-                if (tache.Identifiant == 0)
-                {
-                    tache.Identifiant = nombreTaches2;
-                }
                 if (!string.IsNullOrEmpty(tache.Titre))
                 {
                     tache.SupprimerTacheChanged += TacheVM_SupprimerTache;
@@ -215,11 +265,34 @@ namespace Plugin.Todolist
 	        }
 
             Menu.ProjetOuvert.Categories.Clear();
-            foreach (var categorie in Menu.CategoriesProjet)
+            foreach (var categorie in Menu.ListeCategoriesMenuVM)
             {
-                VOCategorie cat = new VOCategorie();
-                cat.Nom = categorie.Nom;
+                VOCategorie cat = new VOCategorie() { Nom = categorie.NomCategorie };
                 Menu.ProjetOuvert.Categories.Add(cat);
+            }
+
+            // Nettoyage de la liste des VOCategories pour chaque taches
+            foreach (var tacheVO in Menu.ProjetOuvert.ListeDesTaches)
+            {
+                tacheVO.ListeCategoriesTache.Clear();
+            }
+
+            // Reconstruction des categories validées par taches
+            foreach (var tache in this.listeTachesViewModel)
+            {
+                foreach (var categorie in tache.CategoriesProjet)
+                {
+                    if (categorie.Check)
+                    {
+                        foreach (var tacheVO in Menu.ProjetOuvert.ListeDesTaches)
+                        {
+                            if (tacheVO.Titre==tache.Titre)
+                            {
+                                tacheVO.ListeCategoriesTache.Add(categorie.Nom);
+                            }
+                        }
+                    }
+                }
             }
 
             foreach (var personnes in taches)
@@ -341,6 +414,31 @@ namespace Plugin.Todolist
         }*/
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categorieMenu"></param>
+        private void AjoutCategorieDuMenuAuxTaches(ObservableCollection<CategoriesMenuViewModel> categorieMenu)
+        {
+            ObservableCollection<CategorieViewModel> list = new ObservableCollection<CategorieViewModel>();
+
+            foreach (var cat in categorieMenu)
+            {
+                if (!string.IsNullOrEmpty(cat.NomCategorie))
+                {
+                    CategorieViewModel catgrie = new CategorieViewModel(new VOCategorie() { Nom = cat.NomCategorie });
+                    list.Add(catgrie);
+                }
+            }
+
+
+            foreach (var tachVM in listeTachesViewModel)
+            {
+                // CategorieViewModel cat = new CategorieViewModel(new VOCategorie());
+                tachVM.CategoriesProjet = list;
+            }
+        }
+
+        /// <summary>
         /// Permet d'ajouter les catégories du Menu à chaque tâche
         /// </summary>
         /// <param name="categories">Collection de catégories</param>
@@ -349,28 +447,34 @@ namespace Plugin.Todolist
             // Ajout des catégories du projet à chaque tacheViewModel
             foreach (var tache in ListeTachesViewModel)
             {
-                foreach (var categorie in /*Menu.CategoriesProjet*/categories)
+                if (categories != null)
                 {
-                    CategorieViewModel catVM = new CategorieViewModel();
-                    catVM.Nom = categorie.Nom;
-                    tache.AjouterCategorie(catVM);
-                }
-
-                if (tache.ListeCategoriesTache != null)
-                {
-                    foreach (var categorieTache in tache.ListeCategoriesTache)
+                    foreach (var categorie in /*Menu.CategoriesProjet*/categories)
                     {
-                        foreach (var categorieProjet in tache.CategoriesProjet)
+                        // this.Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(categorie));
+
+                        CategorieViewModel catVM = new CategorieViewModel();
+                        catVM.Nom = categorie.Nom;
+                        tache.AjouterCategorie(catVM);
+                    }
+
+                    if (tache.ListeCategoriesTache != null)
+                    {
+                        foreach (var categorieTache in tache.ListeCategoriesTache)
                         {
-                            if (categorieProjet.Nom.Equals(categorieTache))
+                            foreach (var categorieProjet in tache.CategoriesProjet)
                             {
-                                categorieProjet.CheckOuverture = true;
-                                categorieProjet.Check = true;
-                                categorieProjet.CheckOuverture = false;
+                                if (categorieProjet.Nom.Equals(categorieTache))
+                                {
+                                    categorieProjet.CheckOuverture = true;
+                                    categorieProjet.Check = true;
+                                    categorieProjet.CheckOuverture = false;
+                                }
                             }
                         }
                     }
                 }
+                
             }
         }
 
@@ -392,6 +496,95 @@ namespace Plugin.Todolist
             ListeTachesViewModel.Remove(tachesViewModelTemp);
         }
 
+        private void NouvelleCategorieMenu(string nom)
+        {
+            foreach (var tache in listeTachesViewModel)
+            {
+                tache.CategoriesProjet.Add(new CategorieViewModel(new VOCategorie() { Nom = nom }));
+            }
+        }
+
+        #endregion
+
+        #region Changements dans les listes
+
+        /// <summary>
+        /// Cette fonction est décenchée à l'ajout d'une tâche.
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">NotifyCollectionChangedEventArgs</param>
+        public void ListeTachesViewModel_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            int nombreTaches = ListeTachesViewModel.Count;
+            int i = 0;
+
+            if (nombreTaches == 1)
+            {
+                id++;
+            }
+            foreach (var tacheid in ListeTachesViewModel)
+            {
+                i++;
+                if (i == nombreTaches - 1)
+                {
+                    id = tacheid.Identifiant + 1;
+                }
+            }
+
+            int nombreTaches2 = id++;
+            foreach (var tache in ListeTachesViewModel)
+            {
+                if (tache.Identifiant == 0)
+                {
+                    tache.Identifiant = nombreTaches2;
+                }
+                tache.SupprimerTacheChanged += TacheVM_SupprimerTache;
+            }
+        }
+
+        public void ModifCategorie_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var cat in Menu.ListeCategoriesMenuVM)
+            {
+                cat.ModifCategorie += ChangementCategorieDuMenu;
+            }
+        }
+
+        public void ListeTacheVM_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var tacheVM in this.ListeTachesViewModel)
+            {
+                tacheVM.TitreTacheChanged += ajoutCategorieANouvelleTache;
+            }
+        }
+
+        public void ListeTacheVMModifTitre_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var tacheVM in this.ListeTachesViewModel)
+            {
+                tacheVM.TitreChanged += ModifTitreTache;
+            }
+        }
+
+        private void ModifTitreTache(string ancienneValeur, string nouvelleValeur)
+        {
+            foreach (var tache in listeTachesViewModel)
+            {
+                if (tache.Titre.CompareTo(ancienneValeur) == 0)
+                {
+                    tache.Titre = nouvelleValeur;
+                }
+            }
+        }
+
+        public void NouvelleCategorie_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach (var tache in Menu.ListeCategoriesMenuVM)
+            {
+                tache.NouvelleCategorie += NouvelleCategorieMenu;
+            }
+        }
+
         #endregion
 
         #region Constructeur
@@ -401,14 +594,14 @@ namespace Plugin.Todolist
         /// </summary>
         public TodolistViewModel()
         {
+            this.CategorieMenuVM = new CategoriesMenuViewModel();
             this.Menu = new MenuViewModel();
-            this.TacheVM = new TacheViewModel();
             this.Menu.ProjetOuvertChanged += AfficherTacheOuverture;
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
             this.Menu.PersonneChanged += AjouterPersonneProjet;
             this.Menu.CategorieChanged += AjoutCategorieProjet;
-            // this.Menu.PersonneAjouterChanged += AjouterPersonne;
         }
+
         #endregion
     }
 }
