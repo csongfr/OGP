@@ -265,12 +265,30 @@ namespace Plugin.Todolist
                 VOCategorie cat = new VOCategorie() { Nom = categorie.NomCategorie };
                 Menu.ProjetOuvert.Categories.Add(cat);
             }
-            /*foreach (var categorie in Menu.CategoriesProjet)
+
+            // Nettoyage de la liste des VOCategories pour chaque taches
+            foreach (var tacheVO in Menu.ProjetOuvert.ListeDesTaches)
             {
-                VOCategorie cat = new VOCategorie();
-                cat.Nom = categorie.Nom;
-                Menu.ProjetOuvert.Categories.Add(cat);
-            }*/
+                tacheVO.ListeCategoriesTache.Clear();
+            }
+
+            // Reconstruction des categories validées par taches
+            foreach (var tache in this.listeTachesViewModel)
+            {
+                foreach (var categorie in tache.CategoriesProjet)
+                {
+                    if (categorie.Check)
+                    {
+                        foreach (var tacheVO in Menu.ProjetOuvert.ListeDesTaches)
+                        {
+                            if (tacheVO.Titre==tache.Titre)
+                            {
+                                tacheVO.ListeCategoriesTache.Add(categorie.Nom);
+                            }
+                        }
+                    }
+                }
+            }
 
             foreach (var personnes in taches)
             {
