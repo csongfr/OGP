@@ -122,6 +122,10 @@
       <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
       <Name>Todolist.ValueObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils.IO\Utils.IO.csproj">
+      <Project>{4DDEE057-E7EE-49E2-9498-EDC08DEAFE91}</Project>
+      <Name>Utils.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Mvvm\Utils.Mvvm.csproj">
       <Project>{45ADCAB7-F544-4409-960C-6985F7000CE3}</Project>
       <Name>Utils.Mvvm</Name>

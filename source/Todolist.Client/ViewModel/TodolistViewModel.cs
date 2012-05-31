@@ -179,7 +179,10 @@ namespace Plugin.Todolist
                 {
                     tache.Identifiant = nombreTaches2;
                 }
-                tache.SupprimerTacheChanged += TacheVM_SupprimerTache;
+                if (!string.IsNullOrEmpty(tache.Titre))
+                {
+                    tache.SupprimerTacheChanged += TacheVM_SupprimerTache;
+                }
             }
         }
 
