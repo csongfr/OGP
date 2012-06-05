@@ -1,49 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Cinch;
-using System.ComponentModel.Composition;
-using System.Collections.ObjectModel;
-using AvalonDock;
 using OGP.Plugin.Interfaces;
-using OGP.ClientWpf.ViewModel;
-using OGP.ClientWpf.Interfaces;
-
 
 namespace PluginTest
 {
-
-
     /// <summary>
-    /// TODO: Update summary.
+    /// Plugin de test
     /// </summary>
     public class RibbonTest1ViewModel : ViewModelBase
     {
-        private string nom;
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<RibbonTest1ViewModel>(x => x.Nom);
-
-        public string Nom
-        {
-            get
-            {
-                return this.nom;
-            }
-            set
-            {
-                if (this.nom == value)
-                {
-                    return;
-                }
-
-                this.nom = value;
-
-                NotifyPropertyChanged(nomChangeArgs);
-            }
-        }
+        #region Commandes
 
         /// <summary>
         /// Stocke la commande qui fait le café.
@@ -71,15 +37,32 @@ namespace PluginTest
             }
         }
 
-        public void Ouvrir()
+        #endregion
+
+        #region Méthodes privées
+
+        /// <summary>
+        /// Méthode qui permet d'ouvrir le plugin
+        /// </summary>
+        private void Ouvrir()
         {
            var methodeOuvrirNouvelOnglet = ServiceProvider.Resolve<ICentralOnglets>();
-            methodeOuvrirNouvelOnglet.NouvelOnglet(Nom);
+            UserControl2 docs = new UserControl2();
+            docs.Title = DateTime.Now.ToString();
+            methodeOuvrirNouvelOnglet.AddPlugin(docs);
         }
 
+        #endregion
+
+        #region Constructeur
+
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public RibbonTest1ViewModel()
         {
-            Nom = "Ribbon2";
         }
+
+        #endregion
     }
 }

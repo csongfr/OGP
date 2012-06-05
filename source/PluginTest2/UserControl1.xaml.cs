@@ -19,7 +19,6 @@ namespace PluginTest2
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    [Export(typeof(DocumentContent))]
     public partial class UserControl1 : DocumentContent
     {
         public UserControl1()

@@ -65,10 +65,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OGP.ClientWpf\OGP.ClientWpf.csproj">
-      <Project>{9DCA1678-8B1C-49AD-B279-0010C0A5F9F9}</Project>
-      <Name>OGP.ClientWpf</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
       <Name>OGP.Plugin</Name>

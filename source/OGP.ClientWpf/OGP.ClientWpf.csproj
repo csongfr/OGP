@@ -60,9 +60,6 @@
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
     </Reference>
-    <Reference Include="MEFedMVVM.WPF">
-      <HintPath>..\packages\MEFedMVVM.1.4\lib\net40\MEFedMVVM.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>..\packages\MEFedMVVM.1.4\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -90,7 +87,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interfaces\ICentralOnglets.cs" />
     <Compile Include="View\PluginsTab.xaml.cs">
       <DependentUpon>PluginsTab.xaml</DependentUpon>
     </Compile>
@@ -140,7 +136,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel.Composition;
-using OGP.Plugin.Interfaces;
 using Fluent;
+using OGP.Plugin.Interfaces;
 
 namespace PluginTest
 {
@@ -23,6 +23,9 @@ namespace PluginTest
     [Export(typeof(IOgpMenu))]
     public partial class RibbonTest1 : RibbonTabItem, IOgpMenu
     {
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public RibbonTest1()
         {
             InitializeComponent();

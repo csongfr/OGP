@@ -2,43 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Cinch;
-using Fluent;
 using System.Windows;
 using AvalonDock;
+using Cinch;
+using Fluent;
 
 namespace PluginTest2
 {
-    
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class RibbonTest2ViewModel : ViewModelBase
     {
-        private string nom;
-        /// <summary>
-        /// Cinch : INPC helper.
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs nomChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<RibbonTest2ViewModel>(x => x.Nom);
-
-        public string Nom
-        {
-            get
-            {
-                return this.nom;
-            }
-            set
-            {
-                if (this.nom == value)
-                {
-                    return;
-                }
-
-                this.nom = value;
-
-                NotifyPropertyChanged(nomChangeArgs);
-            }
-        }
+        #region Commandes
 
         /// <summary>
         /// Stocke la commande qui fait le café.
@@ -66,14 +42,17 @@ namespace PluginTest2
             }
         }
 
+        #endregion
+
+        #region Constructeur
+
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         private void NouvelOnglet()
         {
-
         }
 
-         public RibbonTest2ViewModel()
-         {
-             Nom = "Ribbon";
-         }
+        #endregion
     }
 }

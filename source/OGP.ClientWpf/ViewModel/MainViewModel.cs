@@ -10,7 +10,6 @@ using AvalonDock;
 using Cinch;
 using OGP.Plugin.Interfaces;
 using QuantumBitDesigns.Core;
-using OGP.ClientWpf.Interfaces;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -64,7 +63,7 @@ namespace OGP.ClientWpf.ViewModel
 
         #endregion
 
-        #region Membres publiques
+        #region Membres publics
 
         /// <summary>
         /// Cinch : INPC Helper
@@ -274,16 +273,18 @@ namespace OGP.ClientWpf.ViewModel
 
             ChargerPluginsDisponibles();
 
-
             ServiceProvider.Add(typeof(ICentralOnglets), this);
-            //this.ListeMenu.Insert(0, new OGP.ClientWpf.View.PluginsTab());
         }
 
         #endregion
 
-        public void NouvelOnglet(string nom)
+        /// <summary>
+        /// Ajoute la plugin à la liste
+        /// </summary>
+        /// <param name="doc">Le document à ajouter</param>
+         public void AddPlugin(DocumentContent doc)
         {
-            ChargerPluginActif(nom);
+            ListeDocuments.Add(doc);
         }
 
         #region Méthodes privées
@@ -312,11 +313,6 @@ namespace OGP.ClientWpf.ViewModel
         /// <param name="nomPlugin">Nom du plugin à charger.</param>
         private void ChargerPluginActif(string nomPlugin)
         {
-            //DocumentContent nouveau = new DocumentContent();
-            //nouveau.Title = DateTime.Now.ToString();
-      
-            //ListeDocuments.Add(nouveau);
-
             // On ajoute le plugin aux documents
             foreach (var plugin in this.ListePlugins)
             {
