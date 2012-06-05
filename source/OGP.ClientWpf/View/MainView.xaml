@@ -30,8 +30,8 @@
         </StatusBar>
         
        <ad:DockingManager>
-            <ad:ResizingPanel>
-                <ad:DocumentPane ItemsSource="{Binding ListeDocuments}" />
+            <ad:ResizingPanel> 
+               <ad:DocumentPane ItemsSource="{Binding ListeDocuments}" />
             </ad:ResizingPanel>
         </ad:DockingManager>
     </DockPanel>

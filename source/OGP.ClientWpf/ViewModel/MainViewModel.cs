@@ -10,6 +10,7 @@ using AvalonDock;
 using Cinch;
 using OGP.Plugin.Interfaces;
 using QuantumBitDesigns.Core;
+using Fluent;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -60,6 +61,8 @@ namespace OGP.ClientWpf.ViewModel
         /// Stocke la liste des menus chargés.
         /// </summary>
         private ObservableList<IOgpMenu> listeMenu;
+
+        private RibbonTabItem monRibbon;
 
         #endregion
 
@@ -161,6 +164,30 @@ namespace OGP.ClientWpf.ViewModel
                 this.pluginActif = value;
 
                 NotifyPropertyChanged(pluginActifChangeArgs);
+            }
+        }
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs monRibbonChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.MonRibbon);
+
+        public RibbonTabItem MonRibbon
+        {
+            get
+            {
+                return this.monRibbon;
+            }
+            set
+            {
+                if (this.monRibbon == value)
+                {
+                    return;
+                }
+
+                this.monRibbon = value;
+
+                NotifyPropertyChanged(monRibbonChangeArgs);
             }
         }
 
