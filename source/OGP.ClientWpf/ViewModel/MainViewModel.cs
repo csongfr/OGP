@@ -10,13 +10,14 @@ using AvalonDock;
 using Cinch;
 using OGP.Plugin.Interfaces;
 using QuantumBitDesigns.Core;
+using OGP.ClientWpf.Interfaces;
 
 namespace OGP.ClientWpf.ViewModel
 {
     /// <summary>
     /// Fenêtre principale
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, ICentralOnglets
     {
         #region Membres privés
 
@@ -273,10 +274,17 @@ namespace OGP.ClientWpf.ViewModel
 
             ChargerPluginsDisponibles();
 
-            this.ListeMenu.Insert(0, new OGP.ClientWpf.View.PluginsTab());
+
+            ServiceProvider.Add(typeof(ICentralOnglets), this);
+            //this.ListeMenu.Insert(0, new OGP.ClientWpf.View.PluginsTab());
         }
 
         #endregion
+
+        public void NouvelOnglet(string nom)
+        {
+            ChargerPluginActif(nom);
+        }
 
         #region Méthodes privées
 
@@ -304,11 +312,17 @@ namespace OGP.ClientWpf.ViewModel
         /// <param name="nomPlugin">Nom du plugin à charger.</param>
         private void ChargerPluginActif(string nomPlugin)
         {
+            //DocumentContent nouveau = new DocumentContent();
+            //nouveau.Title = DateTime.Now.ToString();
+      
+            //ListeDocuments.Add(nouveau);
+
             // On ajoute le plugin aux documents
             foreach (var plugin in this.ListePlugins)
             {
                 if (plugin.Title.Equals(nomPlugin))
                 {
+                    plugin.Title = DateTime.Now.ToString();
                     ListeDocuments.Add(plugin);
                 }
             }
@@ -324,6 +338,7 @@ namespace OGP.ClientWpf.ViewModel
                 string repertoire = AppConfig.Instance.RepertoirePlugins;
 
                 var catalog = new AggregateCatalog();
+
                 catalog.Catalogs.Add(new DirectoryCatalog(repertoire));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);

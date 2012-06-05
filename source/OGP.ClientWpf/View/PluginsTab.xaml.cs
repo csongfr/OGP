@@ -20,7 +20,7 @@ namespace OGP.ClientWpf.View
     /// <summary>
     /// Interaction logic for PluginsTab.xaml
     /// </summary>
-    public partial class PluginsTab : RibbonTabItem, IOgpMenu
+    public partial class PluginsTab : RibbonTabItem
     {
         public PluginsTab()
         {

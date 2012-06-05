@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\ICentralOnglets.cs" />
     <Compile Include="View\PluginsTab.xaml.cs">
       <DependentUpon>PluginsTab.xaml</DependentUpon>
     </Compile>

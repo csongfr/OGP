@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Fluent;
 using OGP.Plugin.Interfaces;
 using System.ComponentModel.Composition;
+using Todolist.ViewModel;
 
 namespace Todolist.Client.View
 {
@@ -26,6 +27,7 @@ namespace Todolist.Client.View
         public RibbonTabTest()
         {
             InitializeComponent();
+            this.DataContext = new MenuViewModel();
         }
     }
 }

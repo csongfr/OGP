@@ -5,13 +5,14 @@ using Plugin.Todolist.ValueObjects;
 using Todolist.Client.ViewModel;
 using Todolist.ViewModel;
 using System.Collections.Specialized;
+using Todolist.Client.Ressources;
 
 namespace Plugin.Todolist
 {
     /// <summary>
     /// Mon ToDoList
     /// </summary>
-    public class TodolistViewModel : ViewModelBase
+    public class TodolistViewModel : ViewModelBase, IOuvrirProjet
     {
         #region Membres privés
 
@@ -165,20 +166,21 @@ namespace Plugin.Todolist
 
             this.ListeTachesViewModel.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ListeTachesViewModel_CollectionChanged);
             // this.Menu.ListeCategoriesMenuVM.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(ListeCategoriesMenuVM_CollectionChanged);
-            this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(NouvelleCategorie_CollectionChanged);
-            this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(ModifCategorie_CollectionChanged);
+            // this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(NouvelleCategorie_CollectionChanged);
+            // this.Menu.ListeCategoriesMenuVM.CollectionChanged += new NotifyCollectionChangedEventHandler(ModifCategorie_CollectionChanged);
 
             this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVM_CollectionChanged);
             this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVMModifTitre_CollectionChanged);
             
 
-            foreach (var personne in Menu.ProjetOuvert.Personnes)
+            foreach (var personne in 
+                Menu.ProjetOuvert.Personnes)
             {
                 Menu.Personnes.Add(personne);
             }
       
             // Ajout des catégories au menu
-            foreach (var categorie in Menu.ProjetOuvert.Categories)
+            /*foreach (var categorie in Menu.ProjetOuvert.Categories)
             {
                 Menu.ListeCategoriesMenuVM.Add(new CategoriesMenuViewModel(new VOCategorie() { Nom = categorie.Nom }));
             }
@@ -508,6 +510,11 @@ namespace Plugin.Todolist
 
         #region Changements dans les listes
 
+        public void InterfaceOuvrirProjet(ObservableCollection<VOTache> taches)
+        {
+            AfficherTacheOuverture(taches);
+        }
+
         /// <summary>
         /// Cette fonction est décenchée à l'ajout d'une tâche.
         /// </summary>
@@ -600,6 +607,8 @@ namespace Plugin.Todolist
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
             this.Menu.PersonneChanged += AjouterPersonneProjet;
             this.Menu.CategorieChanged += AjoutCategorieProjet;
+
+            ServiceProvider.Add(typeof(IOuvrirProjet), this);
         }
 
         #endregion
