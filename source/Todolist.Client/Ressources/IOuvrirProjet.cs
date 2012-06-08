@@ -1,18 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IOuvrirProjet.cs" company="SopraGroup">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Collections.ObjectModel;
+using Plugin.Todolist.ValueObjects;
 
 namespace Todolist.Client.Ressources
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Collections.ObjectModel;
-    using Plugin.Todolist.ValueObjects;
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

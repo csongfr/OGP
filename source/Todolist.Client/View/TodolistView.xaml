@@ -8,7 +8,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
     Title="Todolist" mc:Ignorable="d" d:DesignWidth="1200"
-    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase" Loaded="DocumentContent_Loaded">
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase">
 
     <ad:DockingManager>
         <ad:ResizingPanel>
@@ -46,7 +46,7 @@
             </ad:DockablePane>
             <ad:DockablePane>
                 <ad:DockableContent Title="{Binding Menu.ProjetOuvert.NomDuProjet}">
-                    <DataGrid ItemsSource="{Binding ListeTachesViewModel}" AutoGenerateColumns="False" AllowDrop="True" DragEnter="OnDragEnter" MouseDown="OnMouseDown">
+                    <DataGrid ItemsSource="{Binding ListeTachesViewModel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" AllowDrop="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="!" Width="70">
                                 <DataGridTemplateColumn.CellTemplate>

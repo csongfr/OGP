@@ -17,6 +17,6 @@ namespace OGP.Plugin.Interfaces
         /// Méthode qui permet d'ajouter un plugin
         /// </summary>
         /// <param name="Doc">Le document content à ajouter</param>
-        void AddPlugin(DocumentContent Doc);
+        void AjoutOnglet(DocumentContent Doc);
     }
 }

@@ -11,6 +11,8 @@ using Todolist.Exception;
 using Utils.Wcf;
 using AvalonDock;
 using Todolist.Client.Ressources;
+using OGP.Plugin.Interfaces;
+using Plugin.Todolist;
 
 namespace Todolist.ViewModel
 {
@@ -431,7 +433,7 @@ namespace Todolist.ViewModel
             {
                 throw new TodolistPluginException("Pas de fichier");
             }
-
+            
             if (res == true)
             {
                 ListeCategoriesMenuVM = new ObservableCollection<CategoriesMenuViewModel>();
@@ -510,11 +512,13 @@ namespace Todolist.ViewModel
                 if (ProjetOuvert == null)
                 {
                     throw new TodolistPluginException("Pas de fichier");
+
                 }
 
                 // TODO gérer exception
             }
         }
+
         #endregion
 
         #region Constructeur
@@ -524,6 +528,7 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
+            
         }
 
         #endregion

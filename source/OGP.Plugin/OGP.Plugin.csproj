@@ -34,6 +34,9 @@
     <Reference Include="AvalonDock">
       <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
     </Reference>
+    <Reference Include="AvalonDock.Themes">
+      <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

@@ -49,7 +49,7 @@ namespace PluginTest
            var methodeOuvrirNouvelOnglet = ServiceProvider.Resolve<ICentralOnglets>();
             UserControl2 docs = new UserControl2();
             docs.Title = DateTime.Now.ToString();
-            methodeOuvrirNouvelOnglet.AddPlugin(docs);
+            methodeOuvrirNouvelOnglet.AjoutOnglet(docs);
         }
 
         #endregion

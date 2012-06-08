@@ -6,13 +6,14 @@ using Todolist.Client.ViewModel;
 using Todolist.ViewModel;
 using System.Collections.Specialized;
 using Todolist.Client.Ressources;
+using QuantumBitDesigns.Core;
 
 namespace Plugin.Todolist
 {
     /// <summary>
     /// Mon ToDoList
     /// </summary>
-    public class TodolistViewModel : ViewModelBase, IOuvrirProjet
+    public class TodolistViewModel : ViewModelBase
     {
         #region Membres privés
 
@@ -151,10 +152,10 @@ namespace Plugin.Todolist
         /// Fonction qui permet d'ajouter une tâche
         /// </summary>
         /// <param name="taches">List VOTache</param>
-        private void AfficherTacheOuverture(ObservableCollection<VOTache> taches)
+        public void AfficherTacheOuverture(ObservableCollection<VOTache> taches)
         {
             ListeTachesViewModel = new ObservableCollection<TacheViewModel>();
-                      
+         
             foreach (var ta in taches)
             {
                 ListeTachesViewModel.Add(new TacheViewModel(ta));
@@ -171,13 +172,13 @@ namespace Plugin.Todolist
 
             this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVM_CollectionChanged);
             this.ListeTachesViewModel.CollectionChanged += new NotifyCollectionChangedEventHandler(ListeTacheVMModifTitre_CollectionChanged);
-            
 
-            foreach (var personne in 
-                Menu.ProjetOuvert.Personnes)
-            {
-                Menu.Personnes.Add(personne);
-            }
+                
+            //foreach (var personne in
+            //    Menu.ProjetOuvert.Personnes)
+            //{
+            //    Menu.Personnes.Add(personne);
+            //}
       
             // Ajout des catégories au menu
             /*foreach (var categorie in Menu.ProjetOuvert.Categories)
@@ -510,11 +511,6 @@ namespace Plugin.Todolist
 
         #region Changements dans les listes
 
-        public void InterfaceOuvrirProjet(ObservableCollection<VOTache> taches)
-        {
-            AfficherTacheOuverture(taches);
-        }
-
         /// <summary>
         /// Cette fonction est décenchée à l'ajout d'une tâche.
         /// </summary>
@@ -607,8 +603,6 @@ namespace Plugin.Todolist
             this.Menu.ProjetEnregistrerChanged += EnregistrerTache;
             this.Menu.PersonneChanged += AjouterPersonneProjet;
             this.Menu.CategorieChanged += AjoutCategorieProjet;
-
-            ServiceProvider.Add(typeof(IOuvrirProjet), this);
         }
 
         #endregion

@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock">
+    <Reference Include="AvalonDock, Version=1.3.3571.0, Culture=neutral, PublicKeyToken=85a1e0ada7ec13e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="AvalonDock.Themes">
+      <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
     <Reference Include="Cinch, Version=1.20.4535.25099, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

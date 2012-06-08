@@ -17,7 +17,7 @@
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage>  
                     <Fluent:BackstageTabControl>
-           .             <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
+                      <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
@@ -27,9 +27,10 @@
             <StatusBarItem Content="Barre de statut"/>
         </StatusBar>
 
-        <ad:DockingManager  DocumentsSource="{Binding ListeDocuments}" >
+            
+        <ad:DockingManager  DocumentsSource="{Binding ListeDocuments.ObservableCollection}" >
             <ad:ResizingPanel>
-                <ad:DocumentPane/>
+                <ad:DocumentPane />  
             </ad:ResizingPanel>
         </ad:DockingManager>
             
