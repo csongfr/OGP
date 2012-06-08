@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AvalonDock">
+    <Reference Include="AvalonDock, Version=1.3.3571.0, Culture=neutral, PublicKeyToken=85a1e0ada7ec13e4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\externe\AvalonDock\AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="AvalonDock.Themes">
+      <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
@@ -58,12 +62,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Ressources\IOuvrirProjet.cs" />
     <Compile Include="TodolistLoader.cs" />
     <Compile Include="ViewModel\CategoriesMenuViewModel.cs" />
     <Compile Include="ViewModel\CategorieViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\PersonneViewModel.cs" />
     <Compile Include="ViewModel\PrioriteViewModel.cs" />
+    <Compile Include="ViewModel\RibbonTabTodolistViewModel.cs" />
     <Compile Include="ViewModel\TacheViewModel.cs" />
     <Compile Include="ViewModel\TodolistViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,6 +129,10 @@
       <Project>{98DE7384-196E-4F0A-93AD-8F12CE4FC5E2}</Project>
       <Name>Todolist.ValueObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils.IO\Utils.IO.csproj">
+      <Project>{4DDEE057-E7EE-49E2-9498-EDC08DEAFE91}</Project>
+      <Name>Utils.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Mvvm\Utils.Mvvm.csproj">
       <Project>{45ADCAB7-F544-4409-960C-6985F7000CE3}</Project>
       <Name>Utils.Mvvm</Name>
@@ -143,6 +153,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem copy /y  "$(TargetPath)" "$(SolutionDir)\OGP.ClientWpf\Ressources\Plugins"

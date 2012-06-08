@@ -17,7 +17,7 @@ namespace OGP.ClientWpf.ViewModel
     /// <summary>
     /// Fenêtre principale
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, ICentralOnglets
     {
         #region Membres privés
 
@@ -32,30 +32,9 @@ namespace OGP.ClientWpf.ViewModel
         private SimpleCommand recupererCommand;
 
         /// <summary>
-        /// Commande ajoute un plugin
-        /// </summary>
-        private SimpleCommand chargerPlugin;
-
-        /// <summary>
-        /// Liste des répertoire contenant les plugins
-        /// </summary>
-        // private List<DirectoryCatalog> repertoiresPlugins;
-        private SimpleCommand supprimePlugin;
-
-        /// <summary>
-        /// Stocke la liste de tous les plugins
-        /// </summary>
-        private ObservableCollection<DocumentContent> listePlugins;
-
-        /// <summary>
-        /// Stock le plugin actif.
-        /// </summary>
-        private DocumentContent pluginActif;
-
-        /// <summary>
         /// Stock la liste des plugins actifs.
         /// </summary>
-        private ObservableCollection<DocumentContent> listeDocuments;
+        private ObservableList<DocumentContent> listeDocuments;
 
         /// <summary>
         /// Stocke la liste des menus chargés.
@@ -66,35 +45,7 @@ namespace OGP.ClientWpf.ViewModel
 
         #endregion
 
-        #region Membres publiques
-
-        /// <summary>
-        /// Cinch : INPC Helper
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs listePluginsChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.ListePlugins);
-
-        /// <summary>
-        /// Stocke la liste de tous les plugins
-        /// </summary>
-        [ImportMany]
-        public ObservableCollection<DocumentContent> ListePlugins
-        {
-            get
-            {
-                return this.listePlugins;
-            }
-            set
-            {
-                if (this.listePlugins == value)
-                {
-                    return;
-                }
-
-                this.listePlugins = value;
-
-                NotifyPropertyChanged(listePluginsChangeArgs);
-            }
-        }
+        #region Membres publics
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -120,7 +71,7 @@ namespace OGP.ClientWpf.ViewModel
 
                 this.listeMenu = value;
 
-                NotifyPropertyChanged(listeMenuChangeArgs);
+                this.NotifyPropertyChanged(listeMenuChangeArgs);
             }
         }
 
@@ -132,38 +83,16 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Get et set des plugins
         /// </summary>
-        public ObservableCollection<DocumentContent> ListeDocuments
+        public ObservableList<DocumentContent> ListeDocuments
         {
             get
             {
-                return listeDocuments;
+                return this.listeDocuments;
             }
             set
             {
                 this.listeDocuments = value;
-                NotifyPropertyChanged(listeDocumentsChangeArgs);
-            }
-        }
-
-        /// <summary>
-        /// Cinch : INPC Helper
-        /// </summary>
-        private static System.ComponentModel.PropertyChangedEventArgs pluginActifChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MainViewModel>(x => x.PluginActif);
-
-        /// <summary>
-        /// Gets ou Sets du plugin actif.
-        /// </summary>
-        public DocumentContent PluginActif
-        {
-            get
-            {
-                return pluginActif;
-            }
-            set
-            {
-                this.pluginActif = value;
-
-                NotifyPropertyChanged(pluginActifChangeArgs);
+                this.NotifyPropertyChanged(listeDocumentsChangeArgs);
             }
         }
 
@@ -202,9 +131,9 @@ namespace OGP.ClientWpf.ViewModel
         {
             get
             {
-                if (recupererCommand == null)
+                if (this.recupererCommand == null)
                 {
-                    recupererCommand = new SimpleCommand
+                    this.recupererCommand = new SimpleCommand
                     {
                         ExecuteDelegate = delegate
                         {
@@ -212,57 +141,7 @@ namespace OGP.ClientWpf.ViewModel
                         }
                     };
                 }
-                return recupererCommand;
-            }
-        }
-
-        /// <summary>
-        /// Supprime un plugin
-        /// </summary>
-        public SimpleCommand SupprimePlugin
-        {
-            get
-            {
-                if (supprimePlugin == null)
-                {
-                    supprimePlugin = new SimpleCommand
-                    {
-                        ExecuteDelegate = delegate
-                        {
-                            SupprimerPlugin(PluginActif.Title);
-                        },
-                        CanExecuteDelegate = delegate
-                         {
-                             return IsPluginCharge();
-                         }
-                    };
-                }
-                return supprimePlugin;
-            }
-        }
-
-        /// <summary>
-        /// Ajoute un plugin
-        /// </summary>
-        public SimpleCommand ChargerPlugin
-        {
-            get
-            {
-                if (chargerPlugin == null)
-                {
-                    chargerPlugin = new SimpleCommand
-                    {
-                        ExecuteDelegate = delegate
-                        {
-                            ChargerPluginActif(PluginActif.Title);
-                        },
-                        CanExecuteDelegate = delegate
-                        {
-                            return pluginActif != null && !IsPluginCharge();
-                        }
-                    };
-                }
-                return chargerPlugin;
+                return this.recupererCommand;
             }
         }
 
@@ -273,9 +152,9 @@ namespace OGP.ClientWpf.ViewModel
         {
             get
             {
-                if (fermerCommand == null)
+                if (this.fermerCommand == null)
                 {
-                    fermerCommand = new SimpleCommand
+                    this.fermerCommand = new SimpleCommand
                     {
                         ExecuteDelegate = delegate
                         {
@@ -283,63 +162,26 @@ namespace OGP.ClientWpf.ViewModel
                         }
                     };
                 }
-                return fermerCommand;
+                return this.fermerCommand;
             }
         }
 
         #endregion
 
-        #region Constructeur
+        #region Méthodes publiques
 
         /// <summary>
-        /// Default constructor
+        /// Ajoute la plugin à la liste
         /// </summary>
-        public MainViewModel()
+        /// <param name="doc">Le document à ajouter</param>
+        public void AjoutOnglet(DocumentContent doc)
         {
-            this.ListeDocuments = new ObservableCollection<DocumentContent>();
-
-            ChargerPluginsDisponibles();
-
-            this.ListeMenu.Insert(0, new OGP.ClientWpf.View.PluginsTab());
+            this.ListeDocuments.Add(doc);
         }
 
         #endregion
 
         #region Méthodes privées
-
-        /// <summary>
-        /// Supprime le plugin de la fenêtre
-        /// </summary>
-        /// <param name="nomPlugin">Nom du plugin à Supprimer</param>
-        private void SupprimerPlugin(string nomPlugin)
-        {
-            DocumentContent pluginCourant = ListeDocuments.SingleOrDefault(doc => doc.Title == nomPlugin);
-
-            if (pluginCourant != null)
-            {
-                ListeDocuments.Remove(pluginCourant);
-            }
-            else
-            {
-                throw new OgpClientCoreException("Pas de plugin");
-            }
-        }
-
-        /// <summary>
-        /// appelle la fonction ChargerPlugins lors du click sur ajouter plugin
-        /// </summary>
-        /// <param name="nomPlugin">Nom du plugin à charger.</param>
-        private void ChargerPluginActif(string nomPlugin)
-        {
-            // On ajoute le plugin aux documents
-            foreach (var plugin in this.ListePlugins)
-            {
-                if (plugin.Title.Equals(nomPlugin))
-                {
-                    ListeDocuments.Add(plugin);
-                }
-            }
-        }
 
         /// <summary>
         /// Récupère les plugins présents dans le répertoire défini dans le fichier de config du client
@@ -351,6 +193,7 @@ namespace OGP.ClientWpf.ViewModel
                 string repertoire = AppConfig.Instance.RepertoirePlugins;
 
                 var catalog = new AggregateCatalog();
+
                 catalog.Catalogs.Add(new DirectoryCatalog(repertoire));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);
@@ -365,20 +208,18 @@ namespace OGP.ClientWpf.ViewModel
             }
         }
 
+        #endregion
+
+        #region Constructeur
+
         /// <summary>
-        /// Permet de savoir si le plugin est déjà chargé.
+        /// Default constructor
         /// </summary>
-        /// <returns>True or False.</returns>
-        private bool IsPluginCharge()
+        public MainViewModel()
         {
-            if (pluginActif == null)
-            {
-                return false;
-            }
-            else
-            {
-                return ListeDocuments.Any(doc => doc.Title == pluginActif.Title);
-            }
+            this.ListeDocuments = new ObservableList<DocumentContent>();
+            ServiceProvider.Add(typeof(ICentralOnglets), this);
+            this.ChargerPluginsDisponibles();
         }
 
         #endregion

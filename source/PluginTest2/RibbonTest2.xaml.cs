@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -12,19 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Fluent;
-using System.ComponentModel.Composition;
 using OGP.Plugin.Interfaces;
 
-namespace OGP.ClientWpf.View
+namespace PluginTest2
 {
     /// <summary>
-    /// Interaction logic for PluginsTab.xaml
+    /// Interaction logic for RibbonTest2.xaml
     /// </summary>
-    public partial class PluginsTab : RibbonTabItem, IOgpMenu
+    [Export(typeof(IOgpMenu))]
+    public partial class RibbonTest2 : RibbonTabItem, IOgpMenu
     {
-        public PluginsTab()
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public RibbonTest2()
         {
             InitializeComponent();
+            DataContext = new RibbonTest2ViewModel();
         }
     }
 }

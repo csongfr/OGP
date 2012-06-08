@@ -9,6 +9,10 @@ using Plugin.Todolist.View;
 using Todolist.Client.ViewModel;
 using Todolist.Exception;
 using Utils.Wcf;
+using AvalonDock;
+using Todolist.Client.Ressources;
+using OGP.Plugin.Interfaces;
+using Plugin.Todolist;
 
 namespace Todolist.ViewModel
 {
@@ -69,9 +73,35 @@ namespace Todolist.ViewModel
         /// </summary>
         private bool personneAjout;
 
+        private ObservableCollection<DocumentContent> listeDocumentContent;
+
         #endregion
 
         #region Propriétés de présentation
+
+        /// <summary>
+        /// Cinch : INPC helper.
+        /// </summary>
+        private static System.ComponentModel.PropertyChangedEventArgs listeDocumentContentChangeArgs = Utils.Mvvm.ObservableHelper.CreateArgs<MenuViewModel>(x => x.ListeDocumentContent);
+
+        public ObservableCollection<DocumentContent> ListeDocumentContent
+        {
+            get
+            {
+                return this.listeDocumentContent;
+            }
+            set
+            {
+                if (this.listeDocumentContent == value)
+                {
+                    return;
+                }
+
+                this.listeDocumentContent = value;
+
+                NotifyPropertyChanged(listeDocumentContentChangeArgs);
+            }
+        }
 
         /// <summary>
         /// Cinch : INPC helper.
@@ -403,7 +433,7 @@ namespace Todolist.ViewModel
             {
                 throw new TodolistPluginException("Pas de fichier");
             }
-
+            
             if (res == true)
             {
                 ListeCategoriesMenuVM = new ObservableCollection<CategoriesMenuViewModel>();
@@ -411,6 +441,8 @@ namespace Todolist.ViewModel
                 this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);               
                 
                 ProjetOuvert = popupCast.ProjetAOuvrir;
+                var methodeOuvrirNouveauProjet = ServiceProvider.Resolve<IOuvrirProjet>();
+                methodeOuvrirNouveauProjet.InterfaceOuvrirProjet(ProjetOuvert.ListeDesTaches);
                 OnProjetOuvertChanged();
                 OnPersonneChanged();
                 OnCategorieChanged();
@@ -473,15 +505,20 @@ namespace Todolist.ViewModel
                     projetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
                     projetOuvert.Categories = new ObservableCollection<VOCategorie>();
                     OnProjetOuvertChanged();
+
+                    var methodeOuvrirNouveauProjet = ServiceProvider.Resolve<IOuvrirProjet>();
+                    methodeOuvrirNouveauProjet.InterfaceOuvrirProjet(ProjetOuvert.ListeDesTaches);
                 });
                 if (ProjetOuvert == null)
                 {
                     throw new TodolistPluginException("Pas de fichier");
+
                 }
 
                 // TODO gérer exception
             }
         }
+
         #endregion
 
         #region Constructeur
@@ -491,6 +528,7 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
+            
         }
 
         #endregion

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,24 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Fluent;
-using OGP.Plugin.Interfaces;
-using System.ComponentModel.Composition;
-using Todolist.ViewModel;
-using Todolist.Client.ViewModel;
+using AvalonDock;
 
-namespace Todolist.Client.View
+namespace PluginTest
 {
     /// <summary>
-    /// Interaction logic for RibbonTabTest.xaml
+    /// Interaction logic for UserControl2.xaml
     /// </summary>
-    [Export(typeof(IOgpMenu))]
-    public partial class RibbonTabTest : RibbonTabItem, IOgpMenu
+    public partial class UserControl2 : DocumentContent
     {
-        public RibbonTabTest()
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public UserControl2()
         {
             InitializeComponent();
-            this.DataContext = new RibbonTabTodolistViewModel();
         }
     }
 }

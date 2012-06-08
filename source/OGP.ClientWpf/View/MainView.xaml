@@ -7,19 +7,17 @@
         xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         Title="OGP - Outil de Gestion de Plugins" Width="1650"
-        Height="1020" WindowStyle="None" Background="#FFEBEDF0" WindowState="Maximized" 
+        Height="1020" Background="#FFEBEDF0" WindowState="Maximized" 
         Icon="{StaticResource LogoPetite}" Loaded="RibbonWindow_Loaded">
-    
- 
-    
-    <DockPanel LastChildFill="True">
+
+        <DockPanel LastChildFill="True">
 
         <!--ribbonPrincipal : gère l'affichage des onglets de menu. Seul le menu principal est défini ici. Le chargement est réalisé dans le code-behind.-->
         <Fluent:Ribbon x:Name="ribbonPrincipal" DockPanel.Dock="Top" >
             <Fluent:Ribbon.Menu>
-                <Fluent:Backstage>
+                <Fluent:Backstage>  
                     <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
+                      <Fluent:Button Header="Close" Command="{Binding FermerCommand}" Icon="{StaticResource FermerPetite}" LargeIcon="{StaticResource FermerGrande}"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
@@ -27,12 +25,12 @@
         
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Content="Barre de statut"/>
-        </StatusBar>
-        
-       <ad:DockingManager>
-            <ad:ResizingPanel> 
-               <ad:DocumentPane ItemsSource="{Binding ListeDocuments}" />
+        </StatusBar>  
+        <ad:DockingManager  DocumentsSource="{Binding ListeDocuments.ObservableCollection}" >
+            <ad:ResizingPanel>
+                <ad:DocumentPane />  
             </ad:ResizingPanel>
         </ad:DockingManager>
+            
     </DockPanel>
 </Fluent:RibbonWindow>
