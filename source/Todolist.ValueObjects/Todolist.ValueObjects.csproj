@@ -10,8 +10,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Plugin.Todolist.ValueObjects</RootNamespace>
     <AssemblyName>Plugin.Todolist.ValueObjects</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,11 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
-      <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
+      <Project>{df6c92ef-262c-4ae3-a3f3-c0b91dc0653d}</Project>
       <Name>OGP.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.UiDispatcher\Utils.UiDispatcher.csproj">
-      <Project>{B0AF0C4F-9D2A-4A9A-A35D-4EAA1AF22E54}</Project>
+      <Project>{b0af0c4f-9d2a-4a9a-a35d-4eaa1af22e54}</Project>
       <Name>Utils.UiDispatcher</Name>
     </ProjectReference>
   </ItemGroup>

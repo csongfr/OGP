@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OGP.ClientWpf</RootNamespace>
     <AssemblyName>OGP.ClientWpf</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -30,6 +31,10 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -40,6 +45,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -49,6 +55,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AvalonDock">
@@ -57,19 +64,16 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
+    <Reference Include="Cinch">
+      <HintPath>..\..\externe\Cinch\bin\Release\Cinch.dll</HintPath>
+    </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Interactions">
-      <HintPath>..\packages\MEFedMVVM.1.4\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\packages\MEFedMVVM.1.4\lib\net40\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -161,10 +165,6 @@
     <Folder Include="Ressources\Plugins\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
-      <Project>{6DB457F0-C6B4-4268-8304-4F5B586E50FF}</Project>
-      <Name>Cinch</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
       <Name>OGP.Plugin</Name>
@@ -178,7 +178,7 @@
       <Name>Utils.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.Mvvm\Utils.Mvvm.csproj">
-      <Project>{45ADCAB7-F544-4409-960C-6985F7000CE3}</Project>
+      <Project>{45adcab7-f544-4409-960c-6985f7000ce3}</Project>
       <Name>Utils.Mvvm</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.UiDispatcher\Utils.UiDispatcher.csproj">

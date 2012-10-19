@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Utils.ViewModel")]
+[assembly: AssemblyTitle("Todolist.Contract")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SopraGroup")]
-[assembly: AssemblyProduct("Utils.ViewModel")]
+[assembly: AssemblyProduct("Todolist.Contract")]
 [assembly: AssemblyCopyright("Copyright © SopraGroup 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b8918353-851b-4796-b4e5-1f6dfb8e3509")]
+[assembly: Guid("247edd5d-9c7e-43d8-aa51-e7532015be94")]
 
 // Version information for an assembly consists of the following four values:
 //

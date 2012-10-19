@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using Plugin.Todolist.All;
 using Plugin.Todolist.ValueObjects;
+using Todolist.Commun;
 
 namespace Plugin.Todolist.Service
 {
