@@ -65,7 +65,7 @@
       <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
     <Reference Include="Cinch">
-      <HintPath>..\..\externe\Cinch\bin\Release\Cinch.dll</HintPath>
+      <HintPath>..\..\externe\Cinch\bin\Debug\Cinch.dll</HintPath>
     </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>

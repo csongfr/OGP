@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cinch">
-      <HintPath>..\..\externe\Cinch\bin\Release\Cinch.dll</HintPath>
+      <HintPath>..\..\externe\Cinch\bin\Debug\Cinch.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -46,7 +46,7 @@
     </Reference>
     <Reference Include="Cinch, Version=1.20.4542.26456, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\externe\Cinch\bin\Release\Cinch.dll</HintPath>
+      <HintPath>..\..\externe\Cinch\bin\Debug\Cinch.dll</HintPath>
     </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
