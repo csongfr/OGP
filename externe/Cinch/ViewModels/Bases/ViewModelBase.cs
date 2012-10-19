@@ -80,56 +80,6 @@ namespace Cinch
             // VRU : suppression de l'inscription automatique. Histoire de ne pas prendre de risque par rapport à l'impact sur les perf.
             // Utiliser le ServiceProvider plutôt.
             //Mediator.Register(this);
-
-            #region Wire up Window/UserControl based Lifetime commands
-            activatedCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnWindowActivated()
-            };
-
-            deactivatedCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnWindowDeactivated()
-            };
-
-            loadedCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnWindowLoaded()
-            };
-
-            unloadedCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnWindowUnloaded()
-            };
-
-            closeCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnWindowClose()
-            };
-            #endregion
-
-            #region Wire up Workspace Command
-
-            //This is used for popup control only
-            closeWorkSpaceCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => ExecuteCloseWorkSpaceCommand()
-            };
-
-            #endregion
-
-            //This is used for popup control only
-            closeActivePopUpCommand = new SimpleCommand
-            {
-                CanExecuteDelegate = x => true,
-                ExecuteDelegate = x => OnCloseActivePopUp(x)
-            };
         }
 
         /// <summary>
@@ -318,7 +268,19 @@ namespace Cinch
         /// </summary>
         public SimpleCommand ActivatedCommand
         {
-            get { return activatedCommand; }
+            get
+            {
+                if (activatedCommand == null)
+                {
+                    activatedCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnWindowActivated()
+                    };
+                }
+
+                return activatedCommand;
+            }
         }
 
         /// <summary>
@@ -326,7 +288,19 @@ namespace Cinch
         /// </summary>
         public SimpleCommand DeactivatedCommand
         {
-            get { return deactivatedCommand; }
+            get
+            {
+                if (deactivatedCommand == null)
+                {
+                    deactivatedCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnWindowDeactivated()
+                    };
+                }
+
+                return deactivatedCommand;
+            }
         }
 
         /// <summary>
@@ -334,7 +308,19 @@ namespace Cinch
         /// </summary>
         public SimpleCommand LoadedCommand
         {
-            get { return loadedCommand; }
+            get
+            {
+                if (loadedCommand == null)
+                {
+                    loadedCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnWindowLoaded()
+                    };
+                }
+
+                return loadedCommand;
+            }
         }
 
         /// <summary>
@@ -342,7 +328,19 @@ namespace Cinch
         /// </summary>
         public SimpleCommand UnloadedCommand
         {
-            get { return unloadedCommand; }
+            get
+            {
+                if (unloadedCommand == null)
+                {
+                    unloadedCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnWindowUnloaded()
+                    };
+                }
+
+                return unloadedCommand;
+            }
         }
 
         /// <summary>
@@ -350,7 +348,19 @@ namespace Cinch
         /// </summary>
         public SimpleCommand CloseCommand
         {
-            get { return closeCommand; }
+            get
+            {
+                if (closeCommand == null)
+                {
+                    closeCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnWindowClose()
+                    };
+                }
+
+                return closeCommand;
+            }
         }
 
         /// <summary>
@@ -358,7 +368,20 @@ namespace Cinch
         /// </summary>
         public SimpleCommand CloseActivePopUpCommand
         {
-            get { return closeActivePopUpCommand; }
+            get
+            {
+                if (closeActivePopUpCommand == null)
+                {
+                    //This is used for popup control only
+                    closeActivePopUpCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => OnCloseActivePopUp(x)
+                    };
+                }
+
+                return closeActivePopUpCommand;
+            }
         }
 
         /// <summary>
@@ -369,6 +392,16 @@ namespace Cinch
         {
             get
             {
+                if (closeWorkSpaceCommand == null)
+                {
+                    //This is used for popup control only
+                    closeWorkSpaceCommand = new SimpleCommand
+                    {
+                        CanExecuteDelegate = x => true,
+                        ExecuteDelegate = x => ExecuteCloseWorkSpaceCommand()
+                    };
+                }
+
                 return closeWorkSpaceCommand;
             }
         }

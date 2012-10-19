@@ -8,13 +8,13 @@ using AvalonDock;
 using Cinch;
 using OGP.Plugin.Interfaces;
 using Plugin.Todolist;
-using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Todolist.Client.Ressources;
 using Todolist.Exception;
 using Todolist.ViewModel;
 using Utils.Wcf;
+using Todolist.Commun;
 
 namespace Todolist.Client.ViewModel
 {
@@ -81,8 +81,8 @@ namespace Todolist.Client.ViewModel
 
         private void CreerTodolist()
         {
-            var methodeOuvrirNouvelOnglet = ServiceProvider.Resolve<ICentralOnglets>(); 
-            
+            var methodeOuvrirNouvelOnglet = ServiceProvider.Resolve<ICentralOnglets>();
+
             var visualizerService = Resolve<IUIVisualizerService>();
             object popupCreation;
 
@@ -92,12 +92,12 @@ namespace Todolist.Client.ViewModel
             {
                 var todoListViewModel = new TodolistViewModel();
                 Plugin.Todolist.Todolist Todol = new Plugin.Todolist.Todolist { DataContext = todoListViewModel };
-               
+
                 Todol.Title = ((NouvelleGestionTacheViewModel)popupCreation).NomDuProjet;
                 methodeOuvrirNouvelOnglet.AjoutOnglet(Todol);
 
                 var exception = WcfHelper.Execute<IServiceGestionTaches>(client =>
-                {  
+                {
                     ProjetOuvert = client.NouvelleToDoList(Todol.Title);
                     ProjetOuvert.ListeDesTaches = new ObservableCollection<VOTache>();
                     ProjetOuvert.Categories = new ObservableCollection<VOCategorie>();

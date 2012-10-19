@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cinch;
-using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Todolist.Exception;
 using Utils.Wcf;
 using Utils.IO;
 using System.IO;
 using System.Windows.Forms;
+using Todolist.Commun;
 
 namespace Todolist.ViewModel
 {

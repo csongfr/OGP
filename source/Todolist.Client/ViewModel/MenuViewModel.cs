@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using Cinch;
-using Plugin.Todolist.Service;
 using Plugin.Todolist.ValueObjects;
 using Plugin.Todolist.View;
 using Todolist.Client.ViewModel;
@@ -13,6 +12,7 @@ using AvalonDock;
 using Todolist.Client.Ressources;
 using OGP.Plugin.Interfaces;
 using Plugin.Todolist;
+using Todolist.Commun;
 
 namespace Todolist.ViewModel
 {
@@ -246,7 +246,7 @@ namespace Todolist.ViewModel
         /// Evénement levé
         /// </summary>
         public event Action<ObservableCollection<VOTache>> ProjetOuvertChanged;
-        
+
         /// <summary>
         /// Déclenche l'événement ProjetOuvertChanged
         /// </summary>
@@ -271,7 +271,7 @@ namespace Todolist.ViewModel
         private void OnPersonneChanged()
         {
             var handler = PersonneChanged;
-           
+
             if (handler != null)
             {
                 handler(projetOuvert);
@@ -286,15 +286,15 @@ namespace Todolist.ViewModel
         /// <summary>
         /// Déclenche l'événement PersonneChanged
         /// </summary>
-       /* private void OnPersonneAjouterChanged()
-        {
-            var handler = PersonneAjouterChanged;
+        /* private void OnPersonneAjouterChanged()
+         {
+             var handler = PersonneAjouterChanged;
 
-            if (handler != null)
-            {
-                handler(listePersonneVM);
-            }
-        }*/
+             if (handler != null)
+             {
+                 handler(listePersonneVM);
+             }
+         }*/
 
         /// <summary>
         /// Evènement sur les catégories à l'ouverture
@@ -418,12 +418,12 @@ namespace Todolist.ViewModel
         private void OuvrirProjet()
         {
             var visualizerService = Resolve<IUIVisualizerService>();
-           
+
             object popup;
-            
+
             // Ouverture de la popup d'ouverture de projet
             var res = visualizerService.ShowDialog(typeof(PopupOuvrirTodolistView), new PopupOuvrirTodolistViewModel(), out popup);
-            
+
             // Cast pour manipuler l'objet PopupOuvrirTodolistViewModel
             PopupOuvrirTodolistViewModel popupCast = (PopupOuvrirTodolistViewModel)popup;
             // res = popupCast.OuvertureActivee;
@@ -433,13 +433,13 @@ namespace Todolist.ViewModel
             {
                 throw new TodolistPluginException("Pas de fichier");
             }
-            
+
             if (res == true)
             {
                 ListeCategoriesMenuVM = new ObservableCollection<CategoriesMenuViewModel>();
                 this.Personnes = new ObservableCollection<VOPersonne>();
-                this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);               
-                
+                this.Personnes.CollectionChanged += new NotifyCollectionChangedEventHandler(Personnes_CollectionChanged);
+
                 ProjetOuvert = popupCast.ProjetAOuvrir;
                 var methodeOuvrirNouveauProjet = ServiceProvider.Resolve<IOuvrirProjet>();
                 methodeOuvrirNouveauProjet.InterfaceOuvrirProjet(ProjetOuvert.ListeDesTaches);
@@ -528,7 +528,7 @@ namespace Todolist.ViewModel
         /// </summary>
         public MenuViewModel()
         {
-            
+
         }
 
         #endregion
