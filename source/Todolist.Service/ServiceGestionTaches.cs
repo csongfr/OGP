@@ -24,7 +24,7 @@ namespace Plugin.Todolist.Service
         /// </summary>
         /// <param name="nomFichier">Nom du fichier à charger.</param>
         /// <returns>Liste des taches.</returns>
-        public VOProjet ChagerListeTaches(string nomFichier)
+        public VOProjet ChargerListeTaches(string nomFichier)
         {
             IAllGestionTaches allGestionTaches = AllFactory.GetAllGestionTaches();
 

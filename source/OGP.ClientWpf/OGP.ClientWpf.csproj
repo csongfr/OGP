@@ -64,9 +64,6 @@
     <Reference Include="AvalonDock.Themes">
       <HintPath>..\..\externe\AvalonDock\AvalonDock.Themes.dll</HintPath>
     </Reference>
-    <Reference Include="Cinch">
-      <HintPath>..\..\externe\Cinch\bin\Debug\Cinch.dll</HintPath>
-    </Reference>
     <Reference Include="Fluent">
       <HintPath>..\..\externe\Fluent Ribbon Control Suite 2.0\Fluent.dll</HintPath>
     </Reference>
@@ -165,6 +162,10 @@
     <Folder Include="Ressources\Plugins\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
+      <Project>{6db457f0-c6b4-4268-8304-4f5b586e50ff}</Project>
+      <Name>Cinch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
       <Name>OGP.Plugin</Name>

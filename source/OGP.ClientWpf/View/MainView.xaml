@@ -11,7 +11,7 @@
         Icon="{StaticResource LogoPetite}" Loaded="RibbonWindow_Loaded">
 
         <DockPanel LastChildFill="True">
-
+        
         <!--ribbonPrincipal : gère l'affichage des onglets de menu. Seul le menu principal est défini ici. Le chargement est réalisé dans le code-behind.-->
         <Fluent:Ribbon x:Name="ribbonPrincipal" DockPanel.Dock="Top" >
             <Fluent:Ribbon.Menu>

@@ -22,7 +22,7 @@ namespace Todolist.Commun
         /// <param name="nomFichier">Nom du fichier à charger.</param>
         /// <returns>Liste des taches.</returns>
         [OperationContract]
-        VOProjet ChagerListeTaches(string nomFichier);
+        VOProjet ChargerListeTaches(string nomFichier);
 
         /// <summary>
         /// Méthode qui enregistre la liste des tâches
