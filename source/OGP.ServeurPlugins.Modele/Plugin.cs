@@ -8,5 +8,10 @@ namespace OGP.ServeurPlugins.Modele
 {
     public class Plugin
     {
+        string id;
+        string name;
+        string version;
+        string description;
+        string dossier;
     }
 }

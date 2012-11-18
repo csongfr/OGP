@@ -4,28 +4,42 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using OGP.ServeurPlugins.Modele;
 
 namespace OGP.ServeurPlugins
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
-    public class Service1 : IService1
+    public class ServeurPlugins : IServeurPlugins
     {
-        public string GetData(int value)
+
+        public ICollection<Plugin> getPluginList()
         {
-            return string.Format("You entered: {0}", value);
+            throw new NotImplementedException();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public bool addPlugin(Plugin p)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            throw new NotImplementedException();
+        }
+
+        public bool removePlugin(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool updatePlugin(Plugin p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Plugin> checkNewVersion(ICollection<Plugin> plugs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool downloadPlugin(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
