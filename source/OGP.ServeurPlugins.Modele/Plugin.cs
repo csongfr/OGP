@@ -13,5 +13,26 @@ namespace OGP.ServeurPlugins.Modele
         string version;
         string description;
         string dossier;
+
+
+        public string Id {get;}
+        public string Name { get; }
+        public string Version { get; }
+        public string Description { get; }
+        public string Dossier { get; }
+
+
+        public Plugin()
+        {
+        }
+
+        public Plugin(string id, string name, string version, string description, string dossier)
+        {
+            this.id = id;
+            this.name = name;
+            this.version = version;
+            this.description = description;
+            this.dossier = dossier;
+        }
     }
 }
