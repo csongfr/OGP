@@ -8,18 +8,12 @@ namespace OGP.ServeurPlugins.Modele
 {
     public class Plugin
     {
-        string id;
-        string name;
-        string version;
-        string description;
-        string dossier;
-
-
-        public string Id {get;}
-        public string Name { get; }
-        public string Version { get; }
-        public string Description { get; }
-        public string Dossier { get; }
+        
+        public string Id {get;private set;}
+        public string Name { get; private set; }
+        public string Version { get; private set; }
+        public string Description { get; private set; }
+        public string Dossier {get; private set; }
 
 
         public Plugin()
@@ -28,11 +22,11 @@ namespace OGP.ServeurPlugins.Modele
 
         public Plugin(string id, string name, string version, string description, string dossier)
         {
-            this.id = id;
-            this.name = name;
-            this.version = version;
-            this.description = description;
-            this.dossier = dossier;
+            this.Id = id;
+            this.Name = name;
+            this.Version = version;
+            this.Description = description;
+            this.Dossier = dossier;
         }
     }
 }
