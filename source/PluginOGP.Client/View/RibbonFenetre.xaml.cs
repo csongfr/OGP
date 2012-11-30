@@ -27,7 +27,7 @@ namespace PluginOGP.Client.View
         public RibbonFenetre()
         {
             InitializeComponent();
-            this.DataContext = new RibbonFenetre();
+            //this.DataContext = new RibbonFenetre();
         }
     }
 }
