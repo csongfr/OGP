@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OGP.ServeurPlugins.Modele
+namespace OGP.ServicePlugins.Modele
 {
     public class Plugin
     {
@@ -15,11 +15,61 @@ namespace OGP.ServeurPlugins.Modele
         string dossier;
 
 
-        public string Id {get;}
-        public string Name { get; }
-        public string Version { get; }
-        public string Description { get; }
-        public string Dossier { get; }
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+        public string Version
+        {
+            get
+            {
+                return version;
+            }
+            set
+            {
+                version = value;
+            }
+        }
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+            }
+        }
+        public string Dossier
+        {
+            get
+            {
+                return dossier;
+            }
+            set
+            {
+                dossier = value;
+            }
+        }
 
 
         public Plugin()

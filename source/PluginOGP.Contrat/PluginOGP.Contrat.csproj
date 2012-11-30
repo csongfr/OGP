@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4ED931E4-4B9A-4F31-870C-47DC833F5FFE}</ProjectGuid>
+    <ProjectGuid>{DF7FF581-1B02-424D-BB75-75AFDF2A9FFB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OGP.ServeurPlugins.Contrats</RootNamespace>
-    <AssemblyName>OGP.ServeurPlugins.Contrats</AssemblyName>
+    <RootNamespace>PluginOGP.Contrat</RootNamespace>
+    <AssemblyName>PluginOGP.Contrat</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,8 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,14 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IServicePlugins.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OGP.ServeurPlugins.Modele\OGP.ServeurPlugins.Modele.csproj">
-      <Project>{816a7640-99e4-4c7f-b6b7-d85afd2c853f}</Project>
-      <Name>OGP.ServeurPlugins.Modele</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

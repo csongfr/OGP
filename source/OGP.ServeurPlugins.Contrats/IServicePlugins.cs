@@ -4,12 +4,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using OGP.ServeurPlugins.Modele;
+using OGP.ServicePlugins.Modele;
 
-namespace OGP.ServeurPlugins
+namespace OGP.ServicePlugins
 {
     [ServiceContract]
-    public interface IServeurPlugins
+    public interface IServicePlugins
     {
         [OperationContract]
         ICollection<Plugin> getPluginList();

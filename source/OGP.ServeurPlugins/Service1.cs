@@ -6,12 +6,12 @@ using System.ServiceModel;
 using System.Text;
 using System.Xml.Serialization;
 using System.IO;
-using OGP.ServeurPlugins.Modele;
+using OGP.ServicePlugins.Modele;
 
-namespace OGP.ServeurPlugins
+namespace OGP.ServicePlugins
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
-    public class ServeurPlugins : IServeurPlugins
+    public class ServeurPlugins : IServicePlugins
     {
         static String XML_path = "ressources/";
         static String XML_fileName = "plugins.xml";
