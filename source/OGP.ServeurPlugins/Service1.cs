@@ -11,15 +11,17 @@ using OGP.ServicePlugins.Modele;
 namespace OGP.ServicePlugins
 {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom de classe "Service1" à la fois dans le code et le fichier de configuration.
-    public class ServeurPlugins : IServicePlugins
-    {
-        static String XML_path = "ressources/";
-        static String XML_fileName = "plugins.xml";
-        ICollection<Plugin> plugins = XML_getPlugins();
 
-        public ICollection<Plugin> getPluginList()
+    public class ServeurPlugins : IServicePlugin
+    {
+        static private String XML_path = "ressources/";
+        static private String XML_fileName = "plugins.xml";
+        
+        IList<Plugin> plugins = XML_getPlugins();
+
+        public IList<Plugin> getPluginList()
         {
-            ICollection<Plugin> res = new List<Plugin>();
+            IList<Plugin> res = new List<Plugin>();
 
             foreach (Plugin p in plugins)
             {
@@ -31,7 +33,10 @@ namespace OGP.ServicePlugins
 
         public bool addPlugin(Plugin p)
         {
-            throw new NotImplementedException();
+            plugins.Add(p);
+            XML_storePlugins();
+            
+            return true;
         }
 
         public bool removePlugin(string id)
@@ -44,7 +49,30 @@ namespace OGP.ServicePlugins
             throw new NotImplementedException();
         }
 
-        public ICollection<Plugin> checkNewVersion(ICollection<Plugin> plugs)
+        public IList<Plugin> checkNewVersion(IList<Plugin> plugs)
+        {
+            IList<Plugin> res = new List<Plugin>();
+            foreach (Plugin p in plugs)
+            {
+                Plugin up = getNewVersion(p);
+                if(up!=null)
+                    res.Add(up);
+            }
+            return res;
+        }
+
+        private Plugin getNewVersion(Plugin plug)
+        {
+            foreach (Plugin p in plugins)
+            {
+                if (p.Name == plug.Name)
+                    if (versionSup(p.Version, plug.Version)) //Passage à p.supVersion ?
+                        return p;
+            }
+            return null;
+        }
+
+        private bool versionSup(string p1, string p2)
         {
             throw new NotImplementedException();
         }
@@ -54,16 +82,27 @@ namespace OGP.ServicePlugins
             throw new NotImplementedException();
         }
 
-        static private ICollection<Plugin> XML_getPlugins(){
-            ICollection<Plugin> res = new List<Plugin>();
+        static private IList<Plugin> XML_getPlugins(){
+            IList<Plugin> res = new List<Plugin>();
 
             XmlSerializer serializer = new XmlSerializer(typeof(Plugin));
             FileStream xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
 
-            res = (ICollection<Plugin>) serializer.Deserialize(xmlFile);
-
+            res = (IList<Plugin>) serializer.Deserialize(xmlFile);
+            xmlFile.Close();
+                
             return res;
         }
+
+        private void XML_storePlugins()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Plugin));
+            StreamWriter xmlFile = new StreamWriter(XML_path + XML_fileName);
+            serializer.Serialize(xmlFile,plugins);
+            xmlFile.Close();
+
+        }
+
 
 
     }

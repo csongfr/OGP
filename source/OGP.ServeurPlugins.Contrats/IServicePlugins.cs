@@ -9,10 +9,10 @@ using OGP.ServicePlugins.Modele;
 namespace OGP.ServicePlugins
 {
     [ServiceContract]
-    public interface IServicePlugins
+    public interface IServicePlugin
     {
         [OperationContract]
-        ICollection<Plugin> getPluginList();
+        IList<Plugin> getPluginList();
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
@@ -25,7 +25,7 @@ namespace OGP.ServicePlugins
         bool updatePlugin(Plugin p);
 
         [OperationContract]
-        ICollection<Plugin> checkNewVersion(ICollection<Plugin> plugs);
+        IList<Plugin> checkNewVersion(IList<Plugin> plugs);
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
