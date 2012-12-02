@@ -79,21 +79,25 @@ namespace OGP.ServicePlugins
             IList<Plugin> res = new List<Plugin>();
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
+            FileStream xmlFile=null;
+            
             try
             {
-                FileStream xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
+                xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
                 res = (IList<Plugin>)serializer.Deserialize(xmlFile);
                 xmlFile.Close();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 StreamWriter xmlWriter = new StreamWriter(XML_path + XML_fileName);
                 serializer.Serialize(xmlWriter, res);
                 xmlWriter.Close();
             }
+            finally{
+                if(xmlFile!=null)
+                    xmlFile.Close();
+            }
             
-                
-            return res;
+           return res;
         }
 
         private void XML_storePlugins()
