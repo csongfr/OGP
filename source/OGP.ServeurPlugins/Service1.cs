@@ -21,14 +21,7 @@ namespace OGP.ServicePlugins
 
         public IList<Plugin> getPluginList()
         {
-            IList<Plugin> res = new List<Plugin>();
-
-            foreach (Plugin p in plugins)
-            {
-                res.Add(new Plugin(p.Id, p.Name, p.Version, p.Description, ""));
-            }
-
-            return res;
+            return plugins;
         }
 
         public bool addPlugin(Plugin p)
@@ -85,25 +78,32 @@ namespace OGP.ServicePlugins
         static private IList<Plugin> XML_getPlugins(){
             IList<Plugin> res = new List<Plugin>();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Plugin));
-            FileStream xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
-
-            res = (IList<Plugin>) serializer.Deserialize(xmlFile);
-            xmlFile.Close();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
+            try
+            {
+                FileStream xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
+                res = (IList<Plugin>)serializer.Deserialize(xmlFile);
+                xmlFile.Close();
+            }
+            catch (Exception e)
+            {
+                StreamWriter xmlWriter = new StreamWriter(XML_path + XML_fileName);
+                serializer.Serialize(xmlWriter, res);
+                xmlWriter.Close();
+            }
+            
                 
             return res;
         }
 
         private void XML_storePlugins()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Plugin));
+            System.Console.WriteLine("Passed");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
             StreamWriter xmlFile = new StreamWriter(XML_path + XML_fileName);
             serializer.Serialize(xmlFile,plugins);
             xmlFile.Close();
 
         }
-
-
-
     }
 }

@@ -3,16 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace OGP.ServicePlugins.Modele
 {
+    [DataContract]
     public class Plugin
     {
-		public string Id {get; private set;}
-        public string Name { get; private set; }
-        public string Version { get; private set; }
-        public string Description { get; private set; }
-        public string Dossier { get; private set; }
+        [DataMember]
+		public string Id {get; set;}
+        
+        [DataMember]
+        public string Name { get; set; }
+        
+        [DataMember]
+        public string Version { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+        
+        [IgnoreDataMemberAttribute]
+        public string Dossier { get; set; }
 
         public Plugin()
         {
