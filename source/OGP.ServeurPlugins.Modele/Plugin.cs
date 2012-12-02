@@ -8,67 +8,11 @@ namespace OGP.ServicePlugins.Modele
 {
     public class Plugin
     {
-		private string id;
-		private string name;
-		private string version;
-		private string description;
-		private string dossier;
-
-        public string Id
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
-        }
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
-        public string Version
-        {
-            get
-            {
-                return version;
-            }
-            set
-            {
-                version = value;
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-            }
-        }
-        public string Dossier
-        {
-            get
-            {
-                return dossier;
-            }
-            set
-            {
-                dossier = value;
-            }
-        }
+		private string Id {get; private set;}
+        private string Name { get; private set; }
+        private string Version { get; private set; }
+        private string Description { get; private set; }
+        private string Dossier { get; private set; }
 
         public Plugin()
         {
