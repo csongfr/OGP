@@ -8,11 +8,11 @@ namespace OGP.ServicePlugins.Modele
 {
     public class Plugin
     {
-		private string Id {get; private set;}
-        private string Name { get; private set; }
-        private string Version { get; private set; }
-        private string Description { get; private set; }
-        private string Dossier { get; private set; }
+		public string Id {get; private set;}
+        public string Name { get; private set; }
+        public string Version { get; private set; }
+        public string Description { get; private set; }
+        public string Dossier { get; private set; }
 
         public Plugin()
         {
