@@ -14,22 +14,51 @@ namespace OGP.ServicePlugins
 
     public class ServeurPlugins : IServicePlugin
     {
+        static private String Plugin_path = "plugins/";
         static private String XML_path = "ressources/";
         static private String XML_fileName = "plugins.xml";
         
-        IList<Plugin> plugins = XML_getPlugins();
+
+        static IList<Plugin> plugins = XML_getPlugins();
+
+
 
         public IList<Plugin> getPluginList()
         {
             return plugins;
         }
 
-        public bool addPlugin(Plugin p)
+        public bool addPlugin(Plugin p, MemoryStream memStream)
         {
-            plugins.Add(p);
-            XML_storePlugins();
+            bool b;
+            //Création du nom de dossier du plugin
+            String rep = p.Name + "/";
+            p.Dossier = p.Name+"_"+p.Version;
             
-            return true;
+            lock (plugins)
+            {
+                plugins.Add(p);
+
+                if (!System.IO.Directory.Exists(Plugin_path))
+                    System.IO.Directory.CreateDirectory(Plugin_path);
+
+                if (!System.IO.Directory.Exists(Plugin_path + rep))
+                    System.IO.Directory.CreateDirectory(Plugin_path + rep);
+
+                if (!System.IO.Directory.Exists(Plugin_path + rep + p.Dossier))
+                {
+                    FileStream fs = System.IO.File.Create(Plugin_path + rep + p.Dossier);
+
+                    putPlugin(memStream, fs);
+
+                    fs.Close();
+
+                    XML_storePlugins();
+                    b = true;
+                }
+                else b=false;
+            }
+            return b;
         }
 
         public bool removePlugin(string id)
@@ -45,24 +74,34 @@ namespace OGP.ServicePlugins
         public IList<Plugin> checkNewVersion(IList<Plugin> plugs)
         {
             IList<Plugin> res = new List<Plugin>();
-            foreach (Plugin p in plugs)
+            lock (plugins)
             {
-                Plugin up = getNewVersion(p);
-                if(up!=null)
-                    res.Add(up);
+                foreach (Plugin p in plugs)
+                {
+                    Plugin up = getNewVersion(p);
+                    if (up != null)
+                        res.Add(up);
+                }
             }
             return res;
         }
 
+        //Une version par plugin sur le serveur
         private Plugin getNewVersion(Plugin plug)
         {
-            foreach (Plugin p in plugins)
+            Plugin new_plug=null;
+            lock (plugins)
             {
-                if (p.Name == plug.Name)
-                    if (versionSup(p.Version, plug.Version)) //Passage à p.supVersion ?
-                        return p;
+                foreach (Plugin p in plugins)
+                {
+                    if (p.Name == plug.Name)
+                        if (versionSup(p.Version, plug.Version)){ //Passage à p.supVersion ?
+                            new_plug = p;
+                            break;
+                        }
+                }
             }
-            return null;
+            return new_plug;
         }
 
         private bool versionSup(string p1, string p2)
@@ -84,12 +123,21 @@ namespace OGP.ServicePlugins
             try
             {
                 xmlFile = new FileStream(XML_path + XML_fileName, FileMode.Open);
-                res = (IList<Plugin>)serializer.Deserialize(xmlFile);
+                lock (XML_path)
+                {
+                    res = (IList<Plugin>)serializer.Deserialize(xmlFile);
+                }
                 xmlFile.Close();
             } catch (Exception e)
             {
                 StreamWriter xmlWriter = new StreamWriter(XML_path + XML_fileName);
-                serializer.Serialize(xmlWriter, res);
+                lock (XML_path)
+                {
+                    if (!System.IO.Directory.Exists(XML_path))
+                        System.IO.Directory.CreateDirectory(XML_path);
+
+                    serializer.Serialize(xmlWriter, res);
+                }
                 xmlWriter.Close();
             }
             finally{
@@ -102,12 +150,28 @@ namespace OGP.ServicePlugins
 
         private void XML_storePlugins()
         {
-            System.Console.WriteLine("Passed");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
             StreamWriter xmlFile = new StreamWriter(XML_path + XML_fileName);
-            serializer.Serialize(xmlFile,plugins);
+            lock (XML_path)
+            {
+                if (!System.IO.Directory.Exists(XML_path))
+                    System.IO.Directory.CreateDirectory(XML_path);
+
+                serializer.Serialize(xmlFile, plugins);
+            }
             xmlFile.Close();
 
+        }
+
+        private void putPlugin(MemoryStream memStream, FileStream filePlugin)
+        {
+            int cpt = 0;
+
+            while (cpt < memStream.Length)
+            {
+                filePlugin.WriteByte(Convert.ToByte(memStream.ReadByte()));
+                cpt++;
+            }            
         }
     }
 }
