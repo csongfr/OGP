@@ -58,19 +58,23 @@
   <ItemGroup>
     <Compile Include="PluginOGPClientLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\RibbonFenetreViewModel.cs" />
-    <Compile Include="ViewModel\ZonePrincipaleViewModel.cs" />
-    <Compile Include="View\ZonePrincipale.xaml.cs">
-      <DependentUpon>ZonePrincipale.xaml</DependentUpon>
+    <Compile Include="ViewModel\RibbonWindowViewModel.cs" />
+    <Compile Include="ViewModel\DocumentDockViewModel.cs" />
+    <Compile Include="View\DocumentDock.xaml.cs">
+      <DependentUpon>DocumentDock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RibbonFenetre.xaml.cs">
-      <DependentUpon>RibbonFenetre.xaml</DependentUpon>
+    <Compile Include="View\RibbonWindow.xaml.cs">
+      <DependentUpon>RibbonWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\externe\Cinch\Cinch.csproj">
       <Project>{6db457f0-c6b4-4268-8304-4f5b586e50ff}</Project>
       <Name>Cinch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ClientWpf\OGP.ClientWpf.csproj">
+      <Project>{9dca1678-8b1c-49ad-b279-0010c0a5f9f9}</Project>
+      <Name>OGP.ClientWpf</Name>
     </ProjectReference>
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{df6c92ef-262c-4ae3-a3f3-c0b91dc0653d}</Project>
@@ -95,11 +99,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="View\ZonePrincipale.xaml">
+    <Page Include="View\DocumentDock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RibbonFenetre.xaml">
+    <Page Include="View\RibbonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

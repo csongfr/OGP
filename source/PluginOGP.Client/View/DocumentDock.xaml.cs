@@ -1,4 +1,5 @@
 ﻿using AvalonDock;
+using PluginOGP.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace PluginOGP.Client.View
     /// <summary>
     /// Interaction logic for FenetrePrincipale.xaml
     /// </summary>
-    public partial class ZonePrincipale : DocumentContent
+    public partial class DocumentDock : DocumentContent
     {
-        public ZonePrincipale()
+        public DocumentDock(string title)
         {
             InitializeComponent();
+            this.Title = title;
+            this.DataContext = new DocumentDockViewModel();
         }
     }
 }

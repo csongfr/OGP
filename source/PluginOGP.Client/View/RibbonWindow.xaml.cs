@@ -22,12 +22,12 @@ namespace PluginOGP.Client.View
     /// Interaction logic for FenetrePrincipale.xaml
     /// </summary>
     [Export(typeof(IOgpMenu))]
-    public partial class RibbonFenetre : RibbonTabItem, IOgpMenu
+    public partial class RibbonWindow : RibbonTabItem, IOgpMenu
     {
-        public RibbonFenetre()
+        public RibbonWindow()
         {
             InitializeComponent();
-            //this.DataContext = new RibbonFenetre();
+            this.DataContext = new RibbonWindowViewModel();
         }
     }
 }

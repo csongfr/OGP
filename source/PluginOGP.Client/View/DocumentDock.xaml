@@ -1,4 +1,4 @@
-﻿<ad:DocumentContent x:Class="PluginOGP.Client.View.ZonePrincipale"
+﻿<ad:DocumentContent x:Class="PluginOGP.Client.View.DocumentDock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ad="clr-namespace:AvalonDock;assembly=AvalonDock"
@@ -7,8 +7,7 @@
     xmlns:View="clr-namespace:PluginOGP.Client.View"
     xmlns:ViewModel="clr-namespace:PluginOGP.Client.ViewModel"
     xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-    Title="Local plugins" mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="600">
+    mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
@@ -16,17 +15,17 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="24"/>
         </Grid.ColumnDefinitions>
-        <ToolBar Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="Auto" Margin="0,0,0,0" Grid.RowSpan="1" VerticalAlignment="Stretch" Width="Auto">
-            <TextBlock Width="50" VerticalAlignment="Top"/>
-        </ToolBar>
-
-        <ad:DockingManager x:Name="dockManager" Grid.Row="1">
+        <Border BorderBrush="Black" BorderThickness="2" CornerRadius="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
+            <TextBox HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Center" Width="Auto" Text="Search for a plugin..."/>
+        </Border>
+        <Button VerticalAlignment="Top" RenderTransformOrigin="-0.107,-0.357" Grid.Column="1" Height="24" >
+            <Image Source="{StaticResource RechargerGrande}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <ad:DockingManager x:Name="dockManager" Grid.Row="1" Grid.ColumnSpan="2">
             <ad:ResizingPanel Orientation="Horizontal">
-                <ad:DocumentPane>
-                    <ad:DocumentContent Title="Local plugins"/>
-                    <ad:DocumentContent Title="Available plugins in server"/>
-                </ad:DocumentPane>
+                <ad:DocumentPane/>
             </ad:ResizingPanel>
         </ad:DockingManager>
     </Grid>

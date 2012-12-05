@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cinch;
 
 namespace PluginOGP.Client.ViewModel
 {
-
-    #region Constructeur
-    class RibbonFenetreViewModel
+    class DocumentDockViewModel : ViewModelBase
     {
+        public DocumentDockViewModel()
+        {          
+        }
     }
-    #endregion
-
 }
