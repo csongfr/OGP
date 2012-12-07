@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.IO;
 using OGP.ServicePlugins.Modele;
 
 namespace OGP.ServicePlugins
@@ -12,24 +13,24 @@ namespace OGP.ServicePlugins
     public interface IServicePlugin
     {
         [OperationContract]
-        IList<Plugin> getPluginList();
+        IList<Plugin> GetPluginList();
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
-        bool addPlugin(Plugin p);
+        bool AddPlugin(Plugin p, MemoryStream memStream);
 
         [OperationContract]
-        bool removePlugin(string id);
+        bool RemovePlugin(string id);
 
         [OperationContract]
-        bool updatePlugin(Plugin p);
+        bool UpdatePlugin(Plugin p);
 
         [OperationContract]
-        IList<Plugin> checkNewVersion(IList<Plugin> plugs);
+        IList<Plugin> CheckNewVersion(IList<Plugin> plugs);
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
-        bool downloadPlugin(string id);
+        bool DownloadPlugin(string id);
     }
     /*
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IService1" à la fois dans le code et le fichier de configuration.

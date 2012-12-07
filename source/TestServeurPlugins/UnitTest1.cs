@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OGP.ServicePlugins.Modele;
 using OGP.ServicePlugins;
+using System.IO;
+
 
 namespace TestServeurPlugins
 {
@@ -13,9 +15,10 @@ namespace TestServeurPlugins
         {
             ServeurPlugins sp = new ServeurPlugins();
 
-            Plugin p = new Plugin("PluginTest2", "Test", "7.1.3.5", "Ceci est un test", "/test");
+            Plugin p = new Plugin("PluginTest2", "Test", "7.1.3.5", "Ceci est un test", "/test", true);
             
-            sp.addPlugin(p);
+            sp.AddPlugin(p, new MemoryStream());
         }
+
     }
 }

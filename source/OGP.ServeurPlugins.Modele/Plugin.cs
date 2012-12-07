@@ -25,17 +25,21 @@ namespace OGP.ServicePlugins.Modele
         [IgnoreDataMemberAttribute]
         public string Dossier { get; set; }
 
+        [DataMember]
+        public bool Actif {get; set;}
+
         public Plugin()
         {
         }
 
-        public Plugin(string id, string name, string version, string description, string dossier)
+        public Plugin(string id, string name, string version, string description, string dossier, bool actif)
         {
             this.Id = id;
             this.Name = name;
             this.Version = version;
             this.Description = description;
             this.Dossier = dossier;
+            this.Actif = actif;
         }
     }
 }
