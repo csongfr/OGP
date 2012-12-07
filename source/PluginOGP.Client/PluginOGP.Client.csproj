@@ -58,10 +58,14 @@
   <ItemGroup>
     <Compile Include="PluginOGPClientLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\PluginSummaryViewModel.cs" />
     <Compile Include="ViewModel\RibbonWindowViewModel.cs" />
     <Compile Include="ViewModel\DocumentDockViewModel.cs" />
     <Compile Include="View\DocumentDock.xaml.cs">
       <DependentUpon>DocumentDock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PluginSummary.xaml.cs">
+      <DependentUpon>PluginSummary.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RibbonWindow.xaml.cs">
       <DependentUpon>RibbonWindow.xaml</DependentUpon>
@@ -103,10 +107,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PluginSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RibbonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ressources\Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

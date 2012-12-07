@@ -83,8 +83,7 @@ namespace PluginOGP.Client.ViewModel
         }
 
         #endregion
-
-
+        
 
         #region Actions
 

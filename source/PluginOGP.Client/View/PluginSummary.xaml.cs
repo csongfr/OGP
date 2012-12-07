@@ -1,5 +1,4 @@
-﻿using AvalonDock;
-using PluginOGP.Client.ViewModel;
+﻿using PluginOGP.Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +17,14 @@ using System.Windows.Shapes;
 namespace PluginOGP.Client.View
 {
     /// <summary>
-    /// Interaction logic for FenetrePrincipale.xaml
+    /// Interaction logic for PluginSummary.xaml
     /// </summary>
-    public partial class DocumentDock : DocumentContent
+    public partial class PluginSummary : UserControl
     {
-        public DocumentDock(string title)
+        public PluginSummary()
         {
             InitializeComponent();
-            this.Title = title;
-            this.DataContext = new DocumentDockViewModel();
-
-            // test
-            for (int i = 0; i < 10; i++)
-                this.pluginPanel.Children.Add(new PluginSummary());
+            this.DataContext = new PluginSummaryViewModel();
         }
     }
 }
