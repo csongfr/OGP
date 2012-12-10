@@ -90,7 +90,7 @@ namespace OGP.ServicePlugins
         public IList<Plugin> CheckNewVersion(IList<Plugin> plugs)
         {
             IList<Plugin> res = new List<Plugin>();
-            lock (plugins)
+            lock (lockPlugins)
             {
                 foreach (Plugin p in plugs)
                 {
@@ -106,7 +106,7 @@ namespace OGP.ServicePlugins
 
         private Plugin getNewVersion(Plugin plug)
         {
-            lock (plugins)
+            lock (lockPlugins)
             {
                 return plugins.Where(p => p.Name == plug.Name && p.Actif)
                     .FirstOrDefault();

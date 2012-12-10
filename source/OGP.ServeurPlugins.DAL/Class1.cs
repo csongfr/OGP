@@ -33,7 +33,9 @@ namespace OGP.ServicePlugins.DAL
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
             FileStream xmlFile = new FileStream(xml_file, FileMode.Open);
-            return (List<Plugin>)serializer.Deserialize(xmlFile);
+            List<Plugin> plugins = (List<Plugin>)serializer.Deserialize(xmlFile);
+            xmlFile.Close();
+            return plugins;
         }
 
     }
