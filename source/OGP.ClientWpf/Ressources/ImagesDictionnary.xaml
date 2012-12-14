@@ -15,5 +15,10 @@
     <ImageSource x:Key="RechargerGrande">Images/recharger-32x32.png</ImageSource>
     <ImageSource x:Key="SupprimerPetite">Images/supprimer-16x16.png</ImageSource>
     <ImageSource x:Key="SupprimerGrande">Images/supprimer-32x32.png</ImageSource>
+    <ImageSource x:Key="RechercheGrande">Images/search-32x32.png</ImageSource>
+    <ImageSource x:Key="RecherchePetite">Images/search-16x16.png</ImageSource>
+    <ImageSource x:Key="Telecharger">Images/download-32x32.png</ImageSource>
+    <ImageSource x:Key="Desinstaller">Images/uninstall-32x32.png</ImageSource>
+
 
 </ResourceDictionary>

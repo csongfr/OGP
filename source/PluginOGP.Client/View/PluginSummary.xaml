@@ -22,11 +22,15 @@
                         <ColumnDefinition Width="300*"/>
                         <ColumnDefinition Width="80*"/>
                         <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Plugin name" Grid.Column="0" Margin="30,0,0,0" VerticalAlignment="Center"></Label>
                     <ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto"  VerticalAlignment="Stretch" Width="Auto" Margin="12,4,12,4"/>
-                    <Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
-                        <Image Source="{StaticResource RechargerGrande}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button Name="DownloadButton" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
+                        <Image Source="{StaticResource Telecharger}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button Name="UninstallButton" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
+                        <Image Source="{StaticResource Desinstaller}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
                 </Grid>
             </Expander.Header>

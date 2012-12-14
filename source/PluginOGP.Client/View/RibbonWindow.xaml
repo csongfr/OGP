@@ -8,11 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <Fluent:RibbonGroupBox Header="Shortcuts">
+    <Fluent:RibbonGroupBox Header="See plugins">
         <DockPanel>
             <Fluent:Button SizeDefinition="Large" Header="Local" Name="Local"  Command="{Binding OpenLocalCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
             <Fluent:Button SizeDefinition="Large" Header="Server"  Name="Server"  Command="{Binding OpenServerCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
+        </DockPanel>
+    </Fluent:RibbonGroupBox>
+    <Fluent:RibbonGroupBox Header="Tools">
+        <DockPanel>
             <Fluent:Button SizeDefinition="Large" Header="Login" Name="Login"  Command="{Binding LoginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
+            <Fluent:Button SizeDefinition="Large" Header="Import" Name="Import"  Command="{Binding ImportPluginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
         </DockPanel>
     </Fluent:RibbonGroupBox>
 

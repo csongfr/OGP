@@ -27,10 +27,38 @@ namespace PluginOGP.Client.View
             InitializeComponent();
             this.Title = title;
             this.DataContext = new DocumentDockViewModel();
+        }
+    }
 
+    public class LocalDocumentDock : DocumentDock
+    {
+        public LocalDocumentDock(string title)
+            : base(title)
+        {
             // test
             for (int i = 0; i < 10; i++)
-                this.pluginPanel.Children.Add(new PluginSummary());
+            {
+                PluginSummary ps = new PluginSummary();
+                ps.DownloadButton.IsEnabled = false;
+                ps.UninstallButton.IsEnabled = true;
+                this.pluginPanel.Children.Add(ps);
+            }
+        }
+    }
+
+    public class ServerDocumentDock : DocumentDock
+    {
+        public ServerDocumentDock(string title)
+            : base(title)
+        {
+            // test
+            for (int i = 0; i < 10; i++)
+            {
+                PluginSummary ps = new PluginSummary();
+                ps.DownloadButton.IsEnabled = true;
+                ps.UninstallButton.IsEnabled = false;
+                this.pluginPanel.Children.Add(ps);
+            }
         }
     }
 }

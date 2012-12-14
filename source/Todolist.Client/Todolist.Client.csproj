@@ -85,29 +85,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\NouvelleGestionTacheViewModel.cs" />
     <Compile Include="ViewModel\PopupOuvrirTodolistViewModel.cs" />
+    <Compile Include="View\NouvelleGestionTache.xaml.cs">
+      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RibbonTabTest.xaml.cs">
       <DependentUpon>RibbonTabTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TodolistView.xaml.cs">
       <DependentUpon>TodolistView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NouvelleGestionTache.xaml.cs">
-      <DependentUpon>NouvelleGestionTache.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\PopupOuvrirTodolistView.xaml.cs">
       <DependentUpon>PopupOuvrirTodolistView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\NouvelleGestionTache.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\RibbonTabTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TodolistView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\NouvelleGestionTache.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
