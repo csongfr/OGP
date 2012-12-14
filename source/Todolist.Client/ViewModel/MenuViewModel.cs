@@ -13,6 +13,8 @@ using Todolist.Client.Ressources;
 using OGP.Plugin.Interfaces;
 using Plugin.Todolist;
 using Todolist.Commun;
+using OGP.Plugin.Exception;
+using System.ComponentModel;
 
 namespace Todolist.ViewModel
 {
@@ -469,17 +471,32 @@ namespace Todolist.ViewModel
 
             if (enregistrer == "Yes")
             {
-                var erreur = WcfHelper.Execute<IServiceGestionTaches>(
-                    client =>
+                var background = new BackgroundWorker();
+                background.DoWork += (DoWorkEventHandler)((sender, e) =>
                     {
-                        OnProjetEnregistrerChanged();
-                        ProjetOuvert = client.EnregistrerToDoList(ProjetOuvert);
+                        var erreur = WcfHelper.Execute<IServiceGestionTaches>(
+                            client =>
+                            {
+                                OnProjetEnregistrerChanged();
+                                ProjetOuvert = client.EnregistrerToDoList(ProjetOuvert);
+                            });
+
+                            if (erreur != null)
+                            {
+                                throw new OgpPluginException("", erreur);
+                            }
                     });
 
-                if (erreur != null)
-                {
-                }
+                //background.RunWorkerCompleted += background_RunWorkerCompleted;
+                background.RunWorkerAsync();
+
+
             }
+        }
+
+        void background_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw e.Error;
         }
 
         /// <summary>

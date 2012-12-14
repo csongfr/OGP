@@ -19,13 +19,12 @@ namespace OGP.ServicePlugins.DAL
         public static void StorePlugins(IList<Plugin> plugins, string xml_file)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
-            using (StreamWriter xmlWriter = new StreamWriter(xml_file))
+            lock (lockXML)
             {
-                lock (lockXML)
+                using (StreamWriter xmlWriter = new StreamWriter(xml_file))
                 {
                     serializer.Serialize(xmlWriter, plugins);
                 }
-                xmlWriter.Close();
             }
         }
 
