@@ -23,14 +23,14 @@ namespace OGP.ServicePlugins
         bool RemovePlugin(string id);
 
         [OperationContract]
-        bool UpdatePlugin(Plugin p);
+        bool UpdatePlugin(Plugin p, MemoryStream memStream);
 
         [OperationContract]
         IList<Plugin> CheckNewVersion(IList<Plugin> plugs);
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
-        bool DownloadPlugin(string id);
+        MemoryStream DownloadPlugin(string id);
     }
     /*
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IService1" à la fois dans le code et le fichier de configuration.

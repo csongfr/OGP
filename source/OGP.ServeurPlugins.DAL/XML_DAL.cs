@@ -14,14 +14,14 @@ namespace OGP.ServicePlugins.DAL
 
     public class XML_DAL
     {
-        private static object lockFile = new object();
+        private static object lockXML = new object();
 
         public static void StorePlugins(IList<Plugin> plugins, string xml_file)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
             using (StreamWriter xmlWriter = new StreamWriter(xml_file))
             {
-                lock (lockFile)
+                lock (lockXML)
                 {
                     serializer.Serialize(xmlWriter, plugins);
                 }
@@ -33,7 +33,11 @@ namespace OGP.ServicePlugins.DAL
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Plugin>));
             FileStream xmlFile = new FileStream(xml_file, FileMode.Open);
-            List<Plugin> plugins = (List<Plugin>)serializer.Deserialize(xmlFile);
+            List<Plugin> plugins;
+            lock (lockXML)
+            {
+                plugins = (List<Plugin>)serializer.Deserialize(xmlFile);
+            }
             xmlFile.Close();
             return plugins;
         }

@@ -44,9 +44,7 @@ namespace OGP.ServicePlugins
                     foreach (Plugin p in plugins)
                     {
                         if (p.Name == plug.Name)
-                        {
                             p.Actif = false;
-                        }
                     }
                 }
                 plugins.Add(plug);
@@ -63,11 +61,7 @@ namespace OGP.ServicePlugins
 
                 if (!System.IO.Directory.Exists(Plugin_path + rep + plug.Dossier))
                 {
-                    FileStream fs = System.IO.File.Create(Plugin_path + rep + plug.Dossier);
-
-                    putPlugin(memStream, fs);
-
-                    fs.Close();
+                    File_DAL.putPlugin(memStream, Plugin_path + rep + plug.Dossier);
 
                     XML_DAL.StorePlugins(plugins, XML_path + XML_fileName);
                     b = true;
@@ -82,7 +76,7 @@ namespace OGP.ServicePlugins
             throw new NotImplementedException();
         }
 
-        public bool UpdatePlugin(Plugin p)
+        public bool UpdatePlugin(Plugin p, MemoryStream memStream)
         {
             throw new NotImplementedException();
         }
@@ -113,9 +107,11 @@ namespace OGP.ServicePlugins
             }
         }
 
-        public bool DownloadPlugin(string id)
+        public MemoryStream DownloadPlugin(string id)
         {
-            throw new NotImplementedException();
+            Plugin plug = plugins.Where(p => p.Id.Equals(id)).First();
+            
+            return File_DAL.getPlugin(Plugin_path+plug.Name+"/" + plug.Dossier);
         }
 
         static private IList<Plugin> initializePlugins(){
@@ -135,19 +131,6 @@ namespace OGP.ServicePlugins
             }
 
             return res;
-        }
-
-       
-
-        private void putPlugin(MemoryStream memStream, FileStream filePlugin)
-        {
-            int cpt = 0;
-
-            while (cpt < memStream.Length)
-            {
-                filePlugin.WriteByte(Convert.ToByte(memStream.ReadByte()));
-                cpt++;
-            }            
         }
     }
 }
