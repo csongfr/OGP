@@ -13,20 +13,20 @@ namespace OGP.ServicePlugins
     public interface IServicePlugin
     {
         [OperationContract]
-        IList<Plugin> GetPluginList();
+        IList<PluginModel> GetPluginList();
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]
-        bool AddPlugin(Plugin p, MemoryStream memStream);
+        bool AddPlugin(PluginModel p, MemoryStream memStream);
 
         [OperationContract]
         bool RemovePlugin(string id);
 
         [OperationContract]
-        bool UpdatePlugin(Plugin p, MemoryStream memStream);
+        bool UpdatePlugin(PluginModel p, MemoryStream memStream);
 
         [OperationContract]
-        IList<Plugin> CheckNewVersion(IList<Plugin> plugs);
+        IList<PluginModel> CheckNewVersion(IList<PluginModel> plugs);
 
         // TODO : ajouter paramètre pour transfert fichier
         [OperationContract]

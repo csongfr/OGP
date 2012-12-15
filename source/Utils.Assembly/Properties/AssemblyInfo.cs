@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PluginTest")]
-[assembly: AssemblyDescription("Test 1")]
+[assembly: AssemblyTitle("Utils.Assembly")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("SopraGroup")]
-[assembly: AssemblyProduct("PluginTest")]
-[assembly: AssemblyCopyright("Copyright © SopraGroup 2012")]
+[assembly: AssemblyCompany("ENSEIRB")]
+[assembly: AssemblyProduct("Utils.Assembly")]
+[assembly: AssemblyCopyright("Copyright © ENSEIRB")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0a1295c7-439a-4d94-b74d-1397fd62aa97")]
+[assembly: Guid("1d630283-a986-49f1-8996-e67b5c7efdb1")]
 
 // Version information for an assembly consists of the following four values:
 //

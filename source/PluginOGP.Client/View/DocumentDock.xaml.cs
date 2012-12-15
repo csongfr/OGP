@@ -1,5 +1,9 @@
 ﻿using AvalonDock;
+using Cinch;
+using OGP.Plugin.Interfaces;
+using OGP.ServicePlugins.Modele;
 using PluginOGP.Client.ViewModel;
+using QuantumBitDesigns.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +31,7 @@ namespace PluginOGP.Client.View
             InitializeComponent();
             this.Title = title;
             this.DataContext = new DocumentDockViewModel();
+            
         }
     }
 
@@ -35,10 +40,10 @@ namespace PluginOGP.Client.View
         public LocalDocumentDock(string title)
             : base(title)
         {
-            // test
-            for (int i = 0; i < 10; i++)
+            IPluginsInfo pi = ((DocumentDockViewModel)this.DataContext).PluginsInformations;
+            foreach (PluginModel plugin in pi.GetPluginsInfo())
             {
-                PluginSummary ps = new PluginSummary();
+                PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
                 ps.DownloadButton.IsEnabled = false;
                 ps.UninstallButton.IsEnabled = true;
                 this.pluginPanel.Children.Add(ps);

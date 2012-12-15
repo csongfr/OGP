@@ -24,25 +24,25 @@ namespace PluginOGP.Client.ViewModel
 
         #region private components
 
-        private DocumentDock localDockInstance = null;
-        private DocumentDock serverDockInstance = null;
+        private DocumentDock localDockInstance;
+        private DocumentDock serverDockInstance;
 
         /// <summary>
         /// Commande qui affiche les plugins locaux
         /// </summary>
-        private SimpleCommand openLocalCommand = null;
+        private SimpleCommand openLocalCommand;
         /// <summary>
         /// Commande qui affiche les plugins disponibles sur serveur
         /// </summary>
-        private SimpleCommand openServerCommand = null;
+        private SimpleCommand openServerCommand;
         /// <summary>
         /// Commande qui permet de s'identifier
         /// </summary>
-        private SimpleCommand loginCommand = null;
+        private SimpleCommand loginCommand;
         /// <summary>
         /// Commande qui permet d'importer un plugin
         /// </summary>
-        private SimpleCommand importPluginCommand = null;
+        private SimpleCommand importPluginCommand;
 
         #endregion
 
@@ -182,7 +182,7 @@ namespace PluginOGP.Client.ViewModel
                 // Open document
                 string filepath = dlg.FileName;
                 string filename = Path.GetFileName(filepath);
-                string dstFilepath = AppConfig.Instance.RepertoirePlugins + Path.DirectorySeparatorChar + filename;
+                string dstFilepath = AppConfig.Instance.RepertoirePluginsSynchro + Path.DirectorySeparatorChar + filename;
                 File.Copy(filepath, dstFilepath, true);
                 new WPFMessageBoxService().ShowInformation("Plugin imported.");
             }

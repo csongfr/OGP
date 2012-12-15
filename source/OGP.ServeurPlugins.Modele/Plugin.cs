@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace OGP.ServicePlugins.Modele
 {
     [DataContract]
-    public class Plugin
+    public class PluginModel
     {
         [DataMember]
 		public string Id {get; set;}
@@ -28,11 +28,11 @@ namespace OGP.ServicePlugins.Modele
         [DataMember]
         public bool Actif {get; set;}
 
-        public Plugin()
+        public PluginModel()
         {
         }
 
-        public Plugin(string id, string name, string version, string description, string dossier, bool actif)
+        public PluginModel(string id, string name, string version, string description, string dossier, bool actif)
         {
             this.Id = id;
             this.Name = name;

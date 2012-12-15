@@ -30,11 +30,19 @@ namespace OGP.ClientWpf
 
        #endregion
 
-       public string RepertoirePlugins
+       public string RepertoirePluginsSynchro
        {
            get
            {
-               return ConfigHelper.RetrieveConfig("OGP.ClientWpf", "plugins", "repertoirePlugins");
+               return ConfigHelper.RetrieveConfig("OGP.ClientWpf", "plugins", "repertoirePluginsSynchro");
+           }
+       }
+
+       public string RepertoirePluginsLocal
+       {
+           get
+           {
+               return ConfigHelper.RetrieveConfig("OGP.ClientWpf", "plugins", "repertoirePluginsLocal");
            }
        }
    }

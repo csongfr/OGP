@@ -11,13 +11,16 @@ using Cinch;
 using OGP.Plugin.Interfaces;
 using QuantumBitDesigns.Core;
 using Fluent;
+using System.Collections.Generic;
+using Utils.AssemblyInfoResolver;
+using OGP.ServicePlugins.Modele;
 
 namespace OGP.ClientWpf.ViewModel
 {
     /// <summary>
     /// Fenêtre principale
     /// </summary>
-    public class MainViewModel : ViewModelBase, ICentralOnglets
+    public class MainViewModel : ViewModelBase, ICentralOnglets, IPluginsInfo
     {
         #region Membres privés
 
@@ -179,6 +182,18 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments.Add(doc);
         }
 
+        public IEnumerable<PluginModel> GetPluginsInfo()
+        {
+            return this.ListeMenu.Select<IOgpMenu, PluginModel>(menu =>
+            {
+                var aih = new AssemblyInfoHelper(menu.GetType());
+                PluginModel plugin = new PluginModel();
+                plugin.Name = aih.Title;
+                plugin.Description = aih.Description;
+                return plugin;
+            });
+        }
+
         #endregion
 
         #region Méthodes privées
@@ -190,11 +205,13 @@ namespace OGP.ClientWpf.ViewModel
         {
             try
             {
-                string repertoire = AppConfig.Instance.RepertoirePlugins;
+                string repertoireSynchro = AppConfig.Instance.RepertoirePluginsSynchro;
+                string repertoireLocal = AppConfig.Instance.RepertoirePluginsLocal;
 
                 var catalog = new AggregateCatalog();
 
-                catalog.Catalogs.Add(new DirectoryCatalog(repertoire));
+                catalog.Catalogs.Add(new DirectoryCatalog(repertoireLocal));
+                catalog.Catalogs.Add(new DirectoryCatalog(repertoireSynchro));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);
             }
@@ -219,6 +236,7 @@ namespace OGP.ClientWpf.ViewModel
         {
             this.ListeDocuments = new ObservableList<DocumentContent>();
             ServiceProvider.Add(typeof(ICentralOnglets), this);
+            ServiceProvider.Add(typeof(IPluginsInfo), this);
             this.ChargerPluginsDisponibles();
         }
 

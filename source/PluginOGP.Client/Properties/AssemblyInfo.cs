@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PluginOGP.Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Plugin de base qui permet de gerer tous les plugins")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("微软中国")]
+[assembly: AssemblyCompany("ENSEIRB")]
 [assembly: AssemblyProduct("PluginOGP.Client")]
-[assembly: AssemblyCopyright("Copyright © 微软中国 2012")]
+[assembly: AssemblyCopyright("Copyright © ENSEIRB")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

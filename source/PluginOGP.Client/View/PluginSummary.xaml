@@ -24,7 +24,7 @@
                         <ColumnDefinition Width="20*"/>
                         <ColumnDefinition Width="20*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Plugin name" Grid.Column="0" Margin="30,0,0,0" VerticalAlignment="Center"></Label>
+                    <Label Name="PluginTitle" Content="Plugin name" Grid.Column="0" Margin="30,0,0,0" VerticalAlignment="Center"></Label>
                     <ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto"  VerticalAlignment="Stretch" Width="Auto" Margin="12,4,12,4"/>
                     <Button Name="DownloadButton" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
                         <Image Source="{StaticResource Telecharger}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -35,7 +35,7 @@
                 </Grid>
             </Expander.Header>
             
-            <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="Description here" Height="30"/>
+            <TextBox Name="PluginDescription" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="Description here" Height="30"/>
         </Expander>                
      </Border>
 </UserControl>

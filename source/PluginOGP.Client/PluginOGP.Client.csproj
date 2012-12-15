@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\OGP.ClientWpf\bin\Debug\Ressources\Plugins\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\bin\Debug\Ressources\Plugins\Local\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,6 +83,10 @@
     <ProjectReference Include="..\OGP.Plugin\OGP.Plugin.csproj">
       <Project>{df6c92ef-262c-4ae3-a3f3-c0b91dc0653d}</Project>
       <Name>OGP.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OGP.ServeurPlugins.Modele\OGP.ServeurPlugins.Modele.csproj">
+      <Project>{816a7640-99e4-4c7f-b6b7-d85afd2c853f}</Project>
+      <Name>OGP.ServeurPlugins.Modele</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils.IO\Utils.IO.csproj">
       <Project>{4ddee057-e7ee-49e2-9498-edc08deafe91}</Project>

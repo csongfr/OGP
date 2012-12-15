@@ -19,17 +19,17 @@ namespace OGP.ServicePlugins
         static private String XML_fileName = "plugins.xml";
         
 
-        static IList<Plugin> plugins = initializePlugins();
+        static IList<PluginModel> plugins = initializePlugins();
         private static object lockPlugins = new object();
 
 
-        public IList<Plugin> GetPluginList()
+        public IList<PluginModel> GetPluginList()
         {
             return plugins;
         }
 
 
-        public bool AddPlugin(Plugin plug, MemoryStream memStream)
+        public bool AddPlugin(PluginModel plug, MemoryStream memStream)
         {
             bool b;
             //Création du nom de dossier du plugin
@@ -41,7 +41,7 @@ namespace OGP.ServicePlugins
             {
                 if (plug.Actif)
                 {
-                    foreach (Plugin p in plugins)
+                    foreach (PluginModel p in plugins)
                     {
                         if (p.Name == plug.Name)
                             p.Actif = false;
@@ -76,19 +76,19 @@ namespace OGP.ServicePlugins
             throw new NotImplementedException();
         }
 
-        public bool UpdatePlugin(Plugin p, MemoryStream memStream)
+        public bool UpdatePlugin(PluginModel p, MemoryStream memStream)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Plugin> CheckNewVersion(IList<Plugin> plugs)
+        public IList<PluginModel> CheckNewVersion(IList<PluginModel> plugs)
         {
-            IList<Plugin> res = new List<Plugin>();
+            IList<PluginModel> res = new List<PluginModel>();
             lock (lockPlugins)
             {
-                foreach (Plugin p in plugs)
+                foreach (PluginModel p in plugs)
                 {
-                    Plugin up = getNewVersion(p);
+                    PluginModel up = getNewVersion(p);
                     if (up != null)
                     {
                         res.Add(up);
@@ -98,7 +98,7 @@ namespace OGP.ServicePlugins
             return res;
         }
 
-        private Plugin getNewVersion(Plugin plug)
+        private PluginModel getNewVersion(PluginModel plug)
         {
             lock (lockPlugins)
             {
@@ -109,13 +109,13 @@ namespace OGP.ServicePlugins
 
         public MemoryStream DownloadPlugin(string id)
         {
-            Plugin plug = plugins.Where(p => p.Id.Equals(id)).First();
+            PluginModel plug = plugins.Where(p => p.Id.Equals(id)).First();
             
             return File_DAL.getPlugin(Plugin_path+plug.Name+"/" + plug.Dossier);
         }
 
-        static private IList<Plugin> initializePlugins(){
-            IList<Plugin> res = new List<Plugin>();
+        static private IList<PluginModel> initializePlugins(){
+            IList<PluginModel> res = new List<PluginModel>();
 
             try
             {

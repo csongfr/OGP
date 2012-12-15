@@ -15,7 +15,7 @@ namespace TestServeurPlugins
         {
             ServeurPlugins sp = new ServeurPlugins();
 
-            Plugin p = new Plugin("PluginTest2", "Test", "7.1.3.5", "Ceci est un test", "/test", true);
+            PluginModel p = new PluginModel("PluginTest2", "Test", "7.1.3.5", "Ceci est un test", "/test", true);
             
             sp.AddPlugin(p, new MemoryStream());
         }

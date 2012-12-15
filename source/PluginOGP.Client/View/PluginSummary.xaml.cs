@@ -26,5 +26,12 @@ namespace PluginOGP.Client.View
             InitializeComponent();
             this.DataContext = new PluginSummaryViewModel();
         }
+
+        public PluginSummary(string title, string description)
+            : this()
+        {
+            this.PluginTitle.Content = title;
+            this.PluginDescription.Text = description;
+        }
     }
 }

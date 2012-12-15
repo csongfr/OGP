@@ -170,6 +170,14 @@
       <Project>{DF6C92EF-262C-4AE3-A3F3-C0B91DC0653D}</Project>
       <Name>OGP.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OGP.ServeurPlugins.Modele\OGP.ServeurPlugins.Modele.csproj">
+      <Project>{816a7640-99e4-4c7f-b6b7-d85afd2c853f}</Project>
+      <Name>OGP.ServeurPlugins.Modele</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils.Assembly\Utils.AssemblyInfoResolver.csproj">
+      <Project>{4385341c-dd9d-442e-a460-d318fce18a59}</Project>
+      <Name>Utils.AssemblyInfoResolver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.Config\Utils.Config.csproj">
       <Project>{E957F2F3-F256-4795-B56C-654F286301F8}</Project>
       <Name>Utils.Config</Name>
