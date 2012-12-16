@@ -33,7 +33,7 @@ namespace OGP.ServicePlugins
         {
             bool b;
             //Création du nom de dossier du plugin
-            String rep = plug.Name + "/";
+            String rep = plug.Name + Path.DirectorySeparatorChar;
             plug.Id = plug.Name + "_" + plug.Version;
             plug.Dossier = plug.Name+"_"+plug.Version;
             
@@ -49,17 +49,17 @@ namespace OGP.ServicePlugins
                 }
                 plugins.Add(plug);
 
-                if (!System.IO.Directory.Exists(Plugin_path))
+                if (!Directory.Exists(Plugin_path))
                 {
-                    System.IO.Directory.CreateDirectory(Plugin_path);
+                    Directory.CreateDirectory(Plugin_path);
                 }
 
-                if (!System.IO.Directory.Exists(Plugin_path + rep))
+                if (!Directory.Exists(Plugin_path + rep))
                 {
-                    System.IO.Directory.CreateDirectory(Plugin_path + rep);
+                    Directory.CreateDirectory(Plugin_path + rep);
                 }
 
-                if (!System.IO.Directory.Exists(Plugin_path + rep + plug.Dossier))
+                if (!Directory.Exists(Plugin_path + rep + plug.Dossier))
                 {
                     File_DAL.putPlugin(memStream, Plugin_path + rep + plug.Dossier);
 
@@ -111,7 +111,7 @@ namespace OGP.ServicePlugins
         {
             PluginModel plug = plugins.Where(p => p.Id.Equals(id)).First();
             
-            return File_DAL.getPlugin(Plugin_path+plug.Name+"/" + plug.Dossier);
+            return File_DAL.getPlugin(Plugin_path+plug.Name + Path.DirectorySeparatorChar + plug.Dossier);
         }
 
         static private IList<PluginModel> initializePlugins(){

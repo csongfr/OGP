@@ -1,5 +1,6 @@
 ﻿using Cinch;
 using OGP.Plugin.Interfaces;
+using OGP.ServicePlugins;
 using PluginOGP.Client.View;
 using QuantumBitDesigns.Core;
 using System;
@@ -16,10 +17,12 @@ namespace PluginOGP.Client.ViewModel
     class DocumentDockViewModel : ViewModelBase
     {
         public IPluginsInfo PluginsInformations { get; private set; }
+        public IServicePlugin Service { get; private set; }
 
         public DocumentDockViewModel()
         {
             PluginsInformations = ServiceProvider.Resolve<IPluginsInfo>();
+            Service = ServiceProvider.Resolve<IServicePlugin>();
         }
     }
 }

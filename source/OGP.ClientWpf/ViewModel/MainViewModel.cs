@@ -14,6 +14,7 @@ using Fluent;
 using System.Collections.Generic;
 using Utils.AssemblyInfoResolver;
 using OGP.ServicePlugins.Modele;
+using OGP.ServicePlugins;
 
 namespace OGP.ClientWpf.ViewModel
 {
@@ -237,6 +238,7 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments = new ObservableList<DocumentContent>();
             ServiceProvider.Add(typeof(ICentralOnglets), this);
             ServiceProvider.Add(typeof(IPluginsInfo), this);
+            //ServiceProvider.Add(typeof(IServicePlugin), new ServeurPlugins());
             this.ChargerPluginsDisponibles();
         }
 

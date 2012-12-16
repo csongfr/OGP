@@ -10,14 +10,14 @@
     
     <Fluent:RibbonGroupBox Header="See plugins">
         <DockPanel>
-            <Fluent:Button SizeDefinition="Large" Header="Local" Name="Local"  Command="{Binding OpenLocalCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
-            <Fluent:Button SizeDefinition="Large" Header="Server"  Name="Server"  Command="{Binding OpenServerCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
+            <Fluent:Button SizeDefinition="Large" Header="Local" Name="Local"  Command="{Binding OpenLocalCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Show local plugins"/>
+            <Fluent:Button SizeDefinition="Large" Header="Server"  Name="Server"  Command="{Binding OpenServerCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Show available plugins in server"/>
         </DockPanel>
     </Fluent:RibbonGroupBox>
     <Fluent:RibbonGroupBox Header="Tools">
         <DockPanel>
-            <Fluent:Button SizeDefinition="Large" Header="Login" Name="Login"  Command="{Binding LoginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
-            <Fluent:Button SizeDefinition="Large" Header="Import" Name="Import"  Command="{Binding ImportPluginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" />
+            <Fluent:Button SizeDefinition="Large" Header="Login" Name="Login"  Command="{Binding LoginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Login"/>
+            <Fluent:Button SizeDefinition="Large" Header="Import" Name="Import"  Command="{Binding ImportPluginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Import a plugin"/>
         </DockPanel>
     </Fluent:RibbonGroupBox>
 

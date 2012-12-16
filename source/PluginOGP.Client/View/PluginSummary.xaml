@@ -21,15 +21,19 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300*"/>
                         <ColumnDefinition Width="80*"/>
-                        <ColumnDefinition Width="20*"/>
-                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="16*"/>
                     </Grid.ColumnDefinitions>
                     <Label Name="PluginTitle" Content="Plugin name" Grid.Column="0" Margin="30,0,0,0" VerticalAlignment="Center"></Label>
-                    <ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto"  VerticalAlignment="Stretch" Width="Auto" Margin="12,4,12,4"/>
-                    <Button Name="DownloadButton" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
+                    <ProgressBar Grid.Column="1" HorizontalAlignment="Stretch" Height="Auto"  VerticalAlignment="Stretch" Width="Auto" Margin="12,4,12,4" Visibility="Hidden"/>
+                    <Button Name="DownloadButton" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4" Command="{Binding DownloadCommand}" ToolTip="Download this plugin from server">
                         <Image Source="{StaticResource Telecharger}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
-                    <Button Name="UninstallButton" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4">
+                    <Button Name="UploadButton" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4" Command="{Binding UploadCommand}" ToolTip="Upload this plugin to server">
+                        <Image Source="{StaticResource Upload}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Button>
+                    <Button Name="UninstallButton" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4" Command="{Binding UninstallCommand}" ToolTip="Delete this plugin locally">
                         <Image Source="{StaticResource Desinstaller}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Button>
                 </Grid>

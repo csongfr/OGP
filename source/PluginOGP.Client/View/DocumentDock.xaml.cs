@@ -45,7 +45,6 @@ namespace PluginOGP.Client.View
             {
                 PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
                 ps.DownloadButton.IsEnabled = false;
-                ps.UninstallButton.IsEnabled = true;
                 this.pluginPanel.Children.Add(ps);
             }
         }
@@ -56,11 +55,19 @@ namespace PluginOGP.Client.View
         public ServerDocumentDock(string title)
             : base(title)
         {
+            //IList<PluginModel> pluginList = ((DocumentDockViewModel)this.DataContext).Service.GetPluginList();
+            //foreach (PluginModel plugin in pluginList)
+            //{
+            //    PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
+            //    ps.DownloadButton.IsEnabled = true;
+            //    ps.UninstallButton.IsEnabled = false;
+            //    this.pluginPanel.Children.Add(ps);
+            //}
             // test
             for (int i = 0; i < 10; i++)
-            {
+            { 
                 PluginSummary ps = new PluginSummary();
-                ps.DownloadButton.IsEnabled = true;
+                ps.UploadButton.IsEnabled = false;
                 ps.UninstallButton.IsEnabled = false;
                 this.pluginPanel.Children.Add(ps);
             }
