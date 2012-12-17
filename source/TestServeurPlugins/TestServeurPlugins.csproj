@@ -66,6 +66,10 @@
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>OGP.ServeurPlugins</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils.Wcf\Utils.Wcf.csproj">
+      <Project>{a1c4cf3d-af46-4bfc-8edb-62bbb8b4eb74}</Project>
+      <Name>Utils.Wcf</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

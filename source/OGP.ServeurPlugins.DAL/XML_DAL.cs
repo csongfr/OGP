@@ -7,9 +7,9 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using System.IO;
 
-using OGP.ServicePlugins.Modele;
+using OGP.ServicePlugin.Modele;
 
-namespace OGP.ServicePlugins.DAL
+namespace OGP.ServicePlugin.DAL
 {
 
     public class XML_DAL

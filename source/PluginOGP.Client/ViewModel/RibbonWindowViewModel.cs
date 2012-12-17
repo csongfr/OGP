@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cinch;
-using OGP.ClientWpf.View;
 using OGP.ClientWpf;
 using OGP.Plugin.Interfaces;
 using PluginOGP.Client.View;

@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OGP.ServicePlugins.Modele;
-using OGP.ServicePlugins;
+using OGP.ServicePlugin.Modele;
+using OGP.ServicePlugin;
 using System.IO;
+using Utils.Wcf;
 
 
 namespace TestServeurPlugins
@@ -20,5 +21,13 @@ namespace TestServeurPlugins
             sp.AddPlugin(p, new MemoryStream());
         }
 
+        [TestMethod]
+        public void TestMethode2()
+        {
+            var erreur = WcfHelper.Execute<IServicePlugin>(client =>
+                {
+                    client.GetPluginList();
+                });
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace OGP.ServicePlugins.DAL
+namespace OGP.ServicePlugin.DAL
 {
     public class File_DAL
     {
