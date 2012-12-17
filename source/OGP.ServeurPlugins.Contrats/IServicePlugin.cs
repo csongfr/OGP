@@ -5,9 +5,9 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.IO;
-using OGP.ServicePlugins.Modele;
+using OGP.ServicePlugin.Modele;
 
-namespace OGP.ServicePlugins
+namespace OGP.ServicePlugin
 {
     [ServiceContract]
     public interface IServicePlugin

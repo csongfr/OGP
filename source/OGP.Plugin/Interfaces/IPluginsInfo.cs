@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuantumBitDesigns.Core;
-using OGP.ServicePlugins.Modele;
+using OGP.ServicePlugin.Modele;
 
 namespace OGP.Plugin.Interfaces
 {

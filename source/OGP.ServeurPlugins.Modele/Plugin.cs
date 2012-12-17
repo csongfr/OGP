@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace OGP.ServicePlugins.Modele
+namespace OGP.ServicePlugin.Modele
 {
     [DataContract]
     public class PluginModel

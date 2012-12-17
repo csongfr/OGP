@@ -6,10 +6,10 @@ using System.ServiceModel;
 using System.Text;
 using System.IO;
 
-using OGP.ServicePlugins.Modele;
-using OGP.ServicePlugins.DAL;
+using OGP.ServicePlugin.Modele;
+using OGP.ServicePlugin.DAL;
 
-namespace OGP.ServicePlugins
+namespace OGP.ServicePlugin
 {
 
     public class ServeurPlugins : IServicePlugin
