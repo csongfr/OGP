@@ -34,8 +34,6 @@ namespace PluginOGP.Client.View
         {
             InitializeComponent();
             this.Title = title;
-            this.DataContext = new DocumentDockViewModel();
-            
         }
     }
 
@@ -44,7 +42,8 @@ namespace PluginOGP.Client.View
         public LocalDocumentDock(string title)
             : base(title)
         {
-            IPluginsInfo pi = ((DocumentDockViewModel)this.DataContext).PluginsInformations;
+            this.DataContext = new LocalPluginsViewModel();
+            IPluginsInfo pi = ((LocalPluginsViewModel)this.DataContext).LocalPluginsInformations;
             foreach (PluginModel plugin in pi.GetPluginsInfo())
             {
                 PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
@@ -59,50 +58,17 @@ namespace PluginOGP.Client.View
         public ServerDocumentDock(string title)
             : base(title)
         {
-            var erreur = WcfHelper.Execute<IServicePlugin>(client =>
+            this.DataContext = new ServerPluginsViewModel();
+
+            IList<PluginModel> pluginList = ((ServerPluginsViewModel)(this.DataContext)).Plugins;
+            foreach (PluginModel plugin in pluginList)
             {
-                client.GetPluginList();
-            });
-            //IList<PluginModel> pluginList = null;
-            //var background = new BackgroundWorker();
-            //background.DoWork += (DoWorkEventHandler)((sender, e) =>
-            //    {
-            //        Exception erreur = WcfHelper.Execute<IServicePlugin>(client =>
-            //            {
-            //                pluginList = client.GetPluginList();
-            //            });
-
-            //        if (erreur != null)
-            //        {
-            //            throw new OgpPluginException("", erreur);
-            //        }
-            //    });
-
-            //background.RunWorkerCompleted += (RunWorkerCompletedEventHandler)((sender, e) =>
-            //    {
-            //        if (pluginList != null)
-            //        {
-            //            foreach (PluginModel plugin in pluginList)
-            //            {
-            //                PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
-            //                ps.DownloadButton.IsEnabled = true;
-            //                ps.UninstallButton.IsEnabled = false;
-            //                this.pluginPanel.Children.Add(ps);
-            //            }
-            //        }
-            //    });
-
-            //background.RunWorkerAsync();
-
-           
-            ////test
-            //for (int i = 0; i < 10; i++)
-            //{ 
-            //    PluginSummary ps = new PluginSummary();
-            //    ps.UploadButton.IsEnabled = false;
-            //    ps.UninstallButton.IsEnabled = false;
-            //    this.pluginPanel.Children.Add(ps);
-            //}
+                PluginSummary ps = new PluginSummary(plugin.Name, plugin.Description);
+                ps.UploadButton.IsEnabled = false;
+                ps.UninstallButton.IsEnabled = false;
+                this.pluginPanel.Children.Add(ps);
+            }
         }
     }
+
 }
