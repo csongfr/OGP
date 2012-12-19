@@ -14,13 +14,13 @@ using System.Windows.Controls;
 
 namespace PluginOGP.Client.ViewModel
 {
-    class DocumentDockViewModel : ViewModelBase
+    class LocalPluginsViewModel : ViewModelBase
     {
-        public IPluginsInfo PluginsInformations { get; private set; }
+        public IPluginsInfo LocalPluginsInformations { get; private set; }
 
-        public DocumentDockViewModel()
+        public LocalPluginsViewModel()
         {
-            PluginsInformations = ServiceProvider.Resolve<IPluginsInfo>();
+            LocalPluginsInformations = ServiceProvider.Resolve<IPluginsInfo>();
         }
     }
 }

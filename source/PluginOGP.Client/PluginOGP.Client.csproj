@@ -60,7 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\PluginSummaryViewModel.cs" />
     <Compile Include="ViewModel\RibbonWindowViewModel.cs" />
-    <Compile Include="ViewModel\DocumentDockViewModel.cs" />
+    <Compile Include="ViewModel\LocalPluginsViewModel.cs" />
+    <Compile Include="ViewModel\ServerPluginsViewModel.cs" />
     <Compile Include="View\DocumentDock.xaml.cs">
       <DependentUpon>DocumentDock.xaml</DependentUpon>
     </Compile>
