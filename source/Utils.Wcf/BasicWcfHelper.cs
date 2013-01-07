@@ -30,7 +30,8 @@ namespace Utils.Wcf
         /// <returns>Si une exception a eu lieu, on la catche et on la retourne.</returns>
         public Exception Execute<T>(Action<T> action, ConfigurationWcf configurationWcf)
         {
-            if (configurationWcf == null)
+            
+           if (configurationWcf == null)
             {
                 throw new ArgumentNullException("La configuration WCF doit recevoir au minimum ConfigurationWcf.None");
             }

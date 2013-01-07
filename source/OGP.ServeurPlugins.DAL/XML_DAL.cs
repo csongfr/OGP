@@ -31,13 +31,15 @@ namespace OGP.ServicePlugin.DAL
         public static List<PluginModel> LoadPlugins(string xml_file)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<PluginModel>));
-            FileStream xmlFile = new FileStream(xml_file, FileMode.Open);
             List<PluginModel> plugins;
             lock (lockXML)
             {
-                plugins = (List<PluginModel>)serializer.Deserialize(xmlFile);
+                using (FileStream xmlFile = new FileStream(xml_file, FileMode.Open))
+                {
+                    String s = xmlFile.Name;
+                    plugins = (List<PluginModel>)serializer.Deserialize(xmlFile);
+                }
             }
-            xmlFile.Close();
             return plugins;
         }
 

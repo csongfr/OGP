@@ -21,8 +21,6 @@ namespace OGP.ServicePlugin.DAL
                     memStream.WriteByte(Convert.ToByte(fs.ReadByte()));
                     cpt++;
                 }
-
-                fs.Close();
                 return memStream;  
             }
 
@@ -39,7 +37,6 @@ namespace OGP.ServicePlugin.DAL
                     filePlugin.WriteByte(Convert.ToByte(memStream.ReadByte()));
                     cpt++;
                 }
-                filePlugin.Close();
             }
         }
     }

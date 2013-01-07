@@ -49,6 +49,8 @@ namespace PluginOGP.Client.ViewModel
             {
                 Plugins = client.GetPluginList();
             });
+            //Plugins.Add(new PluginModel());
+            //int s = Plugins.Count;
         }
     }
 }
