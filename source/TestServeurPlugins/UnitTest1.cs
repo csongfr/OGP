@@ -7,7 +7,6 @@ using OGP.ServicePlugin;
 using OGP.ServicePlugin.Modele;
 using OGP.ServicePlugin.DAL;
 using System.Windows.Forms;
-using OGP.ServicePlugin.DAL;
 
 namespace TestServeurPlugins
 {
