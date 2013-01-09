@@ -47,8 +47,7 @@ namespace OGP.ServicePlugin
                             p.Actif = false;
                     }
                 }
-                plugins.Add(plug);
-
+                
                 if (!Directory.Exists(Plugin_path))
                 {
                     Directory.CreateDirectory(Plugin_path);
@@ -59,14 +58,17 @@ namespace OGP.ServicePlugin
                     Directory.CreateDirectory(Plugin_path + rep);
                 }
 
-                if (!Directory.Exists(Plugin_path + rep + plug.Dossier))
+                if (!File.Exists(Plugin_path + rep + plug.Dossier))
                 {
+                    plugins.Add(plug);
+
                     File_DAL.putPlugin(memStream, Plugin_path + rep + plug.Dossier);
 
                     XML_DAL.StorePlugins(plugins, XML_path + XML_fileName);
                     b = true;
                 }
-                else b=false;
+                else { b = false; }
+
             }
             return b;
         }
