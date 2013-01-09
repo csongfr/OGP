@@ -11,32 +11,14 @@ namespace OGP.ServicePlugin.DAL
     {
         public static MemoryStream getPlugin(string pluginPath)
         {
-            MemoryStream memStream = new MemoryStream();
-
-            using(FileStream fs = System.IO.File.OpenRead(pluginPath))
-            {
-                int cpt=0;
-                while (cpt < fs.Length)
-                {
-                    memStream.WriteByte(Convert.ToByte(fs.ReadByte()));
-                    cpt++;
-                }
-                return memStream;  
-            }
-
+            return new MemoryStream(File.ReadAllBytes(pluginPath));
         }
 
         public static void putPlugin(MemoryStream memStream, string pluginPath)
         {
             using (FileStream filePlugin = System.IO.File.Create(pluginPath))
             {
-                int cpt = 0;
-
-                while (cpt < memStream.Length)
-                {
-                    filePlugin.WriteByte(Convert.ToByte(memStream.ReadByte()));
-                    cpt++;
-                }
+                memStream.WriteTo(filePlugin);
             }
         }
     }

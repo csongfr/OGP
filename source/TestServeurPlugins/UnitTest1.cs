@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using OGP.ServicePlugin;
 using OGP.ServicePlugin.Modele;
 using System.Windows.Forms;
+using OGP.ServicePlugin.DAL;
 
 namespace TestServeurPlugins
 {
@@ -18,8 +19,10 @@ namespace TestServeurPlugins
             ServeurPlugins sp = new ServeurPlugins();
 
             PluginModel p = new PluginModel("PluginTest3", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
-            
-            sp.AddPlugin(p, new MemoryStream());
+            IList<String> l = new List<String>();
+            l.Add("contenudufichier");
+            File.WriteAllLines("Test3", l);
+            sp.AddPlugin(p, File_DAL.getPlugin("Test3"));
         }
 
         [TestMethod]
