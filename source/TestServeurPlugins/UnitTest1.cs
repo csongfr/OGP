@@ -5,6 +5,7 @@ using System.IO;
 using System.Collections.Generic;
 using OGP.ServicePlugin;
 using OGP.ServicePlugin.Modele;
+using OGP.ServicePlugin.DAL;
 using System.Windows.Forms;
 
 namespace TestServeurPlugins
@@ -42,6 +43,31 @@ namespace TestServeurPlugins
                 Console.WriteLine("Non null");
                 //Assert.AreEqual(new ArrayTypeMismatchException(), erreur.Message); 
             }
+        }
+        [TestMethod]
+        public void TestDownloadPlugin() {
+            ServeurPlugins sp = new ServeurPlugins();
+
+            PluginModel p = new PluginModel("PluginTest3", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
+            IList<String> l = new List<String>();
+            l.Add("totovaalaplage");
+            File.WriteAllLines("testDownload", l);
+            MemoryStream initStream = File_DAL.getPlugin("testDownload");
+            sp.AddPlugin(p, initStream);
+
+            Boolean b = true;
+            var erreur = WcfHelper.Execute<IServicePlugin>(client =>
+            {
+                b = false;
+                MemoryStream stream = client.DownloadPlugin("PluginTest3_7.1.3.5");
+                Assert.AreEqual(initStream.Length, stream.Length);
+                int count = 0;
+                while (count < stream.Length) {
+                    Assert.AreEqual(initStream.ReadByte(), stream.ReadByte());
+                    count++;
+                }
+            });
+           
         }
 
     }
