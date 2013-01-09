@@ -22,7 +22,7 @@ namespace OGP.ClientWpf.ViewModel
     /// <summary>
     /// Fenêtre principale
     /// </summary>
-    public class MainViewModel : ViewModelBase, ICentralOnglets, IPluginsInfo
+    public class MainViewModel : ViewModelBase, ICentralOnglets, IPluginsInfo, IMenuOperation
     {
         #region Membres privés
 
@@ -184,6 +184,17 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments.Add(doc);
         }
 
+        public void RefreshMenu()
+        {
+            int c = ListeMenu.Count;
+            for (int i = 0; i < c; i++)
+            {
+                ListeMenu.RemoveAt(0);
+            }
+            ChargerPluginsDisponibles();
+            Console.WriteLine("================================================================" + ListeMenu.Count);
+        }
+
         public IEnumerable<PluginModel> GetPluginsInfo()
         {
             return this.ListeMenu.Select<IOgpMenu, PluginModel>(menu =>
@@ -239,6 +250,7 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments = new ObservableList<DocumentContent>();
             ServiceProvider.Add(typeof(ICentralOnglets), this);
             ServiceProvider.Add(typeof(IPluginsInfo), this);
+            ServiceProvider.Add(typeof(IMenuOperation), this);
             this.ChargerPluginsDisponibles();
         }
 

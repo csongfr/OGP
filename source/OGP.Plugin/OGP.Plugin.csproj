@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Exception\OgpPluginException.cs" />
     <Compile Include="Interfaces\ICentralOnglets.cs" />
+    <Compile Include="Interfaces\IMenuOperation.cs" />
     <Compile Include="Interfaces\IPluginsInfo.cs" />
     <Compile Include="Interfaces\IOgpMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

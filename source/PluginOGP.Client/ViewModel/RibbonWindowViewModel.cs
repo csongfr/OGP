@@ -39,6 +39,9 @@ namespace PluginOGP.Client.ViewModel
         /// </summary>
         private SimpleCommand importPluginCommand;
 
+        // TMP
+        private SimpleCommand refreshCommand;
+
         #endregion
 
         #region properties
@@ -125,6 +128,32 @@ namespace PluginOGP.Client.ViewModel
                 }
                 return importPluginCommand;
             }
+        }
+
+        // TMP
+        public SimpleCommand RefreshCommand
+        {
+            get
+            {
+                if (refreshCommand == null)
+                {
+                    refreshCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate
+                        {
+                            refresh();
+                        }
+                    };
+                }
+                return refreshCommand;
+            }
+        }
+
+        // TMP
+        private void refresh()
+        {
+            var rf = ServiceProvider.Resolve<IMenuOperation>();
+            rf.RefreshMenu();
         }
 
         #endregion
