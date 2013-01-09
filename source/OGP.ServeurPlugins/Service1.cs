@@ -111,7 +111,7 @@ namespace OGP.ServicePlugin
 
         public MemoryStream DownloadPlugin(string id)
         {
-            PluginModel plug = plugins.Where(p => p.Id.Equals(id)).First();
+            PluginModel plug = plugins.Where(p => p.Id.Equals(id)).FirstOrDefault();
             
             return File_DAL.getPlugin(Plugin_path+plug.Name + Path.DirectorySeparatorChar + plug.Dossier);
         }

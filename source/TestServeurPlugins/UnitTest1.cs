@@ -50,26 +50,21 @@ namespace TestServeurPlugins
         public void TestDownloadPlugin() {
             ServeurPlugins sp = new ServeurPlugins();
 
-            PluginModel p = new PluginModel("PluginTest3", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
+            PluginModel p = new PluginModel("id", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
             IList<String> l = new List<String>();
             l.Add("totovaalaplage");
             File.WriteAllLines("testDownload", l);
             MemoryStream initStream = File_DAL.getPlugin("testDownload");
             sp.AddPlugin(p, initStream);
 
-            Boolean b = true;
-            var erreur = WcfHelper.Execute<IServicePlugin>(client =>
-            {
-                b = false;
-                MemoryStream stream = client.DownloadPlugin("PluginTest3_7.1.3.5");
-                Assert.AreEqual(initStream.Length, stream.Length);
-                int count = 0;
-                while (count < stream.Length) {
-                    Assert.AreEqual(initStream.ReadByte(), stream.ReadByte());
-                    count++;
-                }
-            });
-           
+            MemoryStream stream = sp.DownloadPlugin("Test3_7.1.3.5");
+            Assert.AreEqual(initStream.Length, stream.Length);
+            int count = 0;
+            while (count < stream.Length) {
+                Assert.AreEqual(initStream.ReadByte(), stream.ReadByte());
+                count++;
+            }
+            
         }
 
     }
