@@ -1,26 +1,26 @@
 ﻿using Cinch;
-using OGP.ServicePlugin;
+using OGP.ServicePlugin.Modele;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utils.Wcf;
 
 namespace PluginOGP.Client.ViewModel
 {
-    class PluginSummaryViewModel : ViewModelBase
+    class PluginContext : ViewModelBase
     {
-        #region private components
+        public PluginModel RawData { get; private set; }
+        public bool CanDownload { get; set; }
+        public bool CanUnistall { get; set; }
+
+        #region Private commands
 
         /// <summary>
         /// Commande permet de telecharger un plugin
         /// </summary>
         private SimpleCommand downloadCommand;
-        /// <summary>
-        /// Commande permet de upload un plugin
-        /// </summary>
-        private SimpleCommand uploadCommand;
+
         /// <summary>
         /// Commande permet de desinstaller un plugin
         /// </summary>
@@ -28,7 +28,7 @@ namespace PluginOGP.Client.ViewModel
 
         #endregion
 
-        #region properties
+        #region Command properties
 
         /// <summary>
         /// Commande permet de telecharger un plugin
@@ -48,27 +48,6 @@ namespace PluginOGP.Client.ViewModel
                     };
                 }
                 return downloadCommand;
-            }
-        }
-
-        /// <summary>
-        /// Commande permet de upload un plugin
-        /// </summary>
-        public SimpleCommand UploadCommand
-        {
-            get
-            {
-                if (uploadCommand == null)
-                {
-                    uploadCommand = new SimpleCommand
-                    {
-                        ExecuteDelegate = delegate
-                        {
-                            upload();
-                        }
-                    };
-                }
-                return uploadCommand;
             }
         }
 
@@ -94,15 +73,11 @@ namespace PluginOGP.Client.ViewModel
         }
 
         #endregion
-        
 
-        #region Actions
+
+        #region Operations
 
         private void download()
-        {
-        }
-
-        private void upload()
         {
         }
 
@@ -113,8 +88,9 @@ namespace PluginOGP.Client.ViewModel
         #endregion
 
         #region Constructeur
-        public PluginSummaryViewModel()
+        public PluginContext(PluginModel plugin)
         {
+            RawData = plugin;
         }
         #endregion
     }

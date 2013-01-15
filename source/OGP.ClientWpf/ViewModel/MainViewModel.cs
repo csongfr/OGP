@@ -192,11 +192,11 @@ namespace OGP.ClientWpf.ViewModel
                 ListeMenu.RemoveAt(0);
             }
             ChargerPluginsDisponibles();
-            Console.WriteLine("================================================================" + ListeMenu.Count);
         }
 
         public IEnumerable<PluginModel> GetPluginsInfo()
         {
+            RefreshMenu();
             return this.ListeMenu.Select<IOgpMenu, PluginModel>(menu =>
             {
                 var aih = new AssemblyInfoHelper(menu.GetType());

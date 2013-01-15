@@ -25,11 +25,7 @@
         </Button>
         <ad:DockingManager x:Name="dockManager" Grid.Row="1" Grid.ColumnSpan="2">
             <ad:DocumentContent>
-                <ScrollViewer>
-                    <StackPanel Name="pluginPanel">
-                        <!-- container -->
-                    </StackPanel>
-                </ScrollViewer>
+                <StackPanel x:Name="documentContainer" HorizontalAlignment="Stretch"/>
             </ad:DocumentContent>
         </ad:DockingManager>
     </Grid>

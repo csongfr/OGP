@@ -17,21 +17,31 @@ using System.Windows.Shapes;
 namespace PluginOGP.Client.View
 {
     /// <summary>
-    /// Interaction logic for PluginSummary.xaml
+    /// Interaction logic for dockControler.xaml
     /// </summary>
-    public partial class PluginSummary : UserControl
+    public partial class DockControler : UserControl
     {
-        public PluginSummary()
+        protected DockControler()
         {
             InitializeComponent();
-            this.DataContext = new PluginSummaryViewModel();
         }
+    }
 
-        public PluginSummary(string title, string description)
-            : this()
+    public class LocalDockControler : DockControler
+    {
+        public LocalDockControler()
+            : base()
         {
-            this.PluginTitle.Content = title;
-            this.PluginDescription.Text = description;
+            this.DataContext = new LocalPluginsViewModel();
+        }
+    }
+
+    public class ServerDockControler : DockControler
+    {
+        public ServerDockControler()
+            : base()
+        {
+            this.DataContext = new RemotePluginsViewModel();
         }
     }
 }

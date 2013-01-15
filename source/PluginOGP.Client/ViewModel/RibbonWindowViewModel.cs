@@ -4,6 +4,12 @@ using OGP.ClientWpf;
 using OGP.Plugin.Interfaces;
 using PluginOGP.Client.View;
 using System.IO;
+using OGP.ServicePlugin.Modele;
+using Utils.AssemblyInfoResolver;
+using System.ComponentModel;
+using Utils.Wcf;
+using OGP.ServicePlugin;
+using OGP.Plugin.Exception;
 
 namespace PluginOGP.Client.ViewModel
 {
@@ -17,11 +23,12 @@ namespace PluginOGP.Client.ViewModel
         private const string PLUGIN_TYPE_DESCRIPTION = "Dynamic Link Library  (.dll)|*.dll";
         #endregion
 
+        
+
+        public static DocumentDock LocalDockInstance { get; private set; }
+        public static DocumentDock ServerDockInstance { get; private set; }
+
         #region private components
-
-        private DocumentDock localDockInstance;
-        private DocumentDock serverDockInstance;
-
         /// <summary>
         /// Commande qui affiche les plugins locaux
         /// </summary>
@@ -39,8 +46,10 @@ namespace PluginOGP.Client.ViewModel
         /// </summary>
         private SimpleCommand importPluginCommand;
 
-        // TMP
-        private SimpleCommand refreshCommand;
+        /// <summary>
+        /// Upload un plugin au serveur
+        /// </summary>
+        private SimpleCommand uploadCommand;
 
         #endregion
 
@@ -130,30 +139,25 @@ namespace PluginOGP.Client.ViewModel
             }
         }
 
-        // TMP
-        public SimpleCommand RefreshCommand
+        /// <summary>
+        /// Upload un plugin au serveur
+        /// </summary>
+        public SimpleCommand UploadCommand
         {
             get
             {
-                if (refreshCommand == null)
+                if (uploadCommand == null)
                 {
-                    refreshCommand = new SimpleCommand
+                    uploadCommand = new SimpleCommand
                     {
                         ExecuteDelegate = delegate
                         {
-                            refresh();
+                            upload();
                         }
                     };
                 }
-                return refreshCommand;
+                return uploadCommand;
             }
-        }
-
-        // TMP
-        private void refresh()
-        {
-            var rf = ServiceProvider.Resolve<IMenuOperation>();
-            rf.RefreshMenu();
         }
 
         #endregion
@@ -163,26 +167,39 @@ namespace PluginOGP.Client.ViewModel
 
         private void openLocal()
         {
-            if (localDockInstance == null)
+            if (LocalDockInstance == null)
             {
                 var addDoc = ServiceProvider.Resolve<ICentralOnglets>();
                 var doc = new LocalDocumentDock(LOCAL_DOCK_TITLE);
                 addDoc.AjoutOnglet(doc);
-                localDockInstance = doc;
+                LocalDockInstance = doc;
             }
-            localDockInstance.Activate();
+            else
+            {
+                var localModel = (LocalPluginsViewModel)LocalDockInstance.ItemControler.DataContext;
+                localModel.Refresh();
+            }
+            LocalDockInstance.Activate();
         }
 
         private void openServer()
         {
-            if (serverDockInstance == null)
+            if (ServerDockInstance == null)
             {
                 var addDoc = ServiceProvider.Resolve<ICentralOnglets>();
                 var doc = new ServerDocumentDock(SERVER_DOCK_TITLE);
                 addDoc.AjoutOnglet(doc);
-                serverDockInstance = doc;
+                ServerDockInstance = doc;
+                // séparer construction et longue operation
+                var remoteModel = (RemotePluginsViewModel)doc.ItemControler.DataContext;
+                remoteModel.RetrieveList();
             }
-            serverDockInstance.Activate();
+            else
+            {
+                var remoteModel = (RemotePluginsViewModel)ServerDockInstance.ItemControler.DataContext;
+                remoteModel.Refresh();
+            }
+            ServerDockInstance.Activate();
         }
 
         private void signIn()
@@ -208,7 +225,67 @@ namespace PluginOGP.Client.ViewModel
                 string filename = Path.GetFileName(filepath);
                 string dstFilepath = AppConfig.Instance.RepertoirePluginsSynchro + Path.DirectorySeparatorChar + filename;
                 File.Copy(filepath, dstFilepath, true);
+                //try
+                //{
+                //    File.Copy(filepath, dstFilepath, true);
+                //}
+                //catch (Exception ex)
+                //{
+                //     gestion
+                //}
                 new WPFMessageBoxService().ShowInformation("Plugin imported.");
+            }
+        }
+
+        private void upload()
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Title = "Choose the plugin to upload";
+            dlg.FileName = "plugin" + PLUGIN_EXTENSION; // Default file name 
+            dlg.DefaultExt = PLUGIN_EXTENSION; // Default file extension 
+            dlg.Filter = PLUGIN_TYPE_DESCRIPTION; // Filter files by extension 
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                string filepath = dlg.FileName;
+                string dstFilepath  = Path.GetFullPath(filepath);
+
+                // retrieve assembly info
+                AssemblyInfoHelper asm = new AssemblyInfoHelper(dstFilepath); 
+                PluginModel pm = new PluginModel();
+                pm.Name = asm.Title;
+                pm.Version = asm.AssemblyVersion;
+                pm.Description = asm.Description;
+                pm.Actif = true;
+                // retrieve dll file
+                MemoryStream ms = new MemoryStream(File.ReadAllBytes(dstFilepath));
+
+                // run in background
+                var background = new BackgroundWorker();
+                background.DoWork += (DoWorkEventHandler)((sender, e) =>
+                {
+                    Exception erreur = WcfHelper.Execute<IServicePlugin>(client =>
+                    {
+                        result = client.AddPlugin(pm, ms);
+                    });
+
+                    if (erreur != null)
+                    {
+                        throw new OgpPluginException("", erreur);
+                    }
+                });
+
+                background.RunWorkerCompleted += (RunWorkerCompletedEventHandler)((sender, e) =>
+                {
+                    new WPFMessageBoxService().ShowInformation("Plugin uploaded.");
+                });
+                background.RunWorkerAsync();
             }
         }
 
