@@ -163,7 +163,9 @@ namespace OGP.ClientWpf.ViewModel
                     {
                         ExecuteDelegate = delegate
                         {
+                            Console.WriteLine("********************************************jsdlfksjgl");
                             System.Windows.Application.Current.Shutdown();
+                            Console.WriteLine("=====================================jsdlfksjgl");
                         }
                     };
                 }
@@ -196,13 +198,13 @@ namespace OGP.ClientWpf.ViewModel
 
         public IEnumerable<PluginModel> GetPluginsInfo()
         {
-            RefreshMenu();
             return this.ListeMenu.Select<IOgpMenu, PluginModel>(menu =>
             {
                 var aih = new AssemblyInfoHelper(menu.GetType());
                 PluginModel plugin = new PluginModel();
                 plugin.Name = aih.Title;
                 plugin.Description = aih.Description;
+                plugin.Version = aih.AssemblyVersion;
                 return plugin;
             });
         }

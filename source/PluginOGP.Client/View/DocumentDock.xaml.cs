@@ -40,6 +40,7 @@ namespace PluginOGP.Client.View
         {
             itemControler = new LocalDockControler();
             this.documentContainer.Children.Add(itemControler);
+            this.DataContext = itemControler.DataContext;
         }
 
         public override void DoSomethingWhenBackgroundBegin()
@@ -59,6 +60,7 @@ namespace PluginOGP.Client.View
             : base(title)
         {
             itemControler = new ServerDockControler();
+            this.DataContext = itemControler.DataContext;
         }
 
         public override void DoSomethingWhenBackgroundBegin()

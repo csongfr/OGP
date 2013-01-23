@@ -28,6 +28,17 @@ namespace OGP.ServicePlugin.Modele
         [DataMember]
         public bool Actif {get; set;}
 
+        public override bool Equals(object obj)
+        {
+            if (obj is PluginModel)
+            {
+                PluginModel other = (PluginModel)obj;
+                return (this.Name == other.Name && this.Version == other.Version);
+            }
+            else return false;
+        }
+
+
         public PluginModel()
         {
         }

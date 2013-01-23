@@ -18,14 +18,23 @@
             <ColumnDefinition Width="24"/>
         </Grid.ColumnDefinitions>
         <Border BorderBrush="Black" BorderThickness="2" CornerRadius="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
-            <TextBox HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Center" Width="Auto" Text="Search for a plugin..."/>
+            <TextBox x:Name="searchText" HorizontalAlignment="Stretch" Height="Auto" Grid.RowSpan="1" VerticalAlignment="Center" Width="Auto" Text="Search for a plugin...">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SearchCommand}" CommandParameter="{Binding Path=Text, ElementName=searchText}"/>
+                </TextBox.InputBindings>
+            </TextBox>
         </Border>
-        <Button VerticalAlignment="Top" RenderTransformOrigin="-0.107,-0.357" Grid.Column="1" Height="24" >
+        <Button VerticalAlignment="Top" RenderTransformOrigin="-0.107,-0.357" Grid.Column="1" Height="24" Command="{Binding SearchCommand}">
+            <Button.CommandParameter>
+                <Binding Path="Text" ElementName="searchText"/>
+            </Button.CommandParameter>
             <Image Source="{StaticResource RecherchePetite}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
         <ad:DockingManager x:Name="dockManager" Grid.Row="1" Grid.ColumnSpan="2">
             <ad:DocumentContent>
-                <StackPanel x:Name="documentContainer" HorizontalAlignment="Stretch"/>
+                <StackPanel x:Name="documentContainer" HorizontalAlignment="Stretch">
+                    <!--View:LoadingAnimation HorizontalAlignment="Center" VerticalAlignment="Center"/-->
+                </StackPanel>
             </ad:DocumentContent>
         </ad:DockingManager>
     </Grid>

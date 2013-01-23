@@ -102,6 +102,10 @@
       <Project>{4385341c-dd9d-442e-a460-d318fce18a59}</Project>
       <Name>Utils.AssemblyInfoResolver</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils.Config\Utils.Config.csproj">
+      <Project>{e957f2f3-f256-4795-b56c-654f286301f8}</Project>
+      <Name>Utils.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils.IO\Utils.IO.csproj">
       <Project>{4ddee057-e7ee-49e2-9498-edc08deafe91}</Project>
       <Name>Utils.IO</Name>

@@ -12,28 +12,74 @@ namespace PluginOGP.Client.ViewModel
 {
     abstract class AbstractPluginsViewModel : ViewModelBase
     {
-        private object accesLock = new object();
-        
-        private ObservableCollection<PluginContext> _pluginList;
-        public ObservableCollection<PluginContext> PluginList
+        public readonly object accesLock = new object();
+
+        protected Collection<PluginContext> availablePluginList;
+
+        private ObservableCollection<PluginContext> _displayedPluginList;
+        public ObservableCollection<PluginContext> DisplayedPluginList
         {
             get
             {
-                lock (accesLock)
+                if (_displayedPluginList == null)
                 {
-                    if (_pluginList == null)
-                    {
-                        _pluginList = new ObservableCollection<PluginContext>();
-                    }
+                    _displayedPluginList = new ObservableCollection<PluginContext>();
                 }
-                return _pluginList;
+                return _displayedPluginList;
             }
         }
         
         abstract public void Refresh();
-        
+
+        protected void showAvailablePlugins()
+        {
+            DisplayedPluginList.Clear();
+            foreach (PluginContext plugin in availablePluginList)
+            {
+                DisplayedPluginList.Add(plugin);
+            }
+        }
+
+        #region Command
+        private SimpleCommand searchCommand;
+
+        public SimpleCommand SearchCommand
+        {
+            get
+            {
+                if (searchCommand == null)
+                {
+                    searchCommand = new SimpleCommand
+                    {
+                        ExecuteDelegate = delegate(object param)
+                        {
+                            search(param.ToString());
+                        }
+                    };
+                }
+                return searchCommand;
+            }
+        }
+
+        private void search(string txt)
+        {
+            if (txt == null || txt == "")
+            {
+                showAvailablePlugins();
+                return;
+            }
+            var result = availablePluginList.Where(aPluginContext => aPluginContext.RawData.Name.Contains(txt));
+            DisplayedPluginList.Clear();
+            foreach (PluginContext pc in result)
+            {
+                DisplayedPluginList.Add(pc);
+            }
+        }
+        #endregion
+
         protected AbstractPluginsViewModel()
         {
+            availablePluginList = new Collection<PluginContext>();
         }
     }
 }

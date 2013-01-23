@@ -27,7 +27,6 @@ namespace PluginOGP.Client.ViewModel
 
         public override void Refresh()
         {
-            this.PluginList.Clear();
             getListFromLocal();
         }
 
@@ -37,16 +36,22 @@ namespace PluginOGP.Client.ViewModel
         private void getListFromLocal()
         {
             var localPluginsInfo = ServiceProvider.Resolve<IPluginsInfo>();
+            localPluginsInfo.RefreshMenu();
             IEnumerable<PluginModel> local = localPluginsInfo.GetPluginsInfo();
 
-
+            this.availablePluginList.Clear();
             foreach (PluginModel plugin in local)
             {
                 PluginContext newContext = new PluginContext(plugin);
                 newContext.CanDownload = false;
-                newContext.CanUnistall = true;
-                this.PluginList.Add(newContext);
+                newContext.CanUninstall = true;
+                lock (accesLock)
+                {
+                    this.availablePluginList.Add(newContext);
+                }
             }
+
+            showAvailablePlugins();
         }
     }
 }
