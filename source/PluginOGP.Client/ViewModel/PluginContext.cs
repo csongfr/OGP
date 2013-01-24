@@ -1,5 +1,6 @@
 ﻿using Cinch;
 using OGP.Plugin.Exception;
+using OGP.Plugin.Interfaces;
 using OGP.ServicePlugin;
 using OGP.ServicePlugin.Modele;
 using System;
@@ -197,7 +198,9 @@ namespace PluginOGP.Client.ViewModel
             {
                 if (memo != null)
                 {
-                    string filePath = ConfigHelper.RetrieveConfig("OGP.ClientWpf", "plugins", "repertoirePluginsSynchro") +
+                    var localPluginsInfo = ServiceProvider.Resolve<IPluginsInfo>();
+                    string downloadDossier = localPluginsInfo.GetRepertoirePluginsSynchro();
+                    string filePath = downloadDossier + 
                         Path.DirectorySeparatorChar + RawData.Name + "_" + RawData.Version + ".dll";
                     lock (streamWriteLock)
                     {

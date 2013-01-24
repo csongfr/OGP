@@ -186,6 +186,7 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments.Add(doc);
         }
 
+        #region IPluginInfo members
         public void RefreshMenu()
         {
             int c = ListeMenu.Count;
@@ -208,6 +209,19 @@ namespace OGP.ClientWpf.ViewModel
                 return plugin;
             });
         }
+
+        public string GetRepertoirePluginsSynchro()
+        {
+            return AppConfig.Instance.RepertoirePluginsSynchro;
+        }
+
+        public string GetRepertoirePluginsLocal()
+        {
+            return AppConfig.Instance.RepertoirePluginsLocal;
+        }
+
+        #endregion
+
 
         #endregion
 

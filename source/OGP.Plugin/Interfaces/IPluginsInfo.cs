@@ -15,5 +15,7 @@ namespace OGP.Plugin.Interfaces
     {
         void RefreshMenu();
         IEnumerable<PluginModel> GetPluginsInfo();
+        string GetRepertoirePluginsSynchro();
+        string GetRepertoirePluginsLocal();
     }
 }
