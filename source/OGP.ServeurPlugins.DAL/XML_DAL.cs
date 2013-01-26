@@ -36,7 +36,6 @@ namespace OGP.ServicePlugin.DAL
             {
                 using (FileStream xmlFile = new FileStream(xml_file, FileMode.Open))
                 {
-                    String s = xmlFile.Name;
                     plugins = (List<PluginModel>)serializer.Deserialize(xmlFile);
                 }
             }

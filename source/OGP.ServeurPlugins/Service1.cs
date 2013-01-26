@@ -25,7 +25,7 @@ namespace OGP.ServicePlugin
 
         public IList<PluginModel> GetPluginList()
         {
-            return plugins;
+            return new List<PluginModel>(plugins.Where(p=>p.Actif));
         }
 
 
