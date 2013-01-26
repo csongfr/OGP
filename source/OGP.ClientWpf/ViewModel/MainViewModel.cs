@@ -22,7 +22,7 @@ namespace OGP.ClientWpf.ViewModel
     /// <summary>
     /// Fenêtre principale
     /// </summary>
-    public class MainViewModel : ViewModelBase, ICentralOnglets, IPluginsInfo
+    public class MainViewModel : ViewModelBase, ICentralOnglets, IPluginsInfo, IMenuOperation
     {
         #region Membres privés
 
@@ -163,7 +163,9 @@ namespace OGP.ClientWpf.ViewModel
                     {
                         ExecuteDelegate = delegate
                         {
+                            Console.WriteLine("********************************************jsdlfksjgl");
                             System.Windows.Application.Current.Shutdown();
+                            Console.WriteLine("=====================================jsdlfksjgl");
                         }
                     };
                 }
@@ -184,6 +186,17 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments.Add(doc);
         }
 
+        #region IPluginInfo members
+        public void RefreshMenu()
+        {
+            int c = ListeMenu.Count;
+            for (int i = 0; i < c; i++)
+            {
+                ListeMenu.RemoveAt(0);
+            }
+            ChargerPluginsDisponibles();
+        }
+
         public IEnumerable<PluginModel> GetPluginsInfo()
         {
             return this.ListeMenu.Select<IOgpMenu, PluginModel>(menu =>
@@ -192,9 +205,23 @@ namespace OGP.ClientWpf.ViewModel
                 PluginModel plugin = new PluginModel();
                 plugin.Name = aih.Title;
                 plugin.Description = aih.Description;
+                plugin.Version = aih.AssemblyVersion;
                 return plugin;
             });
         }
+
+        public string GetRepertoirePluginsSynchro()
+        {
+            return AppConfig.Instance.RepertoirePluginsSynchro;
+        }
+
+        public string GetRepertoirePluginsLocal()
+        {
+            return AppConfig.Instance.RepertoirePluginsLocal;
+        }
+
+        #endregion
+
 
         #endregion
 
@@ -239,6 +266,7 @@ namespace OGP.ClientWpf.ViewModel
             this.ListeDocuments = new ObservableList<DocumentContent>();
             ServiceProvider.Add(typeof(ICentralOnglets), this);
             ServiceProvider.Add(typeof(IPluginsInfo), this);
+            ServiceProvider.Add(typeof(IMenuOperation), this);
             this.ChargerPluginsDisponibles();
         }
 

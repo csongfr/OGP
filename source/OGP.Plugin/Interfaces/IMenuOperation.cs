@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PluginOGP.Client
+namespace OGP.Plugin.Interfaces
 {
-    public class PluginOGPClientLoader
+    public interface IMenuOperation
     {
+        void RefreshMenu();
     }
 }

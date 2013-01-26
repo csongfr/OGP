@@ -18,6 +18,7 @@
         <DockPanel>
             <Fluent:Button SizeDefinition="Large" Header="Login" Name="Login"  Command="{Binding LoginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Login"/>
             <Fluent:Button SizeDefinition="Large" Header="Import" Name="Import"  Command="{Binding ImportPluginCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Import a plugin"/>
+            <Fluent:Button SizeDefinition="Large" Header="Upload" Name="Upload"  Command="{Binding UploadCommand}" Icon="{StaticResource PluginPetite}" LargeIcon="{StaticResource PluginGrande}" ToolTip="Upload a plugin"/>
         </DockPanel>
     </Fluent:RibbonGroupBox>
 

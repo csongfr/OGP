@@ -13,6 +13,9 @@ namespace OGP.Plugin.Interfaces
     /// </summary>
     public interface IPluginsInfo
     {
+        void RefreshMenu();
         IEnumerable<PluginModel> GetPluginsInfo();
+        string GetRepertoirePluginsSynchro();
+        string GetRepertoirePluginsLocal();
     }
 }

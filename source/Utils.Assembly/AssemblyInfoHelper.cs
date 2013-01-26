@@ -13,6 +13,11 @@ namespace Utils.AssemblyInfoResolver
             m_Assembly = Assembly.GetAssembly(type);
         }
 
+        public AssemblyInfoHelper(string file)
+        {
+            m_Assembly = Assembly.LoadFile(file);
+        }
+
         private T CustomAttributes<T>()
             where T : Attribute
         {
