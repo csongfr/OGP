@@ -114,6 +114,10 @@
       <Project>{a1c4cf3d-af46-4bfc-8edb-62bbb8b4eb74}</Project>
       <Name>Utils.Wcf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{088eb230-247d-4398-b379-12ae29680e09}</Project>
+      <Name>Utils %28Utils\Utils%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

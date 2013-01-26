@@ -12,7 +12,7 @@ using OGP.ServicePlugin.DAL;
 namespace OGP.ServicePlugin
 {
 
-    public class ServeurPlugins : IServicePlugin
+    public class ServeurPlugin : IServicePlugin
     {
         static private String Plugin_path = "plugins/";
         static private String XML_path = "ressources/";
@@ -25,7 +25,7 @@ namespace OGP.ServicePlugin
 
         public IList<PluginModel> GetPluginList()
         {
-            return plugins;
+            return new List<PluginModel>(plugins.Where(p=>p.Actif));
         }
 
 
@@ -105,13 +105,13 @@ namespace OGP.ServicePlugin
             lock (lockPlugins)
             {
                 return plugins.Where(p => p.Name == plug.Name && p.Actif)
-                    .FirstOrDefault();
+                    .First();
             }
         }
 
         public MemoryStream DownloadPlugin(string id)
         {
-            PluginModel plug = plugins.Where(p => p.Id.Equals(id)).FirstOrDefault();
+            PluginModel plug = plugins.Where(p => p.Id.Equals(id)).First();
             
             return File_DAL.getPlugin(Plugin_path+plug.Name + Path.DirectorySeparatorChar + plug.Dossier);
         }

@@ -8,7 +8,7 @@ using OGP.ServicePlugin.Modele;
 using OGP.ServicePlugin.DAL;
 using System.Windows.Forms;
 
-namespace TestServeurPlugins
+namespace OGP.ServeurPlugins.Test
 {
     [TestClass]
     public class UnitTest1
@@ -16,7 +16,7 @@ namespace TestServeurPlugins
         [TestMethod]
         public void TestMethod1()
         {
-            ServeurPlugins sp = new ServeurPlugins();
+            ServeurPlugin sp = new ServeurPlugin();
 
             PluginModel p = new PluginModel("PluginTest3", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
             IList<String> l = new List<String>();
@@ -47,8 +47,9 @@ namespace TestServeurPlugins
             }
         }
         [TestMethod]
-        public void TestDownloadPlugin() {
-            ServeurPlugins sp = new ServeurPlugins();
+        public void TestDownloadPlugin()
+        {
+            ServeurPlugin sp = new ServeurPlugin();
 
             PluginModel p = new PluginModel("id", "Test3", "7.1.3.5", "Ceci est un test", "/test", true);
             IList<String> l = new List<String>();
@@ -60,11 +61,12 @@ namespace TestServeurPlugins
             MemoryStream stream = sp.DownloadPlugin("Test3_7.1.3.5");
             Assert.AreEqual(initStream.Length, stream.Length);
             int count = 0;
-            while (count < stream.Length) {
+            while (count < stream.Length)
+            {
                 Assert.AreEqual(initStream.ReadByte(), stream.ReadByte());
                 count++;
             }
-            
+
         }
 
     }
