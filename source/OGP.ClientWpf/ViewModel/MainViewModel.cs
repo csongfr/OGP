@@ -189,6 +189,8 @@ namespace OGP.ClientWpf.ViewModel
         #region IPluginInfo members
         public void RefreshMenu()
         {
+            //ListeMenu.Clear();
+
             int c = ListeMenu.Count;
             for (int i = 0; i < c; i++)
             {
@@ -210,14 +212,30 @@ namespace OGP.ClientWpf.ViewModel
             });
         }
 
-        public string GetRepertoirePluginsSynchro()
+        public string GetPluginsDossier(DossierType dType)
         {
-            return AppConfig.Instance.RepertoirePluginsSynchro;
+            switch (dType)
+            {
+                case DossierType.Local:
+                    return AppConfig.Instance.LocalDossier;
+                    //break;
+
+                case DossierType.Download:
+                    return AppConfig.Instance.DownloadDossier;
+                    //break;
+
+                case DossierType.Tmp:
+                    return AppConfig.Instance.TmpDossier;
+                    //break;
+
+                default:
+                    return ".";
+            }
         }
 
-        public string GetRepertoirePluginsLocal()
+        public string GetPluginsDossierLocal()
         {
-            return AppConfig.Instance.RepertoirePluginsLocal;
+            return AppConfig.Instance.LocalDossier;
         }
 
         #endregion
@@ -234,8 +252,8 @@ namespace OGP.ClientWpf.ViewModel
         {
             try
             {
-                string repertoireSynchro = AppConfig.Instance.RepertoirePluginsSynchro;
-                string repertoireLocal = AppConfig.Instance.RepertoirePluginsLocal;
+                string repertoireSynchro = AppConfig.Instance.DownloadDossier;
+                string repertoireLocal = AppConfig.Instance.LocalDossier;
 
                 var catalog = new AggregateCatalog();
 

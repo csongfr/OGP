@@ -45,10 +45,7 @@ namespace PluginOGP.Client.ViewModel
                 PluginContext newContext = new PluginContext(plugin);
                 newContext.CanDownload = false;
                 newContext.CanUninstall = true;
-                lock (accesLock)
-                {
-                    this.availablePluginList.Add(newContext);
-                }
+                this.availablePluginList.Add(newContext);
             }
 
             showAvailablePlugins();

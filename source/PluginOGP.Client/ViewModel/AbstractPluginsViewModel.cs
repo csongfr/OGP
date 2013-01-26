@@ -2,6 +2,7 @@
 using OGP.ServicePlugin.Modele;
 using PluginOGP.Client.View;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,8 +13,6 @@ namespace PluginOGP.Client.ViewModel
 {
     abstract class AbstractPluginsViewModel : ViewModelBase
     {
-        public readonly object accesLock = new object();
-
         protected Collection<PluginContext> availablePluginList;
 
         private ObservableCollection<PluginContext> _displayedPluginList;
@@ -63,7 +62,7 @@ namespace PluginOGP.Client.ViewModel
 
         private void search(string txt)
         {
-            if (txt == null || txt == "")
+            if (String.IsNullOrEmpty(txt))
             {
                 showAvailablePlugins();
                 return;

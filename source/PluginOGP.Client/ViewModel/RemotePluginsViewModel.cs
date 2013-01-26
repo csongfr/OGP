@@ -42,14 +42,14 @@ namespace PluginOGP.Client.ViewModel
             var background = new BackgroundWorker();
             background.DoWork += (DoWorkEventHandler)((sender, e) =>
                 {
-                    Exception erreur = WcfHelper.Execute<IServicePlugin>(client =>
+                    Exception error = WcfHelper.Execute<IServicePlugin>(client =>
                         {
                             remote = client.GetPluginList();
                         });
 
-                    if (erreur != null)
+                    if (error != null)
                     {
-                        throw new OgpPluginException("", erreur);
+                        throw new OgpPluginException("Erreur de recuperation de liste de plugins", error);
                     }
                 });
 
@@ -72,10 +72,7 @@ namespace PluginOGP.Client.ViewModel
                                 newContext.CanDownload = true;
                             }
                             newContext.CanUninstall = false;
-                            lock (accesLock)
-                            {
-                                this.availablePluginList.Add(newContext);
-                            }
+                            this.availablePluginList.Add(newContext);
                         }
                         showAvailablePlugins();
                         //Thread.Sleep(2000);

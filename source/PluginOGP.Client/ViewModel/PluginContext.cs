@@ -11,7 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Utils.Config;
 using Utils.Wcf;
 
 namespace PluginOGP.Client.ViewModel
@@ -183,14 +182,14 @@ namespace PluginOGP.Client.ViewModel
             var background = new BackgroundWorker();
             background.DoWork += (DoWorkEventHandler)((sender, e) =>
             {
-                Exception erreur = WcfHelper.Execute<IServicePlugin>(client =>
+                Exception error = WcfHelper.Execute<IServicePlugin>(client =>
                 {
                     memo = client.DownloadPlugin(RawData.Id);
                 });
 
-                if (erreur != null)
+                if (error != null)
                 {
-                    throw new OgpPluginException("", erreur);
+                    throw new OgpPluginException("Erreur de telechargement", error);
                 }
             });
 
@@ -199,8 +198,8 @@ namespace PluginOGP.Client.ViewModel
                 if (memo != null)
                 {
                     var localPluginsInfo = ServiceProvider.Resolve<IPluginsInfo>();
-                    string downloadDossier = localPluginsInfo.GetRepertoirePluginsSynchro();
-                    string filePath = downloadDossier + 
+                    string dossier = localPluginsInfo.GetPluginsDossier(DossierType.Download);
+                    string filePath = dossier + 
                         Path.DirectorySeparatorChar + RawData.Name + "_" + RawData.Version + ".dll";
                     lock (streamWriteLock)
                     {

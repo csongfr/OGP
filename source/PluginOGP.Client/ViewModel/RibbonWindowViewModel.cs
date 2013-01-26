@@ -1,6 +1,5 @@
 ﻿using System;
 using Cinch;
-using OGP.ClientWpf;
 using OGP.Plugin.Interfaces;
 using PluginOGP.Client.View;
 using System.IO;
@@ -215,7 +214,7 @@ namespace PluginOGP.Client.ViewModel
             dlg.Filter = PLUGIN_TYPE_DESCRIPTION; // Filter files by extension 
 
             // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process open file dialog box results
             if (result == true)
@@ -223,7 +222,8 @@ namespace PluginOGP.Client.ViewModel
                 // Open document
                 string filepath = dlg.FileName;
                 string filename = Path.GetFileName(filepath);
-                string dstFilepath = AppConfig.Instance.RepertoirePluginsSynchro + Path.DirectorySeparatorChar + filename;
+                string dossier = ServiceProvider.Resolve<IPluginsInfo>().GetPluginsDossier(DossierType.Local);
+                string dstFilepath = dossier + Path.DirectorySeparatorChar + filename;
                 File.Copy(filepath, dstFilepath, true);
                 //try
                 //{
@@ -270,14 +270,14 @@ namespace PluginOGP.Client.ViewModel
                 var background = new BackgroundWorker();
                 background.DoWork += (DoWorkEventHandler)((sender, e) =>
                 {
-                    Exception erreur = WcfHelper.Execute<IServicePlugin>(client =>
+                    Exception error = WcfHelper.Execute<IServicePlugin>(client =>
                     {
                         result = client.AddPlugin(pm, ms);
                     });
 
-                    if (erreur != null)
+                    if (error != null)
                     {
-                        throw new OgpPluginException("", erreur);
+                        throw new OgpPluginException("Erreur de upload", error);
                     }
                 });
 

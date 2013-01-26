@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\OGP.ClientWpf\bin\Debug\Ressources\Plugins\Synchronized\</OutputPath>
+    <OutputPath>..\OGP.ClientWpf\bin\Debug\Ressources\Plugins\Download\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

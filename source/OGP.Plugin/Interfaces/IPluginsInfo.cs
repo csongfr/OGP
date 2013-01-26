@@ -8,6 +8,13 @@ using OGP.ServicePlugin.Modele;
 
 namespace OGP.Plugin.Interfaces
 {
+    public enum DossierType
+    {
+        Local,
+        Download,
+        Tmp
+    }
+
     /// <summary>
     /// Interface qui permet de communiquer l'information de la liste de plugins entre plugin OGP et MainViewModel
     /// </summary>
@@ -15,7 +22,6 @@ namespace OGP.Plugin.Interfaces
     {
         void RefreshMenu();
         IEnumerable<PluginModel> GetPluginsInfo();
-        string GetRepertoirePluginsSynchro();
-        string GetRepertoirePluginsLocal();
+        string GetPluginsDossier(DossierType type);
     }
 }
