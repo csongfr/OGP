@@ -16,5 +16,10 @@ namespace PluginOGP.Client.View
             InitializeComponent();
             this.DataContext = new RibbonWindowViewModel();
         }
+
+        public void Initialize()
+        {
+            ((RibbonWindowViewModel)this.DataContext).Initialize();
+        }
     }
 }

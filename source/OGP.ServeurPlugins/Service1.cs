@@ -35,7 +35,7 @@ namespace OGP.ServicePlugin
             //Création du nom de dossier du plugin
             String rep = plug.Name + Path.DirectorySeparatorChar;
             plug.Id = plug.Name + "_" + plug.Version;
-            plug.Dossier = plug.Name+"_"+plug.Version;
+            plug.Location = plug.Name+"_"+plug.Version;
             
             lock (lockPlugins)
             {
@@ -58,11 +58,11 @@ namespace OGP.ServicePlugin
                     Directory.CreateDirectory(Plugin_path + rep);
                 }
 
-                if (!File.Exists(Plugin_path + rep + plug.Dossier))
+                if (!File.Exists(Plugin_path + rep + plug.Location))
                 {
                     plugins.Add(plug);
 
-                    File_DAL.putPlugin(memStream, Plugin_path + rep + plug.Dossier);
+                    File_DAL.putPlugin(memStream, Plugin_path + rep + plug.Location);
 
                     XML_DAL.StorePlugins(plugins, XML_path + XML_fileName);
                     b = true;
@@ -102,18 +102,16 @@ namespace OGP.ServicePlugin
 
         private PluginModel getNewVersion(PluginModel plug)
         {
-            lock (lockPlugins)
-            {
-                return plugins.Where(p => p.Name == plug.Name && p.Actif)
-                    .First();
-            }
+            var tmp = plugins.Where(p => p.Name == plug.Name && p.Actif);
+            return plugins.Where(p => p.Name == plug.Name && p.Actif)
+                .FirstOrDefault();
         }
 
         public MemoryStream DownloadPlugin(string id)
         {
             PluginModel plug = plugins.Where(p => p.Id.Equals(id)).First();
             
-            return File_DAL.getPlugin(Plugin_path+plug.Name + Path.DirectorySeparatorChar + plug.Dossier);
+            return File_DAL.getPlugin(Plugin_path+plug.Name + Path.DirectorySeparatorChar + plug.Location);
         }
 
         static private IList<PluginModel> initializePlugins(){

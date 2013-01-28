@@ -8,7 +8,7 @@ using OGP.ServicePlugin.Modele;
 
 namespace OGP.Plugin.Interfaces
 {
-    public enum DossierType
+    public enum DirectoryType
     {
         Local,
         Download,
@@ -22,6 +22,6 @@ namespace OGP.Plugin.Interfaces
     {
         void RefreshMenu();
         IEnumerable<PluginModel> GetPluginsInfo();
-        string GetPluginsDossier(DossierType type);
+        string GetPluginsDirectory(DirectoryType type);
     }
 }

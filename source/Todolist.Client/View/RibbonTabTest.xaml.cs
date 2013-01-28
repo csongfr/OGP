@@ -30,5 +30,10 @@ namespace Todolist.Client.View
             InitializeComponent();
             this.DataContext = new RibbonTabTodolistViewModel();
         }
+
+        public void Initialize()
+        {
+            ((RibbonTabTodolistViewModel)this.DataContext).Initialize();
+        }
     }
 }

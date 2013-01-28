@@ -1,14 +1,17 @@
-﻿using System;
-using Cinch;
-using OGP.Plugin.Interfaces;
-using PluginOGP.Client.View;
-using System.IO;
-using OGP.ServicePlugin.Modele;
-using Utils.AssemblyInfoResolver;
-using System.ComponentModel;
-using Utils.Wcf;
-using OGP.ServicePlugin;
+﻿using Cinch;
 using OGP.Plugin.Exception;
+using OGP.Plugin.Interfaces;
+using OGP.ServicePlugin;
+using OGP.ServicePlugin.Modele;
+using PluginOGP.Client.View;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using Utils.AssemblyInfoResolver;
+using Utils.Wcf;
 
 namespace PluginOGP.Client.ViewModel
 {
@@ -222,7 +225,7 @@ namespace PluginOGP.Client.ViewModel
                 // Open document
                 string filepath = dlg.FileName;
                 string filename = Path.GetFileName(filepath);
-                string dossier = ServiceProvider.Resolve<IPluginsInfo>().GetPluginsDossier(DossierType.Local);
+                string dossier = ServiceProvider.Resolve<IPluginsInfo>().GetPluginsDirectory(DirectoryType.Local);
                 string dstFilepath = dossier + Path.DirectorySeparatorChar + filename;
                 File.Copy(filepath, dstFilepath, true);
                 //try
@@ -289,6 +292,76 @@ namespace PluginOGP.Client.ViewModel
             }
         }
 
+        private void backgroundUpdate()
+        {
+            // recuperer liste de plugins locaux
+            var localPluginsInfo = ServiceProvider.Resolve<IPluginsInfo>();
+            IEnumerable<PluginModel> localAndDownload = localPluginsInfo.GetPluginsInfo();
+            IEnumerable<PluginModel> download = localAndDownload.Where(p =>
+                {
+                    string tmpDirectory = ServiceProvider.Resolve<IPluginsInfo>().GetPluginsDirectory(DirectoryType.Tmp);
+                    string tmpDirectoryStandard = new DirectoryInfo(tmpDirectory).FullName.TrimEnd('\\').ToUpper();
+
+                    string pDirectory = Path.GetDirectoryName(p.Location);
+                    string pDirectoryStandard = new DirectoryInfo(pDirectory).FullName.TrimEnd('\\').ToUpper();
+
+                    return tmpDirectoryStandard == pDirectoryStandard;
+                }
+            );
+
+            IList<PluginModel> toUpload = null;
+            // run in background
+            var background = new BackgroundWorker();
+            background.DoWork += (DoWorkEventHandler)((sender, e) =>
+            {
+                // recuperer liste de plugins à mettre à jour
+                Exception error = WcfHelper.Execute<IServicePlugin>(client =>
+                {
+                    toUpload = client.CheckNewVersion(new List<PluginModel>(download));
+                });
+
+                if (error != null)
+                {
+                    throw new OgpPluginException("Erreur de maj", error);
+                }
+            });
+
+            background.RunWorkerCompleted += (RunWorkerCompletedEventHandler)((sender, e) =>
+            {
+                if (toUpload != null)
+                {
+                    foreach (PluginModel p in toUpload)
+                    {
+                        MemoryStream memo = null;
+                        // télécharger plugin
+                        Exception error = WcfHelper.Execute<IServicePlugin>(client =>
+                        {
+                            memo = client.DownloadPlugin(p.Id);
+                        });
+
+                        if (error != null)
+                        {
+                            throw new OgpPluginException("Erreur de telechargement", error);
+                        }
+                        // écrit le plugin dans répertoire 
+                        string downloadDirectory = localPluginsInfo.GetPluginsDirectory(DirectoryType.Download);
+                        string fileName =p.Name + ".dll";
+                        string dstWriteTo = Path.Combine(downloadDirectory, fileName);
+                        using (FileStream filePlugin = System.IO.File.Create(dstWriteTo))
+                        {
+                            memo.WriteTo(filePlugin);
+                        }
+                    }
+
+                    MessageBox.Show("Update complete, they are available after next reboot.");
+                    // log?
+                    Console.WriteLine("============Mise à jour terminé!============");
+                }
+            });
+            background.RunWorkerAsync();
+        }
+
+
         #endregion
 
         #region Constructeur
@@ -297,6 +370,11 @@ namespace PluginOGP.Client.ViewModel
         }
         #endregion
 
+
+        internal void Initialize()
+        {
+            backgroundUpdate();
+        }
     }
 
 }

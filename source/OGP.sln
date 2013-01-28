@@ -94,6 +94,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGP.ServeurPlugins.Test", "OGP.ServeurPlugins.Test\OGP.ServeurPlugins.Test.csproj", "{16C218DE-8FE4-49FE-9F97-F61AF52483DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -368,6 +370,16 @@ Global
 		{16C218DE-8FE4-49FE-9F97-F61AF52483DD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{16C218DE-8FE4-49FE-9F97-F61AF52483DD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{16C218DE-8FE4-49FE-9F97-F61AF52483DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6F39A0F0-5F3E-42D1-8070-4F7E0DD9FE55}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

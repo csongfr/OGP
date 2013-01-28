@@ -31,5 +31,10 @@ namespace PluginTest2
             InitializeComponent();
             DataContext = new RibbonTest2ViewModel();
         }
+
+        public void Initialize()
+        {
+            ((RibbonTest2ViewModel)this.DataContext).Initialize();
+        }
     }
 }

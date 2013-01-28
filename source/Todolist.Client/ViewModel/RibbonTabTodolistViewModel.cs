@@ -117,5 +117,10 @@ namespace Todolist.Client.ViewModel
         }
 
         #endregion
+
+        internal void Initialize()
+        {
+            // nothing
+        }
     }
 }

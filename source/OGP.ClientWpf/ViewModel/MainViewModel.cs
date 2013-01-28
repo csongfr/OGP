@@ -142,7 +142,7 @@ namespace OGP.ClientWpf.ViewModel
                     {
                         ExecuteDelegate = delegate
                         {
-                            this.ChargerPluginsDisponibles();
+                            this.chargerPluginsDisponibles();
                         }
                     };
                 }
@@ -196,7 +196,7 @@ namespace OGP.ClientWpf.ViewModel
             {
                 ListeMenu.RemoveAt(0);
             }
-            ChargerPluginsDisponibles();
+            chargerPluginsDisponibles();
         }
 
         public IEnumerable<PluginModel> GetPluginsInfo()
@@ -208,34 +208,31 @@ namespace OGP.ClientWpf.ViewModel
                 plugin.Name = aih.Title;
                 plugin.Description = aih.Description;
                 plugin.Version = aih.AssemblyVersion;
+                plugin.Location = aih.FilePath;
+
                 return plugin;
             });
         }
 
-        public string GetPluginsDossier(DossierType dType)
+        public string GetPluginsDirectory(DirectoryType dType)
         {
             switch (dType)
             {
-                case DossierType.Local:
-                    return AppConfig.Instance.LocalDossier;
+                case DirectoryType.Local:
+                    return AppConfig.Instance.LocalDirectory;
                     //break;
 
-                case DossierType.Download:
-                    return AppConfig.Instance.DownloadDossier;
+                case DirectoryType.Download:
+                    return AppConfig.Instance.DownloadDirectory;
                     //break;
 
-                case DossierType.Tmp:
-                    return AppConfig.Instance.TmpDossier;
+                case DirectoryType.Tmp:
+                    return AppConfig.Instance.TmpDirectory;
                     //break;
 
                 default:
                     return ".";
             }
-        }
-
-        public string GetPluginsDossierLocal()
-        {
-            return AppConfig.Instance.LocalDossier;
         }
 
         #endregion
@@ -248,17 +245,17 @@ namespace OGP.ClientWpf.ViewModel
         /// <summary>
         /// Récupère les plugins présents dans le répertoire défini dans le fichier de config du client
         /// </summary>
-        private void ChargerPluginsDisponibles()
+        private void chargerPluginsDisponibles()
         {
             try
             {
-                string repertoireSynchro = AppConfig.Instance.DownloadDossier;
-                string repertoireLocal = AppConfig.Instance.LocalDossier;
+                string repertoireTmp = AppConfig.Instance.TmpDirectory;
+                string repertoireLocal = AppConfig.Instance.LocalDirectory;
 
                 var catalog = new AggregateCatalog();
 
                 catalog.Catalogs.Add(new DirectoryCatalog(repertoireLocal));
-                catalog.Catalogs.Add(new DirectoryCatalog(repertoireSynchro));
+                catalog.Catalogs.Add(new DirectoryCatalog(repertoireTmp));
                 CompositionContainer cataloguePlugins = new CompositionContainer(catalog);
                 cataloguePlugins.ComposeParts(this);
             }
@@ -272,6 +269,31 @@ namespace OGP.ClientWpf.ViewModel
             }
         }
 
+        /// <summary>
+        /// Nettoie le répertoire Tmp puis copie tous les plugins de répertoire Download vers Tmp
+        /// </summary>
+        private void updateTmp()
+        {
+            string downloadDirectory = AppConfig.Instance.DownloadDirectory;
+            string tmpDirectory = AppConfig.Instance.TmpDirectory;
+            if (!Directory.Exists(tmpDirectory))
+            {
+                Directory.CreateDirectory(tmpDirectory);
+            }
+
+            // clean up tmp directory
+            Directory.GetFiles(tmpDirectory).ToList().ForEach(File.Delete);
+
+            // copy dll files from Download to Tmp
+            string[] files = Directory.GetFiles(downloadDirectory, "*.dll");
+            foreach (string f in files)
+            {
+                string fileName = Path.GetFileName(f);
+                string dst = Path.Combine(tmpDirectory, fileName);
+                File.Copy(f, dst);
+            }
+        }
+
         #endregion
 
         #region Constructeur
@@ -281,11 +303,18 @@ namespace OGP.ClientWpf.ViewModel
         /// </summary>
         public MainViewModel()
         {
+            updateTmp();
             this.ListeDocuments = new ObservableList<DocumentContent>();
             ServiceProvider.Add(typeof(ICentralOnglets), this);
             ServiceProvider.Add(typeof(IPluginsInfo), this);
             ServiceProvider.Add(typeof(IMenuOperation), this);
-            this.ChargerPluginsDisponibles();
+            this.chargerPluginsDisponibles();
+            
+            // Initialisation des plugins
+            foreach (IOgpMenu menu in ListeMenu)
+            {
+                menu.Initialize();
+            }
         }
 
         #endregion

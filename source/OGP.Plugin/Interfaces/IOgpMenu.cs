@@ -10,5 +10,6 @@ namespace OGP.Plugin.Interfaces
     /// </summary>
     public interface IOgpMenu
     {
+        void Initialize();
     }
 }

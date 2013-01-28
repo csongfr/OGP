@@ -173,7 +173,7 @@ namespace PluginOGP.Client.ViewModel
         #endregion
 
 
-        #region Operations
+        #region private members
 
         private void download()
         {
@@ -198,16 +198,21 @@ namespace PluginOGP.Client.ViewModel
                 if (memo != null)
                 {
                     var localPluginsInfo = ServiceProvider.Resolve<IPluginsInfo>();
-                    string dossier = localPluginsInfo.GetPluginsDossier(DossierType.Download);
-                    string filePath = dossier + 
-                        Path.DirectorySeparatorChar + RawData.Name + "_" + RawData.Version + ".dll";
+                    string downloadDirectory = localPluginsInfo.GetPluginsDirectory(DirectoryType.Download);
+                    string tmpDirectory = localPluginsInfo.GetPluginsDirectory(DirectoryType.Tmp);
+                    string fileName = RawData.Name + ".dll";
+                    string dstWriteTo = Path.Combine(downloadDirectory, fileName);
+                    string dstCopyTo = Path.Combine(tmpDirectory, fileName);
                     lock (streamWriteLock)
                     {
-                        using (FileStream filePlugin = System.IO.File.Create(filePath))
+                        using (FileStream filePlugin = System.IO.File.Create(dstWriteTo))
                         {
                             memo.WriteTo(filePlugin);
                         }
                     }
+                    File.Copy(dstWriteTo, dstCopyTo);
+                    // set file path in database
+                    this.RawData.Location = dstCopyTo;
                     this.Progress = 100.0;
                 }
             });
@@ -219,6 +224,19 @@ namespace PluginOGP.Client.ViewModel
 
         private void uninstall()
         {
+            if (MessageBox.Show("Delete this plugin?\nIt will be deleted after the next reboot.", 
+                "Confirm delete",
+                MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                string downloadDirectory = ServiceProvider.Resolve<IPluginsInfo>().GetPluginsDirectory(DirectoryType.Download);
+                string fileName = Path.GetFileName(this.RawData.Location);
+                string dstPluginLocation = Path.Combine(downloadDirectory, fileName);
+                if (File.Exists(dstPluginLocation))
+                {
+                    File.Delete(dstPluginLocation);
+                }
+                this.CanUninstall = false;
+            }
         }
 
         #endregion

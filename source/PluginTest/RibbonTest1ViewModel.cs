@@ -64,5 +64,10 @@ namespace PluginTest
         }
 
         #endregion
+
+        internal void Initialize()
+        {
+            // nothing
+        }
     }
 }

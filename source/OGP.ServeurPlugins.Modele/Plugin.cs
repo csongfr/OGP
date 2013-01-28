@@ -23,7 +23,7 @@ namespace OGP.ServicePlugin.Modele
         public string Description { get; set; }
         
         [IgnoreDataMemberAttribute]
-        public string Dossier { get; set; }
+        public string Location { get; set; }
 
         [DataMember]
         public bool Actif {get; set;}
@@ -49,7 +49,7 @@ namespace OGP.ServicePlugin.Modele
             this.Name = name;
             this.Version = version;
             this.Description = description;
-            this.Dossier = dossier;
+            this.Location = dossier;
             this.Actif = actif;
         }
     }
