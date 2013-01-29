@@ -33,7 +33,7 @@ namespace OGP.ServicePlugin.Modele
             if (obj is PluginModel)
             {
                 PluginModel other = (PluginModel)obj;
-                return (this.Name == other.Name && this.Version == other.Version);
+                return (this.Name == other.Name);
             }
             else return false;
         }

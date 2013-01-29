@@ -224,7 +224,7 @@ namespace PluginOGP.Client.ViewModel
 
         private void uninstall()
         {
-            if (MessageBox.Show("Delete this plugin?\nIt will be deleted after the next reboot.", 
+            if (MessageBox.Show("Delete this plugin?\n(It will be deleted after the next reboot)", 
                 "Confirm delete",
                 MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {

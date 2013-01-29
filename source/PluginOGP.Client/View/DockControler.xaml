@@ -14,7 +14,7 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate x:Name="pluginView">
 
-                <Border BorderBrush="SteelBlue" BorderThickness="2" CornerRadius="5">
+                <Border BorderBrush="SteelBlue" BorderThickness="2" CornerRadius="5" AllowDrop="False">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="LightBlue" Offset="0.0"/>

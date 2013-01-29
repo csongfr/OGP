@@ -8,8 +8,8 @@
     <ProjectGuid>{D98020F8-071E-4253-8582-A5E02D57B0DE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PluginTest2</RootNamespace>
-    <AssemblyName>PluginTest2</AssemblyName>
+    <RootNamespace>Ribbon</RootNamespace>
+    <AssemblyName>Ribbon</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

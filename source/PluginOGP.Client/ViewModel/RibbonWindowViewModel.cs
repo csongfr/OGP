@@ -353,7 +353,7 @@ namespace PluginOGP.Client.ViewModel
                         }
                     }
 
-                    MessageBox.Show("Update complete, they are available after next reboot.");
+                    MessageBox.Show("Update complete.\n(These plugins will be available after next reboot)");
                     // log?
                     Console.WriteLine("============Mise à jour terminé!============");
                 }

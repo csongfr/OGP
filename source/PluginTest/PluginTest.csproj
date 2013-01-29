@@ -8,8 +8,8 @@
     <ProjectGuid>{FE1AC5D4-D717-49E5-94FC-E0DA519BB665}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PluginTest</RootNamespace>
-    <AssemblyName>PluginTest</AssemblyName>
+    <RootNamespace>Coucou</RootNamespace>
+    <AssemblyName>Coucou</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
