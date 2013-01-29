@@ -102,8 +102,7 @@ namespace OGP.ServicePlugin
 
         private PluginModel getNewVersion(PluginModel plug)
         {
-            var tmp = plugins.Where(p => p.Name == plug.Name && p.Actif);
-            return plugins.Where(p => p.Name == plug.Name && p.Actif)
+                        return plugins.Where(p => p.Name == plug.Name && p.Actif && p.Version != plug.Version)
                 .FirstOrDefault();
         }
 
