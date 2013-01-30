@@ -353,9 +353,12 @@ namespace PluginOGP.Client.ViewModel
                         }
                     }
 
-                    MessageBox.Show("Update complete.\n(These plugins will be available after next reboot)");
-                    // log?
-                    Console.WriteLine("============Mise à jour terminé!============");
+                    if (toUpload.Count > 0)
+                    {
+                        MessageBox.Show("Update complete.\n(These plugins will be available after next reboot)");
+                        // log?
+                        Console.WriteLine("============Mise à jour terminé!============");
+                    }
                 }
             });
             background.RunWorkerAsync();
